@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: audio-isolation
+serviceId: elevenlabs
+active: true
+metadata:
+  name: Audio Isolation
+  description: Removes background noise from audio files and isolates vocals/speech
+  quickHelp: help.md
+configuration:
+  - title: Audio Input
+    items:
+      - label: Audio File URL
+        helpText: URL to the audio file you want to process. The file will be downloaded and processed.
+        variable: audioFileUrl
+        required: true
+        type: text
+        placeholder: https://example.com/audio.mp3
+      - label: File Format
+        helpText: Format of the input audio. For 'PCM', the input must be 16-bit PCM at 16kHz sample rate, mono, little-endian. Using PCM may result in lower latency.
+        variable: fileFormat
+        required: false
+        type: select
+        defaultValue: other
+        selectOptions:
+          options:
+            - label: Standard audio format (MP3, WAV, etc.)
+              value: other
+            - label: PCM (16-bit, 16kHz, mono, little-endian)
+              value: pcm_s16le_16
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the URL to the processed audio file.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
