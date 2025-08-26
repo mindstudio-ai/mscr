@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Action
+id: list-voices
+serviceId: elevenlabs
+active: true
+metadata:
+  name: List Voices
+  description: Get a list of all available voices for the authenticated user
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Search Term
+        helpText: Optional search term to filter voices by name, description, labels, or category
+        variable: search
+        required: false
+        type: text
+        placeholder: Search for voices...
+      - label: Voice Type
+        helpText: Type of voices to filter by
+        variable: voiceType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Non-Default Voices
+              value: non-default
+            - label: Personal Voices
+              value: personal
+            - label: Community Voices
+              value: community
+            - label: Default Voices
+              value: default
+            - label: Workspace Voices
+              value: workspace
+      - label: Category
+        helpText: Category of voices to filter by
+        variable: category
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Categories
+              value: ""
+            - label: Premade
+              value: premade
+            - label: Cloned
+              value: cloned
+            - label: Generated
+              value: generated
+            - label: Professional
+              value: professional
+      - label: Page Size
+        helpText: Number of voices to return per page (max 100)
+        variable: pageSize
+        required: false
+        type: text
+        defaultValue: "10"
+      - label: Output Variable
+        required: true
+        helpText: Save the list of voices as a variable
+        variable: outputVariable
+        type: outputVariableName
