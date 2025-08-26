@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: elevenlabs
+metadata:
+  name: ElevenLabs
+  description: AI Text to Speech
+  icon: icon.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your elevenlabs API key. You can find this at: https://elevenlabs.io/app/developers/api-keys'
+    placeholder: sk_...

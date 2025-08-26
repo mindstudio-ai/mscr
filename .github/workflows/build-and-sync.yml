@@ -1,0 +1,57 @@
+name: Build and Sync Registry
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build registry
+        run: npm run build
+
+      - name: Upload artifact (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: registry-json
+          path: dist/registry.json
+          retention-days: 7
+
+      - name: Sync to server (POST registry.json)
+        env:
+          SYNC_URL: ${{ secrets.SYNC_URL }}
+          SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          test -f dist/registry.json
+
+          # POST the raw JSON file as the request body
+          http_code=$(curl -sS -o /tmp/resp.json -w "%{http_code}" \
+            -X POST "$SYNC_URL" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $SYNC_TOKEN" \
+            --data-binary @dist/registry.json)
+
+          echo "Server responded with HTTP $http_code"
+          cat /tmp/resp.json || true
+
+          # Fail the step if non-2xx
+          case "$http_code" in
+            2*) exit 0 ;;
+            *)  exit 1 ;;
+          esac

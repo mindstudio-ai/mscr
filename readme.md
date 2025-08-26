@@ -1,0 +1,1 @@
+# MindStudio Connector Registry
