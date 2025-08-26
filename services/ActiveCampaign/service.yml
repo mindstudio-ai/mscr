@@ -15,4 +15,4 @@ configuration:
   - id: accountIdentifier
     type: plaintext
     name: Base Account URL
-    placeholder: https://youraccount.api-us1.com/api/3
+    placeholder: https://youraccount.api-us1.com
