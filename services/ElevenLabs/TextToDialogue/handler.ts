@@ -11,45 +11,20 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  // Get API key from environment variables
   const { apiKey } = process.env;
   if (!apiKey) {
-    throw new Error(
-      'Missing API Key. Please configure the ElevenLabs API key in the service settings.',
-    );
+    throw new Error('Missing API Key');
   }
 
-  // Extract inputs
   const { dialogueInputs, modelId, outputFormat, outputVariable } = inputs;
 
-  // Parse dialogue inputs JSON
-  let parsedDialogueInputs;
-  try {
-    parsedDialogueInputs = JSON.parse(dialogueInputs);
-
-    // Validate dialogue inputs
-    if (
-      !Array.isArray(parsedDialogueInputs) ||
-      parsedDialogueInputs.length === 0
-    ) {
-      throw new Error('Dialogue inputs must be a non-empty array');
-    }
-
-    // Check if each dialogue input has the required fields
-    parsedDialogueInputs.forEach((input, index) => {
-      if (!input.text || !input.voiceId) {
-        throw new Error(
-          `Dialogue input at index ${index} is missing required 'text' or 'voiceId' fields`,
-        );
-      }
-    });
-  } catch (error) {
-    if (error instanceof SyntaxError) {
-      throw new Error(
-        'Invalid JSON format for dialogue inputs. Please check your input format.',
-      );
-    }
-    throw error;
+  // Validate dialogue inputs
+  if (
+    !dialogueInputs ||
+    !Array.isArray(dialogueInputs) ||
+    dialogueInputs.length === 0
+  ) {
+    throw new Error('Dialogue inputs must be a non-empty array');
   }
 
   // Initialize ElevenLabs client
@@ -57,69 +32,67 @@ export const handler = async ({
     apiKey,
   });
 
-  log(`Converting ${parsedDialogueInputs.length} dialogue inputs to speech`);
+  log(`Generating dialogue with ${dialogueInputs.length} inputs`);
+
+  // Format inputs for the API
+  const formattedInputs = dialogueInputs.map((input) => ({
+    text: input.text,
+    voiceId: input.voiceId,
+  }));
 
   try {
-    // Format the inputs for the API
-    const inputs = parsedDialogueInputs.map((input) => ({
-      text: input.text,
-      voiceId: input.voiceId,
-    }));
-
-    // Create request options
+    // Make the API request
     const options = {
       model_id: modelId,
-      output_format: outputFormat || 'mp3_44100_128',
-      inputs,
+      output_format: outputFormat,
     };
 
     // Call the text-to-dialogue API
-    log('Making request to ElevenLabs text-to-dialogue API...');
-    const stream = await client.textToDialogue.convert(options);
+    log('Sending request to ElevenLabs...');
+    const stream = await client.textToDialogue.convert({
+      inputs: formattedInputs,
+      ...options,
+    });
 
     if (!stream) {
-      throw new Error(
-        'Dialogue audio generation failed: no audio stream returned',
-      );
+      throw new Error('Audio generation failed - no stream returned');
     }
 
-    log('Receiving audio stream from ElevenLabs...');
+    log('Received audio stream from ElevenLabs');
 
-    // Process the audio stream
+    // Collect all chunks from the stream
     const chunks: Uint8Array[] = [];
     for await (const chunk of stream) {
       chunks.push(chunk);
     }
 
+    // Combine chunks into a single buffer
     const audioData = Buffer.concat(chunks);
+
     if (!audioData || audioData.length === 0) {
-      throw new Error(
-        'Dialogue audio generation failed: empty audio data received',
-      );
+      throw new Error('Audio generation failed - empty data received');
     }
 
-    log('Audio generation complete. Uploading audio file...');
+    log('Audio generation complete, uploading file...');
 
-    // Determine the MIME type based on the output format
+    // Determine MIME type based on output format
     let mimeType = 'audio/mp3';
-    if (outputFormat && outputFormat.startsWith('pcm_')) {
+    if (outputFormat && outputFormat.startsWith('pcm')) {
       mimeType = 'audio/wav';
     }
 
     // Upload the audio file
-    const audioUrl = await uploadFile(audioData, mimeType);
+    const uploadResult = await uploadFile(audioData, mimeType);
 
     log('Audio file uploaded successfully');
 
-    // Set the output variable
-    setOutput(outputVariable, audioUrl);
+    // Set the output variable to the uploaded file URL
+    setOutput(outputVariable, uploadResult);
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`ElevenLabs API error: ${error.message}`);
-    } else {
-      throw new Error(
-        'An unknown error occurred while processing the dialogue',
-      );
-    }
+    // Handle errors
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error occurred';
+    log(`Error: ${errorMessage}`);
+    throw error;
   }
 };

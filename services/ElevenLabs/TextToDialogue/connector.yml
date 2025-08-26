@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=./../../../schema/action.schema.json
 apiVersion: v1
 kind: Action
 id: text-to-dialogue
@@ -5,19 +6,18 @@ serviceId: elevenlabs
 active: true
 metadata:
   name: Text to Dialogue
-  description: Converts a list of text and voice ID pairs into a conversation and returns the audio
+  description: Converts a list of text and voice ID pairs into speech (dialogue) and returns audio
   quickHelp: help.md
 configuration:
   - title: Dialogue Configuration
     items:
       - label: Dialogue Inputs
-        helpText: Enter dialogue inputs in JSON format. Each input should have 'text' and 'voiceId' properties.
+        helpText: 'Enter dialogue inputs in JSON format. Each input should have ''text'' and ''voiceId'' properties. Example: [{"text":"Hello there!","voiceId":"voice1"},{"text":"Hi, how are you?","voiceId":"voice2"}]'
         variable: dialogueInputs
         required: true
         type: text
         textOptions:
-          type: markdown
-        placeholder: '[{"text":"Hello there!","voiceId":"EXAVITQu4vr4xnSDxMaL"},{"text":"Hi, how are you?","voiceId":"21m00Tcm4TlvDq8ikWAM"}]'
+          type: multiline
       - label: Model ID
         required: true
         helpText: The AI model to use for generating speech
