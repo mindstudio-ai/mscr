@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Action
+id: voice-changer
+serviceId: elevenlabs
+active: true
+metadata:
+  name: Voice Changer
+  description: Transform audio from one voice to another while maintaining emotion, timing, and delivery
+  quickHelp: help.md
+configuration:
+  - title: Input Configuration
+    items:
+      - label: Audio File
+        helpText: URL to the audio file you want to transform. The file will be downloaded and processed.
+        variable: audioFile
+        required: true
+        type: text
+        placeholder: https://example.com/audio.mp3
+      - label: Voice ID
+        helpText: ID of the target voice. You can find voice IDs in the ElevenLabs dashboard.
+        variable: voiceId
+        required: true
+        type: text
+        placeholder: Voice ID...
+        defaultValue: JBFqnCBsd6RMkjVDRZzb
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Model ID
+        helpText: The model to use for voice conversion.
+        variable: modelId
+        required: false
+        type: select
+        defaultValue: eleven_multilingual_sts_v2
+        selectOptions:
+          options:
+            - label: Eleven Multilingual STS v2
+              value: eleven_multilingual_sts_v2
+            - label: Eleven English STS v2
+              value: eleven_english_sts_v2
+      - label: Output Format
+        helpText: Format of the output audio file.
+        variable: outputFormat
+        required: false
+        type: select
+        defaultValue: mp3_44100_128
+        selectOptions:
+          options:
+            - label: MP3 (44.1kHz, 128kbps)
+              value: mp3_44100_128
+            - label: MP3 (44.1kHz, 64kbps)
+              value: mp3_44100_64
+            - label: MP3 (44.1kHz, 192kbps)
+              value: mp3_44100_192
+            - label: PCM (44.1kHz)
+              value: pcm_44100
+      - label: Remove Background Noise
+        helpText: Remove background noise from the input audio.
+        variable: removeBackgroundNoise
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the URL to the generated audio file.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
