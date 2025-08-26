@@ -1,17 +1,48 @@
-# Create Speech
+# Create Dialogue
 
-The **Text to Speech Block** converts written text into voice-over audio, allowing you to dynamically generate audio content based on workflow inputs.
+This action converts multiple text inputs with different voices into a dialogue audio file using ElevenLabs' Text to Dialogue API.
 
-## Configurations
+## How to use
 
-### **Text**
+1. **Dialogue Inputs**: Enter your dialogue as a JSON array where each object contains:
+   - `text`: The text to be spoken
+   - `voiceId`: The ID of the voice to use
 
-Define the text you want to convert to audio. Use `{{variables}}` to dynamically insert text you’d like converted into audio.
+   Example:
+   ```json
+   [
+     {"text": "Hello there!", "voiceId": "JBFqnCBsd6RMkjVDRZzb"},
+     {"text": "Hi, how are you?", "voiceId": "Aw4FAjKCGjjNkVhN1Xmq"}
+   ]
+   ```
 
-### **Output Variable**
+2. **Model ID**: Select the AI model to use for speech generation.
+   - **Eleven V3**: Default model with high quality voice generation
+   - **Eleven Multilingual V2**: Better for non-English languages
+   - **Eleven Turbo V2.5**: Faster processing with slightly lower quality
 
-Creates a new variable and saves the audio file URL to it. Enter a `variable_name` to store the response for later use in the workflow.
+3. **Output Format**: Choose the audio format and quality for the generated dialogue.
 
-### **Model Settings**
+## Advanced Settings
 
-Choose the AI Model you’d like to use to generate the audio. Different models will have unique settings to adjust the output’s characteristics. Review the selected model’s specific options for a full list of configurations.
+- **Stability**: Controls the emotional range of the voices (0.0-1.0)
+  - Lower values (0.1-0.3): More emotional variation
+  - Higher values (0.7-0.9): More monotonous, stable voice
+  - Leave empty for default
+
+- **Use Speaker Boost**: Enhances voice similarity to the original speaker samples
+  - May increase processing time
+
+## Output
+
+The action will generate an audio file containing the dialogue and return a URL to access it.
+
+## Finding Voice IDs
+
+You can find voice IDs in the ElevenLabs voice library at https://elevenlabs.io/voice-library or in your ElevenLabs account under "Voice Library".
+
+## Tips
+
+- Keep dialogue exchanges natural and conversational
+- Test with different stability settings to find the right emotional tone
+- For best results, use high-quality voice clones or premium voices

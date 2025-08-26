@@ -1,17 +1,19 @@
-// npm test services/ElevenLabs/CreateSpeech
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('saves output to outVar', async () => {
+test('creates dialogue and saves output to outVar', async () => {
   process.env.apiKey = process.env.ELEVENLABS_API_KEY;
 
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    voiceId: 'EXAVITQu4vr4xnSDxMaL',
-    text: 'Hello',
-    modelId: 'eleven_turbo_v2_5',
-    outputVariable: 'outVar',
+    dialogueInputs: [
+      { text: 'Hello there!', voiceId: 'EXAVITQu4vr4xnSDxMaL' },
+      { text: 'Hi, how are you?', voiceId: '21m00Tcm4TlvDq8ikWAM' },
+    ],
+    modelId: 'eleven_v3',
+    outputFormat: 'mp3_44100_128',
+    outputVariable: 'dialogueAudio',
   });
 
-  expect(ctx.outputs['outVar']).toBeTruthy();
+  expect(ctx.outputs['dialogueAudio']).toBeTruthy();
 });
