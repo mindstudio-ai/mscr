@@ -1,73 +1,43 @@
 apiVersion: v1
 kind: Action
-id: text-to-dialogue
+id: create-speech
 serviceId: elevenlabs
 active: true
 metadata:
-  name: Text to Dialogue
-  description: Converts a series of text inputs with associated voice IDs into a dialogue audio file
+  name: Create Speech
+  description: Converts text into speech using ElevenLabs AI voices and returns audio
   quickHelp: help.md
 configuration:
-  - title: Dialogue Configuration
+  - title: Configuration
     items:
-      - label: Dialogue Inputs
-        helpText: Enter dialogue inputs as JSON array. Each object must have 'text' and 'voiceId' properties. Example - [{\"text\":\"Hello\",\"voiceId\":\"voice1\"},{\"text\":\"Hi there\",\"voiceId\":\"voice2\"}]
-        variable: dialogueInputs
+      - label: Text
+        helpText: The input text to convert to speech.
+        variable: text
         required: true
         type: text
         textOptions:
-          type: multiline
-      - label: Model
+          type: markdown
+      - label: Voice ID
         required: true
+        helpText: The ID of the voice to use. You can find voice IDs in your ElevenLabs dashboard.
+        variable: voiceId
+        type: text
+        placeholder: Enter a voice ID...
+        defaultValue: EXAVITQu4vr4xnSDxMaL
+      - label: Model ID
+        required: true
+        helpText: The AI model to use for speech generation.
         variable: modelId
         type: select
-        defaultValue: eleven_v3
+        defaultValue: eleven_turbo_v2_5
         selectOptions:
           options:
             - label: Eleven Multilingual v2
               value: eleven_multilingual_v2
-            - label: Eleven v3
-              value: eleven_v3
-      - label: Output Format
-        required: true
-        variable: outputFormat
-        type: select
-        defaultValue: mp3_44100_128
-        selectOptions:
-          options:
-            - label: MP3 (44.1kHz, 128kbps)
-              value: mp3_44100_128
-            - label: MP3 (44.1kHz, 64kbps)
-              value: mp3_44100_64
-            - label: MP3 (44.1kHz, 192kbps)
-              value: mp3_44100_192
-            - label: PCM (44.1kHz)
-              value: pcm_44100
-  - title: Advanced Settings
-    collapsed: true
-    items:
-      - label: Voice Stability
-        helpText: Controls voice stability and randomness. Lower values provide broader emotional range, higher values result in more monotonous voice. Range - 0-1
-        variable: stability
-        required: false
-        type: text
-        placeholder: '0.5'
-      - label: Use Speaker Boost
-        helpText: Boosts similarity to the original speaker. May increase latency.
-        variable: speakerBoost
-        required: false
-        type: select
-        defaultValue: 'true'
-        selectOptions:
-          options:
-            - label: Yes
-              value: 'true'
-            - label: No
-              value: 'false'
-  - title: Output
-    items:
+            - label: Eleven Turbo v2.5
+              value: eleven_turbo_v2_5
       - label: Output Variable
         required: true
-        helpText: Variable name to store the URL of the generated audio file
+        helpText: Save the URL of the generated audio file as a variable
         variable: outputVariable
         type: outputVariableName
