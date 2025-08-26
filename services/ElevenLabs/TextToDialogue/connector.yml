@@ -1,4 +1,3 @@
-# yaml-language-server: $schema=./../../../schema/action.schema.json
 apiVersion: v1
 kind: Action
 id: text-to-dialogue
@@ -6,36 +5,37 @@ serviceId: elevenlabs
 active: true
 metadata:
   name: Text to Dialogue
-  description: Converts a list of text and voice ID pairs into speech (dialogue) and returns audio
+  description: Converts multiple text inputs with different voices into a single dialogue audio file
   quickHelp: help.md
 configuration:
   - title: Dialogue Configuration
     items:
       - label: Dialogue Inputs
-        helpText: 'Enter dialogue inputs in JSON format. Each input should have ''text'' and ''voiceId'' properties. Example: [{"text":"Hello there!","voiceId":"voice1"},{"text":"Hi, how are you?","voiceId":"voice2"}]'
+        helpText: Array of dialogue entries with text and voiceId. Format must be valid JSON.
         variable: dialogueInputs
         required: true
         type: text
+        placeholder: '[{"text":"Hello there","voiceId":"voice1"},{"text":"Hi, how are you?","voiceId":"voice2"}]'
         textOptions:
           type: multiline
       - label: Model ID
-        required: true
-        helpText: The AI model to use for generating speech
+        helpText: The model to use for text-to-speech conversion
         variable: modelId
+        required: false
         type: select
         defaultValue: eleven_v3
         selectOptions:
           options:
-            - label: Eleven V3 (Default)
+            - label: Eleven v3
               value: eleven_v3
-            - label: Eleven Turbo V2.5
-              value: eleven_turbo_v2_5
-            - label: Eleven Multilingual V2
+            - label: Eleven Turbo v2
+              value: eleven_turbo_v2
+            - label: Eleven Multilingual v2
               value: eleven_multilingual_v2
       - label: Output Format
-        required: false
-        helpText: The format of the generated audio file
+        helpText: The format of the output audio file
         variable: outputFormat
+        required: false
         type: select
         defaultValue: mp3_44100_128
         selectOptions:
@@ -44,10 +44,34 @@ configuration:
               value: mp3_44100_128
             - label: MP3 (44.1kHz, 192kbps)
               value: mp3_44100_192
+            - label: MP3 (44.1kHz, 64kbps)
+              value: mp3_44100_64
             - label: PCM (44.1kHz)
               value: pcm_44100
+  - title: Voice Settings
+    collapsed: true
+    items:
+      - label: Stability
+        helpText: Controls voice stability. Lower values (0.1-0.3) introduce more emotion, higher values (0.7-0.9) make the voice more monotonous. Leave empty for default.
+        variable: stability
+        required: false
+        type: text
+        placeholder: '0.5'
+      - label: Use Speaker Boost
+        helpText: Enhances voice similarity to the original speaker. May increase latency.
+        variable: useSpeakerBoost
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
       - label: Output Variable
-        required: true
-        helpText: Name of the variable to store the audio file URL
+        helpText: Name of the variable to store the URL of the generated audio file
         variable: outputVariable
+        required: true
         type: outputVariableName

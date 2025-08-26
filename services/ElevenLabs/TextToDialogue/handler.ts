@@ -1,4 +1,5 @@
 import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
+import { BodyTextToDialogueMultiVoiceV1TextToDialoguePost } from '@elevenlabs/elevenlabs-js/api';
 
 export const handler = async ({
   inputs,
@@ -11,56 +12,88 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
+  // Get API key from environment variables
   const { apiKey } = process.env;
   if (!apiKey) {
-    throw new Error('Missing API Key');
+    throw new Error(
+      'Missing API Key. Please configure your ElevenLabs API key in the service settings.',
+    );
   }
 
-  const { dialogueInputs, modelId, outputFormat, outputVariable } = inputs;
+  // Extract inputs
+  const {
+    dialogueInputs,
+    modelId = 'eleven_v3',
+    outputFormat = 'mp3_44100_128',
+    stability,
+    useSpeakerBoost,
+    outputVariable,
+  } = inputs;
 
-  // Validate dialogue inputs
+  // Validate required inputs
   if (
     !dialogueInputs ||
     !Array.isArray(dialogueInputs) ||
     dialogueInputs.length === 0
   ) {
-    throw new Error('Dialogue inputs must be a non-empty array');
+    throw new Error(
+      'Dialogue inputs must be a non-empty array of dialogue entries.',
+    );
   }
+
+  // Validate dialogue inputs structure
+  dialogueInputs.forEach((input, index) => {
+    if (!input.text || !input.voiceId) {
+      throw new Error(
+        `Dialogue input at index ${index} is missing required 'text' or 'voiceId' field.`,
+      );
+    }
+  });
 
   // Initialize ElevenLabs client
   const client = new ElevenLabsClient({
     apiKey,
   });
 
-  log(`Generating dialogue with ${dialogueInputs.length} inputs`);
+  // Prepare settings object if stability or useSpeakerBoost is provided
+  const settings: Record<string, any> = {};
+  if (stability) {
+    settings.stability = parseFloat(stability);
+  }
+  if (useSpeakerBoost) {
+    settings.use_speaker_boost = useSpeakerBoost === 'true';
+  }
 
-  // Format inputs for the API
-  const formattedInputs = dialogueInputs.map((input) => ({
-    text: input.text,
-    voiceId: input.voiceId,
-  }));
+  // Prepare request parameters
+  const params: BodyTextToDialogueMultiVoiceV1TextToDialoguePost = {
+    inputs: dialogueInputs.map((input) => ({
+      text: input.text,
+      voiceId: input.voiceId,
+    })),
+    modelId: modelId,
+    outputFormat,
+  };
+
+  // Add settings if any were provided
+  if (Object.keys(settings).length > 0) {
+    params.settings = settings;
+  }
+
+  log(
+    `Creating dialogue with ${dialogueInputs.length} entries using model ${modelId}`,
+  );
 
   try {
-    // Make the API request
-    const options = {
-      model_id: modelId,
-      output_format: outputFormat,
-    };
-
-    // Call the text-to-dialogue API
-    log('Sending request to ElevenLabs...');
-    const stream = await client.textToDialogue.convert({
-      inputs: formattedInputs,
-      ...options,
-    });
-
-    if (!stream) {
-      throw new Error('Audio generation failed - no stream returned');
-    }
+    // Make the API request with streaming enabled
+    const stream = await client.textToDialogue.convert(params);
 
     log('Received audio stream from ElevenLabs');
 
-    // Collect all chunks from the stream
+    if (!stream) {
+      throw new Error('Failed to generate dialogue audio');
+    }
+
+    // Collect all chunks of the audio stream
     const chunks: Uint8Array[] = [];
     for await (const chunk of stream) {
       chunks.push(chunk);
@@ -70,29 +103,29 @@ export const handler = async ({
     const audioData = Buffer.concat(chunks);
 
     if (!audioData || audioData.length === 0) {
-      throw new Error('Audio generation failed - empty data received');
+      throw new Error('Generated audio is empty');
     }
 
-    log('Audio generation complete, uploading file...');
+    log('Audio generation complete');
 
     // Determine MIME type based on output format
     let mimeType = 'audio/mp3';
-    if (outputFormat && outputFormat.startsWith('pcm')) {
+    if (outputFormat.startsWith('pcm_')) {
       mimeType = 'audio/wav';
+    } else if (outputFormat.startsWith('opus_')) {
+      mimeType = 'audio/opus';
     }
 
     // Upload the audio file
-    const uploadResult = await uploadFile(audioData, mimeType);
+    const audioUrl = await uploadFile(audioData, mimeType);
+    log('Audio uploaded successfully');
 
-    log('Audio file uploaded successfully');
-
-    // Set the output variable to the uploaded file URL
-    setOutput(outputVariable, uploadResult);
+    // Set the output variable to the URL of the uploaded file
+    setOutput(outputVariable, audioUrl);
   } catch (error) {
-    // Handle errors
     const errorMessage =
       error instanceof Error ? error.message : 'Unknown error occurred';
-    log(`Error: ${errorMessage}`);
+    log(`Error generating dialogue: ${errorMessage}`);
     throw error;
   }
 };

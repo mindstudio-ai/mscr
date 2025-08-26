@@ -1,44 +1,49 @@
 # Text to Dialogue
 
-This action converts a list of text and voice ID pairs into speech (dialogue) and returns an audio file.
+This connector converts multiple text inputs with different voices into a single dialogue audio file using ElevenLabs' Text to Dialogue API.
 
 ## Configuration
 
 ### Dialogue Inputs
-Enter your dialogue inputs in JSON format. Each input should include:
-- `text`: The text to be spoken
-- `voiceId`: The ID of the voice to use for this line
+Enter an array of dialogue entries in JSON format. Each entry must have a `text` field and a `voiceId` field.
 
-Example format:
+**Example:**
 ```json
 [
   {
-    "text": "Hello there!",
+    "text": "Hello there, how are you today?",
     "voiceId": "EXAVITQu4vr4xnSDxMaL"
   },
   {
-    "text": "Hi, how are you?",
+    "text": "I'm doing well, thank you for asking!",
     "voiceId": "21m00Tcm4TlvDq8ikWAM"
   }
 ]
 ```
 
+You can find voice IDs in the ElevenLabs dashboard or by using their Voice Library API.
+
 ### Model ID
-Select the AI model to use for generating speech:
-- **Eleven V3**: Default model with good quality and performance
-- **Eleven Turbo V2.5**: Faster generation with slightly lower quality
-- **Eleven Multilingual V2**: Better support for multiple languages
+Select the model to use for text-to-speech conversion:
+- **Eleven v3** - Default model with high quality
+- **Eleven Turbo v2** - Faster processing with good quality
+- **Eleven Multilingual v2** - Supports multiple languages
 
 ### Output Format
-Choose the format for your audio file:
-- **MP3 (44.1kHz, 128kbps)**: Standard quality, good for most uses
-- **MP3 (44.1kHz, 192kbps)**: Higher quality audio (requires Creator tier or above)
-- **PCM (44.1kHz)**: Uncompressed audio (requires Pro tier or above)
+Choose the format and quality of the output audio file. Higher bitrates provide better audio quality but result in larger files.
 
-### Output Variable
-The name of the variable where the URL of the generated audio file will be stored.
+## Voice Settings
 
-## Notes
-- You'll need an ElevenLabs API key configured in your service settings
-- Voice IDs can be found in your ElevenLabs dashboard
-- The maximum number of dialogue inputs is limited by your ElevenLabs subscription
+### Stability
+Controls how stable and consistent the voice sounds:
+- Lower values (0.1-0.3): More emotional range and variation
+- Higher values (0.7-0.9): More monotonous, less variation
+- Default is around 0.5 if left empty
+
+### Use Speaker Boost
+Enhances the similarity to the original voice sample:
+- **Yes**: Better voice matching but may increase processing time
+- **No**: Standard voice quality with normal processing time
+
+## Output
+Specify a variable name to store the URL of the generated audio file. You can use this variable in subsequent steps of your workflow.

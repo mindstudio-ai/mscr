@@ -11,10 +11,12 @@
     "lint:fix": "eslint \"**/*.{ts,js,cjs}\" --fix",
     "format": "prettier --write \"**/*.{ts,js,cjs}\"",
     "format:check": "prettier --check \"**/*.{ts,js,cjs}\"",
-    "prebuild": "npm run lint && npm run format:check && npm run validate"
+    "prebuild": "npm run lint && npm run format:check && npm run validate",
+    "start:inbound-server": "tsx src/cli/inbound-server.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.34.0",
+    "@types/express": "^5.0.3",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^24.3.0",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
@@ -29,6 +31,7 @@
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "express": "^5.1.0",
     "fast-glob": "^3.3.3",
     "mime-types": "^3.0.1",
     "mkdirp": "^3.0.1",
