@@ -15,7 +15,7 @@ async function saveToTmp(data: Buffer, mimeType: string): Promise<string> {
 
 export type ConnectorContext = {
   inputs: Record<string, unknown>;
-  outputs: Record<string, unknown>;
+  outputs: Record<string, any>;
   logs: string[];
 };
 

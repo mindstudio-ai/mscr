@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-voice
+serviceId: elevenlabs
+active: true
+metadata:
+  name: Get Voice
+  description: Retrieves detailed information about a specific voice from ElevenLabs
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Voice ID
+        required: true
+        helpText: The ID of the voice to retrieve information about.
+        variable: voiceId
+        type: text
+        placeholder: Enter voice ID (e.g., 21m00Tcm4TlvDq8ikWAM)
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the voice information.
+        variable: outputVariable
+        type: outputVariableName
