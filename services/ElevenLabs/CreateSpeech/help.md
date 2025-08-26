@@ -1,53 +1,41 @@
-# Text to Dialogue
+# ElevenLabs Text to Speech
 
-This connector converts a series of text inputs with associated voice IDs into a dialogue audio file using ElevenLabs' Text to Dialogue API.
+This connector converts text into speech using ElevenLabs AI voices and returns an audio file URL.
 
 ## Configuration
 
-### Dialogue Inputs
-Enter your dialogue as a JSON array where each object represents a line of dialogue. Each object must include:
-- `text`: The text to be spoken
-- `voiceId`: The ID of the voice that will speak this line
+### Text
+Enter the text you want to convert to speech. You can use markdown formatting for longer texts or to include formatting:
 
-Example format:
-```json
-[
-  {
-    "text": "Knock knock",
-    "voiceId": "JBFqnCBsd6RMkjVDRZzb"
-  },
-  {
-    "text": "Who's there?",
-    "voiceId": "Aw4FAjKCGjjNkVhN1Xmq"
-  }
-]
+```markdown
+Hello! This is a sample text that will be converted to speech.
+
+You can include multiple paragraphs and even basic formatting.
 ```
 
-You can find voice IDs in your ElevenLabs account under the Voices section.
+### Voice ID
+Enter the ID of the voice you want to use. The default voice ID (`EXAVITQu4vr4xnSDxMaL`) is provided as an example.
 
-### Model
+To find your own voice IDs:
+1. Go to your [ElevenLabs dashboard](https://elevenlabs.io/app/voices)
+2. Click on a voice
+3. Find the Voice ID in the URL or in the voice details
+
+### Model ID
 Select the AI model to use for speech generation:
-- **Eleven v3**: The default and latest model
 - **Eleven Multilingual v2**: Supports multiple languages
+- **Eleven Turbo v2.5**: Faster generation with high quality output
 
-### Output Format
-Choose the audio format and quality for the generated dialogue:
-- **MP3 (44.1kHz, 128kbps)**: Standard quality, good for most uses
-- **MP3 (44.1kHz, 64kbps)**: Lower quality but smaller file size
-- **MP3 (44.1kHz, 192kbps)**: Higher quality (requires Creator tier or above)
-- **PCM (44.1kHz)**: Uncompressed audio (requires Pro tier or above)
+### Output Variable
+Enter a name for the variable that will store the URL of the generated audio file. You can use this variable in subsequent steps of your workflow.
 
-## Advanced Settings
+## Example Usage
 
-### Voice Stability
-Controls the consistency and randomness of the voice. Values range from 0 to 1:
-- Lower values (e.g., 0.3): More emotional range and variation
-- Higher values (e.g., 0.8): More consistent and monotonous
+After configuring this connector, you'll get a URL to the generated audio file that you can:
+- Play in an audio player
+- Download as an MP3 file
+- Pass to other connectors in your workflow
 
-### Use Speaker Boost
-Enhances the similarity to the original voice:
-- **Yes**: Improves voice similarity but may increase processing time
-- **No**: Standard voice processing
+## Requirements
 
-## Output
-The connector will return a URL to the generated audio file, which will be stored in the variable you specify.
+This connector requires an ElevenLabs API key to be configured in the service settings.
