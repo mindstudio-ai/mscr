@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Action
+id: text-to-dialogue
+serviceId: elevenlabs
+active: true
+metadata:
+  name: Text to Dialogue
+  description: Converts a list of text and voice ID pairs into a conversation and returns the audio
+  quickHelp: help.md
+configuration:
+  - title: Dialogue Configuration
+    items:
+      - label: Dialogue Inputs
+        helpText: Enter dialogue inputs in JSON format. Each input should have 'text' and 'voiceId' properties.
+        variable: dialogueInputs
+        required: true
+        type: text
+        textOptions:
+          type: markdown
+        placeholder: '[{"text":"Hello there!","voiceId":"EXAVITQu4vr4xnSDxMaL"},{"text":"Hi, how are you?","voiceId":"21m00Tcm4TlvDq8ikWAM"}]'
+      - label: Model ID
+        required: true
+        helpText: The AI model to use for generating speech
+        variable: modelId
+        type: select
+        defaultValue: eleven_v3
+        selectOptions:
+          options:
+            - label: Eleven V3 (Default)
+              value: eleven_v3
+            - label: Eleven Turbo V2.5
+              value: eleven_turbo_v2_5
+            - label: Eleven Multilingual V2
+              value: eleven_multilingual_v2
+      - label: Output Format
+        required: false
+        helpText: The format of the generated audio file
+        variable: outputFormat
+        type: select
+        defaultValue: mp3_44100_128
+        selectOptions:
+          options:
+            - label: MP3 (44.1kHz, 128kbps)
+              value: mp3_44100_128
+            - label: MP3 (44.1kHz, 192kbps)
+              value: mp3_44100_192
+            - label: PCM (44.1kHz)
+              value: pcm_44100
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the audio file URL
+        variable: outputVariable
+        type: outputVariableName
