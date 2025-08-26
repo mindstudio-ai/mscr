@@ -6,3 +6,13 @@ metadata:
   name: ActiveCampaign
   description: Marketing automation tool specializing in email marketing, CRM, and sales automation
   icon: icon.png
+configuration:
+  - id: accessToken
+    type: apiKey
+    name: API Key
+    description: 'Your account URL and API key can be found in your ActiveCampaign account on the Settings page under the "Developer" tab.'
+    placeholder: XXX...
+  - id: accountIdentifier
+    type: plaintext
+    name: Base Account URL
+    placeholder: https://youraccount.api-us1.com/api/3
