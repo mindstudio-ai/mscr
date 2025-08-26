@@ -7,11 +7,19 @@ test('creates dialogue and saves output to outVar', async () => {
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
     dialogueInputs: [
-      { text: 'Hello there!', voiceId: 'EXAVITQu4vr4xnSDxMaL' },
-      { text: 'Hi, how are you?', voiceId: '21m00Tcm4TlvDq8ikWAM' },
+      {
+        text: 'Hello there',
+        voiceId: 'EXAVITQu4vr4xnSDxMaL',
+      },
+      {
+        text: 'Hi, how are you?',
+        voiceId: '21m00Tcm4TlvDq8ikWAM',
+      },
     ],
     modelId: 'eleven_v3',
     outputFormat: 'mp3_44100_128',
+    stability: '0.5',
+    speakerBoost: 'true',
     outputVariable: 'dialogueAudio',
   });
 

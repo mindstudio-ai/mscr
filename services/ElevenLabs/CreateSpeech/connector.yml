@@ -1,36 +1,33 @@
 apiVersion: v1
 kind: Action
-id: create-dialogue
+id: text-to-dialogue
 serviceId: elevenlabs
 active: true
 metadata:
-  name: Create Dialogue
-  description: Converts multiple text inputs with different voices into a dialogue audio file
+  name: Text to Dialogue
+  description: Converts a series of text inputs with associated voice IDs into a dialogue audio file
   quickHelp: help.md
 configuration:
   - title: Dialogue Configuration
     items:
       - label: Dialogue Inputs
-        helpText: "Enter dialogue inputs as JSON array. Each object should have 'text' and 'voiceId' properties."
+        helpText: Enter dialogue inputs as JSON array. Each object must have 'text' and 'voiceId' properties. Example - [{\"text\":\"Hello\",\"voiceId\":\"voice1\"},{\"text\":\"Hi there\",\"voiceId\":\"voice2\"}]
         variable: dialogueInputs
         required: true
         type: text
         textOptions:
           type: multiline
-        placeholder: '[{"text": "Hello there!", "voiceId": "voice1"}, {"text": "Hi, how are you?", "voiceId": "voice2"}]'
-      - label: Model ID
+      - label: Model
         required: true
         variable: modelId
         type: select
         defaultValue: eleven_v3
         selectOptions:
           options:
-            - label: Eleven V3
-              value: eleven_v3
-            - label: Eleven Multilingual V2
+            - label: Eleven Multilingual v2
               value: eleven_multilingual_v2
-            - label: Eleven Turbo V2.5
-              value: eleven_turbo_v2_5
+            - label: Eleven v3
+              value: eleven_v3
       - label: Output Format
         required: true
         variable: outputFormat
@@ -40,28 +37,27 @@ configuration:
           options:
             - label: MP3 (44.1kHz, 128kbps)
               value: mp3_44100_128
-            - label: MP3 (44.1kHz, 192kbps)
-              value: mp3_44100_192
             - label: MP3 (44.1kHz, 64kbps)
               value: mp3_44100_64
+            - label: MP3 (44.1kHz, 192kbps)
+              value: mp3_44100_192
             - label: PCM (44.1kHz)
               value: pcm_44100
-            - label: OPUS (48kHz, 128kbps)
-              value: opus_48000_128
   - title: Advanced Settings
     collapsed: true
     items:
-      - label: Stability
-        helpText: 'Controls emotional range. Lower values (0.1-0.3) introduce broader emotional range, higher values (0.7-0.9) result in more monotonous voice. Leave empty for default.'
+      - label: Voice Stability
+        helpText: Controls voice stability and randomness. Lower values provide broader emotional range, higher values result in more monotonous voice. Range - 0-1
         variable: stability
         required: false
         type: text
         placeholder: '0.5'
       - label: Use Speaker Boost
-        helpText: 'Boosts similarity to the original speaker. May increase latency.'
-        variable: useSpeakerBoost
+        helpText: Boosts similarity to the original speaker. May increase latency.
+        variable: speakerBoost
         required: false
         type: select
+        defaultValue: 'true'
         selectOptions:
           options:
             - label: Yes

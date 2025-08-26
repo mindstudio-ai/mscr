@@ -1,48 +1,53 @@
-# Create Dialogue
+# Text to Dialogue
 
-This action converts multiple text inputs with different voices into a dialogue audio file using ElevenLabs' Text to Dialogue API.
+This connector converts a series of text inputs with associated voice IDs into a dialogue audio file using ElevenLabs' Text to Dialogue API.
 
-## How to use
+## Configuration
 
-1. **Dialogue Inputs**: Enter your dialogue as a JSON array where each object contains:
-   - `text`: The text to be spoken
-   - `voiceId`: The ID of the voice to use
+### Dialogue Inputs
+Enter your dialogue as a JSON array where each object represents a line of dialogue. Each object must include:
+- `text`: The text to be spoken
+- `voiceId`: The ID of the voice that will speak this line
 
-   Example:
-   ```json
-   [
-     {"text": "Hello there!", "voiceId": "JBFqnCBsd6RMkjVDRZzb"},
-     {"text": "Hi, how are you?", "voiceId": "Aw4FAjKCGjjNkVhN1Xmq"}
-   ]
-   ```
+Example format:
+```json
+[
+  {
+    "text": "Knock knock",
+    "voiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  {
+    "text": "Who's there?",
+    "voiceId": "Aw4FAjKCGjjNkVhN1Xmq"
+  }
+]
+```
 
-2. **Model ID**: Select the AI model to use for speech generation.
-   - **Eleven V3**: Default model with high quality voice generation
-   - **Eleven Multilingual V2**: Better for non-English languages
-   - **Eleven Turbo V2.5**: Faster processing with slightly lower quality
+You can find voice IDs in your ElevenLabs account under the Voices section.
 
-3. **Output Format**: Choose the audio format and quality for the generated dialogue.
+### Model
+Select the AI model to use for speech generation:
+- **Eleven v3**: The default and latest model
+- **Eleven Multilingual v2**: Supports multiple languages
+
+### Output Format
+Choose the audio format and quality for the generated dialogue:
+- **MP3 (44.1kHz, 128kbps)**: Standard quality, good for most uses
+- **MP3 (44.1kHz, 64kbps)**: Lower quality but smaller file size
+- **MP3 (44.1kHz, 192kbps)**: Higher quality (requires Creator tier or above)
+- **PCM (44.1kHz)**: Uncompressed audio (requires Pro tier or above)
 
 ## Advanced Settings
 
-- **Stability**: Controls the emotional range of the voices (0.0-1.0)
-  - Lower values (0.1-0.3): More emotional variation
-  - Higher values (0.7-0.9): More monotonous, stable voice
-  - Leave empty for default
+### Voice Stability
+Controls the consistency and randomness of the voice. Values range from 0 to 1:
+- Lower values (e.g., 0.3): More emotional range and variation
+- Higher values (e.g., 0.8): More consistent and monotonous
 
-- **Use Speaker Boost**: Enhances voice similarity to the original speaker samples
-  - May increase processing time
+### Use Speaker Boost
+Enhances the similarity to the original voice:
+- **Yes**: Improves voice similarity but may increase processing time
+- **No**: Standard voice processing
 
 ## Output
-
-The action will generate an audio file containing the dialogue and return a URL to access it.
-
-## Finding Voice IDs
-
-You can find voice IDs in the ElevenLabs voice library at https://elevenlabs.io/voice-library or in your ElevenLabs account under "Voice Library".
-
-## Tips
-
-- Keep dialogue exchanges natural and conversational
-- Test with different stability settings to find the right emotional tone
-- For best results, use high-quality voice clones or premium voices
+The connector will return a URL to the generated audio file, which will be stored in the variable you specify.
