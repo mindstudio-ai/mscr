@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: activecampaign
+metadata:
+  name: ActiveCampaign
+  description: Marketing automation tool specializing in email marketing, CRM, and sales automation
+  icon: icon.png
