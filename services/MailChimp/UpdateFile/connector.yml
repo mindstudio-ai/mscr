@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: update-file
+serviceId: MailChimp
+active: true
+metadata:
+  name: Update File
+  description: Update a file's name or move it to a different folder in the Mailchimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: File Information
+    items:
+      - label: File ID
+        helpText: The unique ID of the file in Mailchimp File Manager you want to update
+        variable: fileId
+        required: true
+        type: text
+        placeholder: '12345'
+      - label: New File Name
+        helpText: The new name for the file (leave empty to keep the current name)
+        variable: fileName
+        required: false
+        type: text
+        placeholder: 'my-updated-file.jpg'
+      - label: Folder ID
+        helpText: The ID of the folder to move the file to. Set to 0 to remove from current folder.
+        variable: folderId
+        required: false
+        type: text
+        placeholder: 'e.g., 12345 (or 0 to remove from current folder)'
+      - label: Output Variable
+        helpText: The variable to store the updated file information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

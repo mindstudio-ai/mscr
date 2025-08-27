@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: woocommerce
+metadata:
+  name: WooCommerce
+  description: A free, open-source WordPress plugin that transforms a WordPress website into a fully functional online store
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756327081925.png
+configuration:
+  - id: url
+    type: plaintext
+    name: Store URL
+    placeholder: https://example.com
+  - id: consumerKey
+    type: apiKey
+    name: API Consumer Key
+    placeholder: ck_...
+  - id: consumerSecret
+    type: apiKey
+    name: API Consumer Secret
+    placeholder: cs_...

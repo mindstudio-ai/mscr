@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Action
+id: create-automation
+serviceId: MailChimp
+active: true
+metadata:
+  name: Create Automation
+  description: Create a new automation workflow in your MailChimp account
+  quickHelp: help.md
+configuration:
+  - title: Basic Information
+    items:
+      - label: Automation Title
+        helpText: The title of your automation workflow
+        variable: title
+        required: true
+        type: text
+      - label: From Name
+        helpText: The name that will appear in the 'From' field
+        variable: fromName
+        required: true
+        type: text
+      - label: Reply-To Email
+        helpText: The email address that will receive replies
+        variable: replyTo
+        required: true
+        type: text
+  - title: Audience Settings
+    items:
+      - label: List ID
+        helpText: The ID of the audience list to use for this automation
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., 1a2df69xxx
+      - label: Store ID
+        helpText: The ID of the e-commerce store (required for abandoned cart automations)
+        variable: storeId
+        required: false
+        type: text
+        placeholder: e.g., 1a2df69xxx
+  - title: Workflow Settings
+    items:
+      - label: Workflow Type
+        helpText: The type of automation workflow to create
+        variable: workflowType
+        required: true
+        type: select
+        defaultValue: welcomeSeries
+        selectOptions:
+          options:
+            - label: Abandoned Cart
+              value: abandonedCart
+            - label: Welcome Series
+              value: welcomeSeries
+            - label: API Triggered
+              value: api
+            - label: Date Added
+              value: dateAdded
+            - label: Email Series
+              value: emailSeries
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable to store the created automation details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

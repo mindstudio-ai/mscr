@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Action
+id: batch-subscribe-unsubscribe
+serviceId: MailChimp
+active: true
+metadata:
+  name: Batch Subscribe or Unsubscribe
+  description: Add or update multiple members to a MailChimp list in a single operation
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list. You can find this in your MailChimp account under Audience settings.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+  - title: Member Options
+    items:
+      - label: Members
+        helpText: 'JSON array of members to add or update. Each member should include email_address and status (subscribed, unsubscribed, cleaned, pending, or transactional).'
+        variable: members
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"email_address":"example@example.com","status":"subscribed","merge_fields":{"FNAME":"Example","LNAME":"User"}}]'
+      - label: Update Existing
+        helpText: Whether this batch operation will change existing members' subscription status.
+        variable: updateExisting
+        required: false
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Skip Merge Validation
+        helpText: If true, member data will be accepted without merge field values, even if the merge field is usually required.
+        variable: skipMergeValidation
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Skip Duplicate Check
+        helpText: If true, duplicates sent in the request will be ignored. The status of the first appearance in the request will be saved.
+        variable: skipDuplicateCheck
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the operation results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

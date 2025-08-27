@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Action
+id: get-segment-info
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Segment Info
+  description: Retrieves information about a specific segment from a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Segment Information
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the list containing the segment
+        variable: listId
+        type: text
+        placeholder: e.g., abc123def
+      - label: Segment ID
+        required: true
+        helpText: The unique ID for the segment
+        variable: segmentId
+        type: text
+        placeholder: e.g., 123456
+  - title: Options
+    collapsed: true
+    items:
+      - label: Include Cleaned Members
+        required: false
+        helpText: Include cleaned members in response
+        variable: includeCleaned
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Include Transactional Members
+        required: false
+        helpText: Include transactional members in response
+        variable: includeTransactional
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Include Unsubscribed Members
+        required: false
+        helpText: Include unsubscribed members in response
+        variable: includeUnsubscribed
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the segment information
+        variable: outputVariable
+        type: outputVariableName

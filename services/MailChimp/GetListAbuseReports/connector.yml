@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Action
+id: get-list-abuse-reports
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Abuse Reports
+  description: Retrieve all abuse reports for a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the MailChimp list to retrieve abuse reports from
+        placeholder: e.g., abc123def
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Count
+        variable: count
+        type: text
+        required: false
+        helpText: The number of records to return (maximum 1000)
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Offset
+        variable: offset
+        type: text
+        required: false
+        helpText: The number of records to skip (used for pagination)
+        defaultValue: '0'
+        placeholder: '0'
+  - title: Field Selection
+    collapsed: true
+    items:
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., abuse_reports.email_address,abuse_reports.date
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., _links,abuse_reports._links
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The name of the variable to store the abuse reports

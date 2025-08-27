@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Action
+id: list-segments
+serviceId: MailChimp
+active: true
+metadata:
+  name: List Segments
+  description: Get information about all available segments for a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the list you want to retrieve segments from
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter your list ID...
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: The number of segments to return (default is 10, maximum is 1000)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Offset
+        helpText: The number of records to skip (for pagination)
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: '0'
+      - label: Segment Type
+        helpText: Filter segments by type
+        variable: type
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Types
+              value: ''
+            - label: Saved
+              value: 'saved'
+            - label: Static
+              value: 'static'
+            - label: Fuzzy
+              value: 'fuzzy'
+      - label: Include Cleaned Members
+        helpText: Include cleaned members in response
+        variable: includeCleanedMembers
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Include Unsubscribed Members
+        helpText: Include unsubscribed members in response
+        variable: includeUnsubscribedMembers
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of segments
+        variable: outputVariable
+        required: true
+        type: outputVariableName

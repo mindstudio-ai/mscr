@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-click-details
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Campaign Click Details
+  description: Retrieve information about clicks on specific links in your Mailchimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Configuration
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the Mailchimp campaign to analyze
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: abc123def...
+      - label: Results Count
+        helpText: The number of results to return. Default is 10. Maximum is 1000.
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Sort By
+        helpText: Field to sort the results by
+        variable: sortField
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Total Clicks
+              value: total_clicks
+            - label: Unique Clicks
+              value: unique_clicks
+      - label: Sort Direction
+        helpText: Direction to sort results
+        variable: sortDir
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Ascending
+              value: ASC
+            - label: Descending
+              value: DESC
+      - label: Output Variable
+        helpText: Name of the variable to store the campaign click details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

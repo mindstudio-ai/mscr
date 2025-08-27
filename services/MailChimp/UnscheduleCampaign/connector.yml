@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: unschedule-campaign
+serviceId: MailChimp
+active: true
+metadata:
+  name: Unschedule Campaign
+  description: Unschedule a scheduled campaign that hasn't started sending yet
+  quickHelp: help.md
+configuration:
+  - title: Campaign Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the campaign you want to unschedule
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def456
+  - title: Output
+    items:
+      - label: Success Message Variable
+        helpText: Variable name to store the success message
+        variable: outputVariable
+        required: true
+        type: outputVariableName

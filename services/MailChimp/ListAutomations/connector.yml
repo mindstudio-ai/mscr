@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Action
+id: list-automations
+serviceId: MailChimp
+active: true
+metadata:
+  name: List Automations
+  description: Retrieve a list of all automation workflows in your MailChimp account
+  quickHelp: help.md
+configuration:
+  - title: Filtering Options
+    items:
+      - label: Count
+        helpText: The number of records to return. Default is 10. Maximum is 1000.
+        variable: count
+        required: false
+        type: text
+        placeholder: '10'
+        defaultValue: '10'
+      - label: Offset
+        helpText: Used for pagination, this is the number of records to skip. Default is 0.
+        variable: offset
+        required: false
+        type: text
+        placeholder: '0'
+        defaultValue: '0'
+      - label: Status
+        helpText: Filter automations by status
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Statuses
+              value: ''
+            - label: Save
+              value: save
+            - label: Paused
+              value: paused
+            - label: Sending
+              value: sending
+      - label: Before Create Time
+        helpText: Restrict to automations created before this time (ISO 8601 format)
+        variable: beforeCreateTime
+        required: false
+        type: text
+        placeholder: '2023-10-21T15:41:36+00:00'
+      - label: Since Create Time
+        helpText: Restrict to automations created after this time (ISO 8601 format)
+        variable: sinceCreateTime
+        required: false
+        type: text
+        placeholder: '2023-10-21T15:41:36+00:00'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of automations
+        variable: outputVariable
+        required: true
+        type: outputVariableName

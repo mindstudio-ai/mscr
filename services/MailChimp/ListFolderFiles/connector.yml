@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Action
+id: list-folder-files
+serviceId: MailChimp
+active: true
+metadata:
+  name: List Files in Folder
+  description: Get a list of files and images stored in a specific folder in MailChimp's File Manager
+  quickHelp: help.md
+configuration:
+  - title: Folder Information
+    items:
+      - label: Folder ID
+        required: true
+        helpText: The unique ID for the File Manager folder you want to list files from
+        variable: folderId
+        type: text
+        placeholder: Enter folder ID...
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: File Type
+        required: false
+        helpText: Filter results by file type
+        variable: fileType
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: All Files
+              value: ''
+            - label: Images
+              value: 'image'
+            - label: Files
+              value: 'file'
+      - label: Sort By
+        required: false
+        helpText: Sort the results by a specific field
+        variable: sortField
+        type: select
+        defaultValue: 'added_date'
+        selectOptions:
+          options:
+            - label: Date Added
+              value: 'added_date'
+            - label: Name
+              value: 'name'
+            - label: Size
+              value: 'size'
+      - label: Sort Direction
+        required: false
+        helpText: Sort direction for the results
+        variable: sortDir
+        type: select
+        defaultValue: 'DESC'
+        selectOptions:
+          options:
+            - label: Ascending
+              value: 'ASC'
+            - label: Descending
+              value: 'DESC'
+      - label: Number of Results
+        required: false
+        helpText: The number of files to return (maximum 1000)
+        variable: count
+        type: text
+        defaultValue: '10'
+  - title: Output
+    items:
+      - label: Output Variable Name
+        required: true
+        helpText: The variable name to store the list of files
+        variable: outputVar
+        type: outputVariableName

@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: get-conversation
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Conversation
+  description: Retrieve details about an individual conversation in Mailchimp
+  quickHelp: help.md
+configuration:
+  - title: Conversation Details
+    items:
+      - label: Conversation ID
+        helpText: The unique ID for the conversation you want to retrieve.
+        variable: conversationId
+        required: true
+        type: text
+        placeholder: Enter conversation ID...
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        required: false
+        type: text
+        placeholder: 'e.g., id,subject,last_message'
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: 'e.g., _links,campaign_id'
+      - label: Output Variable
+        helpText: The name of the variable to store the conversation details.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

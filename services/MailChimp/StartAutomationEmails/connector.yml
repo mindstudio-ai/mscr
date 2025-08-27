@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: start-automation-emails
+serviceId: MailChimp
+active: true
+metadata:
+  name: Start Automation Emails
+  description: Start all emails in a classic automation workflow
+  quickHelp: help.md
+configuration:
+  - title: Automation Details
+    items:
+      - label: Workflow ID
+        helpText: The unique ID for the Automation workflow you want to start emails for.
+        variable: workflowId
+        required: true
+        type: text
+        placeholder: e.g., 57afe96172
+  - title: Output Configuration
+    items:
+      - label: Success Message Variable
+        helpText: Variable name to store the success message.
+        variable: successMessageVariable
+        required: true
+        type: outputVariableName

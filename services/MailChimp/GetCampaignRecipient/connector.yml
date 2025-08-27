@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-recipient
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Campaign Recipient Info
+  description: Retrieve information about a specific recipient of a Mailchimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign and Recipient Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Hash/Email
+        helpText: Either the MD5 hash of the lowercase email address or the email address itself (will be converted to MD5 hash)
+        variable: subscriberHash
+        required: true
+        type: text
+        placeholder: e.g., user@example.com or 55502f40dc8b7c769880b10874abc12d
+  - title: Optional Fields
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: "Optional: A comma-separated list of fields to return (e.g., 'email_address,status,open_count')"
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., email_address,status,open_count
+      - label: Fields to Exclude
+        helpText: 'Optional: A comma-separated list of fields to exclude'
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links,merge_fields
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the recipient information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

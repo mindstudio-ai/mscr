@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: delete-webhook
+serviceId: MailChimp
+active: true
+metadata:
+  name: Delete Webhook
+  description: Delete a specific webhook from a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Webhook Details
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Webhook ID
+        helpText: The ID of the webhook to delete
+        variable: webhookId
+        required: true
+        type: text
+        placeholder: e.g., xyz789

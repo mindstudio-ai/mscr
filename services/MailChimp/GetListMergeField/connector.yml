@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: get-list-merge-field
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Merge Field
+  description: Retrieve information about a specific merge field from a Mailchimp audience
+  quickHelp: help.md
+configuration:
+  - title: Merge Field Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp audience/list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Merge Field ID
+        helpText: The ID of the merge field to retrieve
+        variable: mergeId
+        required: true
+        type: text
+        placeholder: e.g., 1234
+      - label: Fields to Include
+        helpText: Optional comma-separated list of fields to return (e.g., 'merge_id,tag,name')
+        variable: fields
+        required: false
+        type: text
+        placeholder: merge_id,tag,name
+      - label: Fields to Exclude
+        helpText: Optional comma-separated list of fields to exclude from the response
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: _links,options
+      - label: Output Variable
+        helpText: The variable name to store the merge field information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

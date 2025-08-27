@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: Action
+id: get-list-members
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Members
+  description: Retrieve members from a specific MailChimp list with filtering and pagination options
+  quickHelp: help.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def...
+      - label: Status Filter
+        helpText: Filter subscribers by their status
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All
+              value: ''
+            - label: Subscribed
+              value: subscribed
+            - label: Unsubscribed
+              value: unsubscribed
+            - label: Cleaned
+              value: cleaned
+            - label: Pending
+              value: pending
+            - label: Transactional
+              value: transactional
+            - label: Archived
+              value: archived
+      - label: Count
+        helpText: 'The number of records to return (default: 10, maximum: 1000)'
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: 10-1000
+  - title: Additional Options
+    collapsed: true
+    items:
+      - label: Offset
+        helpText: Number of records to skip for pagination
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: e.g., 0
+      - label: VIP Only
+        helpText: Filter to return only VIP members
+        variable: vipOnly
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No Filter
+              value: ''
+            - label: VIP Members Only
+              value: 'true'
+      - label: Sort By
+        helpText: Field to sort results by
+        variable: sortField
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No Sorting
+              value: ''
+            - label: Opt-in Time
+              value: timestamp_opt
+            - label: Signup Time
+              value: timestamp_signup
+            - label: Last Changed
+              value: last_changed
+      - label: Sort Direction
+        helpText: Direction to sort results
+        variable: sortDir
+        required: false
+        type: select
+        defaultValue: ASC
+        selectOptions:
+          options:
+            - label: Ascending
+              value: ASC
+            - label: Descending
+              value: DESC
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list members
+        variable: outputVariable
+        required: true
+        type: outputVariableName

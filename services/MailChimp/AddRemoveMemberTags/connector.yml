@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Action
+id: add-remove-member-tags
+serviceId: MailChimp
+active: true
+metadata:
+  name: Add or Remove Member Tags
+  description: Add or remove tags from a MailChimp list member
+  quickHelp: help.md
+configuration:
+  - title: List and Member Information
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the MailChimp list/audience
+        variable: listId
+        type: text
+        placeholder: e.g., abc123def456
+      - label: Email Address
+        required: true
+        helpText: Email address of the list member to add/remove tags for
+        variable: emailAddress
+        type: text
+        placeholder: user@example.com
+  - title: Tag Management
+    items:
+      - label: Tags to Add
+        required: false
+        helpText: Comma-separated list of tags to add to the member
+        variable: tagsToAdd
+        type: text
+        placeholder: e.g., new-customer, vip, follow-up
+      - label: Tags to Remove
+        required: false
+        helpText: Comma-separated list of tags to remove from the member
+        variable: tagsToRemove
+        type: text
+        placeholder: e.g., prospect, unqualified
+      - label: Skip Automations
+        required: false
+        helpText: When enabled, automations based on these tag changes will not fire
+        variable: skipAutomations
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the operation result
+        variable: outputVariable
+        type: outputVariableName

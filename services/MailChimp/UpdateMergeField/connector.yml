@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Action
+id: update-merge-field
+serviceId: MailChimp
+active: true
+metadata:
+  name: Update Merge Field
+  description: Update a specific merge field for a Mailchimp list (audience)
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the Mailchimp audience/list
+        variable: listId
+        type: text
+        placeholder: e.g., abc123def
+      - label: Merge Field ID
+        required: true
+        helpText: The ID of the merge field to update
+        variable: mergeId
+        type: text
+        placeholder: e.g., 1234
+  - title: Merge Field Details
+    items:
+      - label: Field Name
+        required: true
+        helpText: The name of the merge field (audience field)
+        variable: name
+        type: text
+        placeholder: e.g., First Name
+      - label: Merge Tag
+        required: false
+        helpText: The merge tag used for Mailchimp campaigns (e.g., FNAME)
+        variable: tag
+        type: text
+        placeholder: e.g., FNAME
+      - label: Required Field
+        required: false
+        helpText: Whether the merge field is required to import a contact
+        variable: required
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Default Value
+        required: false
+        helpText: The default value for the merge field if null
+        variable: defaultValue
+        type: text
+      - label: Public Field
+        required: false
+        helpText: Whether the merge field is displayed on the signup form
+        variable: public
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Display Order
+        required: false
+        helpText: The order that the merge field displays on the list signup form
+        variable: displayOrder
+        type: text
+        placeholder: e.g., 1
+      - label: Help Text
+        required: false
+        helpText: Extra text to help the subscriber fill out the form
+        variable: helpText
+        type: text
+  - title: Response
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the updated merge field information
+        variable: outputVariable
+        type: outputVariableName

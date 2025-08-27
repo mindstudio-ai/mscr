@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-advice
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Campaign Advice
+  description: Retrieve feedback and advice based on a campaign's statistics like opens, clicks, unsubscribes, and bounces
+  quickHelp: help.md
+configuration:
+  - title: Campaign Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign you want to get advice for
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: abc123def...
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., advice.type,advice.message
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the campaign advice results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

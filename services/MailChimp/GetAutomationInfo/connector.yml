@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: get-automation-info
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Automation Info
+  description: Retrieve detailed information about a specific automation workflow in MailChimp
+  quickHelp: help.md
+configuration:
+  - title: Automation Details
+    items:
+      - label: Workflow ID
+        variable: workflowId
+        type: text
+        required: true
+        helpText: The unique ID for the automation workflow you want to retrieve.
+        placeholder: Enter workflow ID...
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., id,status,settings.title
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., _links,tracking
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The name of the variable to store the automation workflow information.

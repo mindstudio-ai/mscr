@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-sub-reports
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Campaign Sub-Reports
+  description: Retrieves a list of reports with child campaigns for a specific parent campaign in Mailchimp.
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        variable: campaignId
+        type: text
+        required: true
+        helpText: The unique ID for the parent campaign you want to get sub-reports for.
+        placeholder: e.g., a1b2c3d4e5
+  - title: Filter Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., id,campaign_title,emails_sent
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., _links,timeseries
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the campaign sub-reports data.

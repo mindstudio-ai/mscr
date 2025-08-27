@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Action
+id: customize-signup-form
+serviceId: MailChimp
+active: true
+metadata:
+  name: Customize Signup Form
+  description: Customize a MailChimp list's default signup form
+  quickHelp: help.md
+configuration:
+  - title: Basic Information
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the list you want to customize the signup form for
+        variable: listId
+        type: text
+        placeholder: e.g., 1a2b3c4d5e
+  - title: Header Customization
+    items:
+      - label: Header Text
+        required: false
+        helpText: Text to display in the header of the signup form
+        variable: headerText
+        type: text
+        placeholder: Subscribe to our newsletter
+      - label: Header Image URL
+        required: false
+        helpText: URL of the image to display in the header
+        variable: headerImageUrl
+        type: text
+        placeholder: https://example.com/header-image.png
+      - label: Image Alignment
+        required: false
+        helpText: How to align the header image
+        variable: imageAlign
+        type: select
+        defaultValue: center
+        selectOptions:
+          options:
+            - label: None
+              value: none
+            - label: Left
+              value: left
+            - label: Center
+              value: center
+            - label: Right
+              value: right
+  - title: Content Customization
+    items:
+      - label: Signup Message
+        required: false
+        helpText: Message displayed on the signup form
+        variable: signupMessage
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Sign up to receive our newsletter and updates
+      - label: Unsubscribe Message
+        required: false
+        helpText: Message displayed on the unsubscribe form
+        variable: unsubMessage
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: We're sorry to see you go
+      - label: Thank You Title
+        required: false
+        helpText: Title displayed on the thank you page after signup
+        variable: thankYouTitle
+        type: text
+        placeholder: Thanks for subscribing!
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the customized signup form details, including the signup form URL
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-landing-page-report
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Landing Page Report
+  description: Retrieves a detailed report for a Mailchimp landing page including metrics like visits, clicks, and conversion rate
+  quickHelp: help.md
+configuration:
+  - title: Landing Page Information
+    items:
+      - label: Landing Page ID
+        variable: outreachId
+        type: text
+        required: true
+        helpText: The unique ID of the landing page you want to get a report for
+        placeholder: 00dfc2e1f0
+  - title: Report Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to return. Use dot notation for sub-fields
+        placeholder: id,name,visits,unique_visits,subscribes,clicks,conversion_rate
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to exclude. Use dot notation for sub-fields
+        placeholder: timeseries,ecommerce
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the landing page report results

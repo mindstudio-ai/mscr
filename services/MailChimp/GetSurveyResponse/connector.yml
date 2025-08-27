@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-survey-response
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Survey Response
+  description: Retrieves a single survey response from a MailChimp survey
+  quickHelp: help.md
+configuration:
+  - title: Survey Information
+    items:
+      - label: Survey ID
+        helpText: The ID of the survey you want to retrieve a response from.
+        variable: surveyId
+        required: true
+        type: text
+        placeholder: e.g., survey-123
+      - label: Response ID
+        helpText: The ID of the specific survey response you want to retrieve.
+        variable: responseId
+        required: true
+        type: text
+        placeholder: e.g., response-456
+      - label: Output Variable
+        helpText: The variable name to store the survey response data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

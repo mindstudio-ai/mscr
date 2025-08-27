@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-send-checklist
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Campaign Send Checklist
+  description: Review the send checklist for a campaign, and resolve any issues before sending
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        required: true
+        helpText: The unique ID for the campaign you want to check
+        variable: campaignId
+        type: text
+        placeholder: e.g., abc123def
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Fields to Include
+        required: false
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        type: text
+        placeholder: e.g., is_ready,items
+      - label: Fields to Exclude
+        required: false
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        type: text
+        placeholder: e.g., _links
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the campaign send checklist results
+        variable: outputVariable
+        type: outputVariableName

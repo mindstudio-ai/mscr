@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-list-clients
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Top Email Clients
+  description: Retrieves a list of the top email clients based on user-agent strings for a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list (audience) you want to analyze
+        variable: listId
+        required: true
+        type: text
+        placeholder: abc123def
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation
+        variable: fields
+        required: false
+        type: text
+        placeholder: clients,list_id,total_items
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: _links
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable where the list of top email clients will be stored
+        variable: outputVariable
+        required: true
+        type: outputVariableName

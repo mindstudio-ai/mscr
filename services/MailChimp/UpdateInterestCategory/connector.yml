@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Action
+id: update-interest-category
+serviceId: MailChimp
+active: true
+metadata:
+  name: Update Interest Category
+  description: Update a specific interest category in a Mailchimp list
+  quickHelp: help.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the Mailchimp list
+        variable: listId
+        type: text
+        placeholder: e.g., abc123def
+      - label: Interest Category ID
+        required: true
+        helpText: The unique ID for the interest category you want to update
+        variable: interestCategoryId
+        type: text
+        placeholder: e.g., def456ghi
+      - label: Category Name
+        required: true
+        helpText: The text description of this category. This field appears on signup forms and is often phrased as a question.
+        variable: title
+        type: text
+        placeholder: e.g., "What topics interest you?"
+      - label: Display Type
+        required: true
+        helpText: Determines how this category's interests appear on signup forms
+        variable: type
+        type: select
+        selectOptions:
+          options:
+            - label: Checkboxes
+              value: checkboxes
+            - label: Dropdown
+              value: dropdown
+            - label: Radio Buttons
+              value: radio
+            - label: Hidden
+              value: hidden
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Display Order
+        required: false
+        helpText: The order that the categories are displayed in the list. Lower numbers display first.
+        variable: displayOrder
+        type: text
+        placeholder: e.g., 1
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The name of the variable to store the updated interest category information
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: get-list-member-tags
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Member Tags
+  description: Retrieve all tags assigned to a specific member of a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Member Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list (audience)
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Identifier
+        helpText: The subscriber's email address or MD5 hash of their lowercase email address
+        variable: subscriberId
+        required: true
+        type: text
+        placeholder: email@example.com
+  - title: Options
+    collapsed: true
+    items:
+      - label: Maximum Tags to Return
+        helpText: The number of tags to return (default is 10, maximum is 1000)
+        variable: count
+        required: false
+        type: text
+        placeholder: '10'
+        defaultValue: '10'
+      - label: Offset
+        helpText: Number of records to skip for pagination
+        variable: offset
+        required: false
+        type: text
+        placeholder: '0'
+        defaultValue: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list member's tags
+        variable: outputVariable
+        required: true
+        type: outputVariableName

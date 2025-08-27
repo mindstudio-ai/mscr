@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Action
+id: add-interest-in-category
+serviceId: MailChimp
+active: true
+metadata:
+  name: Add Interest in Category
+  description: Create a new interest or 'group name' for a specific category in a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Interest Details
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Interest Category ID
+        helpText: The unique ID for the interest category
+        variable: interestCategoryId
+        required: true
+        type: text
+        placeholder: e.g., def456ghi
+      - label: Interest Name
+        helpText: The name of the interest. This can be shown publicly on a subscription form.
+        variable: name
+        required: true
+        type: text
+        placeholder: e.g., Product Updates
+      - label: Display Order
+        helpText: The display order for interests (optional)
+        variable: displayOrder
+        required: false
+        type: text
+        placeholder: e.g., 1
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the created interest details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

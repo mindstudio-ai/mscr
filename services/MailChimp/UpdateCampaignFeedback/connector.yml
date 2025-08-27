@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Action
+id: update-campaign-feedback
+serviceId: MailChimp
+active: true
+metadata:
+  name: Update Campaign Feedback
+  description: Update a specific feedback message for a Mailchimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Feedback ID
+        helpText: The unique ID for the feedback message
+        variable: feedbackId
+        required: true
+        type: text
+        placeholder: e.g., 456
+  - title: Feedback Details
+    items:
+      - label: Message
+        helpText: The content of the feedback
+        variable: message
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Block ID
+        helpText: The block ID for the editable block that the feedback addresses (optional)
+        variable: blockId
+        required: false
+        type: text
+        placeholder: e.g., 789
+      - label: Mark as Complete
+        helpText: The status of the feedback
+        variable: isComplete
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Output Variable
+        helpText: Name of the variable to store the updated feedback details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

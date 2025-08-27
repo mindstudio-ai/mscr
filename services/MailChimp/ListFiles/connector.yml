@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Action
+id: list-files
+serviceId: MailChimp
+active: true
+metadata:
+  name: List Files
+  description: Retrieve a list of files and images stored in your MailChimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: File Filtering Options
+    items:
+      - label: File Type
+        helpText: Filter files by type (e.g., 'image' or 'file')
+        variable: fileType
+        required: false
+        type: text
+        placeholder: image
+      - label: Created By
+        helpText: Filter files by the username that created them
+        variable: createdBy
+        required: false
+        type: text
+      - label: Created After
+        helpText: Filter files created after this date (ISO 8601 format)
+        variable: sinceCreatedAt
+        required: false
+        type: text
+        placeholder: 2023-01-01T00:00:00+00:00
+      - label: Created Before
+        helpText: Filter files created before this date (ISO 8601 format)
+        variable: beforeCreatedAt
+        required: false
+        type: text
+        placeholder: 2023-12-31T23:59:59+00:00
+  - title: Pagination & Sorting
+    items:
+      - label: Count
+        helpText: Number of files to return (max 1000, default 10)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: Number of files to skip (for pagination)
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+      - label: Sort Field
+        helpText: Field to sort results by
+        variable: sortField
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Added Date
+              value: added_date
+            - label: Name
+              value: name
+            - label: Size
+              value: size
+      - label: Sort Direction
+        helpText: Direction to sort results
+        variable: sortDir
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Ascending
+              value: ASC
+            - label: Descending
+              value: DESC
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the list of files
+        variable: outputVar
+        required: true
+        type: outputVariableName

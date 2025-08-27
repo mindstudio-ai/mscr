@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: cancel-campaign
+serviceId: MailChimp
+active: true
+metadata:
+  name: Cancel Campaign
+  description: Cancel a sent Mailchimp campaign before all recipients receive it (Mailchimp Pro feature)
+  quickHelp: help.md
+configuration:
+  - title: Campaign Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the campaign you want to cancel. This can be found in the campaign URL or via the API.
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: abc123def...
+  - title: Confirmation
+    items:
+      - label: Confirmation Message
+        helpText: "Type 'CONFIRM' to proceed with cancellation. This action cannot be undone."
+        variable: confirmationMessage
+        required: true
+        type: text
+        placeholder: CONFIRM
+      - label: Output Variable
+        helpText: Variable name to store the result message
+        variable: outputVariable
+        required: true
+        type: outputVariableName

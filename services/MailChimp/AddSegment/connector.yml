@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Action
+id: add-segment
+serviceId: MailChimp
+active: true
+metadata:
+  name: Add Segment
+  description: Create a new segment in a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list where the segment will be created
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+  - title: Segment Details
+    items:
+      - label: Segment Name
+        helpText: The name of the segment
+        variable: name
+        required: true
+        type: text
+        placeholder: e.g., New Customers
+      - label: Segment Type
+        helpText: Choose between creating a dynamic segment with conditions or a static segment with specific emails
+        variable: segmentType
+        required: true
+        type: select
+        defaultValue: dynamic
+        selectOptions:
+          options:
+            - label: Dynamic Segment (with conditions)
+              value: dynamic
+            - label: Static Segment (list of emails)
+              value: static
+      - label: Match Type
+        helpText: For dynamic segments, determines whether subscribers must match all or any of the conditions
+        variable: matchType
+        required: false
+        type: select
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: Match All Conditions
+              value: all
+            - label: Match Any Condition
+              value: any
+      - label: Email Addresses
+        helpText: For static segments only. Enter email addresses separated by commas. Only emails that exist on the list will be added.
+        variable: staticSegment
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: email1@example.com, email2@example.com
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the created segment ID and details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

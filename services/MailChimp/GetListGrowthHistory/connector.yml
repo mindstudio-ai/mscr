@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: get-list-growth-history
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Growth History
+  description: Retrieve growth activity for a specific MailChimp list by month
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Month
+        helpText: The specific month to get growth history for (format YYYY-MM)
+        variable: month
+        required: true
+        type: text
+        placeholder: e.g., 2023-01
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the growth history results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

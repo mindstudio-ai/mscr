@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: add-workflow-email-subscriber
+serviceId: MailChimp
+active: true
+metadata:
+  name: Add Subscriber to Workflow Email
+  description: Manually add a subscriber to a workflow email, bypassing the default trigger settings
+  quickHelp: help.md
+configuration:
+  - title: Workflow Configuration
+    items:
+      - label: Workflow ID
+        variable: workflowId
+        type: text
+        required: true
+        helpText: The unique ID for the Automation workflow
+        placeholder: e.g., 57afe96172
+      - label: Workflow Email ID
+        variable: workflowEmailId
+        type: text
+        required: true
+        helpText: The unique ID for the specific email in the Automation workflow
+        placeholder: e.g., 8a5d66a426
+      - label: Subscriber Email
+        variable: emailAddress
+        type: text
+        required: true
+        helpText: The email address of the subscriber to add to the workflow
+        placeholder: subscriber@example.com
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable name to store the result of the operation
+        defaultValue: workflowSubscriberResult

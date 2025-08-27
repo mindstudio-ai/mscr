@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: list-automated-email-subscribers
+serviceId: MailChimp
+active: true
+metadata:
+  name: List Automated Email Subscribers
+  description: Get information about subscribers in a classic automation email queue
+  quickHelp: help.md
+configuration:
+  - title: Automation Details
+    items:
+      - label: Workflow ID
+        required: true
+        helpText: The unique ID for the Automation workflow
+        variable: workflowId
+        type: text
+        placeholder: Enter workflow ID...
+      - label: Workflow Email ID
+        required: true
+        helpText: The unique ID for the specific email within the Automation workflow
+        variable: workflowEmailId
+        type: text
+        placeholder: Enter workflow email ID...
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the list of subscribers in the email queue
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: search-members
+serviceId: MailChimp
+active: true
+metadata:
+  name: Search Members
+  description: Search for members across all lists or within a specific list in your MailChimp account
+  quickHelp: help.md
+configuration:
+  - title: Search Parameters
+    items:
+      - label: Search Query
+        helpText: Enter an email address, first name, or last name to search for
+        variable: query
+        required: true
+        type: text
+        placeholder: 'e.g., john@example.com or John Smith'
+      - label: List ID
+        helpText: Optionally limit search to a specific list. Leave blank to search across all lists.
+        variable: listId
+        required: false
+        type: text
+        placeholder: 'e.g., abc123def456'
+      - label: Output Variable
+        helpText: The variable name to store the search results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

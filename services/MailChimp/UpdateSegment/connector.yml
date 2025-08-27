@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=./../../../schema/action.schema.json
+apiVersion: v1
+kind: Action
+id: update-segment
+serviceId: MailChimp
+active: true
+metadata:
+  name: Update Segment
+  description: Updates a specific segment in a Mailchimp list
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list containing the segment you want to update
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Segment ID
+        helpText: The unique ID for the segment you want to update
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: e.g., 123456
+  - title: Segment Settings
+    items:
+      - label: Segment Name
+        helpText: The name of the segment
+        variable: name
+        required: true
+        type: text
+        placeholder: e.g., Active Subscribers
+      - label: Match Type
+        helpText: Determines whether subscribers must match all or any of the segment conditions
+        variable: matchType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Match Any Condition
+              value: any
+            - label: Match All Conditions
+              value: all
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the updated segment information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

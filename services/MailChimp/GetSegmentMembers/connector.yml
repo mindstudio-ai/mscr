@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Action
+id: get-segment-members
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Segment Members
+  description: Retrieve members from a specific segment within a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List and Segment Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list. You can find this in your MailChimp account.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Segment ID
+        helpText: The unique ID for the segment within the list.
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: e.g., 123456
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: The number of members to return. Maximum value is 1000.
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: The number of records to skip. Used for pagination.
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+      - label: Include Unsubscribed Members
+        helpText: Whether to include unsubscribed members in the results.
+        variable: includeUnsubscribed
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Include Cleaned Members
+        helpText: Whether to include cleaned members in the results.
+        variable: includeCleaned
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Include Transactional Members
+        helpText: Whether to include transactional members in the results.
+        variable: includeTransactional
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of segment members.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

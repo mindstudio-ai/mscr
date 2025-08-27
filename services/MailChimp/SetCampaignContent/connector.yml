@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Action
+id: set-campaign-content
+serviceId: MailChimp
+active: true
+metadata:
+  name: Set Campaign Content
+  description: Update the content of an existing MailChimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the campaign you want to update
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+  - title: Content Settings
+    items:
+      - label: Content Source
+        helpText: Choose how you want to provide the content
+        variable: contentSource
+        required: true
+        type: select
+        defaultValue: direct
+        selectOptions:
+          options:
+            - label: Direct Input
+              value: direct
+            - label: URL Import
+              value: url
+      - label: HTML Content
+        helpText: The raw HTML content for the campaign. Leave blank if you're only updating plain text or using a URL
+        variable: htmlContent
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Plain Text Content
+        helpText: The plain text content for the campaign. If left blank while providing HTML, it will be generated automatically
+        variable: plainTextContent
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: URL
+        helpText: When importing a campaign, the URL where the HTML lives. Only required if Content Source is set to 'URL Import'
+        variable: url
+        required: false
+        type: text
+        placeholder: https://example.com/campaign-content.html
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

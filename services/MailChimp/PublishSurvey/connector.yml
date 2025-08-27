@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: publish-survey
+serviceId: MailChimp
+active: true
+metadata:
+  name: Publish Survey
+  description: Publish a survey that is in draft, unpublished, or has been previously published and edited.
+  quickHelp: help.md
+configuration:
+  - title: Survey Information
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the Mailchimp audience/list containing the survey.
+        placeholder: Enter list ID...
+      - label: Survey ID
+        variable: surveyId
+        type: text
+        required: true
+        helpText: The ID of the survey you want to publish.
+        placeholder: Enter survey ID...
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the operation result.

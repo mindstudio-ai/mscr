@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-list-locations
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Locations
+  description: Retrieve the countries where your list's subscribers are located based on IP address geocoding
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp list/audience
+        variable: listId
+        required: true
+        type: text
+        placeholder: abc123def
+  - title: Response Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        required: false
+        type: text
+        placeholder: locations.country,locations.total
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: locations.percent,_links
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list locations data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

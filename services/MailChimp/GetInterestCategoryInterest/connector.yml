@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Action
+id: get-interest-category-interest
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get Interest Category Interest
+  description: Retrieve details about a specific interest (group name) within an interest category for a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Interest Details
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter list ID...
+      - label: Interest Category ID
+        helpText: The unique ID for the interest category
+        variable: interestCategoryId
+        required: true
+        type: text
+        placeholder: Enter interest category ID...
+      - label: Interest ID
+        helpText: The specific interest or group name ID
+        variable: interestId
+        required: true
+        type: text
+        placeholder: Enter interest ID...
+      - label: Output Variable
+        helpText: Name of the variable to store the interest details
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., name,subscriber_count,display_order
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links

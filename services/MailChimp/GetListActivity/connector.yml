@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-list-activity
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Activity
+  description: Retrieve up to 180 days of daily detailed activity stats for a Mailchimp list
+  quickHelp: help.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter your list ID...
+  - title: Activity Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: The number of records to return (default is 10, maximum is 1000)
+        variable: count
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Offset
+        helpText: Number of records to skip for pagination (default is 0)
+        variable: offset
+        required: false
+        type: text
+        placeholder: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the list activity results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

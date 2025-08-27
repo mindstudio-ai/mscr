@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Action
+id: add-member-event
+serviceId: MailChimp
+active: true
+metadata:
+  name: Add Member Event
+  description: Add an event for a specific list member in MailChimp
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Email or ID
+        helpText: The subscriber's email address or contact ID
+        variable: subscriberId
+        required: true
+        type: text
+        placeholder: e.g., user@example.com
+  - title: Event Details
+    items:
+      - label: Event Name
+        helpText: The name for this type of event (e.g., 'purchased', 'visited'). Must be 2-30 characters in length.
+        variable: eventName
+        required: true
+        type: text
+        placeholder: e.g., purchased
+      - label: Event Properties (JSON)
+        helpText: 'Optional JSON object with properties for this event (e.g., {"price": "19.99", "item": "T-shirt"})'
+        variable: eventProperties
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '{"property1": "value1", "property2": "value2"}'
+      - label: Event Time
+        helpText: The date and time the event occurred in ISO 8601 format (e.g., 2023-09-15T14:30:00Z). Defaults to current time if left blank.
+        variable: occurredAt
+        required: false
+        type: text
+        placeholder: e.g., 2023-09-15T14:30:00Z
+      - label: Prevent Automation Triggers
+        helpText: If set to true, this event will not trigger automations
+        variable: preventAutomations
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes (prevent automations)
+              value: 'true'
+            - label: No (allow automations)
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the operation result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Action
+id: list-folders
+serviceId: MailChimp
+active: true
+metadata:
+  name: List Folders
+  description: Get a list of all folders in the MailChimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: Folder Filtering
+    items:
+      - label: Created By
+        helpText: Filter folders by the username that created them
+        variable: createdBy
+        required: false
+        type: text
+        placeholder: Username...
+      - label: Before Created At
+        helpText: Filter folders created before this date (ISO 8601 format)
+        variable: beforeCreatedAt
+        required: false
+        type: text
+        placeholder: YYYY-MM-DDTHH:MM:SS+00:00
+      - label: Since Created At
+        helpText: Filter folders created after this date (ISO 8601 format)
+        variable: sinceCreatedAt
+        required: false
+        type: text
+        placeholder: YYYY-MM-DDTHH:MM:SS+00:00
+  - title: Pagination
+    collapsed: true
+    items:
+      - label: Count
+        helpText: Number of records to return (max 1000)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Offset
+        helpText: Number of records to skip for pagination
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of folders
+        variable: outputVariable
+        required: true
+        type: outputVariableName

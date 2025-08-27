@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: batch-segment-members
+serviceId: MailChimp
+active: true
+metadata:
+  name: Batch Segment Members
+  description: Add or remove multiple members to/from a static segment in a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Segment Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list. You can find this in your MailChimp account.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Segment ID
+        helpText: The unique ID for the segment. You can find this in your MailChimp account.
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: e.g., 456789
+  - title: Member Management
+    items:
+      - label: Members to Add
+        helpText: Email addresses to add to the segment. Enter one email per line or a comma-separated list. Maximum 500 emails.
+        variable: membersToAdd
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: user1@example.com, user2@example.com
+      - label: Members to Remove
+        helpText: Email addresses to remove from the segment. Enter one email per line or a comma-separated list. Maximum 500 emails.
+        variable: membersToRemove
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: user3@example.com, user4@example.com
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

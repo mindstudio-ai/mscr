@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Action
+id: get-list-merge-fields
+serviceId: MailChimp
+active: true
+metadata:
+  name: Get List Merge Fields
+  description: Retrieves all merge fields (custom fields) for a specified Mailchimp audience
+  quickHelp: help.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp audience/list. You can find this in your Mailchimp account under Audience settings.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+  - title: Filter Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: The number of merge fields to return. Maximum value is 1000.
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: The number of records to skip. Used for pagination.
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+      - label: Field Type
+        helpText: Filter by merge field type.
+        variable: type
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Any Type
+              value: ''
+            - label: Text
+              value: 'text'
+            - label: Number
+              value: 'number'
+            - label: Address
+              value: 'address'
+            - label: Phone
+              value: 'phone'
+            - label: Date
+              value: 'date'
+            - label: URL
+              value: 'url'
+            - label: Image URL
+              value: 'imageurl'
+            - label: Radio Buttons
+              value: 'radio'
+            - label: Dropdown
+              value: 'dropdown'
+            - label: Birthday
+              value: 'birthday'
+            - label: Zip Code
+              value: 'zip'
+      - label: Required Fields Only
+        helpText: Filter to show only required merge fields.
+        variable: required
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Fields
+              value: ''
+            - label: Required Fields Only
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of merge fields.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
