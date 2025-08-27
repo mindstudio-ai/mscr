@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Action
+id: get-post
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Post
+  description: Retrieves a single post from a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Post Details
+    items:
+      - label: Post ID
+        helpText: The ID of the post to retrieve (format post_00000000-0000-0000-0000-000000000000)
+        variable: postId
+        required: true
+        type: text
+        placeholder: post_00000000-0000-0000-0000-000000000000
+      - label: Publication ID
+        helpText: The ID of the publication the post belongs to (format pub_00000000-0000-0000-0000-000000000000)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Content Options
+    collapsed: true
+    items:
+      - label: Include Stats
+        helpText: Include post statistics in the response
+        variable: includeStats
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Include Content
+        helpText: Select which content types to include in the response
+        variable: includeContent
+        required: false
+        type: select
+        defaultValue: 'all'
+        selectOptions:
+          options:
+            - label: All Content
+              value: 'all'
+            - label: Free Web Content Only
+              value: 'free_web_content'
+            - label: Free Email Content Only
+              value: 'free_email_content'
+            - label: Premium Content Only
+              value: 'premium_content'
+            - label: No Content
+              value: 'none'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the post data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

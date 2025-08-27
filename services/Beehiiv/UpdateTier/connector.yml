@@ -1,0 +1,131 @@
+apiVersion: v1
+kind: Action
+id: update-tier
+serviceId: beehiiv
+active: true
+metadata:
+  name: Update Tier
+  description: Update an existing tier belonging to a specific publication
+  quickHelp: help.md
+configuration:
+  - title: Publication & Tier
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The ID of the publication that contains the tier (format pub_XXXX-XXXX-XXXX-XXXX)
+        variable: publicationId
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Tier ID
+        required: true
+        helpText: The ID of the tier to update (format tier_XXXX-XXXX-XXXX-XXXX)
+        variable: tierId
+        type: text
+        placeholder: tier_00000000-0000-0000-0000-000000000000
+  - title: Tier Details
+    items:
+      - label: Name
+        required: false
+        helpText: The new name for the tier
+        variable: name
+        type: text
+        placeholder: Gold Tier
+      - label: Description
+        required: false
+        helpText: The new description for the tier
+        variable: description
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Premium content for dedicated subscribers
+  - title: Price Settings
+    items:
+      - label: Update Prices
+        required: true
+        helpText: Whether to update prices for this tier
+        variable: updatePrices
+        type: select
+        defaultValue: 'no'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'yes'
+            - label: No
+              value: 'no'
+      - label: Price ID
+        required: false
+        helpText: ID of the existing price to update (format price_XXXX-XXXX-XXXX-XXXX)
+        variable: priceId
+        type: text
+        placeholder: price_00000000-0000-0000-0000-000000000000
+      - label: Currency
+        required: false
+        helpText: Currency for the price
+        variable: currency
+        type: select
+        selectOptions:
+          options:
+            - label: USD
+              value: usd
+            - label: AUD
+              value: aud
+            - label: CAD
+              value: cad
+            - label: EUR
+              value: eur
+            - label: INR
+              value: inr
+            - label: BRL
+              value: brl
+      - label: Amount (in cents)
+        required: false
+        helpText: Amount in cents for the price (e.g., 500 for $5.00)
+        variable: amountCents
+        type: text
+        placeholder: 500
+      - label: Interval
+        required: false
+        helpText: Billing interval for the price
+        variable: interval
+        type: select
+        selectOptions:
+          options:
+            - label: Monthly
+              value: month
+            - label: Yearly
+              value: year
+            - label: One-time
+              value: one_time
+            - label: Donation
+              value: donation
+      - label: Interval Display
+        required: false
+        helpText: Custom display text for the interval (optional)
+        variable: intervalDisplay
+        type: text
+        placeholder: per month
+      - label: Call to Action
+        required: false
+        helpText: Text displayed on the checkout button
+        variable: cta
+        type: text
+        placeholder: Subscribe Now
+      - label: Delete Price
+        required: false
+        helpText: Whether to delete this price
+        variable: deletePriceOption
+        type: select
+        defaultValue: 'no'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'yes'
+            - label: No
+              value: 'no'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the updated tier information
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Action
+id: add-subscription-to-automation
+serviceId: beehiiv
+active: true
+metadata:
+  name: Add Subscription to Automation
+  description: Adds an existing subscriber to a Beehiiv automation flow
+  quickHelp: help.md
+configuration:
+  - title: Automation Details
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        variable: publicationId
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Automation ID
+        required: true
+        helpText: The ID of the automation to add the subscriber to (starts with aut_)
+        variable: automationId
+        type: text
+        placeholder: aut_00000000-0000-0000-0000-000000000000
+  - title: Subscriber Information
+    items:
+      - label: Email Address
+        required: false
+        helpText: The email address of the existing subscriber to add to the automation. Either Email or Subscription ID must be provided.
+        variable: email
+        type: text
+        placeholder: subscriber@example.com
+      - label: Subscription ID
+        required: false
+        helpText: The ID of the existing subscription to add to the automation (starts with sub_). Either Email or Subscription ID must be provided.
+        variable: subscriptionId
+        type: text
+        placeholder: sub_00000000-0000-0000-0000-000000000000
+      - label: Override Double Opt-in
+        required: false
+        helpText: Override publication double-opt settings for this subscription.
+        variable: doubleOptOverride
+        type: select
+        selectOptions:
+          options:
+            - label: "Don't override"
+              value: ''
+            - label: 'Skip double opt-in'
+              value: 'skip'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the automation journey details.
+        variable: outputVariable
+        type: outputVariableName

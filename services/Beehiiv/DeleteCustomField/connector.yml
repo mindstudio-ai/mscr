@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: delete-custom-field
+serviceId: beehiiv
+active: true
+metadata:
+  name: Delete Custom Field
+  description: Delete a custom field from a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Delete Custom Field Configuration
+    items:
+      - label: Publication ID
+        helpText: The ID of the publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_123abc456def
+      - label: Custom Field ID
+        helpText: The ID of the custom field to delete
+        variable: customFieldId
+        required: true
+        type: text
+        placeholder: custom_field_id

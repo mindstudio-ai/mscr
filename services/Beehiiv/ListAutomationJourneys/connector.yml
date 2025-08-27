@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: list-automation-journeys
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Automation Journeys
+  description: Retrieve a list of automation journeys that have occurred within a specific automation
+  quickHelp: help.md
+configuration:
+  - title: Publication Information
+    items:
+      - label: Publication ID
+        variable: publicationId
+        type: text
+        required: true
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Automation Information
+    items:
+      - label: Automation ID
+        variable: automationId
+        type: text
+        required: true
+        helpText: The ID of the automation to retrieve journeys for (starts with aut_)
+        placeholder: aut_00000000-0000-0000-0000-000000000000
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Page
+        variable: page
+        type: text
+        required: false
+        helpText: The page number to retrieve (defaults to 1)
+        defaultValue: '1'
+      - label: Results Per Page
+        variable: limit
+        type: text
+        required: false
+        helpText: Number of results to return per page (defaults to 10)
+        defaultValue: '10'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the list of automation journeys

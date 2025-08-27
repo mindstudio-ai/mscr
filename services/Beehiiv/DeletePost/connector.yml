@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: delete-post
+serviceId: beehiiv
+active: true
+metadata:
+  name: Delete Post
+  description: Delete or archive a post in beehiiv. Confirmed posts will be archived, while draft posts will be permanently deleted.
+  quickHelp: help.md
+configuration:
+  - title: Post Information
+    items:
+      - label: Publication ID
+        helpText: The prefixed ID of the publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Post ID
+        helpText: The prefixed ID of the post to delete (starts with post_)
+        variable: postId
+        required: true
+        type: text
+        placeholder: post_00000000-0000-0000-0000-000000000000
+      - label: Success Message Variable
+        helpText: Variable name to store the success message
+        variable: outputVariable
+        required: true
+        type: outputVariableName

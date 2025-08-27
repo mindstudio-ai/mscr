@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Action
+id: update-subscription-by-email
+serviceId: beehiiv
+active: true
+metadata:
+  name: Update Subscription by Email
+  description: Update a subscriber's information including tier, custom fields, and subscription status
+  quickHelp: help.md
+configuration:
+  - title: Subscription Information
+    items:
+      - label: Publication ID
+        helpText: The ID of your Beehiiv publication (format pub_00000000-0000-0000-0000-000000000000)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Subscriber Email
+        helpText: The email address of the subscriber you want to update
+        variable: email
+        required: true
+        type: text
+        placeholder: subscriber@example.com
+  - title: Update Options
+    items:
+      - label: Subscription Tier
+        helpText: The tier to set for this subscription
+        variable: tier
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Free
+              value: free
+            - label: Premium
+              value: premium
+      - label: Stripe Customer ID
+        helpText: The Stripe Customer ID of the subscription (format cus_12345abcde)
+        variable: stripeCustomerId
+        required: false
+        type: text
+        placeholder: cus_12345abcde
+      - label: Unsubscribe
+        helpText: Set to 'Yes' to unsubscribe this subscriber from the publication
+        variable: unsubscribe
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No
+              value: false
+            - label: Yes
+              value: true
+  - title: Custom Fields
+    collapsed: true
+    items:
+      - label: Custom Fields
+        helpText: 'JSON array of custom field objects. Each object should have ''name'' and ''value'' properties. Example: [{"name":"First Name","value":"John"},{"name":"Last Name","value":"Doe"}]'
+        variable: customFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name":"First Name","value":"John"},{"name":"Last Name","value":"Doe"}]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the updated subscription information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: list-segment-subscribers
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Segment Subscribers
+  description: Retrieves a list of subscriber IDs from a specific segment in a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Segment Configuration
+    items:
+      - label: Publication ID
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Segment ID
+        helpText: The ID of the segment to retrieve subscribers from (starts with seg_)
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: seg_00000000-0000-0000-0000-000000000000
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Results Per Page
+        helpText: Number of results to return per page (1-100, default is 10)
+        variable: limit
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Page Number
+        helpText: Page number to retrieve (default is 1)
+        variable: page
+        required: false
+        type: text
+        placeholder: '1'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the list of subscriber IDs and pagination information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

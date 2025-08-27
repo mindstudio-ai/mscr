@@ -1,0 +1,116 @@
+apiVersion: v1
+kind: Action
+id: list-segments
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Segments
+  description: Retrieve information about all segments belonging to a specific publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Settings
+    items:
+      - label: Publication ID
+        variable: publicationId
+        type: text
+        required: true
+        helpText: The ID of your publication (starts with pub_)
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Filter Options
+    collapsed: true
+    items:
+      - label: Segment Type
+        variable: type
+        type: select
+        required: false
+        helpText: Filter segments by type
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Types
+              value: all
+            - label: Dynamic
+              value: dynamic
+            - label: Static
+              value: static
+            - label: Manual
+              value: manual
+      - label: Segment Status
+        variable: status
+        type: select
+        required: false
+        helpText: Filter segments by status
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Statuses
+              value: all
+            - label: Pending
+              value: pending
+            - label: Processing
+              value: processing
+            - label: Completed
+              value: completed
+            - label: Failed
+              value: failed
+  - title: Pagination
+    collapsed: true
+    items:
+      - label: Results Per Page
+        variable: limit
+        type: text
+        required: false
+        helpText: Number of results to return per page (1-100)
+        defaultValue: '10'
+      - label: Page Number
+        variable: page
+        type: text
+        required: false
+        helpText: Page number to retrieve
+        defaultValue: '1'
+  - title: Sorting
+    collapsed: true
+    items:
+      - label: Sort By
+        variable: orderBy
+        type: select
+        required: false
+        helpText: Field to sort results by
+        defaultValue: created
+        selectOptions:
+          options:
+            - label: Created Date
+              value: created
+            - label: Last Calculated
+              value: last_calculated
+      - label: Sort Direction
+        variable: direction
+        type: select
+        required: false
+        helpText: Direction to sort results
+        defaultValue: asc
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+  - title: Output
+    items:
+      - label: Include Segment Statistics
+        variable: includeStats
+        type: select
+        required: false
+        helpText: Include detailed statistics for each segment
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the segments list

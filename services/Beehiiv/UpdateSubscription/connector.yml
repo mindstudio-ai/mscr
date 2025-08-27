@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Action
+id: update-subscription
+serviceId: beehiiv
+active: true
+metadata:
+  name: Update Subscription
+  description: Updates an existing subscription in beehiiv by ID
+  quickHelp: help.md
+configuration:
+  - title: Basic Information
+    items:
+      - label: Publication ID
+        helpText: The ID of the publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Subscription ID
+        helpText: The ID of the subscription to update (starts with sub_)
+        variable: subscriptionId
+        required: true
+        type: text
+        placeholder: sub_00000000-0000-0000-0000-000000000000
+  - title: Subscription Details
+    items:
+      - label: Subscription Tier
+        helpText: The tier to set for this subscription
+        variable: tier
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Free
+              value: free
+            - label: Premium
+              value: premium
+      - label: Unsubscribe
+        helpText: Whether to unsubscribe this subscription from the publication
+        variable: unsubscribe
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No
+              value: false
+            - label: Yes
+              value: true
+      - label: Stripe Customer ID
+        helpText: The Stripe Customer ID of the subscription (optional)
+        variable: stripeCustomerId
+        required: false
+        type: text
+        placeholder: cus_123456789
+  - title: Custom Fields
+    collapsed: true
+    items:
+      - label: Custom Fields
+        helpText: 'JSON array of custom field objects to update. Format: [{"name":"field_name","value":"field_value"},{"name":"another_field","value":true,"delete":false}]'
+        variable: customFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name":"field_name","value":"field_value"}]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the updated subscription details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: get-post-templates
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Post Templates
+  description: Retrieve a list of post templates available for a beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        helpText: The ID of your beehiiv publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Results Per Page
+        helpText: Number of templates to return per page (1-100, default is 10)
+        variable: limit
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Page Number
+        helpText: Page number to retrieve (default is 1)
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+      - label: Sort Order
+        helpText: Direction to sort results
+        variable: order
+        required: false
+        type: select
+        defaultValue: asc
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of post templates
+        variable: outputVariable
+        required: true
+        type: outputVariableName

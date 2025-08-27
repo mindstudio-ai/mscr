@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Action
+id: get-subscription-by-email
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Subscription by Email
+  description: Retrieve a single subscription belonging to a specific email address in a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        variable: publicationId
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Email Address
+        required: true
+        helpText: The email address of the subscriber you want to retrieve
+        variable: email
+        type: text
+        placeholder: subscriber@example.com
+  - title: Additional Options
+    collapsed: true
+    items:
+      - label: Include Additional Data
+        required: false
+        helpText: Select additional data to include in the response
+        variable: expandFields
+        type: select
+        defaultValue: none
+        selectOptions:
+          options:
+            - label: None
+              value: none
+            - label: Stats
+              value: stats
+            - label: Custom Fields
+              value: custom_fields
+            - label: Referrals
+              value: referrals
+            - label: Tags
+              value: tags
+            - label: All
+              value: all
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the subscription information
+        variable: outputVariable
+        type: outputVariableName

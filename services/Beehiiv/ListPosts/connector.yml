@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: Action
+id: list-posts
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Posts
+  description: Retrieve a list of posts from a specified Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Publication ID
+        helpText: The ID of the publication to retrieve posts from (format pub_XXXX-XXXX-XXXX-XXXX)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Output Variable
+        helpText: Variable name to store the list of posts
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Content Type
+        helpText: Filter posts by audience type
+        variable: audience
+        required: false
+        type: select
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Posts
+              value: all
+            - label: Free Posts
+              value: free
+            - label: Premium Posts
+              value: premium
+      - label: Platform
+        helpText: Filter posts by platform
+        variable: platform
+        required: false
+        type: select
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Platforms
+              value: all
+            - label: Web Only
+              value: web
+            - label: Email Only
+              value: email
+            - label: Both Web and Email
+              value: both
+      - label: Status
+        helpText: Filter posts by their publication status
+        variable: status
+        required: false
+        type: select
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Statuses
+              value: all
+            - label: Draft
+              value: draft
+            - label: Confirmed
+              value: confirmed
+            - label: Archived
+              value: archived
+  - title: Pagination & Sorting
+    collapsed: true
+    items:
+      - label: Results Per Page
+        helpText: Number of posts to return per page (1-100)
+        variable: limit
+        required: false
+        type: text
+        placeholder: 10
+        defaultValue: '10'
+      - label: Page Number
+        helpText: Page number to retrieve
+        variable: page
+        required: false
+        type: text
+        placeholder: 1
+        defaultValue: '1'
+      - label: Sort By
+        helpText: Field to sort results by
+        variable: orderBy
+        required: false
+        type: select
+        defaultValue: created
+        selectOptions:
+          options:
+            - label: Creation Date
+              value: created
+            - label: Publish Date
+              value: publish_date
+            - label: Display Date
+              value: displayed_date
+      - label: Sort Direction
+        helpText: Direction to sort results
+        variable: direction
+        required: false
+        type: select
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Newest First
+              value: desc
+            - label: Oldest First
+              value: asc
+      - label: Include Stats
+        helpText: Whether to include post statistics in the response
+        variable: includeStats
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'

@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Action
+id: update-webhook
+serviceId: beehiiv
+active: true
+metadata:
+  name: Update Webhook
+  description: Update an existing webhook subscription for a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Webhook Details
+    items:
+      - label: Publication ID
+        helpText: The prefixed ID of the publication (format pub_XXXX)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Webhook ID
+        helpText: The prefixed ID of the webhook to update (format ep_XXXX)
+        variable: endpointId
+        required: true
+        type: text
+        placeholder: ep_0000000000000000000000000000
+      - label: Description
+        helpText: A description of the webhook
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Event Types
+        helpText: The types of events the webhook will receive
+        variable: eventTypes
+        required: true
+        type: select
+        selectOptions:
+          options:
+            - label: Post Sent
+              value: post.sent
+            - label: Post Updated
+              value: post.updated
+            - label: Subscription Confirmed
+              value: subscription.confirmed
+            - label: Subscription Created
+              value: subscription.created
+            - label: Subscription Downgraded
+              value: subscription.downgraded
+            - label: Subscription Paused
+              value: subscription.paused
+            - label: Subscription Resumed
+              value: subscription.resumed
+            - label: Subscription Tier Paused
+              value: subscription.tier.paused
+            - label: Subscription Tier Resumed
+              value: subscription.tier.resumed
+            - label: Subscription Upgraded
+              value: subscription.upgraded
+            - label: Subscription Tier Created
+              value: subscription.tier.created
+            - label: Subscription Tier Deleted
+              value: subscription.tier.deleted
+            - label: Subscription Deleted
+              value: subscription.deleted
+            - label: Survey Response Submitted
+              value: survey.response_submitted
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the updated webhook information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

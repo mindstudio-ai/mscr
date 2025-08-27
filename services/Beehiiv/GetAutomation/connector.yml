@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-automation
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Automation
+  description: Retrieves details about a specific automation from a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Automation Details
+    items:
+      - label: Publication ID
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Automation ID
+        helpText: The ID of the automation you want to retrieve (starts with aut_)
+        variable: automationId
+        required: true
+        type: text
+        placeholder: aut_00000000-0000-0000-0000-000000000000
+      - label: Output Variable
+        helpText: Variable name to store the automation details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

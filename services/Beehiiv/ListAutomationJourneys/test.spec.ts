@@ -1,0 +1,17 @@
+import { expect, test } from 'vitest';
+import runConnector from '../../../src/utils/testHarness';
+
+test('saves automation journeys to output variable', async () => {
+  process.env.apiKey = process.env.BEEHIIV_API_KEY;
+
+  const { handler } = await import('./handler.ts');
+  const ctx = await runConnector(handler, {
+    publicationId: 'pub_00000000-0000-0000-0000-000000000000',
+    automationId: 'aut_00000000-0000-0000-0000-000000000000',
+    page: '1',
+    limit: '10',
+    outputVariable: 'journeys',
+  });
+
+  expect(ctx.outputs['journeys']).toBeTruthy();
+});

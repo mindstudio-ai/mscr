@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: delete-segment
+serviceId: beehiiv
+active: true
+metadata:
+  name: Delete Segment
+  description: Delete a segment from a Beehiiv publication. Deleting the segment does not affect the subscriptions in the segment.
+  quickHelp: help.md
+configuration:
+  - title: Segment Information
+    items:
+      - label: Publication ID
+        helpText: The prefixed ID of the publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Segment ID
+        helpText: The prefixed ID of the segment to delete (starts with seg_)
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: seg_00000000-0000-0000-0000-000000000000
+      - label: Success Variable
+        helpText: Variable to store the success status of the operation
+        variable: successVariable
+        required: true
+        type: outputVariableName

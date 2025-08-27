@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: list-webhooks
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Webhooks
+  description: Retrieves all webhooks belonging to a specific publication in beehiiv
+  quickHelp: help.md
+configuration:
+  - title: Publication Settings
+    items:
+      - label: Publication ID
+        helpText: The prefixed ID of the publication (format pub_XXXX-XXXX-XXXX-XXXX)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Limit
+        helpText: A limit on the number of webhooks to return (1-100, default is 10)
+        variable: limit
+        required: false
+        type: text
+        placeholder: 10
+      - label: Output Variable
+        helpText: Variable name to store the list of webhooks
+        variable: outputVariable
+        required: true
+        type: outputVariableName
