@@ -118,26 +118,24 @@ Using the provided swagger definition, write the connector for the action. Examp
   }
 
   // Now, send to MindStudio agent
-  const response = await fetch(
-    'https://v1.mindstudio-api.com/developer/v2/agents/run',
-    {
-      method: 'POST',
-      headers: {
-        Authorization:
-          'Bearer sk2bcf44eb4a5f55080839d609b853973107d43a53212c234ffb52559e1b50dc32ea985490fd4c6fc7e5ab3dcf88944d4eda40076aff788d4d576493c3e4810049',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        workerId: '3080dca0-0a86-44f2-be5e-6875e178603b',
-        variables: {
-          definitions: JSON.stringify(resolvedList.slice(0, 2)),
-        },
-        workflow: 'RunFromAPI.flow',
-        version: 'draft',
-      }),
+  await fetch('https://v1.mindstudio-api.com/developer/v2/agents/run', {
+    method: 'POST',
+    headers: {
+      Authorization:
+        'Bearer sk2bcf44eb4a5f55080839d609b853973107d43a53212c234ffb52559e1b50dc32ea985490fd4c6fc7e5ab3dcf88944d4eda40076aff788d4d576493c3e4810049',
+      'Content-Type': 'application/json',
     },
-  );
-  await response.json();
+    body: JSON.stringify({
+      workerId: '3080dca0-0a86-44f2-be5e-6875e178603b',
+      variables: {
+        definitions: JSON.stringify(resolvedList),
+      },
+      workflow: 'RunFromAPI.flow',
+      version: 'draft',
+    }),
+  });
+
+  console.log('done');
 };
 
 getEndpoints();
