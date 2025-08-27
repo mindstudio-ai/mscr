@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: recalculate-segment
+serviceId: beehiiv
+active: true
+metadata:
+  name: Recalculate Segment
+  description: Recalculates a specific segment belonging to a publication
+  quickHelp: help.md
+configuration:
+  - title: Segment Information
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The prefixed ID of the publication (format pub_XXXX-XXXX-XXXX-XXXX)
+        variable: publicationId
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Segment ID
+        required: true
+        helpText: The prefixed ID of the segment (format seg_XXXX-XXXX-XXXX-XXXX)
+        variable: segmentId
+        type: text
+        placeholder: seg_00000000-0000-0000-0000-000000000000
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the operation result
+        variable: outputVariable
+        type: outputVariableName

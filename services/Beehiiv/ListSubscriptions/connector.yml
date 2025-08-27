@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Action
+id: list-subscriptions
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Subscriptions
+  description: Retrieve all subscriptions belonging to a specific Beehiiv publication with optional filtering
+  quickHelp: help.md
+configuration:
+  - title: Publication Information
+    items:
+      - label: Publication ID
+        helpText: The ID of your Beehiiv publication (format pub_00000000-0000-0000-0000-000000000000)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Email Address
+        helpText: Filter results by a specific email address (exact match, case insensitive)
+        variable: email
+        required: false
+        type: text
+        placeholder: example@example.com
+      - label: Subscription Status
+        helpText: Filter subscriptions by their status
+        variable: status
+        required: false
+        type: select
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Statuses
+              value: all
+            - label: Active
+              value: active
+            - label: Inactive
+              value: inactive
+            - label: Validating
+              value: validating
+            - label: Invalid
+              value: invalid
+            - label: Pending
+              value: pending
+      - label: Subscription Tier
+        helpText: Filter subscriptions by their tier
+        variable: tier
+        required: false
+        type: select
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Tiers
+              value: all
+            - label: Free
+              value: free
+            - label: Premium
+              value: premium
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Results Per Page
+        helpText: Number of results to return (1-100)
+        variable: limit
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Sort Direction
+        helpText: Order of subscription results
+        variable: direction
+        required: false
+        type: select
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Newest First
+              value: desc
+            - label: Oldest First
+              value: asc
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of subscriptions
+        variable: outputVariable
+        required: true
+        type: outputVariableName

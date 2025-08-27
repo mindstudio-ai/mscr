@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-custom-field
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Custom Field
+  description: Retrieves a specific custom field from a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Custom Field Details
+    items:
+      - label: Publication ID
+        helpText: The ID of your Beehiiv publication (starts with 'pub_')
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_1234abcd...
+      - label: Custom Field ID
+        helpText: The ID of the custom field you want to retrieve
+        variable: customFieldId
+        required: true
+        type: text
+        placeholder: 00000000-0000-0000-0000-000000000000
+      - label: Output Variable
+        helpText: Variable name to store the custom field data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

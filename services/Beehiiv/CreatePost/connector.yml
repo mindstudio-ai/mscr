@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Action
+id: create-post
+serviceId: beehiiv
+active: true
+metadata:
+  name: Create Post
+  description: Create a new post for a specific beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Basic Information
+    items:
+      - label: Publication ID
+        helpText: The ID of the publication to create the post for (format starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Title
+        helpText: The title of the post
+        variable: title
+        required: true
+        type: text
+        placeholder: My Awesome Newsletter Post
+      - label: Subtitle
+        helpText: The subtitle of the post (optional)
+        variable: subtitle
+        required: false
+        type: text
+        placeholder: A brief description of your post
+      - label: Body Content
+        helpText: The HTML content of the post (optional)
+        variable: bodyContent
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: <p>Your post content here...</p>
+      - label: Status
+        helpText: The status of the post
+        variable: status
+        required: false
+        type: select
+        defaultValue: confirmed
+        selectOptions:
+          options:
+            - label: Draft
+              value: draft
+            - label: Confirmed
+              value: confirmed
+  - title: Publishing Options
+    collapsed: true
+    items:
+      - label: Scheduled At
+        helpText: When to publish the post (ISO 8601 format, e.g. 2024-12-25T12:00:00Z)
+        variable: scheduledAt
+        required: false
+        type: text
+        placeholder: 2024-12-25T12:00:00Z
+      - label: Thumbnail Image URL
+        helpText: URL of the thumbnail image for the post
+        variable: thumbnailImageUrl
+        required: false
+        type: text
+        placeholder: https://example.com/image.jpg
+      - label: Content Tags
+        helpText: Comma-separated list of content tags
+        variable: contentTags
+        required: false
+        type: text
+        placeholder: newsletter,update,news
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created post ID
+        variable: outputVariable
+        required: true
+        type: outputVariableName

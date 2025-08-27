@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: get-segment
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Segment
+  description: Retrieve information about a specific segment belonging to a publication
+  quickHelp: help.md
+configuration:
+  - title: Segment Information
+    items:
+      - label: Publication ID
+        helpText: The ID of the publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Segment ID
+        helpText: The ID of the segment to retrieve (starts with seg_)
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: seg_00000000-0000-0000-0000-000000000000
+      - label: Include Statistics
+        helpText: Whether to include segment statistics in the response
+        variable: includeStats
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Output Variable
+        helpText: The variable name to store the segment information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

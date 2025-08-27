@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Action
+id: create-webhook
+serviceId: beehiiv
+active: true
+metadata:
+  name: Create Webhook
+  description: Create a new webhook for a beehiiv publication to receive event notifications
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        helpText: The ID of your beehiiv publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Webhook Configuration
+    items:
+      - label: Webhook URL
+        helpText: The URL where beehiiv will send event notifications
+        variable: webhookUrl
+        required: true
+        type: text
+        placeholder: https://example.com/webhook
+      - label: Event Types
+        helpText: The types of events this webhook will receive
+        variable: eventTypes
+        required: true
+        type: select
+        selectOptions:
+          options:
+            - label: Post Sent
+              value: post.sent
+            - label: Post Updated
+              value: post.updated
+            - label: Subscription Confirmed
+              value: subscription.confirmed
+            - label: Subscription Created
+              value: subscription.created
+            - label: Subscription Downgraded
+              value: subscription.downgraded
+            - label: Subscription Paused
+              value: subscription.paused
+            - label: Subscription Resumed
+              value: subscription.resumed
+            - label: Subscription Tier Paused
+              value: subscription.tier.paused
+            - label: Subscription Tier Resumed
+              value: subscription.tier.resumed
+            - label: Subscription Upgraded
+              value: subscription.upgraded
+            - label: Subscription Tier Created
+              value: subscription.tier.created
+            - label: Subscription Tier Deleted
+              value: subscription.tier.deleted
+            - label: Subscription Deleted
+              value: subscription.deleted
+            - label: Survey Response Submitted
+              value: survey.response_submitted
+      - label: Description
+        helpText: Optional description of the webhook's purpose
+        variable: description
+        required: false
+        type: text
+        placeholder: Webhook for tracking new subscribers
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created webhook details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

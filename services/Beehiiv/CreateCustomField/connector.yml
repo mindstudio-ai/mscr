@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: create-custom-field
+serviceId: beehiiv
+active: true
+metadata:
+  name: Create Custom Field
+  description: Creates a custom field for a Beehiiv publication to store additional subscriber information
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        helpText: The ID of your Beehiiv publication (starts with 'pub_')
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_1234abcd...
+  - title: Custom Field Details
+    items:
+      - label: Field Type
+        helpText: The type of value to be stored in this custom field
+        variable: fieldType
+        required: true
+        type: select
+        defaultValue: string
+        selectOptions:
+          options:
+            - label: Text
+              value: string
+            - label: Number
+              value: number
+            - label: Boolean
+              value: boolean
+            - label: Date
+              value: date
+      - label: Display Name
+        helpText: The name that will be displayed for this custom field
+        variable: displayName
+        required: true
+        type: text
+        placeholder: e.g., Company Name, Age, Interests
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created custom field information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

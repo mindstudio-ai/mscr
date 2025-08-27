@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: get-publication
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Publication
+  description: Retrieve details about a single Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The unique ID of the publication to retrieve (format pub_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+        variable: publicationId
+        type: text
+        placeholder: pub_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+      - label: Include Statistics
+        required: false
+        helpText: Choose what statistics to include in the response
+        variable: includeStats
+        type: select
+        defaultValue: none
+        selectOptions:
+          options:
+            - label: None
+              value: none
+            - label: All Stats
+              value: stats
+            - label: Active Subscriptions Only
+              value: stat_active_subscriptions
+            - label: Premium Subscriptions Only
+              value: stat_active_premium_subscriptions
+            - label: Free Subscriptions Only
+              value: stat_active_free_subscriptions
+            - label: Average Open Rate Only
+              value: stat_average_open_rate
+            - label: Average Click Rate Only
+              value: stat_average_click_rate
+            - label: Total Sent Only
+              value: stat_total_sent
+            - label: Total Opened Only
+              value: stat_total_unique_opened
+            - label: Total Clicked Only
+              value: stat_total_clicked
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the publication data
+        variable: outputVariable
+        type: outputVariableName

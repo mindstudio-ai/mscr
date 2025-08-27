@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: delete-subscription
+serviceId: beehiiv
+active: true
+metadata:
+  name: Delete Subscription
+  description: Permanently deletes a subscription from a publication in beehiiv
+  quickHelp: help.md
+configuration:
+  - title: Subscription Details
+    items:
+      - label: Publication ID
+        helpText: The prefixed ID of the publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Subscription ID
+        helpText: The prefixed ID of the subscription to delete (starts with sub_)
+        variable: subscriptionId
+        required: true
+        type: text
+        placeholder: sub_00000000-0000-0000-0000-000000000000
+  - title: Confirmation
+    items:
+      - label: Confirmation
+        helpText: This action permanently deletes the subscription and cannot be undone. All associated data will be deleted. For premium subscriptions, this will stop future billing.
+        variable: confirmation
+        required: true
+        type: select
+        defaultValue: confirmed
+        selectOptions:
+          options:
+            - label: Yes, I understand this action cannot be undone
+              value: confirmed

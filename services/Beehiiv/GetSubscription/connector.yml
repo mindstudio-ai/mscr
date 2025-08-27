@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Action
+id: get-subscription
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Subscription by ID
+  description: Retrieve a single subscription belonging to a specific publication
+  quickHelp: help.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The ID of the publication (format pub_XXXX)
+        variable: publicationId
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Subscription ID
+        required: true
+        helpText: The ID of the subscription to retrieve (format sub_XXXX)
+        variable: subscriptionId
+        type: text
+        placeholder: sub_00000000-0000-0000-0000-000000000000
+  - title: Additional Options
+    collapsed: true
+    items:
+      - label: Expand Options
+        required: false
+        helpText: Optional data to expand in the response
+        variable: expandOptions
+        type: select
+        selectOptions:
+          options:
+            - label: None
+              value: none
+            - label: Subscription Premium Tiers
+              value: subscription_premium_tiers
+            - label: Referrals
+              value: referrals
+            - label: Stats
+              value: stats
+            - label: Custom Fields
+              value: custom_fields
+            - label: Tags
+              value: tags
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the subscription data
+        variable: outputVariable
+        type: outputVariableName

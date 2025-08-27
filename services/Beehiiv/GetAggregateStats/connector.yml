@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Action
+id: get-aggregate-stats
+serviceId: beehiiv
+active: true
+metadata:
+  name: Get Aggregate Stats
+  description: Retrieve aggregate statistics for all posts in a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        variable: publicationId
+        type: text
+        required: true
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        placeholder: pub_1234abcd...
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Audience
+        variable: audience
+        type: select
+        required: false
+        helpText: Filter results by audience type
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Audiences
+              value: all
+            - label: Free Subscribers
+              value: free
+            - label: Premium Subscribers
+              value: premium
+      - label: Platform
+        variable: platform
+        type: select
+        required: false
+        helpText: Filter results by platform
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Platforms
+              value: all
+            - label: Web Only
+              value: web
+            - label: Email Only
+              value: email
+            - label: Both Web and Email
+              value: both
+      - label: Post Status
+        variable: status
+        type: select
+        required: false
+        helpText: Filter results by post status
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Posts
+              value: all
+            - label: Draft Posts
+              value: draft
+            - label: Published Posts
+              value: confirmed
+            - label: Archived Posts
+              value: archived
+      - label: Content Tags
+        variable: contentTags
+        type: text
+        required: false
+        helpText: Filter by content tags (comma-separated list)
+        placeholder: tag1, tag2, tag3
+      - label: Hidden From Feed
+        variable: hiddenFromFeed
+        type: select
+        required: false
+        helpText: Filter by posts' visibility in feed
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All Posts
+              value: all
+            - label: Hidden Posts Only
+              value: 'true'
+            - label: Visible Posts Only
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable name to store the aggregate stats results

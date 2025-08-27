@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: Action
+id: create-tier
+serviceId: beehiiv
+active: true
+metadata:
+  name: Create Tier
+  description: Creates a new subscription tier for a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        variable: publicationId
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Tier Information
+    items:
+      - label: Tier Name
+        required: true
+        helpText: Name of the subscription tier (e.g., Gold, Premium, etc.)
+        variable: name
+        type: text
+      - label: Description
+        required: false
+        helpText: Description of what subscribers get with this tier
+        variable: description
+        type: text
+        textOptions:
+          type: multiline
+  - title: Pricing
+    items:
+      - label: Add Pricing
+        required: false
+        helpText: Set up pricing for this tier
+        variable: addPricing
+        type: select
+        defaultValue: 'no'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'yes'
+            - label: No
+              value: 'no'
+      - label: Currency
+        required: false
+        helpText: Select the currency for this price
+        variable: currency
+        type: select
+        defaultValue: 'usd'
+        selectOptions:
+          options:
+            - label: USD - US Dollar
+              value: 'usd'
+            - label: EUR - Euro
+              value: 'eur'
+            - label: CAD - Canadian Dollar
+              value: 'cad'
+            - label: AUD - Australian Dollar
+              value: 'aud'
+            - label: INR - Indian Rupee
+              value: 'inr'
+            - label: BRL - Brazilian Real
+              value: 'brl'
+      - label: Amount (in cents)
+        required: false
+        helpText: Price amount in cents (e.g., 500 for $5.00)
+        variable: amountCents
+        type: text
+        placeholder: '500'
+      - label: Billing Interval
+        required: false
+        helpText: How often subscribers will be billed
+        variable: interval
+        type: select
+        defaultValue: 'month'
+        selectOptions:
+          options:
+            - label: Monthly
+              value: 'month'
+            - label: Yearly
+              value: 'year'
+            - label: One-time payment
+              value: 'one_time'
+            - label: Donation
+              value: 'donation'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created tier information
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: Action
+id: create-subscription
+serviceId: beehiiv
+active: true
+metadata:
+  name: Create Subscription
+  description: Create a new subscription for a Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Information
+    items:
+      - label: Publication ID
+        required: true
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        variable: publicationId
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Subscriber Details
+    items:
+      - label: Email
+        required: true
+        helpText: The email address of the subscriber
+        variable: email
+        type: text
+        placeholder: example@example.com
+      - label: Reactivate Existing
+        required: false
+        helpText: Whether to reactivate the subscription if they have already unsubscribed
+        variable: reactivateExisting
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Send Welcome Email
+        required: false
+        helpText: Whether to send a welcome email to the new subscriber
+        variable: sendWelcomeEmail
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Tracking Information
+    collapsed: true
+    items:
+      - label: UTM Source
+        required: false
+        helpText: The source of the subscription (e.g., Twitter, Facebook)
+        variable: utmSource
+        type: text
+        placeholder: Twitter
+      - label: UTM Medium
+        required: false
+        helpText: The medium of the subscription (e.g., organic, paid)
+        variable: utmMedium
+        type: text
+        placeholder: organic
+      - label: UTM Campaign
+        required: false
+        helpText: The acquisition campaign of the subscription
+        variable: utmCampaign
+        type: text
+        placeholder: fall_2023_promotion
+      - label: Referring Site
+        required: false
+        helpText: The website that the subscriber was referred from
+        variable: referringSite
+        type: text
+        placeholder: www.example.com/blog
+      - label: Referral Code
+        required: false
+        helpText: A subscriber's referral code to give referral credit for the new subscription
+        variable: referralCode
+        type: text
+  - title: Subscription Tier
+    collapsed: true
+    items:
+      - label: Tier
+        required: false
+        helpText: The tier for this subscription
+        variable: tier
+        type: select
+        selectOptions:
+          options:
+            - label: Free
+              value: 'free'
+            - label: Premium
+              value: 'premium'
+      - label: Custom Fields
+        required: false
+        helpText: 'JSON array of custom fields in format [{"name": "First Name", "value": "John"}, {"name": "Last Name", "value": "Doe"}]'
+        variable: customFields
+        type: text
+        textOptions:
+          type: multiline
+  - title: Result
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the newly created subscription information
+        variable: outputVariable
+        type: outputVariableName

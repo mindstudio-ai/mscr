@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: update-custom-field
+serviceId: beehiiv
+active: true
+metadata:
+  name: Update Custom Field
+  description: Updates a custom field for a publication in Beehiiv
+  quickHelp: help.md
+configuration:
+  - title: Update Custom Field Configuration
+    items:
+      - label: Publication ID
+        helpText: The ID of the publication (format pub_XXXX)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_123456789
+      - label: Custom Field ID
+        helpText: The ID of the custom field to update
+        variable: customFieldId
+        required: true
+        type: text
+        placeholder: custom_field_id
+      - label: Display Name
+        helpText: The new display name for the custom field
+        variable: display
+        required: true
+        type: text
+        placeholder: New Field Name
+      - label: Output Variable
+        helpText: Variable name to store the updated custom field information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

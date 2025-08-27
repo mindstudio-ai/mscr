@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: list-automations
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Automations
+  description: Retrieves a list of automations for a specified Beehiiv publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Details
+    items:
+      - label: Publication ID
+        helpText: The ID of your Beehiiv publication (starts with pub_)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Results Per Page
+        helpText: Number of results per page (1-100, default is 10)
+        variable: limit
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Page Number
+        helpText: Page number to retrieve (default is 1)
+        variable: page
+        required: false
+        type: text
+        placeholder: '1'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of automations
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: identify-workspace
+serviceId: beehiiv
+active: true
+metadata:
+  name: Identify Workspace
+  description: Retrieves information about the workspace associated with your Beehiiv API token, including workspace ID, name, and owner email.
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the workspace information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Action
+id: list-tiers
+serviceId: beehiiv
+active: true
+metadata:
+  name: List Tiers
+  description: Retrieve all tiers belonging to a specific publication
+  quickHelp: help.md
+configuration:
+  - title: Publication Information
+    items:
+      - label: Publication ID
+        helpText: The ID of the publication to retrieve tiers from (format pub_XXXX-XXXX-XXXX-XXXX)
+        variable: publicationId
+        required: true
+        type: text
+        placeholder: pub_00000000-0000-0000-0000-000000000000
+      - label: Output Variable
+        helpText: Variable name to store the retrieved tiers
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Include Stats
+        helpText: Whether to include statistics about the tiers
+        variable: expandStats
+        required: false
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Include Prices
+        helpText: Whether to include prices for the tiers
+        variable: expandPrices
+        required: false
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Results Per Page
+        helpText: Number of results per page (1-100)
+        variable: limit
+        required: false
+        type: text
+        placeholder: 10
+      - label: Page Number
+        helpText: Page number for pagination
+        variable: page
+        required: false
+        type: text
+        placeholder: 1
+      - label: Sort Direction
+        helpText: Sort direction for results
+        variable: sortDirection
+        required: false
+        type: select
+        defaultValue: 'asc'
+        selectOptions:
+          options:
+            - label: Ascending
+              value: 'asc'
+            - label: Descending
+              value: 'desc'
