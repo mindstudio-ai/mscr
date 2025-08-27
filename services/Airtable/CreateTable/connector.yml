@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: create-table
+serviceId: airtable
+active: true
+metadata:
+  name: Create Table
+  description: Creates a new table in an Airtable base with specified fields
+  quickHelp: help.md
+configuration:
+  - title: Base Information
+    items:
+      - label: Base ID
+        helpText: The ID of the Airtable base where you want to create the table. This is the part after 'airtable.com/' in your base URL.
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table Name
+        helpText: Name for the new table.
+        variable: tableName
+        required: true
+        type: text
+        placeholder: My New Table
+      - label: Table Description
+        helpText: Optional description for the table. Maximum 20,000 characters.
+        variable: tableDescription
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: Fields
+    items:
+      - label: Fields
+        helpText: Define the fields for your table in JSON format. The first field will be the primary field. Each field must have a name and type.
+        variable: fields
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        defaultValue: '[{"name": "Name", "type": "singleLineText"}]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created table information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

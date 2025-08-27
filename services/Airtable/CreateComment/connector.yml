@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: create-comment
+serviceId: airtable
+active: true
+metadata:
+  name: Create Comment
+  description: Creates a comment on a specific record in an Airtable base
+  quickHelp: help.md
+configuration:
+  - title: Airtable Configuration
+    items:
+      - label: Base ID
+        required: true
+        helpText: The ID of your Airtable base. Found in the API documentation or in the URL when viewing your base.
+        variable: baseId
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table ID or Name
+        required: true
+        helpText: The ID or name of the table where the record is located.
+        variable: tableIdOrName
+        type: text
+        placeholder: tblXXXXXXXXXXXXXX or Table Name
+      - label: Record ID
+        required: true
+        helpText: The ID of the record you want to comment on.
+        variable: recordId
+        type: text
+        placeholder: recXXXXXXXXXXXXXX
+  - title: Comment Details
+    items:
+      - label: Comment Text
+        required: true
+        helpText: The text content of your comment. You can mention users with @[userId] syntax.
+        variable: commentText
+        type: text
+        textOptions:
+          type: multiline
+      - label: Parent Comment ID
+        required: false
+        helpText: Optional. If this is a reply to another comment, provide the parent comment ID.
+        variable: parentCommentId
+        type: text
+        placeholder: comXXXXXXXXXXXXXX
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the created comment details.
+        variable: outputVariable
+        type: outputVariableName

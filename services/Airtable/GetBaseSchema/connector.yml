@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-base-schema
+serviceId: airtable
+active: true
+metadata:
+  name: Get Base Schema
+  description: Retrieves the schema of tables in a specified Airtable base
+  quickHelp: help.md
+configuration:
+  - title: Base Information
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base. You can find this in the URL of your base (airtable.com/[baseId]/...)
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+  - title: Options
+    collapsed: true
+    items:
+      - label: Include Visible Field IDs
+        helpText: If selected, the response will include visible field IDs for grid views
+        variable: includeVisibleFieldIds
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name where the base schema will be stored
+        variable: outputVariable
+        required: true
+        type: outputVariableName

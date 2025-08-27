@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Action
+id: update-multiple-records
+serviceId: airtable
+active: true
+metadata:
+  name: Update Multiple Records
+  description: Updates up to 10 records in an Airtable table
+  quickHelp: help.md
+configuration:
+  - title: Table Information
+    items:
+      - label: Base ID
+        helpText: The ID of the Airtable base (found in the API URL)
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table ID or Name
+        helpText: The ID or name of the table to update records in
+        variable: tableIdOrName
+        required: true
+        type: text
+        placeholder: Table Name or tblXXXXXXXXXXXXXX
+  - title: Records to Update
+    items:
+      - label: Records
+        helpText: JSON array of records to update. Each record must include an ID and the fields to update.
+        variable: records
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": "recXXXXXXXXXXXXXX", "fields": {"Field1": "Value1", "Field2": "Value2"}}]'
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Typecast
+        helpText: When enabled, Airtable will try to convert string values to the appropriate cell value types
+        variable: typecast
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Return Fields By Field ID
+        helpText: If enabled, the response will key fields by field ID instead of field name
+        variable: returnFieldsByFieldId
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Output Variable
+        helpText: Variable name to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

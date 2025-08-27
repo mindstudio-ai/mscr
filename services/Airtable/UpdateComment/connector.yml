@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: update-comment
+serviceId: airtable
+active: true
+metadata:
+  name: Update Comment
+  description: Updates an existing comment on a record in an Airtable base
+  quickHelp: help.md
+configuration:
+  - title: Base Information
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base (starts with 'app')
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table ID or Name
+        helpText: The ID or name of the table containing the record
+        variable: tableIdOrName
+        required: true
+        type: text
+        placeholder: tblXXXXXXXXXXXXXX or Table Name
+  - title: Comment Information
+    items:
+      - label: Record ID
+        helpText: The ID of the record containing the comment to update
+        variable: recordId
+        required: true
+        type: text
+        placeholder: recXXXXXXXXXXXXXX
+      - label: Comment ID
+        helpText: The ID of the comment to update (starts with 'com')
+        variable: commentId
+        required: true
+        type: text
+        placeholder: comXXXXXXXXXXXXXX
+      - label: New Comment Text
+        helpText: The updated text for the comment. You can mention users with @[userId]
+        variable: commentText
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated comment information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

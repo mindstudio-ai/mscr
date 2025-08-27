@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: create-record
+serviceId: airtable
+active: true
+metadata:
+  name: Create Record
+  description: Creates a new record in an Airtable table
+  quickHelp: help.md
+configuration:
+  - title: Base Configuration
+    items:
+      - label: Base ID
+        required: true
+        helpText: The ID of your Airtable base (starts with 'app')
+        variable: baseId
+        type: text
+        placeholder: appXXXXXXXXXXXX
+      - label: Table Name or ID
+        required: true
+        helpText: The name or ID of the table where you want to create the record
+        variable: tableName
+        type: text
+        placeholder: Table 1
+  - title: Record Data
+    items:
+      - label: Record Fields
+        required: true
+        helpText: JSON object with field names and values for the new record
+        variable: fields
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '{"Name": "New Record", "Notes": "Created via API"}'
+      - label: Typecast
+        required: false
+        helpText: Automatically convert string values to the correct field type
+        variable: typecast
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the ID of the created record
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Action
+id: list-records
+serviceId: airtable
+active: true
+metadata:
+  name: List Records
+  description: Retrieves records from an Airtable table with options for filtering, sorting, and pagination
+  quickHelp: help.md
+configuration:
+  - title: Base and Table Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base. Found in your Airtable URL after airtable.com/
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXX
+      - label: Table Name or ID
+        helpText: The name or ID of the table to retrieve records from
+        variable: tableIdOrName
+        required: true
+        type: text
+        placeholder: My Table
+  - title: Record Options
+    collapsed: true
+    items:
+      - label: Max Records
+        helpText: Maximum number of records to return (leave empty for all records)
+        variable: maxRecords
+        required: false
+        type: text
+        placeholder: '100'
+      - label: Page Size
+        helpText: Number of records to return per page (max 100)
+        variable: pageSize
+        required: false
+        type: text
+        placeholder: '100'
+      - label: View
+        helpText: Name or ID of a view in the table to filter records by
+        variable: view
+        required: false
+        type: text
+        placeholder: Grid view
+  - title: Filtering and Sorting
+    collapsed: true
+    items:
+      - label: Filter Formula
+        helpText: "Airtable formula to filter records (e.g., {Status}='Complete')"
+        variable: filterByFormula
+        required: false
+        type: text
+        placeholder: "{Status}='Complete'"
+      - label: Fields to Include
+        helpText: Comma-separated list of field names to include in the results (leave empty for all fields)
+        variable: fields
+        required: false
+        type: text
+        placeholder: 'Name, Email, Status'
+      - label: Sort Field
+        helpText: Field name to sort records by
+        variable: sortField
+        required: false
+        type: text
+        placeholder: Name
+      - label: Sort Direction
+        helpText: Direction to sort records
+        variable: sortDirection
+        required: false
+        type: select
+        defaultValue: asc
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of records
+        variable: outputVariable
+        required: true
+        type: outputVariableName

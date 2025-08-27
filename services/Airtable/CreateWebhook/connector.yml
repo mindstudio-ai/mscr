@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: create-webhook
+serviceId: airtable
+active: true
+metadata:
+  name: Create Webhook
+  description: Creates a new webhook in an Airtable base to receive notifications when data changes
+  quickHelp: help.md
+configuration:
+  - title: Base Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base. You can find this in the URL of your base (e.g., https://airtable.com/appXXXXXXXXXXXXXX).
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+  - title: Webhook Settings
+    items:
+      - label: Notification URL
+        helpText: An optional URL that will receive notification pings when the webhook is triggered.
+        variable: notificationUrl
+        required: false
+        type: text
+        placeholder: https://example.com/webhook
+      - label: Data Types
+        helpText: The types of changes the webhook will monitor.
+        variable: dataTypes
+        required: true
+        type: select
+        defaultValue: tableData
+        selectOptions:
+          options:
+            - label: Table Data
+              value: tableData
+            - label: Table Schema
+              value: tableSchema
+            - label: Base Schema
+              value: baseSchema
+      - label: Table ID
+        helpText: Optional. The ID of a specific table to monitor. Leave blank to monitor all tables.
+        variable: tableId
+        required: false
+        type: text
+        placeholder: tblXXXXXXXXXXXXXX
+      - label: Output Variable
+        helpText: The variable name to store the webhook information including ID and MAC secret.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

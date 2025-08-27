@@ -2,8 +2,9 @@ import { z } from 'zod';
 
 export const ServiceConfigurationItem = z.object({
   id: z.string().min(1),
-  type: z.enum(['apiKey', 'plaintext']),
-  name: z.string(),
+  type: z.enum(['apiKey', 'plaintext', 'bearerToken']),
+  managed: z.boolean().optional(),
+  name: z.string().optional(),
   description: z.string().default(''),
   placeholder: z.string().default(''),
 });

@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Action
+id: update-field
+serviceId: airtable
+active: true
+metadata:
+  name: Update Field
+  description: Updates the name and/or description of a field in an Airtable table
+  quickHelp: help.md
+configuration:
+  - title: Base Information
+    items:
+      - label: Base ID
+        helpText: The ID of the Airtable base
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table ID
+        helpText: The ID of the table containing the field
+        variable: tableId
+        required: true
+        type: text
+        placeholder: tblXXXXXXXXXXXXXX
+      - label: Field ID
+        helpText: The ID of the field to update
+        variable: fieldId
+        required: true
+        type: text
+        placeholder: fldXXXXXXXXXXXXXX
+  - title: Field Updates
+    items:
+      - label: Field Name
+        helpText: The new name for the field (optional if description is provided)
+        variable: fieldName
+        required: false
+        type: text
+        placeholder: New Field Name
+      - label: Field Description
+        helpText: The new description for the field (optional if name is provided)
+        variable: fieldDescription
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: New description for the field
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

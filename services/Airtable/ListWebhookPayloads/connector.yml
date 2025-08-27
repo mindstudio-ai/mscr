@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: list-webhook-payloads
+serviceId: airtable
+active: true
+metadata:
+  name: List Webhook Payloads
+  description: Retrieves webhook payloads from an Airtable base
+  quickHelp: help.md
+configuration:
+  - title: Webhook Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base (found in the API documentation or URL)
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Webhook ID
+        helpText: The ID of the webhook you want to retrieve payloads for
+        variable: webhookId
+        required: true
+        type: text
+        placeholder: wnkXXXXXXXXXXXXXX
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Cursor
+        helpText: Transaction number to start listing payloads from. Omit for first request (defaults to 1).
+        variable: cursor
+        required: false
+        type: text
+        placeholder: '1'
+      - label: Limit
+        helpText: Maximum number of payloads to return (max 50)
+        variable: limit
+        required: false
+        type: text
+        placeholder: '10'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the webhook payloads response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

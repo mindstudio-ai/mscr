@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: list-webhooks
+serviceId: airtable
+active: true
+metadata:
+  name: List Webhooks
+  description: Lists all webhooks registered for an Airtable base, along with their statuses
+  quickHelp: help.md
+configuration:
+  - title: Base Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base (starts with 'app')
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Output Variable
+        helpText: Variable name to store the list of webhooks
+        variable: outputVariable
+        required: true
+        type: outputVariableName

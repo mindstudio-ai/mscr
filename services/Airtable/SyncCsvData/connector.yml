@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: sync-csv-data
+serviceId: airtable
+active: true
+metadata:
+  name: Sync CSV Data
+  description: Syncs raw CSV data into an Airtable table using the Sync API
+  quickHelp: help.md
+configuration:
+  - title: Airtable Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base. Can be found in the URL when viewing your base (e.g., 'app12345abcde').
+        variable: baseId
+        required: true
+        type: text
+        placeholder: app12345abcde
+      - label: Table ID or Name
+        helpText: The ID or name of the table where you want to sync the data.
+        variable: tableIdOrName
+        required: true
+        type: text
+        placeholder: Table Name or tbl12345abcde
+      - label: API Endpoint Sync ID
+        helpText: The Sync ID created when setting up a sync from a base. Can be found in the setup flow or from the synced table settings.
+        variable: apiEndpointSyncId
+        required: true
+        type: text
+        placeholder: syn12345abcde
+  - title: CSV Data
+    items:
+      - label: CSV Data
+        helpText: The CSV data to sync. First row should contain column names. Limited to 10k rows, 500 columns, and 2MB in size.
+        variable: csvData
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: "column1,column2\nrow1-column1,row1-column2\nrow2-column1,row2-column2"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the success response.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

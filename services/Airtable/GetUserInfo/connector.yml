@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Action
+id: get-user-info
+serviceId: airtable
+active: true
+metadata:
+  name: Get User Info
+  description: Retrieves the authenticated user's ID and optionally their email address from Airtable
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: User ID Variable
+        required: true
+        helpText: Variable name to store the Airtable user ID
+        variable: userIdVariable
+        type: outputVariableName
+      - label: Email Variable
+        required: false
+        helpText: Variable name to store the user's email address (only returned if token has the user.email:read scope)
+        variable: emailVariable
+        type: outputVariableName
+      - label: Scopes Variable
+        required: false
+        helpText: Variable name to store the token scopes (only returned for OAuth access tokens)
+        variable: scopesVariable
+        type: outputVariableName

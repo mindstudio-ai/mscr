@@ -50,8 +50,12 @@
             "type": "string",
             "enum": [
               "apiKey",
-              "plaintext"
+              "plaintext",
+              "bearerToken"
             ]
+          },
+          "managed": {
+            "type": "boolean"
           },
           "name": {
             "type": "string"
@@ -67,8 +71,7 @@
         },
         "required": [
           "id",
-          "type",
-          "name"
+          "type"
         ],
         "additionalProperties": false
       },

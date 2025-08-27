@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Action
+id: upload-attachment
+serviceId: airtable
+active: true
+metadata:
+  name: Upload Attachment
+  description: Upload a file as an attachment to a specific record in Airtable
+  quickHelp: help.md
+configuration:
+  - title: Airtable Record Details
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base (found in the API documentation or in the URL when viewing your base)
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Record ID
+        helpText: The ID of the record to which you want to attach the file
+        variable: recordId
+        required: true
+        type: text
+        placeholder: recXXXXXXXXXXXXXX
+      - label: Attachment Field
+        helpText: The name or ID of the attachment field in your table
+        variable: attachmentField
+        required: true
+        type: text
+        placeholder: Attachments or fldXXXXXXXXXXXXXX
+  - title: File Details
+    items:
+      - label: File Content
+        helpText: The file content as a base64 encoded string or a variable containing the file data
+        variable: fileContent
+        required: true
+        type: text
+        placeholder: '{{fileData}}'
+      - label: File Name
+        helpText: The name of the file to be uploaded (e.g., 'document.pdf')
+        variable: fileName
+        required: true
+        type: text
+        placeholder: document.pdf
+      - label: Content Type
+        helpText: The MIME type of the file (e.g., 'application/pdf', 'image/jpeg')
+        variable: contentType
+        required: true
+        type: text
+        placeholder: application/pdf
+        defaultValue: application/octet-stream
+      - label: Output Variable
+        helpText: The name of the variable to store the response data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

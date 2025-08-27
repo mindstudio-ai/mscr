@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Action
+id: delete-comment
+serviceId: airtable
+active: true
+metadata:
+  name: Delete Comment
+  description: Deletes a comment from a record in an Airtable base
+  quickHelp: help.md
+configuration:
+  - title: Airtable Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table ID or Name
+        helpText: The ID or name of the table containing the record
+        variable: tableIdOrName
+        required: true
+        type: text
+        placeholder: tblXXXXXXXXXXXXXX
+      - label: Record ID
+        helpText: The ID of the record containing the comment
+        variable: recordId
+        required: true
+        type: text
+        placeholder: recXXXXXXXXXXXXXX
+      - label: Comment ID
+        helpText: The ID of the comment to delete
+        variable: commentId
+        required: true
+        type: text
+        placeholder: comXXXXXXXXXXXXXX
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the deletion result
+        variable: outputVariable
+        required: true
+        type: outputVariableName
