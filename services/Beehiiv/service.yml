@@ -5,7 +5,7 @@ id: beehiiv
 metadata:
   name: beehiiv
   description: All-in-one platform for creators to build, grow, and monetize newsletters
-  icon: https://files.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756318459999.jpeg
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756318459999.jpeg
 configuration:
   - id: apiKey
     type: apiKey

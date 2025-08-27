@@ -45,6 +45,7 @@
     "zod-to-json-schema": "^3.24.6"
   },
   "dependencies": {
-    "@elevenlabs/elevenlabs-js": "^2.12.2"
+    "@elevenlabs/elevenlabs-js": "^2.12.2",
+    "@mailchimp/mailchimp_marketing": "^3.0.80"
   }
 }
