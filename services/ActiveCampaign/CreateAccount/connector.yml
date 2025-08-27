@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: create-account
+serviceId: activeCampaign
+active: true
+metadata:
+  name: Create Account
+  description: Creates a new account in ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account Name
+        helpText: The name of the account you want to create
+        variable: accountName
+        required: true
+        type: text
+      - label: Website URL
+        helpText: The website URL associated with this account
+        variable: accountUrl
+        required: false
+        type: text
+        placeholder: https://www.example.com
+      - label: Owner ID
+        helpText: The user ID of the account owner (defaults to 1 if not specified)
+        variable: ownerId
+        required: false
+        type: text
+        placeholder: '1'
+  - title: Custom Fields
+    collapsed: true
+    items:
+      - label: Custom Fields
+        helpText: 'JSON array of custom fields in format: [{"customFieldId": 9, "fieldValue": "500-1000"}, {"customFieldId": 20, "fieldValue": 1234, "fieldCurrency": "GBP"}]'
+        variable: customFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the created account information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

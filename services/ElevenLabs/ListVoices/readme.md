@@ -37,7 +37,7 @@ active: true
 metadata:
   name: Create Speech
   description: Converts text into speech using a voice of your choice and returns audio
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-contact-account-contacts
+serviceId: activecampaign
+active: true
+metadata:
+  name: Retrieve Contact Account Contacts
+  description: Retrieves all account contacts associated with a specific contact in ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Contact Details
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact whose account contacts you want to retrieve
+        variable: contactId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the retrieved account contacts
+        variable: outputVariable
+        required: true
+        type: outputVariableName

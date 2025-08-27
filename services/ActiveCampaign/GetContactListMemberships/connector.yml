@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-contact-list-memberships
+serviceId: activecampaign
+active: true
+metadata:
+  name: Retrieve Contact List Memberships
+  description: Retrieves all list memberships for a specific contact in ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact whose list memberships you want to retrieve
+        variable: contactId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the retrieved contact list memberships
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Text to Dialogue
   description: Converts multiple text inputs with different voices into a single dialogue audio file
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Dialogue Configuration
     items:

@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Action
+id: bulk-import-contacts
+serviceId: activecampaign
+active: true
+metadata:
+  name: Bulk Import Contacts
+  description: Import multiple contacts into ActiveCampaign at once
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contacts
+        helpText: 'Enter contacts in JSON format. Each contact must have an email address. You can import up to 250 contacts in a single request.'
+        variable: contacts
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        defaultValue: |
+          [
+            {
+              "email": "contact@example.com",
+              "first_name": "John",
+              "last_name": "Doe",
+              "phone": "123-456-7890",
+              "tags": ["customer", "newsletter"],
+              "fields": [
+                { "id": 1, "value": "value1" }
+              ],
+              "subscribe": [
+                { "listid": 1 }
+              ]
+            }
+          ]
+      - label: Exclude Automations
+        helpText: 'Set to true to skip running automations on imported contacts. This will improve import time.'
+        variable: excludeAutomations
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Callback URL
+        helpText: 'URL to notify when the import is complete.'
+        variable: callbackUrl
+        required: false
+        type: text
+        placeholder: 'https://your-callback-url.com'
+      - label: Callback Request Type
+        helpText: 'HTTP method to use for the callback request.'
+        variable: callbackRequestType
+        required: false
+        type: select
+        defaultValue: 'POST'
+        selectOptions:
+          options:
+            - label: 'POST'
+              value: 'POST'
+            - label: 'GET'
+              value: 'GET'
+      - label: Detailed Results
+        helpText: 'Whether to include detailed results in the callback.'
+        variable: detailedResults
+        required: false
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: 'The variable to store the import result.'
+        variable: outputVariable
+        required: true
+        type: outputVariableName

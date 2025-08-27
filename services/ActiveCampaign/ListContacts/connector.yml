@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Action
+id: list-contacts
+serviceId: activecampaign
+active: true
+metadata:
+  name: List Contacts
+  description: List, search, and filter contacts in your ActiveCampaign account
+  quickHelp: readme.md
+configuration:
+  - title: Basic Filters
+    items:
+      - label: Email Address
+        helpText: Filter contacts by exact email address
+        variable: email
+        type: text
+        placeholder: john@example.com
+      - label: Search Term
+        helpText: Search contacts by name, email, phone, or organization
+        variable: search
+        type: text
+        placeholder: Search term...
+      - label: List ID
+        helpText: Filter contacts associated with a specific list
+        variable: listId
+        type: text
+        placeholder: 123
+      - label: Tag ID
+        helpText: Filter contacts associated with a specific tag
+        variable: tagId
+        type: text
+        placeholder: 456
+  - title: Advanced Filters
+    collapsed: true
+    items:
+      - label: Created After
+        helpText: Filter contacts created after this date (YYYY-MM-DD)
+        variable: createdAfter
+        type: text
+        placeholder: 2023-01-01
+      - label: Created Before
+        helpText: Filter contacts created before this date (YYYY-MM-DD)
+        variable: createdBefore
+        type: text
+        placeholder: 2023-12-31
+      - label: Updated After
+        helpText: Filter contacts updated after this date (YYYY-MM-DD)
+        variable: updatedAfter
+        type: text
+        placeholder: 2023-01-01
+      - label: Updated Before
+        helpText: Filter contacts updated before this date (YYYY-MM-DD)
+        variable: updatedBefore
+        type: text
+        placeholder: 2023-12-31
+  - title: Pagination & Sorting
+    collapsed: true
+    items:
+      - label: Limit
+        helpText: Maximum number of contacts to return
+        variable: limit
+        type: text
+        defaultValue: '20'
+        placeholder: 20
+      - label: ID Greater Than
+        helpText: Only include contacts with an ID greater than this value (recommended for pagination)
+        variable: idGreater
+        type: text
+        placeholder: 0
+      - label: Sort By
+        helpText: Field to sort results by
+        variable: sortBy
+        type: select
+        defaultValue: id
+        selectOptions:
+          options:
+            - label: ID
+              value: id
+            - label: Email
+              value: email
+            - label: First Name
+              value: first_name
+            - label: Last Name
+              value: last_name
+            - label: Full Name
+              value: name
+            - label: Creation Date
+              value: cdate
+            - label: Score
+              value: score
+      - label: Sort Order
+        helpText: Order to sort results
+        variable: sortOrder
+        type: select
+        defaultValue: ASC
+        selectOptions:
+          options:
+            - label: Ascending
+              value: ASC
+            - label: Descending
+              value: DESC
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of contacts
+        variable: outputVariable
+        type: outputVariableName
+        required: true

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-contact-tracking-logs
+serviceId: activecampaign
+active: true
+metadata:
+  name: Get Contact Tracking Logs
+  description: Retrieves tracking logs for a specific contact in ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact to retrieve tracking logs for
+        variable: contactId
+        required: true
+        type: text
+        placeholder: Enter contact ID...
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the tracking logs results
+        variable: outputVariable
+        type: outputVariableName

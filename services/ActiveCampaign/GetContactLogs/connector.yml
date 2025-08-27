@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-contact-logs
+serviceId: activecampaign
+active: true
+metadata:
+  name: Get Contact Logs
+  description: Retrieves activity logs for a specific contact in ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact whose logs you want to retrieve
+        variable: contactId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Output Variable
+        helpText: Name of the variable to store the contact logs
+        variable: outputVariable
+        required: true
+        type: outputVariableName

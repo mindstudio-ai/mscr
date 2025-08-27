@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: create-account-note
+serviceId: activeCampaign
+active: true
+metadata:
+  name: Create Account Note
+  description: Creates a new note for a specific account in ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account ID
+        helpText: The ID of the account to add the note to
+        variable: accountId
+        required: true
+        type: text
+        placeholder: '1'
+      - label: Note Content
+        helpText: The content of the note to add to the account
+        variable: noteContent
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Enter your note here...
+      - label: Output Variable
+        helpText: The variable name to store the created note details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

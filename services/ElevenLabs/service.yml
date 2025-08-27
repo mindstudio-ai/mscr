@@ -5,7 +5,7 @@ id: elevenlabs
 metadata:
   name: ElevenLabs
   description: AI Text to Speech
-  icon: icon.png
+  icon: https://files.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756299250341.png
 configuration:
   - id: apiKey
     type: apiKey

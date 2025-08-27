@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Speech
   description: Converts text into speech using ElevenLabs AI voices and returns audio
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

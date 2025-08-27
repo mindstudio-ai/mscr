@@ -30,7 +30,7 @@ export const ActionDefinition = z.object({
   metadata: z.object({
     name: z.string(),
     description: z.string().default(''),
-    quickHelp: z.string().min(1), // path to help.md
+    quickHelp: z.string().min(1), // path to readme.md
   }),
   configuration: z
     .array(

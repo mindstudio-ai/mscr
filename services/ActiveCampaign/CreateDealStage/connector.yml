@@ -1,0 +1,171 @@
+apiVersion: v1
+kind: Action
+id: create-deal-stage
+serviceId: activecampaign
+active: true
+metadata:
+  name: Create Deal Stage
+  description: Creates a new stage in an ActiveCampaign pipeline for tracking deals
+  quickHelp: readme.md
+configuration:
+  - title: Deal Stage Details
+    items:
+      - label: Title
+        helpText: The name of the deal stage
+        variable: title
+        required: true
+        type: text
+      - label: Pipeline ID
+        helpText: The ID of the pipeline this stage belongs to
+        variable: group
+        required: true
+        type: text
+      - label: Stage Order
+        helpText: The order of the stage in the pipeline (numeric value)
+        variable: order
+        required: false
+        type: text
+      - label: Stage Color
+        helpText: The color of the stage in hex format (without #)
+        variable: color
+        required: false
+        type: text
+        defaultValue: '32B0FC'
+      - label: Stage Width
+        helpText: The width of the stage in pixels
+        variable: width
+        required: false
+        type: text
+        defaultValue: '280'
+  - title: Card Display Settings
+    items:
+      - label: Deal Order
+        helpText: How deals should be ordered within this stage
+        variable: dealOrder
+        required: false
+        type: select
+        defaultValue: 'next-action DESC'
+        selectOptions:
+          options:
+            - label: Next Action (Descending)
+              value: 'next-action DESC'
+            - label: Next Action (Ascending)
+              value: 'next-action ASC'
+            - label: Title (Descending)
+              value: 'title DESC'
+            - label: Title (Ascending)
+              value: 'title ASC'
+            - label: Value (Descending)
+              value: 'value DESC'
+            - label: Value (Ascending)
+              value: 'value ASC'
+      - label: Card Region 1
+        helpText: Content to display in card region 1
+        variable: cardRegion1
+        required: false
+        type: select
+        defaultValue: 'title'
+        selectOptions:
+          options:
+            - label: Title
+              value: 'title'
+            - label: Next Action
+              value: 'next-action'
+            - label: Show Avatar
+              value: 'show-avatar'
+            - label: Contact/Org Name
+              value: 'contact-fullname-orgname'
+            - label: Value
+              value: 'value'
+      - label: Card Region 2
+        helpText: Content to display in card region 2
+        variable: cardRegion2
+        required: false
+        type: select
+        defaultValue: 'next-action'
+        selectOptions:
+          options:
+            - label: Title
+              value: 'title'
+            - label: Next Action
+              value: 'next-action'
+            - label: Show Avatar
+              value: 'show-avatar'
+            - label: Contact/Org Name
+              value: 'contact-fullname-orgname'
+            - label: Value
+              value: 'value'
+      - label: Card Region 3
+        helpText: Content to display in card region 3
+        variable: cardRegion3
+        required: false
+        type: select
+        defaultValue: 'show-avatar'
+        selectOptions:
+          options:
+            - label: Title
+              value: 'title'
+            - label: Next Action
+              value: 'next-action'
+            - label: Show Avatar
+              value: 'show-avatar'
+            - label: Contact/Org Name
+              value: 'contact-fullname-orgname'
+            - label: Value
+              value: 'value'
+      - label: Card Region 4
+        helpText: Content to display in card region 4
+        variable: cardRegion4
+        required: false
+        type: select
+        defaultValue: 'contact-fullname-orgname'
+        selectOptions:
+          options:
+            - label: Title
+              value: 'title'
+            - label: Next Action
+              value: 'next-action'
+            - label: Show Avatar
+              value: 'show-avatar'
+            - label: Contact/Org Name
+              value: 'contact-fullname-orgname'
+            - label: Value
+              value: 'value'
+      - label: Card Region 5
+        helpText: Content to display in card region 5
+        variable: cardRegion5
+        required: false
+        type: select
+        defaultValue: 'value'
+        selectOptions:
+          options:
+            - label: Title
+              value: 'title'
+            - label: Next Action
+              value: 'next-action'
+            - label: Show Avatar
+              value: 'show-avatar'
+            - label: Contact/Org Name
+              value: 'contact-fullname-orgname'
+            - label: Value
+              value: 'value'
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Reorder Stages
+        helpText: Whether to reorder all stages within the pipeline after creating this stage
+        variable: reorder
+        required: false
+        type: select
+        defaultValue: '0'
+        selectOptions:
+          options:
+            - label: No
+              value: '0'
+            - label: Yes
+              value: '1'
+      - label: Output Variable
+        helpText: The variable to store the created deal stage data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

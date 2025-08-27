@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Action
+id: update-contact
+serviceId: activecampaign
+active: true
+metadata:
+  name: Update Contact
+  description: Updates an existing contact in ActiveCampaign with new information
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact you want to update
+        variable: contactId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Email Address
+        helpText: Contact's email address
+        variable: email
+        required: false
+        type: text
+        placeholder: 'john.doe@example.com'
+      - label: First Name
+        helpText: Contact's first name
+        variable: firstName
+        required: false
+        type: text
+        placeholder: 'John'
+      - label: Last Name
+        helpText: Contact's last name
+        variable: lastName
+        required: false
+        type: text
+        placeholder: 'Doe'
+      - label: Phone Number
+        helpText: Contact's phone number
+        variable: phone
+        required: false
+        type: text
+        placeholder: '+1 (555) 123-4567'
+  - title: Custom Fields
+    collapsed: true
+    items:
+      - label: Custom Fields
+        helpText: 'JSON array of custom fields in format: [{"field": "1", "value": "Field Value"}]'
+        variable: customFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"field": "1", "value": "Field Value"}]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the updated contact information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

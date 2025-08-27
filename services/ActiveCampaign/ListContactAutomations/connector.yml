@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: list-contact-automations
+serviceId: activecampaign
+active: true
+metadata:
+  name: List Contact Automations
+  description: Retrieves a list of all automations that a specific contact is enrolled in
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact to retrieve automations for
+        variable: contactId
+        required: true
+        type: text
+        placeholder: Enter contact ID...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of contact automations
+        variable: outputVariable
+        required: true
+        type: outputVariableName

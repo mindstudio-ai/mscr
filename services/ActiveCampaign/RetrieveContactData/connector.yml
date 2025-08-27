@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: retrieve-contact-data
+serviceId: activecampaign
+active: true
+metadata:
+  name: Retrieve Contact Data
+  description: Retrieves detailed data for a specific contact from ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact you want to retrieve data for
+        variable: contactId
+        required: true
+        type: text
+        placeholder: Enter contact ID
+      - label: Output Variable
+        helpText: Variable name to store the contact data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

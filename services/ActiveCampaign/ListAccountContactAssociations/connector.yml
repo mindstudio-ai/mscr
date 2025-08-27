@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: list-account-contact-associations
+serviceId: activeCampaign
+active: true
+metadata:
+  name: List Account-Contact Associations
+  description: Retrieve all existing account-contact associations from ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Filter Options
+    items:
+      - label: Contact ID
+        helpText: Filter results by a specific Contact ID
+        variable: contactId
+        required: false
+        type: text
+        placeholder: e.g., 123
+      - label: Account ID
+        helpText: Filter results by a specific Account ID
+        variable: accountId
+        required: false
+        type: text
+        placeholder: e.g., 456
+      - label: Output Variable
+        helpText: Variable name to store the account-contact associations
+        variable: outputVariable
+        required: true
+        type: outputVariableName

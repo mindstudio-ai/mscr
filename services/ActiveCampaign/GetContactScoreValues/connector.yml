@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-contact-score-values
+serviceId: activecampaign
+active: true
+metadata:
+  name: Retrieve Contact Score Values
+  description: Retrieves the score values for a specific contact in ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact to retrieve score values for
+        variable: contactId
+        required: true
+        type: text
+        placeholder: Enter contact ID...
+      - label: Output Variable
+        helpText: Variable name to store the retrieved score values
+        variable: outputVariable
+        required: true
+        type: outputVariableName

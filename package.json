@@ -8,10 +8,10 @@
     "build": "tsx src/cli/build-registry.ts",
     "test": "vitest run --reporter=default",
     "lint": "eslint \"**/*.{ts,js,cjs}\"",
-    "lint:fix": "eslint \"**/*.{ts,js,cjs}\" --fix",
-    "format": "prettier --write \"**/*.{ts,js,cjs}\"",
-    "format:check": "prettier --check \"**/*.{ts,js,cjs}\"",
-    "prebuild": "npm run lint && npm run format:check && npm run validate",
+    "lint:fix": "eslint \"**/*.{ts,js,cjs,yml}\" --fix",
+    "format": "prettier --write \"**/*.{ts,js,cjs,yml}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,cjs,yml}\"",
+    "prebuild": "npm run lint:fix && npm run format && npm run validate",
     "start:inbound-server": "tsx src/cli/inbound-server.ts"
   },
   "devDependencies": {

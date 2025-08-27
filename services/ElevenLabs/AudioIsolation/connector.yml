@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Audio Isolation
   description: Removes background noise from audio files and isolates vocals/speech
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Audio Input
     items:

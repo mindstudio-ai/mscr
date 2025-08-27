@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: delete-account
+serviceId: activeCampaign
+active: true
+metadata:
+  name: Delete Account
+  description: Delete an existing account from ActiveCampaign
+  quickHelp: readme.md
+configuration:
+  - title: Account Details
+    items:
+      - label: Account ID
+        helpText: The ID of the account you want to delete.
+        variable: accountId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Confirmation
+    items:
+      - label: Confirmation
+        helpText: Please confirm that you want to delete this account. This action cannot be undone.
+        variable: confirmation
+        required: true
+        type: select
+        defaultValue: 'no'
+        selectOptions:
+          options:
+            - label: Yes, delete this account
+              value: 'yes'
+            - label: No, do not delete this account
+              value: 'no'
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: The name of the variable to store the operation result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

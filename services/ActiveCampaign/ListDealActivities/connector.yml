@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Action
+id: list-deal-activities
+serviceId: activecampaign
+active: true
+metadata:
+  name: List Deal Activities
+  description: Retrieve a list of deal activities from ActiveCampaign with optional filtering
+  quickHelp: readme.md
+configuration:
+  - title: Filters
+    items:
+      - label: Deal ID
+        helpText: Filter activities by a specific deal ID
+        variable: dealId
+        required: false
+        type: text
+        placeholder: Enter deal ID...
+      - label: Activity Type
+        helpText: Filter by a specific activity type
+        variable: activityType
+        required: false
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: All Activities
+              value: ''
+            - label: User Activities
+              value: 'userid'
+            - label: Subscriber Activities
+              value: 'subscriberid'
+            - label: Task Activities
+              value: 'task'
+            - label: Note Activities
+              value: 'note'
+      - label: Exclude Email Activities
+        helpText: Exclude email-related activities from results
+        variable: excludeEmail
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Output Variable
+        helpText: The variable name to store the list of deal activities
+        variable: outputVariable
+        required: true
+        type: outputVariableName
