@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Account
   description: Delete an existing account from ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Account Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Pipeline
   description: Retrieves a pipeline and its associated deal stages from ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Pipeline Information
     items:

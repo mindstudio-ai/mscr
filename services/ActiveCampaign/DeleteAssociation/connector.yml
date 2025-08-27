@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Association
   description: Delete an existing account-contact association in ActiveCampaign.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

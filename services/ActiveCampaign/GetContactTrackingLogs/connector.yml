@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Contact Tracking Logs
   description: Retrieves tracking logs for a specific contact in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

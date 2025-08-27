@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Account-Contact Associations
   description: Retrieve all existing account-contact associations from ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Filter Options
     items:

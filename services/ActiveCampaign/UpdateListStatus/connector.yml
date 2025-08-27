@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update List Status for Contact
   description: Subscribe or unsubscribe a contact from a list in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact and List Information
     items:
@@ -27,19 +27,19 @@ configuration:
         variable: status
         required: true
         type: select
-        defaultValue: "1"
+        defaultValue: '1'
         selectOptions:
           options:
             - label: Subscribe
-              value: "1"
+              value: '1'
             - label: Unsubscribe
-              value: "2"
+              value: '2'
       - label: Source ID
         helpText: Defaults to 0. Set to '4' when re-subscribing a contact to a list.
         variable: sourceId
         required: false
         type: text
-        defaultValue: "0"
+        defaultValue: '0'
   - title: Output
     items:
       - label: Output Variable

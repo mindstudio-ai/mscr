@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Deals
   description: Retrieve all existing deals from ActiveCampaign with optional filtering and sorting
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Configuration
     items:
@@ -24,15 +24,15 @@ configuration:
         selectOptions:
           options:
             - label: All Fields
-              value: ""
+              value: ''
             - label: Title
-              value: "title"
+              value: 'title'
             - label: Contact Name
-              value: "contact"
+              value: 'contact'
             - label: Organization Name
-              value: "organization"
+              value: 'organization'
             - label: Description
-              value: "description"
+              value: 'description'
   - title: Filtering
     collapsed: true
     items:
@@ -44,13 +44,13 @@ configuration:
         selectOptions:
           options:
             - label: All Statuses
-              value: ""
+              value: ''
             - label: Open
-              value: "0"
+              value: '0'
             - label: Won
-              value: "1"
+              value: '1'
             - label: Lost
-              value: "2"
+              value: '2'
       - label: Pipeline ID
         helpText: Filter deals by pipeline ID
         variable: pipelineId
@@ -104,42 +104,42 @@ configuration:
         selectOptions:
           options:
             - label: Title
-              value: "title"
+              value: 'title'
             - label: Value
-              value: "value"
+              value: 'value'
             - label: Created Date
-              value: "cdate"
+              value: 'cdate'
             - label: Contact Name
-              value: "contact_name"
+              value: 'contact_name'
             - label: Organization Name
-              value: "contact_orgname"
+              value: 'contact_orgname'
             - label: Next Action
-              value: "next-action"
+              value: 'next-action'
       - label: Sort Direction
         helpText: Direction to sort results
         variable: sortDirection
         required: false
         type: select
-        defaultValue: "ASC"
+        defaultValue: 'ASC'
         selectOptions:
           options:
             - label: Ascending
-              value: "ASC"
+              value: 'ASC'
             - label: Descending
-              value: "DESC"
+              value: 'DESC'
       - label: Limit
         helpText: Maximum number of deals to return
         variable: limit
         required: false
         type: text
-        defaultValue: "20"
+        defaultValue: '20'
         placeholder: 20
       - label: Offset
         helpText: Number of deals to skip before starting to return results
         variable: offset
         required: false
         type: text
-        defaultValue: "0"
+        defaultValue: '0'
         placeholder: 0
   - title: Output
     items:

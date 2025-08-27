@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Remove Contact from Automation
   description: Removes a contact from a specific automation in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:
@@ -15,7 +15,7 @@ configuration:
         helpText: The ID of the contact-automation relationship to remove. You can find this ID in the ActiveCampaign dashboard or via the API.
         variable: contactAutomationId
         type: text
-        placeholder: "123"
+        placeholder: '123'
       - label: Output Variable
         required: true
         helpText: Name of the variable to store the operation result (true/false).

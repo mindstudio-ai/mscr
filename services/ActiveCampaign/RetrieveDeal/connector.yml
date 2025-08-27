@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Deal
   description: Retrieves a specific deal from ActiveCampaign by its ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Information
     items:

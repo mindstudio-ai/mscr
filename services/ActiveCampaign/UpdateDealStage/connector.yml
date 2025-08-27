@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Deal Stage
   description: Updates an existing deal stage in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Stage Details
     items:
@@ -15,37 +15,37 @@ configuration:
         variable: stageId
         required: true
         type: text
-        placeholder: "16"
+        placeholder: '16'
       - label: Title
         helpText: The name of the deal stage
         variable: title
         required: true
         type: text
-        placeholder: "Qualifications - Low"
+        placeholder: 'Qualifications - Low'
       - label: Pipeline ID
         helpText: The ID of the pipeline this stage belongs to
         variable: group
         required: true
         type: text
-        placeholder: "4"
+        placeholder: '4'
       - label: Color
         helpText: The color for the deal stage in hex format (e.g., 696969)
         variable: color
         required: false
         type: text
-        placeholder: "696969"
+        placeholder: '696969'
       - label: Order
         helpText: The order of the stage within the pipeline (numeric value)
         variable: order
         required: false
         type: text
-        placeholder: "1"
+        placeholder: '1'
       - label: Width
         helpText: The width of the stage column in pixels
         variable: width
         required: false
         type: text
-        defaultValue: "270"
+        defaultValue: '270'
   - title: Card Display Configuration
     collapsed: true
     items:
@@ -133,13 +133,13 @@ configuration:
         variable: reorder
         required: false
         type: select
-        defaultValue: "0"
+        defaultValue: '0'
         selectOptions:
           options:
             - label: Yes
-              value: "1"
+              value: '1'
             - label: No
-              value: "0"
+              value: '0'
   - title: Output
     items:
       - label: Output Variable

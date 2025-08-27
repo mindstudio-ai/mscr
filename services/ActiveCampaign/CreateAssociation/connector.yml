@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Association
   description: Create an association between a contact and an account in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Association Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Voice
   description: Retrieves detailed information about a specific voice from ElevenLabs
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

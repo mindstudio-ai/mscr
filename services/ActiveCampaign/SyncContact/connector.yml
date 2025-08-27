@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Sync Contact
   description: Updates an existing contact or creates a new one if the contact doesn't exist
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -38,13 +38,13 @@ configuration:
     collapsed: true
     items:
       - label: Custom Fields
-        helpText: "JSON array of custom field values. Format: [{\"field\": \"1\", \"value\": \"Field Value\"}]"
+        helpText: 'JSON array of custom field values. Format: [{"field": "1", "value": "Field Value"}]'
         variable: customFields
         required: false
         type: text
         textOptions:
           type: multiline
-        placeholder: "[{\"field\": \"1\", \"value\": \"Field Value\"}]"
+        placeholder: '[{"field": "1", "value": "Field Value"}]'
   - title: Output
     items:
       - label: Output Variable

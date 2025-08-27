@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Contact
   description: Permanently removes a contact from your ActiveCampaign account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Details
     items:
@@ -15,4 +15,4 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Deal Note
   description: Creates a new note for a deal in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: dealId
         required: true
         type: text
-        placeholder: "1"
+        placeholder: '1'
   - title: Note Details
     items:
       - label: Note Content

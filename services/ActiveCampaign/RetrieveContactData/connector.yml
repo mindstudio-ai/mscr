@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Contact Data
   description: Retrieves detailed data for a specific contact from ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:

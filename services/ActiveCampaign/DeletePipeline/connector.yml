@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Pipeline
   description: Deletes an existing pipeline and all associated stages and deals
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Pipeline Information
     items:

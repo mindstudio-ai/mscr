@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Contact Automation
   description: Retrieves details about an automation that a contact is in
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Automation Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Contact
   description: Creates a new contact in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -21,13 +21,13 @@ configuration:
         variable: allowNullEmail
         required: false
         type: select
-        defaultValue: "false"
+        defaultValue: 'false'
         selectOptions:
           options:
             - label: Yes
-              value: "true"
+              value: 'true'
             - label: No
-              value: "false"
+              value: 'false'
       - label: First Name
         helpText: First name of the contact.
         variable: firstName
@@ -45,18 +45,18 @@ configuration:
         variable: phone
         required: false
         type: text
-        placeholder: "1234567890"
+        placeholder: '1234567890'
   - title: Custom Fields (Optional)
     collapsed: true
     items:
       - label: Custom Fields
-        helpText: "JSON array of custom field values. Each object should have 'field' (the custom field ID) and 'value' properties. Example: [{\"field\":\"1\",\"value\":\"Some value\"}]"
+        helpText: 'JSON array of custom field values. Each object should have ''field'' (the custom field ID) and ''value'' properties. Example: [{"field":"1","value":"Some value"}]'
         variable: customFields
         required: false
         type: text
         textOptions:
           type: multiline
-        placeholder: "[{\"field\":\"1\",\"value\":\"Some value\"}]"
+        placeholder: '[{"field":"1","value":"Some value"}]'
   - title: Output
     items:
       - label: Output Variable

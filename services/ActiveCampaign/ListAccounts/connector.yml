@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Accounts
   description: Retrieve all existing accounts from ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

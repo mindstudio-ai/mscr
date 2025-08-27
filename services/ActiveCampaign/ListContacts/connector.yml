@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Contacts
   description: List, search, and filter contacts in your ActiveCampaign account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Filters
     items:
@@ -60,7 +60,7 @@ configuration:
         helpText: Maximum number of contacts to return
         variable: limit
         type: text
-        defaultValue: "20"
+        defaultValue: '20'
         placeholder: 20
       - label: ID Greater Than
         helpText: Only include contacts with an ID greater than this value (recommended for pagination)

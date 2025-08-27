@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Voice Changer
   description: Transform audio from one voice to another while maintaining emotion, timing, and delivery
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Input Configuration
     items:

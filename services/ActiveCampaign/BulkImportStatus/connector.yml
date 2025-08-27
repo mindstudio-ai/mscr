@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Bulk Import Status
   description: Retrieves the status of bulk imports in ActiveCampaign, showing outstanding and recently completed batch jobs
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

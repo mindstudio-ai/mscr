@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Account Note
   description: Update an existing note for an account in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Account Information
     items:

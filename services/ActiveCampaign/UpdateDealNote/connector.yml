@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Deal Note
   description: Updates an existing note for a deal in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Information
     items:
@@ -15,13 +15,13 @@ configuration:
         variable: dealId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
       - label: Note ID
         helpText: The ID of the note you want to update
         variable: noteId
         required: true
         type: text
-        placeholder: "456"
+        placeholder: '456'
   - title: Note Content
     items:
       - label: Note Content

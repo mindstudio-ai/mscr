@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Contact Organization
   description: Retrieves organization information for a specific contact in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
       - label: Output Variable
         helpText: Variable name to store the organization information
         variable: outputVariable

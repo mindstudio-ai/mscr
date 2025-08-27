@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Association
   description: Retrieves an existing account-contact association by ID from ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Association Details
     items:

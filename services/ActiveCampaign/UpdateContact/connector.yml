@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Contact
   description: Updates an existing contact in ActiveCampaign with new information
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,42 +15,42 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
       - label: Email Address
         helpText: Contact's email address
         variable: email
         required: false
         type: text
-        placeholder: "john.doe@example.com"
+        placeholder: 'john.doe@example.com'
       - label: First Name
         helpText: Contact's first name
         variable: firstName
         required: false
         type: text
-        placeholder: "John"
+        placeholder: 'John'
       - label: Last Name
         helpText: Contact's last name
         variable: lastName
         required: false
         type: text
-        placeholder: "Doe"
+        placeholder: 'Doe'
       - label: Phone Number
         helpText: Contact's phone number
         variable: phone
         required: false
         type: text
-        placeholder: "+1 (555) 123-4567"
+        placeholder: '+1 (555) 123-4567'
   - title: Custom Fields
     collapsed: true
     items:
       - label: Custom Fields
-        helpText: "JSON array of custom fields in format: [{\"field\": \"1\", \"value\": \"Field Value\"}]"
+        helpText: 'JSON array of custom fields in format: [{"field": "1", "value": "Field Value"}]'
         variable: customFields
         required: false
         type: text
         textOptions:
           type: multiline
-        placeholder: "[{\"field\": \"1\", \"value\": \"Field Value\"}]"
+        placeholder: '[{"field": "1", "value": "Field Value"}]'
   - title: Output
     items:
       - label: Output Variable

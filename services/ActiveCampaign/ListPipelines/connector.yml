@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Pipelines
   description: Retrieves all existing pipelines from ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Filter Options
     items:
@@ -24,11 +24,11 @@ configuration:
         selectOptions:
           options:
             - label: No Filter
-              value: ""
+              value: ''
             - label: Yes
-              value: "1"
+              value: '1'
             - label: No
-              value: "0"
+              value: '0'
   - title: Sorting Options
     items:
       - label: Sort by Title
@@ -39,11 +39,11 @@ configuration:
         selectOptions:
           options:
             - label: No Sorting
-              value: ""
+              value: ''
             - label: Ascending (A-Z)
-              value: "ASC"
+              value: 'ASC'
             - label: Descending (Z-A)
-              value: "DESC"
+              value: 'DESC'
       - label: Sort by Popularity
         helpText: Sort the pipelines by the number of deals they have.
         variable: orderPopular
@@ -52,11 +52,11 @@ configuration:
         selectOptions:
           options:
             - label: No Sorting
-              value: ""
+              value: ''
             - label: Ascending (Least to Most)
-              value: "ASC"
+              value: 'ASC'
             - label: Descending (Most to Least)
-              value: "DESC"
+              value: 'DESC'
   - title: Output
     items:
       - label: Output Variable

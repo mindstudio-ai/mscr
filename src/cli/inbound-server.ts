@@ -35,7 +35,7 @@ app.post('/generate', async (req, res) => {
     const files = {
       handler: path.join(targetDir, 'handler.ts'),
       test: path.join(targetDir, 'test.spec.ts'),
-      help: path.join(targetDir, 'help.md'),
+      help: path.join(targetDir, 'readme.md'),
       connector: path.join(targetDir, 'connector.yml'),
     };
 

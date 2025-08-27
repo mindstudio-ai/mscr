@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Bulk Import Status
   description: Retrieves the status of a bulk import operation, including successfully imported contacts and failures.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Import Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Contact Plus Append
   description: Retrieves additional social media and profile information for a contact in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,7 +15,7 @@ configuration:
         helpText: The ID of the contact to retrieve plus append data for
         variable: contactId
         type: text
-        placeholder: "123"
+        placeholder: '123'
       - label: Output Variable
         required: true
         helpText: Variable name to store the retrieved plus append data

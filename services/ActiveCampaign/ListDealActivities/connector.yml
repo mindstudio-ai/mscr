@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Deal Activities
   description: Retrieve a list of deal activities from ActiveCampaign with optional filtering
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Filters
     items:
@@ -21,31 +21,31 @@ configuration:
         variable: activityType
         required: false
         type: select
-        defaultValue: ""
+        defaultValue: ''
         selectOptions:
           options:
             - label: All Activities
-              value: ""
+              value: ''
             - label: User Activities
-              value: "userid"
+              value: 'userid'
             - label: Subscriber Activities
-              value: "subscriberid"
+              value: 'subscriberid'
             - label: Task Activities
-              value: "task"
+              value: 'task'
             - label: Note Activities
-              value: "note"
+              value: 'note'
       - label: Exclude Email Activities
         helpText: Exclude email-related activities from results
         variable: excludeEmail
         required: false
         type: select
-        defaultValue: "false"
+        defaultValue: 'false'
         selectOptions:
           options:
             - label: No
-              value: "false"
+              value: 'false'
             - label: Yes
-              value: "true"
+              value: 'true'
       - label: Output Variable
         helpText: The variable name to store the list of deal activities
         variable: outputVariable

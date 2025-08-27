@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Contact
   description: Retrieves detailed information about a contact from ActiveCampaign by their ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "1"
+        placeholder: '1'
       - label: Output Variable
         helpText: The variable name to store the contact information
         variable: outputVariable

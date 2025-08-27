@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Deal Stages
   description: Retrieves all existing deal stages from your ActiveCampaign account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:
@@ -30,11 +30,11 @@ configuration:
         selectOptions:
           options:
             - label: None
-              value: ""
+              value: ''
             - label: Ascending
-              value: "ASC"
+              value: 'ASC'
             - label: Descending
-              value: "DESC"
+              value: 'DESC'
       - label: Output Variable
         required: true
         helpText: Variable name to store the list of deal stages

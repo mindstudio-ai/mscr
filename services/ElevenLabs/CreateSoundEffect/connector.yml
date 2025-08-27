@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Sound Effect
   description: Generates sound effects from text descriptions using ElevenLabs AI
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Sound Effect Settings
     items:
@@ -22,37 +22,37 @@ configuration:
         variable: durationSeconds
         required: false
         type: text
-        placeholder: "Auto (recommended)"
+        placeholder: 'Auto (recommended)'
       - label: Prompt Influence
         helpText: Higher values make the generation follow the prompt more closely but reduce variability.
         variable: promptInfluence
         required: false
         type: select
-        defaultValue: "0.3"
+        defaultValue: '0.3'
         selectOptions:
           options:
             - label: Low (0.1)
-              value: "0.1"
+              value: '0.1'
             - label: Medium (0.3)
-              value: "0.3"
+              value: '0.3'
             - label: High (0.6)
-              value: "0.6"
+              value: '0.6'
             - label: Very High (0.9)
-              value: "0.9"
+              value: '0.9'
       - label: Output Format
         helpText: Format of the generated audio file.
         variable: outputFormat
         required: false
         type: select
-        defaultValue: "mp3_44100_128"
+        defaultValue: 'mp3_44100_128'
         selectOptions:
           options:
             - label: MP3 (44.1kHz, 128kbps) - Recommended
-              value: "mp3_44100_128"
+              value: 'mp3_44100_128'
             - label: MP3 (44.1kHz, 64kbps)
-              value: "mp3_44100_64"
+              value: 'mp3_44100_64'
             - label: MP3 (44.1kHz, 192kbps) - High Quality
-              value: "mp3_44100_192"
+              value: 'mp3_44100_192'
       - label: Output Variable
         helpText: Name of the variable to store the URL of the generated sound effect.
         variable: outputVariable

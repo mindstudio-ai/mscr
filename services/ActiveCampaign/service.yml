@@ -5,7 +5,7 @@ id: activeCampaign
 metadata:
   name: ActiveCampaign
   description: Marketing automation tool specializing in email marketing, CRM, and sales automation
-  icon: icon.png
+  icon: https://files.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756299225335.png
 configuration:
   - id: accessToken
     type: apiKey

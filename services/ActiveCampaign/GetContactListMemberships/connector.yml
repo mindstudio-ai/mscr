@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Contact List Memberships
   description: Retrieves all list memberships for a specific contact in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
   - title: Output
     items:
       - label: Output Variable

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Deal Stage
   description: Creates a new stage in an ActiveCampaign pipeline for tracking deals
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Stage Details
     items:
@@ -30,13 +30,13 @@ configuration:
         variable: color
         required: false
         type: text
-        defaultValue: "32B0FC"
+        defaultValue: '32B0FC'
       - label: Stage Width
         helpText: The width of the stage in pixels
         variable: width
         required: false
         type: text
-        defaultValue: "280"
+        defaultValue: '280'
   - title: Card Display Settings
     items:
       - label: Deal Order
@@ -44,111 +44,111 @@ configuration:
         variable: dealOrder
         required: false
         type: select
-        defaultValue: "next-action DESC"
+        defaultValue: 'next-action DESC'
         selectOptions:
           options:
             - label: Next Action (Descending)
-              value: "next-action DESC"
+              value: 'next-action DESC'
             - label: Next Action (Ascending)
-              value: "next-action ASC"
+              value: 'next-action ASC'
             - label: Title (Descending)
-              value: "title DESC"
+              value: 'title DESC'
             - label: Title (Ascending)
-              value: "title ASC"
+              value: 'title ASC'
             - label: Value (Descending)
-              value: "value DESC"
+              value: 'value DESC'
             - label: Value (Ascending)
-              value: "value ASC"
+              value: 'value ASC'
       - label: Card Region 1
         helpText: Content to display in card region 1
         variable: cardRegion1
         required: false
         type: select
-        defaultValue: "title"
+        defaultValue: 'title'
         selectOptions:
           options:
             - label: Title
-              value: "title"
+              value: 'title'
             - label: Next Action
-              value: "next-action"
+              value: 'next-action'
             - label: Show Avatar
-              value: "show-avatar"
+              value: 'show-avatar'
             - label: Contact/Org Name
-              value: "contact-fullname-orgname"
+              value: 'contact-fullname-orgname'
             - label: Value
-              value: "value"
+              value: 'value'
       - label: Card Region 2
         helpText: Content to display in card region 2
         variable: cardRegion2
         required: false
         type: select
-        defaultValue: "next-action"
+        defaultValue: 'next-action'
         selectOptions:
           options:
             - label: Title
-              value: "title"
+              value: 'title'
             - label: Next Action
-              value: "next-action"
+              value: 'next-action'
             - label: Show Avatar
-              value: "show-avatar"
+              value: 'show-avatar'
             - label: Contact/Org Name
-              value: "contact-fullname-orgname"
+              value: 'contact-fullname-orgname'
             - label: Value
-              value: "value"
+              value: 'value'
       - label: Card Region 3
         helpText: Content to display in card region 3
         variable: cardRegion3
         required: false
         type: select
-        defaultValue: "show-avatar"
+        defaultValue: 'show-avatar'
         selectOptions:
           options:
             - label: Title
-              value: "title"
+              value: 'title'
             - label: Next Action
-              value: "next-action"
+              value: 'next-action'
             - label: Show Avatar
-              value: "show-avatar"
+              value: 'show-avatar'
             - label: Contact/Org Name
-              value: "contact-fullname-orgname"
+              value: 'contact-fullname-orgname'
             - label: Value
-              value: "value"
+              value: 'value'
       - label: Card Region 4
         helpText: Content to display in card region 4
         variable: cardRegion4
         required: false
         type: select
-        defaultValue: "contact-fullname-orgname"
+        defaultValue: 'contact-fullname-orgname'
         selectOptions:
           options:
             - label: Title
-              value: "title"
+              value: 'title'
             - label: Next Action
-              value: "next-action"
+              value: 'next-action'
             - label: Show Avatar
-              value: "show-avatar"
+              value: 'show-avatar'
             - label: Contact/Org Name
-              value: "contact-fullname-orgname"
+              value: 'contact-fullname-orgname'
             - label: Value
-              value: "value"
+              value: 'value'
       - label: Card Region 5
         helpText: Content to display in card region 5
         variable: cardRegion5
         required: false
         type: select
-        defaultValue: "value"
+        defaultValue: 'value'
         selectOptions:
           options:
             - label: Title
-              value: "title"
+              value: 'title'
             - label: Next Action
-              value: "next-action"
+              value: 'next-action'
             - label: Show Avatar
-              value: "show-avatar"
+              value: 'show-avatar'
             - label: Contact/Org Name
-              value: "contact-fullname-orgname"
+              value: 'contact-fullname-orgname'
             - label: Value
-              value: "value"
+              value: 'value'
   - title: Advanced Options
     collapsed: true
     items:
@@ -157,13 +157,13 @@ configuration:
         variable: reorder
         required: false
         type: select
-        defaultValue: "0"
+        defaultValue: '0'
         selectOptions:
           options:
             - label: No
-              value: "0"
+              value: '0'
             - label: Yes
-              value: "1"
+              value: '1'
       - label: Output Variable
         helpText: The variable to store the created deal stage data
         variable: outputVariable

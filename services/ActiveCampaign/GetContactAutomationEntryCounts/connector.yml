@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Contact Automation Entry Counts
   description: Retrieves a list of automations a contact is in and the number of times they've entered each automation
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
   - title: Output
     items:
       - label: Output Variable

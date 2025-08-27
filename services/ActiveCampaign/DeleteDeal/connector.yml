@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Deal
   description: Deletes an existing deal in ActiveCampaign by ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: dealId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
   - title: Response
     items:
       - label: Success Message Variable

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Contact's Geo IP Address
   description: Retrieves geographic location information based on a contact's IP address
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Contact Logs
   description: Retrieves activity logs for a specific contact in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
       - label: Output Variable
         helpText: Name of the variable to store the contact logs
         variable: outputVariable

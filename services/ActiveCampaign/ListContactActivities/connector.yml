@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Contact Activities
   description: Retrieves a list of activities for a specific contact
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -42,13 +42,13 @@ configuration:
         type: select
         required: false
         helpText: Include email data fields in the activities
-        defaultValue: "false"
+        defaultValue: 'false'
         selectOptions:
           options:
             - label: No
-              value: "false"
+              value: 'false'
             - label: Yes
-              value: "true"
+              value: 'true'
   - title: Output Configuration
     items:
       - label: Output Variable

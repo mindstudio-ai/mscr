@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Contact to Automation
   description: Add an existing contact to an automation in ActiveCampaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Contact Information
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: contactId
         required: true
         type: text
-        placeholder: "117"
+        placeholder: '117'
   - title: Automation Information
     items:
       - label: Automation ID
@@ -23,7 +23,7 @@ configuration:
         variable: automationId
         required: true
         type: text
-        placeholder: "42"
+        placeholder: '42'
   - title: Output
     items:
       - label: Output Variable

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Notes
   description: Retrieves a list of all notes from your ActiveCampaign account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:
@@ -23,10 +23,10 @@ configuration:
         helpText: Maximum number of notes to return
         variable: limit
         type: text
-        placeholder: "100"
+        placeholder: '100'
       - label: Offset
         required: false
         helpText: Number of notes to skip for pagination
         variable: offset
         type: text
-        placeholder: "0"
+        placeholder: '0'
