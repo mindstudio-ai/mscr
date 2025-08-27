@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: delete-webhook
+serviceId: airtable
+active: true
+metadata:
+  name: Delete Webhook
+  description: Deletes a webhook from an Airtable base
+  quickHelp: help.md
+configuration:
+  - title: Webhook Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of the Airtable base containing the webhook. Found in the base URL airtable.com/[baseId]/...
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Webhook ID
+        helpText: The ID of the webhook you want to delete
+        variable: webhookId
+        required: true
+        type: text
+        placeholder: wnkXXXXXXXXXXXXXX
+      - label: Success Output Variable
+        helpText: Variable name to store the success status
+        variable: outputVariable
+        required: true
+        type: outputVariableName

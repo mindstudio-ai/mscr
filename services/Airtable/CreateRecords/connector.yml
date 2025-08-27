@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Action
+id: create-records
+serviceId: airtable
+active: true
+metadata:
+  name: Create Records
+  description: Creates one or multiple records in an Airtable table
+  quickHelp: help.md
+configuration:
+  - title: Base and Table Information
+    items:
+      - label: Base ID
+        variable: baseId
+        type: text
+        required: true
+        helpText: The ID of your Airtable base. You can find this in the URL when viewing your base (e.g., 'app12345abcde').
+        placeholder: app...
+      - label: Table Name or ID
+        variable: tableIdOrName
+        type: text
+        required: true
+        helpText: The name or ID of the table where you want to create records.
+        placeholder: Table Name or tbl...
+  - title: Record Configuration
+    items:
+      - label: Record Data
+        variable: recordData
+        type: text
+        required: true
+        helpText: JSON object with the fields and values for your record(s). For multiple records, use an array of objects with 'fields' property.
+        textOptions:
+          type: multiline
+        placeholder: '{"Name": "Example", "Notes": "This is a note"}'
+      - label: Create Multiple Records
+        variable: createMultiple
+        type: select
+        required: true
+        defaultValue: 'false'
+        helpText: Select whether you're creating a single record or multiple records.
+        selectOptions:
+          options:
+            - label: Single Record
+              value: 'false'
+            - label: Multiple Records
+              value: 'true'
+      - label: Typecast Values
+        variable: typecast
+        type: select
+        required: false
+        defaultValue: 'false'
+        helpText: Automatically convert string values to the appropriate type (e.g., 'true' to boolean).
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the created record(s) information.

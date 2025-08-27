@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: delete-record
+serviceId: airtable
+active: true
+metadata:
+  name: Delete Record
+  description: Deletes a single record from an Airtable table
+  quickHelp: help.md
+configuration:
+  - title: Airtable Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base. You can find this in the API documentation section of your base or in the URL when viewing your base (e.g., 'app12345abcde').
+        variable: baseId
+        required: true
+        type: text
+        placeholder: app12345abcde
+      - label: Table Name or ID
+        helpText: The name or ID of the table containing the record to delete.
+        variable: tableIdOrName
+        required: true
+        type: text
+        placeholder: Table Name
+      - label: Record ID
+        helpText: The ID of the record to delete (e.g., 'rec123456').
+        variable: recordId
+        required: true
+        type: text
+        placeholder: rec123456
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the deletion result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

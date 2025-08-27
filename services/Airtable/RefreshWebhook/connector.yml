@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: refresh-webhook
+serviceId: airtable
+active: true
+metadata:
+  name: Refresh Webhook
+  description: Extends the life of an Airtable webhook by 7 days from the time of refresh
+  quickHelp: help.md
+configuration:
+  - title: Webhook Details
+    items:
+      - label: Base ID
+        helpText: The ID of the Airtable base containing the webhook. This is the part after 'airtable.com/' in your base URL.
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Webhook ID
+        helpText: The ID of the webhook you want to refresh.
+        variable: webhookId
+        required: true
+        type: text
+        placeholder: wnkXXXXXXXXXXXXXX
+      - label: Output Variable
+        helpText: Variable name to store the webhook's new expiration time.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

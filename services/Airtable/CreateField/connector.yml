@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Action
+id: create-field
+serviceId: airtable
+active: true
+metadata:
+  name: Create Field
+  description: Creates a new column in an Airtable table and returns the schema for the newly created column
+  quickHelp: help.md
+configuration:
+  - title: Base and Table Information
+    items:
+      - label: Base ID
+        helpText: 'The ID of the Airtable base where you want to create a field. Found in the base URL: airtable.com/[baseId]/...'
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table ID
+        helpText: 'The ID of the table where you want to create a field. Found in the table URL: airtable.com/[baseId]/[tableId]/...'
+        variable: tableId
+        required: true
+        type: text
+        placeholder: tblXXXXXXXXXXXXXX
+  - title: Field Details
+    items:
+      - label: Field Name
+        helpText: The name of the new field/column to create
+        variable: fieldName
+        required: true
+        type: text
+        placeholder: My New Field
+      - label: Field Type
+        helpText: The type of field to create
+        variable: fieldType
+        required: true
+        type: select
+        defaultValue: singleLineText
+        selectOptions:
+          options:
+            - label: Single line text
+              value: singleLineText
+            - label: Long text
+              value: multilineText
+            - label: Checkbox
+              value: checkbox
+            - label: Single select
+              value: singleSelect
+            - label: Number
+              value: number
+            - label: Date
+              value: date
+            - label: URL
+              value: url
+            - label: Email
+              value: email
+            - label: Phone
+              value: phone
+      - label: Field Description
+        helpText: Optional description for the field
+        variable: fieldDescription
+        required: false
+        type: text
+        placeholder: Description of what this field is for...
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Select Options (for Single Select fields)
+        helpText: "For Single Select fields only. Enter options as comma-separated values (e.g., 'Option 1,Option 2,Option 3')"
+        variable: selectOptions
+        required: false
+        type: text
+        placeholder: Option 1,Option 2,Option 3
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the created field information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

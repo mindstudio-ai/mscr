@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: create-base
+serviceId: airtable
+active: true
+metadata:
+  name: Create Base
+  description: Creates a new Airtable base with specified tables and fields
+  quickHelp: help.md
+configuration:
+  - title: Base Configuration
+    items:
+      - label: Base Name
+        helpText: The name for your new Airtable base
+        variable: baseName
+        required: true
+        type: text
+        placeholder: My New Base
+      - label: Workspace ID
+        helpText: The ID of the workspace where the base will be created
+        variable: workspaceId
+        required: true
+        type: text
+        placeholder: wspmhESAta6clCCwF
+  - title: Tables Configuration
+    items:
+      - label: Tables
+        helpText: JSON array of tables to create. Each table should include a name, optional description, and an array of fields.
+        variable: tables
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        defaultValue: '[{"name":"My Table","description":"Description of my table","fields":[{"name":"Name","type":"singleLineText","description":"Primary field"},{"name":"Notes","type":"multilineText"},{"name":"Complete","type":"checkbox"}]}]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created base information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

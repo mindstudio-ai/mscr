@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Action
+id: get-record
+serviceId: airtable
+active: true
+metadata:
+  name: Get Record
+  description: Retrieves a single record from an Airtable table
+  quickHelp: help.md
+configuration:
+  - title: Airtable Configuration
+    items:
+      - label: Base ID
+        helpText: The ID of your Airtable base. You can find this in the API documentation section of your base or in the URL when viewing your base.
+        variable: baseId
+        required: true
+        type: text
+        placeholder: appXXXXXXXXXXXXXX
+      - label: Table ID or Name
+        helpText: The ID or name of the table containing the record.
+        variable: tableIdOrName
+        required: true
+        type: text
+        placeholder: Table Name or tblXXXXXXXXXXXXXX
+      - label: Record ID
+        helpText: The ID of the record to retrieve.
+        variable: recordId
+        required: true
+        type: text
+        placeholder: recXXXXXXXXXXXXXX
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Cell Format
+        helpText: The format for cell values. 'JSON' returns values based on field type, 'String' returns user-facing strings.
+        variable: cellFormat
+        required: false
+        type: select
+        defaultValue: json
+        selectOptions:
+          options:
+            - label: JSON
+              value: json
+            - label: String
+              value: string
+      - label: Return Fields By Field ID
+        helpText: If true, field objects will be keyed by field ID instead of field name.
+        variable: returnFieldsByFieldId
+        required: false
+        type: select
+        defaultValue: false
+        selectOptions:
+          options:
+            - label: True
+              value: true
+            - label: False
+              value: false
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the retrieved record.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

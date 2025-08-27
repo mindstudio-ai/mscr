@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: list-bases
+serviceId: airtable
+active: true
+metadata:
+  name: List Bases
+  description: Retrieves a list of Airtable bases that the authenticated user has access to
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Pagination Offset
+        helpText: If provided, fetches results starting from this pagination offset. This is typically used for fetching additional pages of results.
+        variable: offset
+        required: false
+        type: text
+        placeholder: Leave empty for first page of results
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the list of bases
+        variable: outputVariable
+        type: outputVariableName

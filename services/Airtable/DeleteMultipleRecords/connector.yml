@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: delete-multiple-records
+serviceId: airtable
+active: true
+metadata:
+  name: Delete Multiple Records
+  description: Deletes multiple records from an Airtable table at once
+  quickHelp: help.md
+configuration:
+  - title: Base and Table Configuration
+    items:
+      - label: Base ID
+        required: true
+        helpText: The ID of your Airtable base. You can find this in the API documentation section of your base or in the URL when viewing your base (e.g., 'app12345abcde').
+        variable: baseId
+        type: text
+        placeholder: app...
+      - label: Table Name or ID
+        required: true
+        helpText: The name or ID of the table where records will be deleted.
+        variable: tableIdOrName
+        type: text
+        placeholder: My Table
+  - title: Records to Delete
+    items:
+      - label: Record IDs
+        required: true
+        helpText: Enter the IDs of the records you want to delete, separated by commas. You can delete up to 10 records at once.
+        variable: recordIds
+        type: text
+        placeholder: rec123abc, rec456def
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the result of the deletion operation.
+        variable: outputVariable
+        type: outputVariableName
