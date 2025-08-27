@@ -1,0 +1,164 @@
+apiVersion: v1
+kind: Action
+id: search-outreach-emails
+serviceId: apollo
+active: true
+metadata:
+  name: Search Outreach Emails
+  description: Search for emails sent as part of Apollo sequences with various filters
+  quickHelp: help.md
+configuration:
+  - title: Basic Search Parameters
+    items:
+      - label: Email Status
+        helpText: Filter emails by their current status
+        variable: emailStatuses
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Delivered
+              value: delivered
+            - label: Scheduled
+              value: scheduled
+            - label: Drafted
+              value: drafted
+            - label: Not Opened
+              value: not_opened
+            - label: Opened
+              value: opened
+            - label: Clicked
+              value: clicked
+            - label: Unsubscribed
+              value: unsubscribed
+            - label: Demoed
+              value: demoed
+            - label: Bounced
+              value: bounced
+            - label: Spam Blocked
+              value: spam_blocked
+            - label: Failed (Other)
+              value: failed_other
+      - label: Reply Classes
+        helpText: Filter emails by the response sentiment of recipients
+        variable: replyClasses
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Willing to Meet
+              value: willing_to_meet
+            - label: Follow-up Question
+              value: follow_up_question
+            - label: Person Referral
+              value: person_referral
+            - label: Out of Office
+              value: out_of_office
+            - label: Wrong Person
+              value: already_left_company_or_not_right_person
+            - label: Not Interested
+              value: not_interested
+            - label: Unsubscribe
+              value: unsubscribe
+            - label: None of the Above
+              value: none_of_the_above
+      - label: Keywords
+        helpText: Search for specific content within emails
+        variable: keywords
+        required: false
+        type: text
+        placeholder: Enter keywords to search...
+      - label: Results Per Page
+        helpText: Number of results to return per page (max 100)
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Page Number
+        helpText: Page number to retrieve
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+        placeholder: '1'
+  - title: Date Range Filters
+    collapsed: true
+    items:
+      - label: Date Range Mode
+        helpText: Choose whether to filter by scheduled date or delivery date
+        variable: dateRangeMode
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Scheduled Date
+              value: due_at
+            - label: Delivery Date
+              value: completed_at
+      - label: Start Date
+        helpText: Start date for the search range (YYYY-MM-DD)
+        variable: startDate
+        required: false
+        type: text
+        placeholder: '2023-01-01'
+      - label: End Date
+        helpText: End date for the search range (YYYY-MM-DD)
+        variable: endDate
+        required: false
+        type: text
+        placeholder: '2023-12-31'
+  - title: Advanced Filters
+    collapsed: true
+    items:
+      - label: Sequence IDs
+        helpText: Comma-separated list of sequence IDs to include
+        variable: sequenceIds
+        required: false
+        type: text
+        placeholder: '66e9e215ece19801b219997f,66e9e215ece19801b219998f'
+      - label: Exclude Sequence IDs
+        helpText: Comma-separated list of sequence IDs to exclude
+        variable: excludeSequenceIds
+        required: false
+        type: text
+        placeholder: '66e9e215ece19801b219997f,66e9e215ece19801b219998f'
+      - label: User IDs
+        helpText: Comma-separated list of user IDs to filter by
+        variable: userIds
+        required: false
+        type: text
+        placeholder: '66302798d03b9601c7934ebf,66302798d03b9601c7934ec0'
+      - label: Not Sent Reasons
+        helpText: Filter by reasons emails weren't sent
+        variable: notSentReasons
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Contact Stage Safeguard
+              value: contact_stage_safeguard
+            - label: Same Account Reply
+              value: same_account_reply
+            - label: Account Stage Safeguard
+              value: account_stage_safeguard
+            - label: Email Unverified
+              value: email_unverified
+            - label: Snippets Missing
+              value: snippets_missing
+            - label: Personalized Opener Missing
+              value: personalized_opener_missing
+            - label: No Active Email Account
+              value: no_active_email_account
+            - label: Email Format Invalid
+              value: email_format_invalid
+            - label: GDPR Compliance
+              value: gdpr_compliance
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the search results
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+        placeholder: searchResults

@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: Action
+id: create-contact
+serviceId: apollo
+active: true
+metadata:
+  name: Create Contact
+  description: Add a new contact to your Apollo database
+  quickHelp: help.md
+configuration:
+  - title: Basic Contact Information
+    items:
+      - label: First Name
+        helpText: The first name of the contact you want to create
+        variable: firstName
+        required: true
+        type: text
+        placeholder: John
+      - label: Last Name
+        helpText: The last name of the contact you want to create
+        variable: lastName
+        required: true
+        type: text
+        placeholder: Smith
+      - label: Email
+        helpText: The email address of the contact
+        variable: email
+        required: false
+        type: text
+        placeholder: john.smith@example.com
+      - label: Job Title
+        helpText: The current job title that the contact holds
+        variable: title
+        required: false
+        type: text
+        placeholder: Senior Marketing Manager
+      - label: Organization Name
+        helpText: The name of the contact's employer (company)
+        variable: organizationName
+        required: false
+        type: text
+        placeholder: Acme Corporation
+  - title: Contact Details
+    collapsed: true
+    items:
+      - label: Website URL
+        helpText: The corporate website URL for the contact's current employer
+        variable: websiteUrl
+        required: false
+        type: text
+        placeholder: https://www.example.com
+      - label: Location
+        helpText: The personal location for the contact (city, state, country)
+        variable: presentRawAddress
+        required: false
+        type: text
+        placeholder: San Francisco, CA, United States
+      - label: Direct Phone
+        helpText: The primary phone number for the contact
+        variable: directPhone
+        required: false
+        type: text
+        placeholder: 555-123-4567
+      - label: Mobile Phone
+        helpText: The mobile phone number for the contact
+        variable: mobilePhone
+        required: false
+        type: text
+        placeholder: 555-987-6543
+      - label: Corporate Phone
+        helpText: The work/office phone number for the contact
+        variable: corporatePhone
+        required: false
+        type: text
+        placeholder: 555-789-0123
+  - title: Organization & Labels
+    collapsed: true
+    items:
+      - label: Account ID
+        helpText: The Apollo ID for the account to which you want to assign the contact
+        variable: accountId
+        required: false
+        type: text
+        placeholder: 63f53afe4ceeca00016bdd2f
+      - label: Labels
+        helpText: Comma-separated list of labels to add the contact to
+        variable: labelNames
+        required: false
+        type: text
+        placeholder: Leads, Conference Contacts, Potential Clients
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the created contact details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

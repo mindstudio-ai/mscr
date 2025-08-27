@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Action
+id: search-accounts
+serviceId: apollo
+active: true
+metadata:
+  name: Search for Accounts
+  description: Search for accounts in your Apollo database using various filters and parameters
+  quickHelp: help.md
+configuration:
+  - title: Search Parameters
+    items:
+      - label: Organization Name
+        helpText: Keywords to search for in account names (e.g., "apollo", "microsoft")
+        variable: organizationName
+        required: false
+        type: text
+        placeholder: Enter keywords...
+      - label: Account Stage IDs
+        helpText: Comma-separated list of account stage IDs to filter by
+        variable: accountStageIds
+        required: false
+        type: text
+        placeholder: e.g., 61b8e913e0f4d2012e3af74e
+  - title: Sorting and Pagination
+    items:
+      - label: Sort By
+        helpText: Field to sort the results by
+        variable: sortByField
+        required: false
+        type: select
+        defaultValue: account_last_activity_date
+        selectOptions:
+          options:
+            - label: Last Activity Date
+              value: account_last_activity_date
+            - label: Creation Date
+              value: account_created_at
+            - label: Updated Date
+              value: account_updated_at
+      - label: Sort Order
+        helpText: Order to sort the results
+        variable: sortAscending
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Descending
+              value: 'false'
+            - label: Ascending
+              value: 'true'
+      - label: Results Per Page
+        helpText: Number of results to return per page (max 100)
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: 1-100
+      - label: Page Number
+        helpText: Page number to retrieve
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+        placeholder: Enter page number...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the search results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

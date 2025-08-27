@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Action
+id: news-articles-search
+serviceId: apollo
+active: true
+metadata:
+  name: Search News Articles
+  description: Find news articles related to companies in the Apollo database
+  quickHelp: help.md
+configuration:
+  - title: Search Parameters
+    items:
+      - label: Organization IDs
+        helpText: 'Comma-separated list of Apollo organization IDs to search for news about. Example: 5e66b6381e05b4008c8331b8,5e66b6381e05b4008c8331b9'
+        variable: organizationIds
+        required: true
+        type: text
+      - label: News Categories
+        helpText: 'Comma-separated list of news categories to filter by. Examples: hires, investment, contract'
+        variable: categories
+        required: false
+        type: text
+  - title: Date Range
+    items:
+      - label: Published After
+        helpText: 'Filter for articles published after this date (YYYY-MM-DD format)'
+        variable: publishedMin
+        required: false
+        type: text
+        placeholder: 'YYYY-MM-DD'
+      - label: Published Before
+        helpText: 'Filter for articles published before this date (YYYY-MM-DD format)'
+        variable: publishedMax
+        required: false
+        type: text
+        placeholder: 'YYYY-MM-DD'
+  - title: Pagination
+    collapsed: true
+    items:
+      - label: Results Per Page
+        helpText: 'Number of results to return per page (max 100)'
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '25'
+      - label: Page Number
+        helpText: 'Page number to retrieve'
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: 'Variable name to store the search results'
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: search-sequences
+serviceId: apollo
+active: true
+metadata:
+  name: Search Sequences
+  description: Search for sequences that have been created for your team's Apollo account
+  quickHelp: help.md
+configuration:
+  - title: Search Configuration
+    items:
+      - label: Sequence Name
+        helpText: Add keywords to narrow the search of sequences. Keywords should match at least part of a sequence's name.
+        variable: sequenceName
+        required: false
+        type: text
+        placeholder: marketing conference attendees
+      - label: Page Number
+        helpText: The page number of results to retrieve. Use with Results Per Page for pagination.
+        variable: page
+        required: false
+        type: text
+        placeholder: '1'
+        defaultValue: '1'
+      - label: Results Per Page
+        helpText: The number of search results to return per page.
+        variable: perPage
+        required: false
+        type: text
+        placeholder: '10'
+        defaultValue: '10'
+      - label: Output Variable
+        helpText: The variable name to store the search results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

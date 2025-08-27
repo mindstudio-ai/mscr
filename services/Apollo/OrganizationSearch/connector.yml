@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Action
+id: organization-search
+serviceId: apollo
+active: true
+metadata:
+  name: Organization Search
+  description: Search for organizations in the Apollo database using various filters
+  quickHelp: help.md
+configuration:
+  - title: Basic Search Parameters
+    items:
+      - label: Organization Name
+        variable: organizationName
+        type: text
+        required: false
+        helpText: Filter results to include a specific company name (partial matches accepted)
+        placeholder: 'e.g., apollo or mining'
+      - label: Employee Count Ranges
+        variable: employeeRanges
+        type: text
+        required: false
+        helpText: "Number ranges of employees. For multiple ranges, separate with semicolons (e.g., '1,10;250,500')"
+        placeholder: 'e.g., 10,50;100,500'
+      - label: Locations
+        variable: locations
+        type: text
+        required: false
+        helpText: 'Locations of company headquarters. For multiple locations, separate with semicolons'
+        placeholder: 'e.g., texas;tokyo;spain'
+      - label: Excluded Locations
+        variable: excludedLocations
+        type: text
+        required: false
+        helpText: 'Locations to exclude from results. For multiple locations, separate with semicolons'
+        placeholder: 'e.g., minnesota;ireland;seoul'
+  - title: Financial & Technology Filters
+    collapsed: true
+    items:
+      - label: Minimum Revenue
+        variable: minRevenue
+        type: text
+        required: false
+        helpText: 'Minimum annual revenue in dollars (numbers only, no commas or currency symbols)'
+        placeholder: 'e.g., 1000000'
+      - label: Maximum Revenue
+        variable: maxRevenue
+        type: text
+        required: false
+        helpText: 'Maximum annual revenue in dollars (numbers only, no commas or currency symbols)'
+        placeholder: 'e.g., 50000000'
+      - label: Technologies Used
+        variable: technologies
+        type: text
+        required: false
+        helpText: 'Technologies currently used by the organization. For multiple technologies, separate with semicolons'
+        placeholder: 'e.g., salesforce;google_analytics;wordpress_org'
+      - label: Keywords
+        variable: keywords
+        type: text
+        required: false
+        helpText: 'Keywords associated with companies. For multiple keywords, separate with semicolons'
+        placeholder: 'e.g., mining;consulting;sales strategy'
+  - title: Pagination
+    items:
+      - label: Results Per Page
+        variable: perPage
+        type: text
+        required: true
+        defaultValue: '10'
+        helpText: 'Number of results to return per page (max 100)'
+      - label: Page Number
+        variable: page
+        type: text
+        required: true
+        defaultValue: '1'
+        helpText: 'Page number to retrieve (max 500)'
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: 'Name of the variable to store the search results'

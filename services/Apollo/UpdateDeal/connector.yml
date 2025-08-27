@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Action
+id: update-deal
+serviceId: apollo
+active: true
+metadata:
+  name: Update Deal
+  description: Updates an existing deal in your Apollo account
+  quickHelp: help.md
+configuration:
+  - title: Deal Information
+    items:
+      - label: Deal ID
+        helpText: The unique ID of the deal you want to update
+        variable: opportunityId
+        required: true
+        type: text
+        placeholder: 66e09ea8e3cfcf01b2208ec7
+      - label: Deal Name
+        helpText: Update the name of the deal
+        variable: name
+        required: false
+        type: text
+        placeholder: Enterprise Deal Q4
+      - label: Deal Amount
+        helpText: The monetary value of the deal (numbers only, no commas or currency symbols)
+        variable: amount
+        required: false
+        type: text
+        placeholder: 10000
+  - title: Deal Status
+    items:
+      - label: Deal Stage ID
+        helpText: The ID of the new stage for the deal
+        variable: opportunityStageId
+        required: false
+        type: text
+        placeholder: 6095a710bd01d100a506d4bd
+      - label: Close Date
+        helpText: The estimated close date for the deal (YYYY-MM-DD)
+        variable: closedDate
+        required: false
+        type: text
+        placeholder: 2024-12-31
+      - label: Mark as Closed
+        helpText: Set to Yes to mark the deal as closed
+        variable: isClosed
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Mark as Won
+        helpText: Set to Yes to mark the deal as won (usually used with Mark as Closed)
+        variable: isWon
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Additional Details
+    collapsed: true
+    items:
+      - label: Owner ID
+        helpText: The ID of the user who will own the deal
+        variable: ownerId
+        required: false
+        type: text
+        placeholder: 66302798d03b9601c7934ebf
+      - label: Account ID
+        helpText: The ID of the company associated with the deal
+        variable: accountId
+        required: false
+        type: text
+        placeholder: 5e66b6381e05b4008c8331b8
+      - label: Deal Source
+        helpText: The source of the deal (e.g., Conference, Referral)
+        variable: source
+        required: false
+        type: text
+        placeholder: 2024 Conference
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the updated deal information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

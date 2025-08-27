@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Action
+id: search-contacts
+serviceId: apollo
+active: true
+metadata:
+  name: Search Contacts
+  description: Search for contacts in your Apollo.io account
+  quickHelp: help.md
+configuration:
+  - title: Search Parameters
+    items:
+      - label: Keywords
+        helpText: Add keywords to narrow your search. Can include names, job titles, companies, or email addresses.
+        variable: keywords
+        required: false
+        type: text
+        placeholder: 'e.g., john smith; marketing director; google'
+      - label: Contact Stage IDs
+        helpText: Comma-separated list of contact stage IDs to filter by. Leave blank to search all stages.
+        variable: contactStageIds
+        required: false
+        type: text
+        placeholder: 'e.g., 6095a710bd01d100a506d4ae,6095a710bd01d100a506d4af'
+      - label: Sort By
+        helpText: Choose how to sort the results
+        variable: sortByField
+        required: false
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: Default
+              value: ''
+            - label: Most Recent Activity
+              value: contact_last_activity_date
+            - label: Last Email Opened
+              value: contact_email_last_opened_at
+            - label: Last Email Clicked
+              value: contact_email_last_clicked_at
+            - label: Creation Date
+              value: contact_created_at
+            - label: Last Updated
+              value: contact_updated_at
+      - label: Sort Order
+        helpText: Choose the sort order
+        variable: sortOrder
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Descending (newest first)
+              value: 'false'
+            - label: Ascending (oldest first)
+              value: 'true'
+  - title: Pagination
+    items:
+      - label: Results Per Page
+        helpText: Number of results to return per page (max 100)
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '25'
+        placeholder: '25'
+      - label: Page Number
+        helpText: Page number to retrieve (starts at 1)
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+        placeholder: '1'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the search results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

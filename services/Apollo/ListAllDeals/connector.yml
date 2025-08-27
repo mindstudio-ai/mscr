@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: list-all-deals
+serviceId: apollo
+active: true
+metadata:
+  name: List All Deals
+  description: Retrieves all deals from your Apollo account
+  quickHelp: help.md
+configuration:
+  - title: Sorting and Pagination
+    items:
+      - label: Sort By Field
+        helpText: Sort the deals by one of these criteria
+        variable: sortByField
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Amount (largest first)
+              value: amount
+            - label: Closed Status
+              value: is_closed
+            - label: Won Status
+              value: is_won
+      - label: Page Number
+        helpText: The page number of results to retrieve
+        variable: page
+        required: false
+        type: text
+        placeholder: '1'
+        defaultValue: '1'
+      - label: Results Per Page
+        helpText: Number of deals to return per page
+        variable: perPage
+        required: false
+        type: text
+        placeholder: '25'
+        defaultValue: '25'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of deals
+        variable: outputVariable
+        required: true
+        type: outputVariableName

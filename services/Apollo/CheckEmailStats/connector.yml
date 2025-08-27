@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: check-email-stats
+serviceId: apollo
+active: true
+metadata:
+  name: Check Email Stats
+  description: Retrieve detailed statistics and information about an email sent through Apollo
+  quickHelp: help.md
+configuration:
+  - title: Email Details
+    items:
+      - label: Email ID
+        required: true
+        helpText: The unique ID of the email you want to view. To find email IDs, use the Search for Outreach Emails endpoint.
+        variable: emailId
+        type: text
+        placeholder: 684b2203a2ce950021cbf730
+      - label: Output Variable
+        required: true
+        helpText: The variable where the email statistics will be stored
+        variable: outputVariable
+        type: outputVariableName

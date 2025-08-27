@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Action
+id: update-account
+serviceId: apollo
+active: true
+metadata:
+  name: Update Account
+  description: Updates an existing account in Apollo with new information
+  quickHelp: help.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account ID
+        helpText: The Apollo ID for the account you want to update
+        variable: accountId
+        required: true
+        type: text
+        placeholder: 66e9abf95ac32901b20d1a0d
+      - label: Account Name
+        helpText: Update the account's name
+        variable: name
+        required: false
+        type: text
+        placeholder: The Fast Irish Copywriters
+      - label: Domain
+        helpText: Update the domain name for the account (do not include www)
+        variable: domain
+        required: false
+        type: text
+        placeholder: apollo.io
+  - title: Account Details
+    items:
+      - label: Owner ID
+        helpText: The ID for the account owner within your team's Apollo account
+        variable: ownerId
+        required: false
+        type: text
+        placeholder: 66302798d03b9601c7934ebf
+      - label: Account Stage ID
+        helpText: The Apollo ID for the account stage to which you want to assign the account
+        variable: accountStageId
+        required: false
+        type: text
+        placeholder: 61b8e913e0f4d2012e3af74e
+      - label: Address
+        helpText: Update the corporate location for the account
+        variable: rawAddress
+        required: false
+        type: text
+        placeholder: Belfield, Dublin 4, Ireland
+      - label: Phone
+        helpText: Update the primary phone number for the account
+        variable: phone
+        required: false
+        type: text
+        placeholder: 555-303-1234
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the updated account information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

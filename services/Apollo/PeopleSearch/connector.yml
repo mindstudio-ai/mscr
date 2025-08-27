@@ -1,0 +1,138 @@
+apiVersion: v1
+kind: Action
+id: people-search
+serviceId: apollo
+active: true
+metadata:
+  name: People Search
+  description: Search for people in the Apollo database using various filters
+  quickHelp: help.md
+configuration:
+  - title: Search Criteria
+    items:
+      - label: Job Titles
+        helpText: Job titles to search for (e.g., 'marketing manager, sales representative'). Separate multiple titles with commas.
+        variable: personTitles
+        required: false
+        type: text
+        placeholder: 'marketing manager, sales representative'
+      - label: Include Similar Titles
+        helpText: When enabled, returns people with similar job titles to those specified.
+        variable: includeSimilarTitles
+        required: false
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Keywords
+        helpText: Keywords to filter results by (e.g., 'blockchain, AI').
+        variable: keywords
+        required: false
+        type: text
+        placeholder: 'blockchain, AI'
+      - label: Person Locations
+        helpText: Locations where people live (e.g., 'california, chicago, ireland'). Separate multiple locations with commas.
+        variable: personLocations
+        required: false
+        type: text
+        placeholder: 'california, chicago, ireland'
+      - label: Seniority Levels
+        helpText: 'Seniority levels to filter by. Separate multiple levels with commas. Available options: owner, founder, c_suite, partner, vp, head, director, manager, senior, entry, intern.'
+        variable: personSeniorities
+        required: false
+        type: text
+        placeholder: 'director, vp, c_suite'
+  - title: Company Filters
+    collapsed: true
+    items:
+      - label: Company Locations
+        helpText: Locations of company headquarters (e.g., 'texas, tokyo, spain'). Separate multiple locations with commas.
+        variable: organizationLocations
+        required: false
+        type: text
+        placeholder: 'texas, tokyo, spain'
+      - label: Company Domains
+        helpText: Domain names of companies to filter by (e.g., 'apollo.io, microsoft.com'). Separate multiple domains with commas. Do not include www.
+        variable: organizationDomains
+        required: false
+        type: text
+        placeholder: 'apollo.io, microsoft.com'
+      - label: Email Status
+        helpText: 'Email statuses to filter by. Separate multiple statuses with commas. Available options: verified, unverified, likely to engage, unavailable.'
+        variable: contactEmailStatus
+        required: false
+        type: text
+        placeholder: 'verified, likely to engage'
+      - label: Company Size (Min)
+        helpText: Minimum number of employees at the company.
+        variable: employeeRangeMin
+        required: false
+        type: text
+        placeholder: '50'
+      - label: Company Size (Max)
+        helpText: Maximum number of employees at the company.
+        variable: employeeRangeMax
+        required: false
+        type: text
+        placeholder: '1000'
+      - label: Revenue (Min)
+        helpText: Minimum company revenue (numeric value only, no symbols).
+        variable: revenueMin
+        required: false
+        type: text
+        placeholder: '1000000'
+      - label: Revenue (Max)
+        helpText: Maximum company revenue (numeric value only, no symbols).
+        variable: revenueMax
+        required: false
+        type: text
+        placeholder: '10000000'
+  - title: Technology Filters
+    collapsed: true
+    items:
+      - label: Using All Technologies
+        helpText: Find people whose companies use ALL of these technologies. Separate multiple technologies with commas.
+        variable: usingAllTechnologies
+        required: false
+        type: text
+        placeholder: 'salesforce, google_analytics'
+      - label: Using Any Technologies
+        helpText: Find people whose companies use ANY of these technologies. Separate multiple technologies with commas.
+        variable: usingAnyTechnologies
+        required: false
+        type: text
+        placeholder: 'hubspot, marketo'
+      - label: Not Using Technologies
+        helpText: Exclude people whose companies use ANY of these technologies. Separate multiple technologies with commas.
+        variable: notUsingTechnologies
+        required: false
+        type: text
+        placeholder: 'wordpress_org, shopify'
+  - title: Pagination
+    collapsed: true
+    items:
+      - label: Page Number
+        helpText: The page number of results to retrieve.
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+        placeholder: '1'
+      - label: Results Per Page
+        helpText: Number of results to return per page (max 100).
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '25'
+        placeholder: '25'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the search results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

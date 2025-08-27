@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: apollo
+metadata:
+  name: Apollo
+  description: Find and research leads, personalize messaging, and launch campaigns
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756316129482.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your Apollo API key. To learn about creating an API key, visit: https://docs.apollo.io/docs/create-api-key'
+    placeholder: g...

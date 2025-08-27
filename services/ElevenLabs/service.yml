@@ -10,5 +10,5 @@ configuration:
   - id: apiKey
     type: apiKey
     name: API Key
-    description: 'Your elevenlabs API key. You can find this at: https://elevenlabs.io/app/developers/api-keys'
+    description: 'Your ElevenLabs API key. You can find this at: https://elevenlabs.io/app/developers/api-keys'
     placeholder: sk_...

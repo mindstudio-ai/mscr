@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Action
+id: create-deal
+serviceId: apollo
+active: true
+metadata:
+  name: Create Deal
+  description: Creates a new deal in Apollo to track account activity, monetary values, and deal stages
+  quickHelp: help.md
+configuration:
+  - title: Deal Information
+    items:
+      - label: Deal Name
+        helpText: Name for the deal you are creating (e.g., 'Q3 Enterprise Deal')
+        variable: dealName
+        required: true
+        type: text
+        placeholder: Massive Q3 Deal
+      - label: Deal Amount
+        helpText: The monetary value of the deal. Enter numbers only, without commas or currency symbols.
+        variable: amount
+        required: false
+        type: text
+        placeholder: 10000
+      - label: Account ID
+        helpText: The Apollo ID of the company associated with this deal.
+        variable: accountId
+        required: false
+        type: text
+        placeholder: 5e66b6381e05b4008c8331b8
+  - title: Deal Details
+    items:
+      - label: Owner ID
+        helpText: The Apollo ID of the team member who will own this deal.
+        variable: ownerId
+        required: false
+        type: text
+        placeholder: 66302798d03b9601c7934ebf
+      - label: Deal Stage ID
+        helpText: The ID of the deal stage in your Apollo account.
+        variable: opportunityStageId
+        required: false
+        type: text
+        placeholder: 6095a710bd01d100a506d4bd
+      - label: Estimated Close Date
+        helpText: The estimated close date for the deal in YYYY-MM-DD format.
+        variable: closedDate
+        required: false
+        type: text
+        placeholder: 2024-12-31
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created deal information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
