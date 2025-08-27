@@ -118,7 +118,7 @@ Using the provided swagger definition, write the connector for the action. Examp
   }
 
   // Now, send to MindStudio agent
-  await fetch('https://v1.mindstudio-api.com/developer/v2/agents/run', {
+  fetch('https://v1.mindstudio-api.com/developer/v2/agents/run', {
     method: 'POST',
     headers: {
       Authorization:
@@ -134,8 +134,6 @@ Using the provided swagger definition, write the connector for the action. Examp
       version: 'draft',
     }),
   });
-
-  console.log('done');
 };
 
 getEndpoints();
