@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: list-campaigns
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: List Campaigns

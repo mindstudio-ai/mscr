@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: add-campaign-feedback
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Add Campaign Feedback

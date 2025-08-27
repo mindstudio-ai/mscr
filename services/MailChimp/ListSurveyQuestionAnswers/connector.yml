@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: list-survey-question-answers
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: List Answers for Survey Question

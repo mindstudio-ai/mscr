@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: create-survey-campaign
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Create Survey Campaign

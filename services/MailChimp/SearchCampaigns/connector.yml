@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: search-campaigns
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Search Campaigns

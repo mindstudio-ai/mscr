@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: batch-segment-members
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Batch Segment Members

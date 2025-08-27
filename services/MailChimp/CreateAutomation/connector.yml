@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: create-automation
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Create Automation

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: get-survey-question-report
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Get Survey Question Report

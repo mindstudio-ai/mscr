@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: add-remove-member-tags
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Add or Remove Member Tags

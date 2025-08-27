@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: add-member-to-segment
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Add Member to Segment

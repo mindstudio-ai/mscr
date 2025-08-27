@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: update-merge-field
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Update Merge Field

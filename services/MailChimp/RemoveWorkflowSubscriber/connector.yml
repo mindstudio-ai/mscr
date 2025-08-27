@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: remove-workflow-subscriber
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Remove Subscriber from Workflow

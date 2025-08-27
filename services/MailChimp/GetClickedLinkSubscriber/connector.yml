@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: get-clicked-link-subscriber
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Get Clicked Link Subscriber

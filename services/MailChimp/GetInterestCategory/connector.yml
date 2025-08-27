@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: get-interest-category
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Get Interest Category

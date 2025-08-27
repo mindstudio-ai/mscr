@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: get-list-surveys
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Get List Surveys

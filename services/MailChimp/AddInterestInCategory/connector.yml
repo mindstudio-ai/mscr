@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: add-interest-in-category
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Add Interest in Category

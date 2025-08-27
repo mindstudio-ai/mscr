@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: customize-signup-form
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Customize Signup Form

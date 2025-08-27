@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: get-automated-email-subscriber
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Get Automated Email Subscriber

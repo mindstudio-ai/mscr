@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: get-campaign-send-checklist
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Get Campaign Send Checklist

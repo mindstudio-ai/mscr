@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: batch-subscribe-unsubscribe
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Batch Subscribe or Unsubscribe

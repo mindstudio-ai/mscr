@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: list-segments
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: List Segments

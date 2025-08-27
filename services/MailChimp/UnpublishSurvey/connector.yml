@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: unpublish-survey
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Unpublish Survey

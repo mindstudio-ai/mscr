@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: archive-automation
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Archive Automation

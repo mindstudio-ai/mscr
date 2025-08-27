@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: add-list-member
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Add Member to List

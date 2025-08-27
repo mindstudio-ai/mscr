@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: upload-file
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Upload File to MailChimp

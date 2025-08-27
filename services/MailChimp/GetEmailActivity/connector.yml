@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: get-email-activity
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Get Email Activity Report

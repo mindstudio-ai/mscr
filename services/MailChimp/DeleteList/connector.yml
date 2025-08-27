@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Action
 id: delete-list
-serviceId: MailChimp
+serviceid: mailchimp
 active: true
 metadata:
   name: Delete List
