@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: list-accounts
+serviceId: activeCampaign
+active: true
+metadata:
+  name: List Accounts
+  description: Retrieve all existing accounts from ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Search by Name
+        helpText: Filter accounts by name
+        variable: search
+        required: false
+        type: text
+        placeholder: Enter account name to search...
+      - label: Include Contact & Deal Counts
+        helpText: Whether to include accurate contact and deal counts for each account
+        variable: countDeals
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Output Variable
+        helpText: The variable to store the list of accounts
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: retrieve-contact-automation
+serviceId: activecampaign
+active: true
+metadata:
+  name: Retrieve Contact Automation
+  description: Retrieves details about an automation that a contact is in
+  quickHelp: help.md
+configuration:
+  - title: Contact Automation Details
+    items:
+      - label: Contact Automation ID
+        helpText: The ID of the contact automation to retrieve
+        variable: contactAutomationId
+        required: true
+        type: text
+        placeholder: Enter contact automation ID...
+      - label: Output Variable
+        helpText: The variable name to store the contact automation details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

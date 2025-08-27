@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-bulk-import-status
+serviceId: activecampaign
+active: true
+metadata:
+  name: Get Bulk Import Status
+  description: Retrieves the status of a bulk import operation, including successfully imported contacts and failures.
+  quickHelp: help.md
+configuration:
+  - title: Import Details
+    items:
+      - label: Batch ID
+        helpText: The ID of the bulk import batch you want to check the status for.
+        variable: batchId
+        required: true
+        type: text
+        placeholder: Enter batch ID...
+  - title: Output Options
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the import status results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

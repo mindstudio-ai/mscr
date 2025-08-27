@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Action
+id: delete-pipeline
+serviceId: activecampaign
+active: true
+metadata:
+  name: Delete Pipeline
+  description: Deletes an existing pipeline and all associated stages and deals
+  quickHelp: help.md
+configuration:
+  - title: Pipeline Information
+    items:
+      - label: Pipeline ID
+        helpText: The ID of the pipeline you want to delete
+        variable: pipelineId
+        required: true
+        type: text
+        placeholder: Enter pipeline ID...
+      - label: Confirm Deletion
+        helpText: This action will delete the pipeline and all associated stages and deals
+        variable: confirmDelete
+        required: true
+        type: select
+        defaultValue: no
+        selectOptions:
+          options:
+            - label: No, do not delete
+              value: no
+            - label: Yes, I understand this will delete the pipeline
+              value: yes

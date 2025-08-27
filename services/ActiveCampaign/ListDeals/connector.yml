@@ -1,0 +1,150 @@
+apiVersion: v1
+kind: Action
+id: list-deals
+serviceId: activecampaign
+active: true
+metadata:
+  name: List Deals
+  description: Retrieve all existing deals from ActiveCampaign with optional filtering and sorting
+  quickHelp: help.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Search Term
+        helpText: Search for deals containing this text
+        variable: searchTerm
+        required: false
+        type: text
+        placeholder: Search deals...
+      - label: Filter By
+        helpText: Field to search in when using Search Term
+        variable: searchField
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Fields
+              value: ""
+            - label: Title
+              value: "title"
+            - label: Contact Name
+              value: "contact"
+            - label: Organization Name
+              value: "organization"
+            - label: Description
+              value: "description"
+  - title: Filtering
+    collapsed: true
+    items:
+      - label: Deal Status
+        helpText: Filter deals by their status
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Statuses
+              value: ""
+            - label: Open
+              value: "0"
+            - label: Won
+              value: "1"
+            - label: Lost
+              value: "2"
+      - label: Pipeline ID
+        helpText: Filter deals by pipeline ID
+        variable: pipelineId
+        required: false
+        type: text
+        placeholder: Pipeline ID...
+      - label: Stage ID
+        helpText: Filter deals by stage ID
+        variable: stageId
+        required: false
+        type: text
+        placeholder: Stage ID...
+      - label: Owner ID
+        helpText: Filter deals by owner ID
+        variable: ownerId
+        required: false
+        type: text
+        placeholder: Owner ID...
+      - label: Created After
+        helpText: Filter deals created after this date (YYYY-MM-DD)
+        variable: createdAfter
+        required: false
+        type: text
+        placeholder: YYYY-MM-DD
+      - label: Created Before
+        helpText: Filter deals created before this date (YYYY-MM-DD)
+        variable: createdBefore
+        required: false
+        type: text
+        placeholder: YYYY-MM-DD
+      - label: Minimum Value
+        helpText: Filter deals with value greater than or equal to this amount (in USD)
+        variable: minimumValue
+        required: false
+        type: text
+        placeholder: 1000
+      - label: Maximum Value
+        helpText: Filter deals with value less than or equal to this amount (in USD)
+        variable: maximumValue
+        required: false
+        type: text
+        placeholder: 10000
+  - title: Sorting & Pagination
+    collapsed: true
+    items:
+      - label: Sort By
+        helpText: Field to sort results by
+        variable: sortField
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Title
+              value: "title"
+            - label: Value
+              value: "value"
+            - label: Created Date
+              value: "cdate"
+            - label: Contact Name
+              value: "contact_name"
+            - label: Organization Name
+              value: "contact_orgname"
+            - label: Next Action
+              value: "next-action"
+      - label: Sort Direction
+        helpText: Direction to sort results
+        variable: sortDirection
+        required: false
+        type: select
+        defaultValue: "ASC"
+        selectOptions:
+          options:
+            - label: Ascending
+              value: "ASC"
+            - label: Descending
+              value: "DESC"
+      - label: Limit
+        helpText: Maximum number of deals to return
+        variable: limit
+        required: false
+        type: text
+        defaultValue: "20"
+        placeholder: 20
+      - label: Offset
+        helpText: Number of deals to skip before starting to return results
+        variable: offset
+        required: false
+        type: text
+        defaultValue: "0"
+        placeholder: 0
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of deals
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: update-list-status
+serviceId: activecampaign
+active: true
+metadata:
+  name: Update List Status for Contact
+  description: Subscribe or unsubscribe a contact from a list in ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Contact and List Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact to update list status for
+        variable: contactId
+        required: true
+        type: text
+        placeholder: 123
+      - label: List ID
+        helpText: The ID of the list to subscribe or unsubscribe the contact from
+        variable: listId
+        required: true
+        type: text
+        placeholder: 456
+      - label: Status
+        helpText: Set to 'Subscribe' to add the contact to the list. Set to 'Unsubscribe' to remove the contact from the list.
+        variable: status
+        required: true
+        type: select
+        defaultValue: "1"
+        selectOptions:
+          options:
+            - label: Subscribe
+              value: "1"
+            - label: Unsubscribe
+              value: "2"
+      - label: Source ID
+        helpText: Defaults to 0. Set to '4' when re-subscribing a contact to a list.
+        variable: sourceId
+        required: false
+        type: text
+        defaultValue: "0"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

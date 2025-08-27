@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: update-account-association
+serviceId: activeCampaign
+active: true
+metadata:
+  name: Update Account Association
+  description: Updates an existing association between a contact and an account
+  quickHelp: help.md
+configuration:
+  - title: Association Details
+    items:
+      - label: Association ID
+        required: true
+        helpText: The ID of the account-contact association to update
+        variable: associationId
+        type: text
+        placeholder: '19'
+      - label: Job Title
+        required: true
+        helpText: The contact's job title at this account
+        variable: jobTitle
+        type: text
+        placeholder: 'CEO'
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the updated association details
+        variable: outputVariable
+        type: outputVariableName

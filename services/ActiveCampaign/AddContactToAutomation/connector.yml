@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: add-contact-to-automation
+serviceId: activecampaign
+active: true
+metadata:
+  name: Add Contact to Automation
+  description: Add an existing contact to an automation in ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact to add to the automation
+        variable: contactId
+        required: true
+        type: text
+        placeholder: "117"
+  - title: Automation Information
+    items:
+      - label: Automation ID
+        helpText: The ID of the automation to add the contact to
+        variable: automationId
+        required: true
+        type: text
+        placeholder: "42"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

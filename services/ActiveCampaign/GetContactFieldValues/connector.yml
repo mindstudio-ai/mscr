@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-contact-field-values
+serviceId: activecampaign
+active: true
+metadata:
+  name: Get Contact Field Values
+  description: Retrieves all custom field values for a specific contact in ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Contact ID
+        helpText: The ID of the contact whose field values you want to retrieve
+        variable: contactId
+        required: true
+        type: text
+        placeholder: 123
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the retrieved field values
+        variable: outputVariable
+        type: outputVariableName

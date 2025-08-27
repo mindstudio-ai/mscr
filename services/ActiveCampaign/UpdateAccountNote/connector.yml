@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: update-account-note
+serviceId: activeCampaign
+active: true
+metadata:
+  name: Update Account Note
+  description: Update an existing note for an account in ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account ID
+        helpText: The ID of the account to update the note for
+        variable: accountId
+        required: true
+        type: text
+        placeholder: '1'
+      - label: Note ID
+        helpText: The ID of the note to update
+        variable: noteId
+        required: true
+        type: text
+        placeholder: '2'
+  - title: Note Content
+    items:
+      - label: Note Content
+        helpText: The updated content for the note
+        variable: noteContent
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Enter the updated note content here...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated note information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

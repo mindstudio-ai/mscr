@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: delete-deal
+serviceId: activecampaign
+active: true
+metadata:
+  name: Delete Deal
+  description: Deletes an existing deal in ActiveCampaign by ID
+  quickHelp: help.md
+configuration:
+  - title: Deal Information
+    items:
+      - label: Deal ID
+        helpText: The ID of the deal you want to delete
+        variable: dealId
+        required: true
+        type: text
+        placeholder: "123"
+  - title: Response
+    items:
+      - label: Success Message Variable
+        helpText: Variable name to store the success message
+        variable: successMessageVar
+        required: true
+        type: outputVariableName

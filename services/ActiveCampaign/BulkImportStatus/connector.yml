@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: bulk-import-status
+serviceId: activecampaign
+active: true
+metadata:
+  name: Get Bulk Import Status
+  description: Retrieves the status of bulk imports in ActiveCampaign, showing outstanding and recently completed batch jobs
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the bulk import status results
+        variable: outputVariable
+        type: outputVariableName

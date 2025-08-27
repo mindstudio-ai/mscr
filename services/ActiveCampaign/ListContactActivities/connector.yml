@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Action
+id: list-contact-activities
+serviceId: activecampaign
+active: true
+metadata:
+  name: List Contact Activities
+  description: Retrieves a list of activities for a specific contact
+  quickHelp: help.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        variable: contactId
+        type: text
+        required: true
+        helpText: The ID of the contact whose activities you want to retrieve
+        placeholder: Enter contact ID...
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Activities After Date
+        variable: afterDate
+        type: text
+        required: false
+        helpText: Filter for activities after a specific date and time (ISO format)
+        placeholder: e.g., 2023-01-01T00:00:00
+      - label: Sort Order
+        variable: sortOrder
+        type: select
+        required: false
+        helpText: Sort activities by timestamp
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Newest First (Descending)
+              value: desc
+            - label: Oldest First (Ascending)
+              value: asc
+      - label: Include Email Data
+        variable: includeEmails
+        type: select
+        required: false
+        helpText: Include email data fields in the activities
+        defaultValue: "false"
+        selectOptions:
+          options:
+            - label: No
+              value: "false"
+            - label: Yes
+              value: "true"
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the contact activities

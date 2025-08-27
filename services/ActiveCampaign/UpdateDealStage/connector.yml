@@ -1,0 +1,149 @@
+apiVersion: v1
+kind: Action
+id: update-deal-stage
+serviceId: activecampaign
+active: true
+metadata:
+  name: Update Deal Stage
+  description: Updates an existing deal stage in ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Deal Stage Details
+    items:
+      - label: Deal Stage ID
+        helpText: The ID of the deal stage you want to update
+        variable: stageId
+        required: true
+        type: text
+        placeholder: "16"
+      - label: Title
+        helpText: The name of the deal stage
+        variable: title
+        required: true
+        type: text
+        placeholder: "Qualifications - Low"
+      - label: Pipeline ID
+        helpText: The ID of the pipeline this stage belongs to
+        variable: group
+        required: true
+        type: text
+        placeholder: "4"
+      - label: Color
+        helpText: The color for the deal stage in hex format (e.g., 696969)
+        variable: color
+        required: false
+        type: text
+        placeholder: "696969"
+      - label: Order
+        helpText: The order of the stage within the pipeline (numeric value)
+        variable: order
+        required: false
+        type: text
+        placeholder: "1"
+      - label: Width
+        helpText: The width of the stage column in pixels
+        variable: width
+        required: false
+        type: text
+        defaultValue: "270"
+  - title: Card Display Configuration
+    collapsed: true
+    items:
+      - label: Card Region 1
+        helpText: Content to display in the first region of deal cards
+        variable: cardRegion1
+        required: false
+        type: select
+        defaultValue: contact-orgname
+        selectOptions:
+          options:
+            - label: Contact/Organization Name
+              value: contact-orgname
+            - label: Hide
+              value: hide
+      - label: Card Region 2
+        helpText: Content to display in the second region of deal cards
+        variable: cardRegion2
+        required: false
+        type: select
+        defaultValue: next-action
+        selectOptions:
+          options:
+            - label: Next Action
+              value: next-action
+            - label: Hide
+              value: hide
+      - label: Card Region 3
+        helpText: Content to display in the third region of deal cards
+        variable: cardRegion3
+        required: false
+        type: select
+        defaultValue: hide-avatar
+        selectOptions:
+          options:
+            - label: Hide Avatar
+              value: hide-avatar
+            - label: Show Avatar
+              value: show-avatar
+      - label: Card Region 4
+        helpText: Content to display in the fourth region of deal cards
+        variable: cardRegion4
+        required: false
+        type: select
+        defaultValue: contact-fullname-orgname
+        selectOptions:
+          options:
+            - label: Contact Full Name and Organization
+              value: contact-fullname-orgname
+            - label: Hide
+              value: hide
+      - label: Card Region 5
+        helpText: Content to display in the fifth region of deal cards
+        variable: cardRegion5
+        required: false
+        type: select
+        defaultValue: value
+        selectOptions:
+          options:
+            - label: Deal Value
+              value: value
+            - label: Hide
+              value: hide
+      - label: Deal Order
+        helpText: How to order deals within this stage
+        variable: dealOrder
+        required: false
+        type: select
+        defaultValue: title ASC
+        selectOptions:
+          options:
+            - label: Title (A-Z)
+              value: title ASC
+            - label: Title (Z-A)
+              value: title DESC
+            - label: Value (High-Low)
+              value: value DESC
+            - label: Value (Low-High)
+              value: value ASC
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Reorder Stages
+        helpText: Whether to reorder all stages within the pipeline after updating this stage
+        variable: reorder
+        required: false
+        type: select
+        defaultValue: "0"
+        selectOptions:
+          options:
+            - label: Yes
+              value: "1"
+            - label: No
+              value: "0"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated deal stage information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

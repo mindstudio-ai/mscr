@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Action
+id: list-pipelines
+serviceId: activecampaign
+active: true
+metadata:
+  name: List Pipelines
+  description: Retrieves all existing pipelines from ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Filter Options
+    items:
+      - label: Filter by Title
+        helpText: Filter pipelines by title. The filter matches any pipeline titles that contain the provided text.
+        variable: filterTitle
+        required: false
+        type: text
+        placeholder: Enter title to filter by...
+      - label: Only Show Pipelines with Stages
+        helpText: Filter to only show pipelines that have at least one stage.
+        variable: haveStages
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No Filter
+              value: ""
+            - label: Yes
+              value: "1"
+            - label: No
+              value: "0"
+  - title: Sorting Options
+    items:
+      - label: Sort by Title
+        helpText: Sort the pipelines by their title.
+        variable: orderTitle
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No Sorting
+              value: ""
+            - label: Ascending (A-Z)
+              value: "ASC"
+            - label: Descending (Z-A)
+              value: "DESC"
+      - label: Sort by Popularity
+        helpText: Sort the pipelines by the number of deals they have.
+        variable: orderPopular
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No Sorting
+              value: ""
+            - label: Ascending (Least to Most)
+              value: "ASC"
+            - label: Descending (Most to Least)
+              value: "DESC"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of pipelines.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

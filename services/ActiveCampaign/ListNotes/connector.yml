@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Action
+id: list-notes
+serviceId: activecampaign
+active: true
+metadata:
+  name: List Notes
+  description: Retrieves a list of all notes from your ActiveCampaign account
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the list of notes
+        variable: outputVariable
+        type: outputVariableName
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Limit
+        required: false
+        helpText: Maximum number of notes to return
+        variable: limit
+        type: text
+        placeholder: "100"
+      - label: Offset
+        required: false
+        helpText: Number of notes to skip for pagination
+        variable: offset
+        type: text
+        placeholder: "0"

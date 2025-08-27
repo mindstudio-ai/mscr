@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: retrieve-contact-geo-ip
+serviceId: activecampaign
+active: true
+metadata:
+  name: Retrieve Contact's Geo IP Address
+  description: Retrieves geographic location information based on a contact's IP address
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Geo Address ID
+        helpText: The ID of the geo address to retrieve. You can find this by making a GET call to /contacts/{contactId}/geoIps
+        variable: geoAddressID
+        required: true
+        type: text
+        placeholder: Enter geo address ID...
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the geo IP address information
+        variable: outputVariable
+        type: outputVariableName

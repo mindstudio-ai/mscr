@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Action
+id: update-account
+serviceId: activeCampaign
+active: true
+metadata:
+  name: Update Account
+  description: Updates an existing account in ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account ID
+        helpText: The ID of the account to update
+        variable: accountId
+        required: true
+        type: text
+        placeholder: '1'
+      - label: Account Name
+        helpText: The name of the account
+        variable: name
+        required: false
+        type: text
+        placeholder: 'Example Account'
+      - label: Account Website URL
+        helpText: The website URL of the account
+        variable: accountUrl
+        required: false
+        type: text
+        placeholder: 'https://www.example.com'
+      - label: Account Owner ID
+        helpText: The user ID of the account owner (defaults to 1 if not specified)
+        variable: owner
+        required: false
+        type: text
+        placeholder: '1'
+  - title: Custom Fields
+    collapsed: true
+    items:
+      - label: Custom Fields (JSON)
+        helpText: 'JSON array of custom field objects. Format: [{"customFieldId": 9, "fieldValue": "500-1000"}, {"customFieldId": 20, "fieldValue": 1234, "fieldCurrency": "GBP"}]'
+        variable: customFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: "[\n  {\n    \"customFieldId\": 9,\n    \"fieldValue\": \"500-1000\"\n  }\n]"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

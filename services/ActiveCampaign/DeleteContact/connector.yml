@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Action
+id: delete-contact
+serviceId: activecampaign
+active: true
+metadata:
+  name: Delete Contact
+  description: Permanently removes a contact from your ActiveCampaign account
+  quickHelp: help.md
+configuration:
+  - title: Contact Details
+    items:
+      - label: Contact ID
+        helpText: The numeric ID of the contact you want to delete
+        variable: contactId
+        required: true
+        type: text
+        placeholder: "123"

@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Action
+id: create-contact
+serviceId: activecampaign
+active: true
+metadata:
+  name: Create Contact
+  description: Creates a new contact in ActiveCampaign
+  quickHelp: help.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Email
+        helpText: Email address of the contact. Required unless a phone number is provided.
+        variable: email
+        required: false
+        type: text
+        placeholder: contact@example.com
+      - label: Allow Phone-Only Contact
+        helpText: Enable to create a contact with only a phone number and no email.
+        variable: allowNullEmail
+        required: false
+        type: select
+        defaultValue: "false"
+        selectOptions:
+          options:
+            - label: Yes
+              value: "true"
+            - label: No
+              value: "false"
+      - label: First Name
+        helpText: First name of the contact.
+        variable: firstName
+        required: false
+        type: text
+        placeholder: John
+      - label: Last Name
+        helpText: Last name of the contact.
+        variable: lastName
+        required: false
+        type: text
+        placeholder: Doe
+      - label: Phone
+        helpText: Phone number of the contact.
+        variable: phone
+        required: false
+        type: text
+        placeholder: "1234567890"
+  - title: Custom Fields (Optional)
+    collapsed: true
+    items:
+      - label: Custom Fields
+        helpText: "JSON array of custom field values. Each object should have 'field' (the custom field ID) and 'value' properties. Example: [{\"field\":\"1\",\"value\":\"Some value\"}]"
+        variable: customFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: "[{\"field\":\"1\",\"value\":\"Some value\"}]"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the created contact information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
