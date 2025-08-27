@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Action
+id: add-contacts-to-sequence
+serviceId: apollo
+active: true
+metadata:
+  name: Add Contacts to Sequence
+  description: Add one or more contacts to an existing sequence in your Apollo account
+  quickHelp: help.md
+configuration:
+  - title: Sequence Information
+    items:
+      - label: Sequence ID
+        helpText: The Apollo ID for the sequence to which you want to add contacts
+        variable: sequenceId
+        required: true
+        type: text
+        placeholder: 66e9e215ece19801b219997f
+      - label: Email Account ID
+        helpText: The Apollo ID for the email account to use for sending emails
+        variable: emailAccountId
+        required: true
+        type: text
+        placeholder: 6633baaece5fbd01c791d7ca
+  - title: Contact Information
+    items:
+      - label: Contact IDs
+        helpText: Comma-separated list of Apollo contact IDs to add to the sequence
+        variable: contactIds
+        required: true
+        type: text
+        placeholder: 66e34b81740c50074e3d1bd4,66e34b81740c50074e3d1bd5
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Add Contacts Without Email
+        helpText: Set to true if you want to add contacts to the sequence even if they do not have an email address
+        variable: sequenceNoEmail
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Add Contacts With Unverified Email
+        helpText: Set to true if you want to add contacts to the sequence if they have an unverified email address
+        variable: sequenceUnverifiedEmail
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Add Contacts With Recent Job Change
+        helpText: Set to true if you want to add contacts to the sequence even if they have recently changed jobs
+        variable: sequenceJobChange
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Add Contacts Active In Other Sequences
+        helpText: Set to true if you want to add contacts to the sequence even if they have been added to other sequences
+        variable: sequenceActiveInOtherCampaigns
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Add Contacts Finished In Other Sequences
+        helpText: Set to true if you want to add contacts to the sequence if they have been marked as finished in another sequence
+        variable: sequenceFinishedInOtherCampaigns
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: User ID
+        helpText: The ID of the user in your team's Apollo account who is taking this action (optional)
+        variable: userId
+        required: false
+        type: text
+        placeholder: 66302798d03b9601c7934ebf
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

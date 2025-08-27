@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: get-organization-job-postings
+serviceId: apollo
+active: true
+metadata:
+  name: Get Organization Job Postings
+  description: Retrieves current job postings for a specific organization from Apollo.io
+  quickHelp: help.md
+configuration:
+  - title: Job Posting Configuration
+    items:
+      - label: Organization ID
+        helpText: The unique identifier for the organization in Apollo's database
+        variable: organizationId
+        required: true
+        type: text
+        placeholder: 'e.g. 5e66b6381e05b4008c8331b8'
+      - label: Results Per Page
+        helpText: Number of job postings to return per page
+        variable: perPage
+        required: false
+        type: select
+        defaultValue: '10'
+        selectOptions:
+          options:
+            - label: 5 results
+              value: '5'
+            - label: 10 results
+              value: '10'
+            - label: 25 results
+              value: '25'
+            - label: 50 results
+              value: '50'
+            - label: 100 results
+              value: '100'
+      - label: Page Number
+        helpText: The page number to retrieve
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+        placeholder: 'Enter page number...'
+      - label: Output Variable
+        helpText: The variable name to store the job postings results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

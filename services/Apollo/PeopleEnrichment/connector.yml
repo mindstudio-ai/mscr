@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Action
+id: people-enrichment
+serviceId: apollo
+active: true
+metadata:
+  name: People Enrichment
+  description: Enrich person data with information from Apollo's database
+  quickHelp: help.md
+configuration:
+  - title: Person Identification
+    items:
+      - label: Full Name
+        helpText: The full name of the person (e.g., 'John Smith')
+        variable: name
+        required: false
+        type: text
+        placeholder: John Smith
+      - label: First Name
+        helpText: The person's first name
+        variable: firstName
+        required: false
+        type: text
+        placeholder: John
+      - label: Last Name
+        helpText: The person's last name
+        variable: lastName
+        required: false
+        type: text
+        placeholder: Smith
+      - label: Email Address
+        helpText: The person's email address
+        variable: email
+        required: false
+        type: text
+        placeholder: john@example.com
+      - label: Company Name
+        helpText: The name of the person's employer
+        variable: organizationName
+        required: false
+        type: text
+        placeholder: Acme Inc
+      - label: Company Domain
+        helpText: The domain of the person's employer (e.g., 'company.com', without 'www.' or '@')
+        variable: domain
+        required: false
+        type: text
+        placeholder: acme.com
+      - label: LinkedIn URL
+        helpText: The URL of the person's LinkedIn profile
+        variable: linkedinUrl
+        required: false
+        type: text
+        placeholder: https://www.linkedin.com/in/johnsmith
+  - title: Enrichment Options
+    items:
+      - label: Reveal Personal Emails
+        helpText: Set to 'Yes' to include personal emails in the results (consumes credits)
+        variable: revealPersonalEmails
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Reveal Phone Numbers
+        helpText: Set to 'Yes' to include phone numbers in the results (consumes credits and requires webhook URL)
+        variable: revealPhoneNumber
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Webhook URL
+        helpText: Required only if 'Reveal Phone Numbers' is set to 'Yes'. URL where Apollo will send phone number data.
+        variable: webhookUrl
+        required: false
+        type: text
+        placeholder: https://your-webhook-url.com/endpoint
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the enriched person data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

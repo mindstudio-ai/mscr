@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: organization-enrich
+serviceId: apollo
+active: true
+metadata:
+  name: Organization Enrichment
+  description: Enriches company data with industry information, revenue, employee counts, and more
+  quickHelp: help.md
+configuration:
+  - title: Company Information
+    items:
+      - label: Company Domain
+        helpText: Enter the company domain without www. or http:// (e.g., apollo.io, microsoft.com)
+        variable: domain
+        required: true
+        type: text
+        placeholder: company.com
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the enriched company data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

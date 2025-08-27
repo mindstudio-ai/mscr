@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Action
+id: create-account
+serviceId: apollo
+active: true
+metadata:
+  name: Create Account
+  description: Creates a new company account in Apollo.io
+  quickHelp: help.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account Name
+        helpText: The human-readable name of the company account you want to create.
+        variable: name
+        required: true
+        type: text
+        placeholder: The Irish Copywriters
+      - label: Domain
+        helpText: The domain name for the account (without www).
+        variable: domain
+        required: true
+        type: text
+        placeholder: company.com
+      - label: Output Variable
+        helpText: Variable name to store the created account details.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Additional Details
+    collapsed: true
+    items:
+      - label: Owner ID
+        helpText: The ID of the account owner within your Apollo team.
+        variable: ownerId
+        required: false
+        type: text
+        placeholder: 66302798d03b9601c7934ebf
+      - label: Account Stage ID
+        helpText: The Apollo ID for the account stage to assign the account to.
+        variable: accountStageId
+        required: false
+        type: text
+        placeholder: 6095a710bd01d100a506d4b9
+      - label: Phone
+        helpText: The primary phone number for the account.
+        variable: phone
+        required: false
+        type: text
+        placeholder: 555-303-1234
+      - label: Address
+        helpText: The corporate location for the account (city, state, country).
+        variable: rawAddress
+        required: false
+        type: text
+        placeholder: Dallas, United States

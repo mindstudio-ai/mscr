@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-account-stages
+serviceId: apollo
+active: true
+metadata:
+  name: List Account Stages
+  description: Retrieves all account stages from your Apollo.io account
+  quickHelp: help.md
+configuration:
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable where the account stages will be stored
+        variable: outputVariable
+        type: outputVariableName

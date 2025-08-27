@@ -1,0 +1,96 @@
+apiVersion: v1
+kind: Action
+id: update-contact
+serviceId: apollo
+active: true
+metadata:
+  name: Update Contact
+  description: Updates an existing contact in your Apollo.io account
+  quickHelp: help.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        helpText: The Apollo ID for the contact you want to update (e.g., 66e34b81740c50074e3d1bd4)
+        variable: contactId
+        required: true
+        type: text
+      - label: First Name
+        helpText: Update the contact's first name
+        variable: firstName
+        required: false
+        type: text
+      - label: Last Name
+        helpText: Update the contact's last name
+        variable: lastName
+        required: false
+        type: text
+      - label: Email
+        helpText: Update the email address of the contact
+        variable: email
+        required: false
+        type: text
+      - label: Job Title
+        helpText: Update the job title that the contact holds
+        variable: title
+        required: false
+        type: text
+  - title: Company Information
+    items:
+      - label: Organization Name
+        helpText: Update the name of the contact's employer (company)
+        variable: organizationName
+        required: false
+        type: text
+      - label: Website URL
+        helpText: Update the corporate website URL for the contact's current employer (e.g., https://www.apollo.io/)
+        variable: websiteUrl
+        required: false
+        type: text
+      - label: Account ID
+        helpText: The Apollo ID to update the account to which the contact is assigned
+        variable: accountId
+        required: false
+        type: text
+  - title: Contact Details
+    items:
+      - label: Contact Stage ID
+        helpText: The Apollo ID to update the contact stage to which the contact is assigned
+        variable: contactStageId
+        required: false
+        type: text
+      - label: Location
+        helpText: Update the personal location for the contact (e.g., Atlanta, United States)
+        variable: presentRawAddress
+        required: false
+        type: text
+      - label: Labels
+        helpText: Comma-separated list of labels to assign to the contact (e.g., 'inbound lead, conference attendee')
+        variable: labelNames
+        required: false
+        type: text
+  - title: Phone Numbers
+    collapsed: true
+    items:
+      - label: Direct Phone
+        helpText: Update the primary phone number for the contact
+        variable: directPhone
+        required: false
+        type: text
+      - label: Corporate Phone
+        helpText: Update the work/office phone number for the contact
+        variable: corporatePhone
+        required: false
+        type: text
+      - label: Mobile Phone
+        helpText: Update the mobile phone number for the contact
+        variable: mobilePhone
+        required: false
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the updated contact information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

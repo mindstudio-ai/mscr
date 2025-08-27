@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: update-contact-sequence-status
+serviceId: apollo
+active: true
+metadata:
+  name: Update Contact Status in Sequence
+  description: Update the status of contacts in Apollo sequences by marking them as finished, removing them, or stopping their progress
+  quickHelp: help.md
+configuration:
+  - title: Sequence Settings
+    items:
+      - label: Sequence IDs
+        helpText: The Apollo IDs for the sequences you want to update. For multiple sequences, enter one ID per line.
+        variable: sequenceIds
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: 66e9e215ece19801b219997f
+      - label: Contact IDs
+        helpText: The Apollo IDs for the contacts whose sequence status you want to update. Enter one ID per line.
+        variable: contactIds
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: 66e34b81740c50074e3d1bd4
+      - label: Update Mode
+        helpText: Choose how to update the contacts' sequence status.
+        variable: mode
+        required: true
+        type: select
+        defaultValue: mark_as_finished
+        selectOptions:
+          options:
+            - label: Mark as Finished
+              value: mark_as_finished
+            - label: Remove from Sequence
+              value: remove
+            - label: Stop Progress in Sequence
+              value: stop
+      - label: Result Variable
+        helpText: Variable name to store the operation result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

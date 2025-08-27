@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-contact-stages
+serviceId: apollo
+active: true
+metadata:
+  name: List Contact Stages
+  description: Retrieves all contact stages from your Apollo account
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the list of contact stages
+        variable: outputVariable
+        type: outputVariableName

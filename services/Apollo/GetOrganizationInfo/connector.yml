@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-organization-info
+serviceId: apollo
+active: true
+metadata:
+  name: Get Organization Info
+  description: Retrieves complete details about an organization from the Apollo.io database
+  quickHelp: help.md
+configuration:
+  - title: Organization Details
+    items:
+      - label: Organization ID
+        helpText: The Apollo ID for the organization you want to research. To find organization IDs, use the Organization Search endpoint.
+        variable: organizationId
+        required: true
+        type: text
+        placeholder: 5e66b6381e05b4008c8331b8
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the organization details.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

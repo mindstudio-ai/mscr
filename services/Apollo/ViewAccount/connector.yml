@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: view-account
+serviceId: apollo
+active: true
+metadata:
+  name: View Account
+  description: Retrieves detailed information about an account (company) from Apollo.io
+  quickHelp: help.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account ID
+        helpText: The Apollo ID for the account you want to retrieve (e.g., 6518c6184f20350001a0b9c0)
+        variable: accountId
+        required: true
+        type: text
+        placeholder: Enter Apollo account ID...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the account information
+        variable: outputVariable
+        required: true
+        type: outputVariableName
