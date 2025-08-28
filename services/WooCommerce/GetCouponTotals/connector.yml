@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Coupon Totals
   description: Retrieves totals for coupons by type from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

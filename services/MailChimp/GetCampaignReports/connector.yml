@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Reports
   description: Retrieve campaign reports from your Mailchimp account with filtering options
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Report Filters
     items:

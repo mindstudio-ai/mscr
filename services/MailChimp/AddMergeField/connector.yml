@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Merge Field
   description: Add a new custom field to a Mailchimp audience to collect additional information from subscribers
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

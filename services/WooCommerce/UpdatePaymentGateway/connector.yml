@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Payment Gateway
   description: Update a WooCommerce payment gateway's settings and status
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Payment Gateway Details
     items:

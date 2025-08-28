@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Member Events
   description: Retrieve events for a specific contact in a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Member Configuration
     items:

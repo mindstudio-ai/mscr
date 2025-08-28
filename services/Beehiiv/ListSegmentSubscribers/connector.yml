@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Segment Subscribers
   description: Retrieves a list of subscriber IDs from a specific segment in a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Segment Configuration
     items:

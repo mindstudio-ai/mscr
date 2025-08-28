@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Members
   description: Retrieve members from a specific MailChimp list with filtering and pagination options
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Configuration
     items:

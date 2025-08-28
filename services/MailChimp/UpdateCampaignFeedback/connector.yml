@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Campaign Feedback
   description: Update a specific feedback message for a Mailchimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Update Products
   description: Create, update, and delete multiple products in a single request
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Batch Operations
     items:

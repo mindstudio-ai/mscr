@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Webhook
   description: Create a new webhook for a specific Mailchimp list to receive notifications when events occur
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Segments
   description: Retrieve information about all segments belonging to a specific publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Settings
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Contacts to Sequence
   description: Add one or more contacts to an existing sequence in your Apollo account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Sequence Information
     items:

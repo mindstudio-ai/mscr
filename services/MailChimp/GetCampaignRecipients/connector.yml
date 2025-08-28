@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Recipients
   description: Retrieve information about the recipients of a specific Mailchimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

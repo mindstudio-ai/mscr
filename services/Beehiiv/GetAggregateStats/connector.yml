@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Aggregate Stats
   description: Retrieve aggregate statistics for all posts in a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

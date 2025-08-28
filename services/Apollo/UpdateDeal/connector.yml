@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Deal
   description: Updates an existing deal in your Apollo account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Information
     items:

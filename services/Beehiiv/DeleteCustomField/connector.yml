@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Custom Field
   description: Delete a custom field from a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Delete Custom Field Configuration
     items:

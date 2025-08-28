@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete List
   description: Permanently delete a list (audience) from your Mailchimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

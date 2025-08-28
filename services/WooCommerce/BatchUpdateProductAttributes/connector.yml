@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Update Product Attributes
   description: Create, update, and delete multiple product attributes in a single operation
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Create Attributes
     items:

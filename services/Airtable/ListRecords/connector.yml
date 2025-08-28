@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Records
   description: Retrieves records from an Airtable table with options for filtering, sorting, and pagination
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base and Table Configuration
     items:

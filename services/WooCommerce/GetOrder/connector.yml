@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Order
   description: Retrieve a specific WooCommerce order by ID with all its details
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Information
     items:

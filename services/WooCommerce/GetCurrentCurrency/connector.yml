@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Current Currency
   description: Retrieves the store's current currency settings including code, name, and symbol
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

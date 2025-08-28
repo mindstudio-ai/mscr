@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Removed Subscriber
   description: Retrieves information about a specific subscriber who was removed from a classic automation workflow
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Workflow and Subscriber Details
     items:

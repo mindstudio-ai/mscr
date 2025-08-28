@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Interest
   description: Delete an interest (group name) from a specific interest category within a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Interest Details
     items:

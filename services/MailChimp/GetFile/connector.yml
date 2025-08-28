@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get File
   description: Get information about a specific file in the MailChimp File Manager
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: File Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Product Attribute Term
   description: Creates a new term for a specific product attribute in WooCommerce
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Attribute Term Details
     items:

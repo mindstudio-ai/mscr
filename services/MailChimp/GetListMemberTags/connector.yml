@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Member Tags
   description: Retrieve all tags assigned to a specific member of a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Member Information
     items:

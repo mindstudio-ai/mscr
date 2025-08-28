@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Archive List Member
   description: Archive a member from a MailChimp audience (list). The member can be identified by email address, subscriber hash, or contact ID.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

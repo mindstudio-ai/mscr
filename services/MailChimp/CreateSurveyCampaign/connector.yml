@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Survey Campaign
   description: Creates a campaign linked to a survey in MailChimp
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List and Survey
     items:

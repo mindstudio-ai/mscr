@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Automation
   description: Create a new automation workflow in your MailChimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Information
     items:

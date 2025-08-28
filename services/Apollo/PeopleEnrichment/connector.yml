@@ -6,7 +6,7 @@ active: true
 metadata:
   name: People Enrichment
   description: Enrich person data with information from Apollo's database
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Person Identification
     items:

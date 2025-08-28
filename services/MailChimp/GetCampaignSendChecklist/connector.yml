@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Send Checklist
   description: Review the send checklist for a campaign, and resolve any issues before sending
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

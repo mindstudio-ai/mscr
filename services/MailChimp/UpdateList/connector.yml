@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update List
   description: Update the settings for a specific Mailchimp list/audience.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

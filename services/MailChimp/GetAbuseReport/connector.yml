@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Abuse Report
   description: Retrieve details about a specific abuse report for a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Abuse Report Details
     items:

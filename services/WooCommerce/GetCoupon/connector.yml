@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Coupon
   description: Retrieve a single coupon by ID from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Coupon Details
     items:

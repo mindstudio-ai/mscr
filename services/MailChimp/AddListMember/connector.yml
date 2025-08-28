@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Member to List
   description: Add a new subscriber to a MailChimp list or audience
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

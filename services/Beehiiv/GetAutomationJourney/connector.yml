@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Automation Journey
   description: Retrieve a single automation journey by ID from Beehiiv
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Automation Journey Details
     items:

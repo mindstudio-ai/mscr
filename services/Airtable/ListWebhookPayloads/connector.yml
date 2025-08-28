@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Webhook Payloads
   description: Retrieves webhook payloads from an Airtable base
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Configuration
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Webhooks
   description: Retrieve a paginated list of webhooks from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Filter Options
     items:

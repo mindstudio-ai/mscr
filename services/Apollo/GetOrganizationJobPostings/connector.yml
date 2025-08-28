@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Organization Job Postings
   description: Retrieves current job postings for a specific organization from Apollo.io
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Job Posting Configuration
     items:

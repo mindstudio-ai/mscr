@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Sales Report
   description: Retrieve a sales report from your WooCommerce store for a specific time period
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Report Parameters
     items:

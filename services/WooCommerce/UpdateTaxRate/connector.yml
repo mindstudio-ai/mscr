@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Tax Rate
   description: Updates an existing tax rate in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Tax Rate Details
     items:

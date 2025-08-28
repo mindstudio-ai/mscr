@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Segment Members
   description: Add or remove multiple members to/from a static segment in a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Segment Information
     items:

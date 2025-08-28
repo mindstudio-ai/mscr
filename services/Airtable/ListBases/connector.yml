@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Bases
   description: Retrieves a list of Airtable bases that the authenticated user has access to
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

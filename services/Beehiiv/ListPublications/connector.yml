@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Publications
   description: Retrieve all publications associated with your beehiiv API key
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Options
     items:

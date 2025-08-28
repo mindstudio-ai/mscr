@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Unsubscribed Members
   description: Get information about members who have unsubscribed from a specific campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

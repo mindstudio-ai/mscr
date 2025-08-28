@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Sync CSV Data
   description: Syncs raw CSV data into an Airtable table using the Sync API
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Airtable Configuration
     items:

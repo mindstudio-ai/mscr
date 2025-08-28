@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Removed Subscribers
   description: Get information about subscribers who were removed from a Mailchimp automation workflow
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Workflow Configuration
     items:

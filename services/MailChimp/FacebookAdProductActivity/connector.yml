@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Facebook Ad Product Activity Report
   description: Retrieves a breakdown of product activity for a Facebook ad outreach in Mailchimp
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Configuration
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Product Review
   description: Create a new product review for a WooCommerce product
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Review Details
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: productId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
       - label: Review Content
         helpText: The content of the review
         variable: review
@@ -28,59 +28,59 @@ configuration:
         variable: reviewer
         required: true
         type: text
-        placeholder: "John Doe"
+        placeholder: 'John Doe'
       - label: Reviewer Email
         helpText: Email address of the reviewer
         variable: reviewerEmail
         required: true
         type: text
-        placeholder: "example@email.com"
+        placeholder: 'example@email.com'
       - label: Rating
         helpText: Rating from 1 to 5 stars
         variable: rating
         required: false
         type: select
-        defaultValue: "5"
+        defaultValue: '5'
         selectOptions:
           options:
             - label: 5 Stars
-              value: "5"
+              value: '5'
             - label: 4 Stars
-              value: "4"
+              value: '4'
             - label: 3 Stars
-              value: "3"
+              value: '3'
             - label: 2 Stars
-              value: "2"
+              value: '2'
             - label: 1 Star
-              value: "1"
+              value: '1'
       - label: Review Status
         helpText: Status of the review
         variable: status
         required: false
         type: select
-        defaultValue: "approved"
+        defaultValue: 'approved'
         selectOptions:
           options:
             - label: Approved
-              value: "approved"
+              value: 'approved'
             - label: Hold
-              value: "hold"
+              value: 'hold'
             - label: Spam
-              value: "spam"
+              value: 'spam'
             - label: Trash
-              value: "trash"
+              value: 'trash'
       - label: Verified Purchase
         helpText: Whether the reviewer has purchased the product
         variable: verified
         required: false
         type: select
-        defaultValue: "false"
+        defaultValue: 'false'
         selectOptions:
           options:
             - label: Yes
-              value: "true"
+              value: 'true'
             - label: No
-              value: "false"
+              value: 'false'
   - title: Output
     items:
       - label: Output Variable

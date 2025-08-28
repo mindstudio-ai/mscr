@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Search Sequences
   description: Search for sequences that have been created for your team's Apollo account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Search Configuration
     items:

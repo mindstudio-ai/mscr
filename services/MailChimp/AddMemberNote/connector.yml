@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Member Note
   description: Add a note to a specific subscriber in a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

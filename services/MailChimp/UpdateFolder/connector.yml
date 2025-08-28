@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Folder
   description: Update a specific File Manager folder in MailChimp
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Folder Information
     items:

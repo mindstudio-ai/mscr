@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Survey Question Reports
   description: Retrieve reports for questions in a Mailchimp survey
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Survey Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Order Refund
   description: Retrieves a specific refund for a WooCommerce order
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Information
     items:

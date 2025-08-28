@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Interest
   description: Update an interest (group name) within a specific interest category in a Mailchimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Product Attribute
   description: Updates an existing product attribute in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Attribute Details
     items:

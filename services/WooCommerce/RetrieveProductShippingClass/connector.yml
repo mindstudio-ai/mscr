@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Product Shipping Class
   description: Get a WooCommerce shipping class by its ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Class Details
     items:

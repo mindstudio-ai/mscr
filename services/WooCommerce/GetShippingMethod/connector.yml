@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Shipping Method
   description: Retrieves a specific shipping method instance from a WooCommerce shipping zone
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Zone Details
     items:

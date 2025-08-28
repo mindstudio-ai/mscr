@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Update Coupons
   description: Create, update, and delete WooCommerce coupons in a single batch operation
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Create Coupons
     items:

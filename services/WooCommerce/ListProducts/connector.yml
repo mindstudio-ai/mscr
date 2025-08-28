@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Products
   description: Retrieve a list of products from your WooCommerce store with optional filtering and pagination
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Filtering Options
     items:

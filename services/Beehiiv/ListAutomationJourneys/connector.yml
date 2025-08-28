@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Automation Journeys
   description: Retrieve a list of automation journeys that have occurred within a specific automation
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Information
     items:

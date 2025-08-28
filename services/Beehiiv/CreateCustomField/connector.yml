@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Custom Field
   description: Creates a custom field for a Beehiiv publication to store additional subscriber information
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

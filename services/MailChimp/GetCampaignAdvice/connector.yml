@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Advice
   description: Retrieve feedback and advice based on a campaign's statistics like opens, clicks, unsubscribes, and bounces
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Details
     items:

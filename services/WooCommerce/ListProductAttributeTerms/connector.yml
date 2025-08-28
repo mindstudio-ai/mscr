@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Product Attribute Terms
   description: List all terms for a specific product attribute in WooCommerce
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Configuration
     items:

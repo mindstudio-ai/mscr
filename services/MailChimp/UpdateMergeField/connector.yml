@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Merge Field
   description: Update a specific merge field for a Mailchimp list (audience)
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

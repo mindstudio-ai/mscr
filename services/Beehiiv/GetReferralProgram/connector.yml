@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Referral Program
   description: Retrieve details about a publication's referral program, including milestones and rewards
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

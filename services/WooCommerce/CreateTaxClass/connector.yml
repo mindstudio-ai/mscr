@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Tax Class
   description: Create a new tax class in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Tax Class Details
     items:

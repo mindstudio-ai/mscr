@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Workflow Email
   description: Update settings for a classic automation workflow email. Only works with workflows of type abandonedBrowse, abandonedCart, emailFollowup, or singleWelcome.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Workflow Information
     items:

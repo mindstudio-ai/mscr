@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Shipping Classes
   description: Create, update, and delete multiple shipping classes in a single operation
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Create Shipping Classes
     items:
@@ -34,12 +34,12 @@ configuration:
         variable: deleteClassIds
         type: text
         required: false
-        helpText: "Comma-separated list of shipping class IDs to delete."
-        placeholder: "32, 45, 67"
+        helpText: 'Comma-separated list of shipping class IDs to delete.'
+        placeholder: '32, 45, 67'
   - title: Output
     items:
       - label: Result Variable
         variable: outputVariable
         type: outputVariableName
         required: true
-        helpText: "Variable name to store the operation results."
+        helpText: 'Variable name to store the operation results.'

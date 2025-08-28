@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Signup Forms
   description: Retrieve all signup forms for a specific MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

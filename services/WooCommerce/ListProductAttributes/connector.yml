@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Product Attributes
   description: Retrieves a list of all product attributes from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

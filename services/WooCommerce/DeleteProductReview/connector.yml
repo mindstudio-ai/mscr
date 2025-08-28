@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Product Review
   description: Delete a product review from a WooCommerce store by its ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Review Details
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: reviewId
         required: true
         type: text
-        placeholder: "123"
+        placeholder: '123'
   - title: Output
     items:
       - label: Result Variable

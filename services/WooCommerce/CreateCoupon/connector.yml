@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Coupon
   description: Create a new WooCommerce coupon with customizable discount settings
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Coupon Information
     items:

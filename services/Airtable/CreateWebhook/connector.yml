@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Webhook
   description: Creates a new webhook in an Airtable base to receive notifications when data changes
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base Configuration
     items:

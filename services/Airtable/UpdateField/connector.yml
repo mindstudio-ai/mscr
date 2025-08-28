@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Field
   description: Updates the name and/or description of a field in an Airtable table
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base Information
     items:

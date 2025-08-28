@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Landing Page Report
   description: Retrieves a detailed report for a Mailchimp landing page including metrics like visits, clicks, and conversion rate
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Landing Page Information
     items:

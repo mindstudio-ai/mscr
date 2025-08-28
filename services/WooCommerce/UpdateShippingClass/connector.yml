@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Shipping Class
   description: Updates an existing product shipping class in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Class Details
     items:
@@ -15,19 +15,19 @@ configuration:
         variable: shippingClassId
         required: true
         type: text
-        placeholder: "32"
+        placeholder: '32'
       - label: Name
         helpText: The name of the shipping class
         variable: name
         required: false
         type: text
-        placeholder: "Priority"
+        placeholder: 'Priority'
       - label: Slug
         helpText: The slug of the shipping class (used in URLs)
         variable: slug
         required: false
         type: text
-        placeholder: "priority"
+        placeholder: 'priority'
       - label: Description
         helpText: A description of the shipping class
         variable: description
@@ -35,7 +35,7 @@ configuration:
         type: text
         textOptions:
           type: multiline
-        placeholder: "Priority mail shipping option"
+        placeholder: 'Priority mail shipping option'
   - title: Output
     items:
       - label: Output Variable

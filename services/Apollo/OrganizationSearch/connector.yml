@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Organization Search
   description: Search for organizations in the Apollo database using various filters
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Search Parameters
     items:

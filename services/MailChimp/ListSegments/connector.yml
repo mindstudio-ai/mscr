@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Segments
   description: Get information about all available segments for a specific MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Configuration
     items:

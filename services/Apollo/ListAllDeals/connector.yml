@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List All Deals
   description: Retrieves all deals from your Apollo account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Sorting and Pagination
     items:

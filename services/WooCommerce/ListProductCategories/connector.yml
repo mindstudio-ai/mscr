@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Product Categories
   description: Retrieve a paginated list of product categories from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Category Listing Options
     items:
@@ -19,12 +19,12 @@ configuration:
         helpText: Number of categories to return per page (max 100)
         variable: perPage
         type: text
-        defaultValue: "10"
+        defaultValue: '10'
       - label: Page Number
         helpText: Page number to retrieve
         variable: page
         type: text
-        defaultValue: "1"
+        defaultValue: '1'
       - label: Order
         helpText: Sort order for categories
         variable: order
@@ -57,13 +57,13 @@ configuration:
         helpText: Whether to hide categories with no products
         variable: hideEmpty
         type: select
-        defaultValue: "false"
+        defaultValue: 'false'
         selectOptions:
           options:
             - label: Yes
-              value: "true"
+              value: 'true'
             - label: No
-              value: "false"
+              value: 'false'
       - label: Parent Category ID
         helpText: Filter by parent category ID (0 for top-level categories)
         variable: parent

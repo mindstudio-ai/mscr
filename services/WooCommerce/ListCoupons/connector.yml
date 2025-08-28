@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Coupons
   description: Retrieve a list of coupons from your WooCommerce store with optional filtering
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Pagination
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Recalculate Segment
   description: Recalculates a specific segment belonging to a publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Segment Information
     items:

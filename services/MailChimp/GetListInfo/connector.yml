@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Info
   description: Retrieve detailed information about a specific MailChimp list (audience)
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Configuration
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Order
   description: Update an existing WooCommerce order by ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Ping MailChimp API
   description: A simple health check for the MailChimp API that returns a status message
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

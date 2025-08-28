@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Folders
   description: Get a list of all folders in the MailChimp File Manager
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Folder Filtering
     items:

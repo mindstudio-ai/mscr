@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Setting Option
   description: Retrieves a single WooCommerce setting option by its group ID and setting ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Setting Information
     items:

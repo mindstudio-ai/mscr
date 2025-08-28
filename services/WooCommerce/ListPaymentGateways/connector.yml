@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Payment Gateways
   description: Retrieve all payment gateways configured in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

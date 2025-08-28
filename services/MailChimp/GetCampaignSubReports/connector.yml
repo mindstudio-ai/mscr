@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Sub-Reports
   description: Retrieves a list of reports with child campaigns for a specific parent campaign in Mailchimp.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

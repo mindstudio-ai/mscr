@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Member to Segment
   description: Add a subscriber to a static segment in a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Segment Configuration
     items:

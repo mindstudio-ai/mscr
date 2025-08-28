@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Shipping Zone Locations
   description: Replace all locations of a specific WooCommerce shipping zone with the provided list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Zone Configuration
     items:

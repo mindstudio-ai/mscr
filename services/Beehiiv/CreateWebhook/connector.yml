@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Webhook
   description: Create a new webhook for a beehiiv publication to receive event notifications
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

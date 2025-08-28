@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Tax Rate
   description: Creates a new tax rate in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Tax Rate Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Product Custom Field Names
   description: Retrieve the list of recorded WooCommerce product custom field names
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Query Parameters
     items:

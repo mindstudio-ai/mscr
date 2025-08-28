@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Conversations
   description: Retrieve a list of conversations from your MailChimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Conversation Filters
     items:

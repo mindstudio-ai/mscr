@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Set Campaign Content
   description: Update the content of an existing MailChimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

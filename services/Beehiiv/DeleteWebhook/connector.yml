@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Webhook
   description: Delete a webhook subscription from a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Details
     items:

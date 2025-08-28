@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Subscriber to Workflow Email
   description: Manually add a subscriber to a workflow email, bypassing the default trigger settings
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Workflow Configuration
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Customize Signup Form
   description: Customize a MailChimp list's default signup form
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Information
     items:

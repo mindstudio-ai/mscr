@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Product Category
   description: Permanently delete a product category from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Category Details
     items:
@@ -15,7 +15,7 @@ configuration:
         variable: categoryId
         required: true
         type: text
-        placeholder: "9"
+        placeholder: '9'
   - title: Advanced Options
     collapsed: true
     items:
@@ -24,11 +24,11 @@ configuration:
         variable: force
         required: true
         type: select
-        defaultValue: "true"
+        defaultValue: 'true'
         selectOptions:
           options:
             - label: Yes (Required)
-              value: "true"
+              value: 'true'
   - title: Output
     items:
       - label: Store Result As

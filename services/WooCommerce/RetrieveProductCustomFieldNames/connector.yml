@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Product Custom Field Names
   description: Returns a list of product custom field names recorded in the WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Query Parameters
     items:
@@ -15,13 +15,13 @@ configuration:
         variable: perPage
         required: false
         type: text
-        defaultValue: "10"
+        defaultValue: '10'
       - label: Page
         helpText: Current page of results
         variable: page
         required: false
         type: text
-        defaultValue: "1"
+        defaultValue: '1'
       - label: Search
         helpText: Filter results by a search string
         variable: search

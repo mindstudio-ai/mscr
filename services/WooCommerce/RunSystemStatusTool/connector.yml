@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Run System Status Tool
   description: Execute a specific WooCommerce system status tool by its ID to perform maintenance operations
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Tool Selection
     items:

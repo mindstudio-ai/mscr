@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Search Outreach Emails
   description: Search for emails sent as part of Apollo sequences with various filters
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Search Parameters
     items:

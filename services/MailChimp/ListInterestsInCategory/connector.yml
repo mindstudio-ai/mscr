@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Interests in Category
   description: Get a list of interests within a specific interest category in your MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

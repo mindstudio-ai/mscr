@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Field
   description: Creates a new column in an Airtable table and returns the schema for the newly created column
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base and Table Information
     items:

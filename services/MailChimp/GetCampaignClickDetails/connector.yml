@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Click Details
   description: Retrieve information about clicks on specific links in your Mailchimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Configuration
     items:

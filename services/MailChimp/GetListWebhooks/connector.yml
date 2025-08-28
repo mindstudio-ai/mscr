@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Webhooks
   description: Retrieve all webhooks configured for a specific MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Configuration
     items:

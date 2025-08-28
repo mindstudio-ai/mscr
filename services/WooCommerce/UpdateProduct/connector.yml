@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Product
   description: Update an existing product in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Product Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Custom Fields
   description: Retrieves a list of custom fields for a specified beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

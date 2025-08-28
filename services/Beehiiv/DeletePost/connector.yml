@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Post
   description: Delete or archive a post in beehiiv. Confirmed posts will be archived, while draft posts will be permanently deleted.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Post Information
     items:

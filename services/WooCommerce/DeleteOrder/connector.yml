@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Order
   description: Delete a WooCommerce order (optionally permanently)
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Details
     items:

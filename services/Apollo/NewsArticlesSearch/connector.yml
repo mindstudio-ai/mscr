@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Search News Articles
   description: Find news articles related to companies in the Apollo database
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Search Parameters
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Merge Fields
   description: Retrieves all merge fields (custom fields) for a specified Mailchimp audience
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Configuration
     items:

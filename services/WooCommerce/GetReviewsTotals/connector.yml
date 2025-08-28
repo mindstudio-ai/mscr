@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Reviews Totals
   description: Retrieves totals for product reviews by rating from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

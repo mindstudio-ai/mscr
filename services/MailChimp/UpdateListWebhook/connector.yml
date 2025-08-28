@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update List Webhook
   description: Update an existing webhook for a Mailchimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Details
     items:

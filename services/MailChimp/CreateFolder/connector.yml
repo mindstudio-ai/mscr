@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Folder
   description: Create a new folder in the Mailchimp File Manager
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

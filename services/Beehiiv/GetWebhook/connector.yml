@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Webhook
   description: Retrieve a specific webhook belonging to a publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Configuration
     items:

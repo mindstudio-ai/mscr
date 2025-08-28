@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Unschedule Campaign
   description: Unschedule a scheduled campaign that hasn't started sending yet
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Details
     items:

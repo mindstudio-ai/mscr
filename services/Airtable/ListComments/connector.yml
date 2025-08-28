@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Record Comments
   description: Retrieves comments for a specific record in an Airtable base
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Record Information
     items:

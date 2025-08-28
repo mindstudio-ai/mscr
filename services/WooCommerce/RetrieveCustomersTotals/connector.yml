@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Retrieve Customers Totals
   description: Retrieves totals for customers by type (paying and non-paying) from a WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

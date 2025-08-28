@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Segment Members
   description: Retrieve members from a specific segment within a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List and Segment Information
     items:

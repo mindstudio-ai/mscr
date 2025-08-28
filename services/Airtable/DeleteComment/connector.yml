@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Comment
   description: Deletes a comment from a record in an Airtable base
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Airtable Configuration
     items:

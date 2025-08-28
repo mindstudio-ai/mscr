@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Update Product Categories
   description: Batch create, update, and delete product categories in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Create Categories
     collapsed: true
@@ -38,7 +38,7 @@ configuration:
         variable: deleteCategories
         required: false
         type: text
-        placeholder: "11,12,13"
+        placeholder: '11,12,13'
   - title: Response
     items:
       - label: Output Variable

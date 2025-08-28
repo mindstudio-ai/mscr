@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Campaign
   description: Remove a campaign from your Mailchimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

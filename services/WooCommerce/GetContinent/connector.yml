@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Continent Data
   description: Retrieves detailed information about a specific continent including its countries
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Continent Configuration
     items:

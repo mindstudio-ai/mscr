@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Member Note
   description: Retrieve a specific note for a specific list member in MailChimp
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Member Information
     items:

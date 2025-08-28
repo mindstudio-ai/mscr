@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Workflow Email
   description: Removes an individual classic automation workflow email from a MailChimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Product Shipping Class
   description: Permanently delete a shipping class from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Delete Shipping Class
     items:

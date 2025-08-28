@@ -6,7 +6,7 @@ active: true
 metadata:
   name: People Search
   description: Search for people in the Apollo database using various filters
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Search Criteria
     items:

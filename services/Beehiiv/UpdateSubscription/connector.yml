@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Subscription
   description: Updates an existing subscription in beehiiv by ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Information
     items:

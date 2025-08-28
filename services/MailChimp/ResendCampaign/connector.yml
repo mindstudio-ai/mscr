@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Resend Campaign
   description: Resend a campaign to certain segments such as non-openers or new subscribers
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Details
     items:

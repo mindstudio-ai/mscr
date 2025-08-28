@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Records
   description: Creates one or multiple records in an Airtable table
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base and Table Information
     items:

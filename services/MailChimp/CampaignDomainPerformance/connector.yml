@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Domain Performance
   description: Retrieve domain performance statistics for a Mailchimp campaign, showing metrics across different email domains
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Shipping Zone
   description: Creates a new shipping zone in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Zone Details
     items:

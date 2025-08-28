@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Subscriber Info for Opened Campaign
   description: Get information about a specific subscriber who opened a campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign and Subscriber Details
     items:

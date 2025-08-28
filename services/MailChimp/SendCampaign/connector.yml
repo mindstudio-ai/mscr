@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Send Campaign
   description: Send a Mailchimp campaign immediately (RSS campaigns will send according to their schedule)
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Settings
     items:

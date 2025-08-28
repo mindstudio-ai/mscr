@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Contact Status in Sequence
   description: Update the status of contacts in Apollo sequences by marking them as finished, removing them, or stopping their progress
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Sequence Settings
     items:

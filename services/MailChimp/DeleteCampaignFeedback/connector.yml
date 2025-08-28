@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Campaign Feedback
   description: Remove a specific feedback message from a MailChimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

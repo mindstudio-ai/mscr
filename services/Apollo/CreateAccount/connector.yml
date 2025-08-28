@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Account
   description: Creates a new company account in Apollo.io
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Account Information
     items:

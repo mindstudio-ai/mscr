@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Automations
   description: Retrieve a list of all automation workflows in your MailChimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Filtering Options
     items:

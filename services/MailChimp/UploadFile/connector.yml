@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Upload File to MailChimp
   description: Upload a new image or file to the MailChimp File Manager
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: File Details
     items:

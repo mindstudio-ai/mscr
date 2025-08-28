@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Tier
   description: Update an existing tier belonging to a specific publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication & Tier
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Webhooks
   description: Retrieves all webhooks belonging to a specific publication in beehiiv
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Settings
     items:

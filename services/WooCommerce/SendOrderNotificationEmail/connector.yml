@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Send Order Notification Email
   description: Trigger a specific order status email template to be sent to the customer
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Information
     items:

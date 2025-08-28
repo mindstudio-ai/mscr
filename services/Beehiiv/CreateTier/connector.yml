@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Tier
   description: Creates a new subscription tier for a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

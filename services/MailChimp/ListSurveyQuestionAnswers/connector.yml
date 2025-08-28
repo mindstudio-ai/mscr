@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Answers for Survey Question
   description: Get answers for a specific survey question including respondent information
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Survey Information
     items:

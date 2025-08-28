@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Product Tag
   description: Update an existing product tag in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Tag Details
     items:

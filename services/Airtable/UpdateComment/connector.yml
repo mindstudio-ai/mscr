@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Comment
   description: Updates an existing comment on a record in an Airtable base
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base Information
     items:

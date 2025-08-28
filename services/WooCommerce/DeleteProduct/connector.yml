@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Product
   description: Delete a WooCommerce product by ID, with option to permanently delete or move to trash
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Product Information
     items:

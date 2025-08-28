@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Search Campaigns
   description: Search all campaigns in your MailChimp account for specific query terms
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Search Parameters
     items:

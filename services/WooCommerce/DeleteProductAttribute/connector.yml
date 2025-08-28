@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Product Attribute
   description: Permanently delete a product attribute and all terms associated with it
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Product Attribute
     items:

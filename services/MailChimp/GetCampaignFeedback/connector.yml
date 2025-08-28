@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Feedback
   description: Retrieve team feedback for a specific Mailchimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

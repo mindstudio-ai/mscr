@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Top Email Clients
   description: Retrieves a list of the top email clients based on user-agent strings for a specific MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Configuration
     items:

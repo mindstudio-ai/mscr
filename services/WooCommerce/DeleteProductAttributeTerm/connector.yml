@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Product Attribute Term
   description: Permanently delete a product attribute term from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:
