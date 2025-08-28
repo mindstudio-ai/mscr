@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Action
+id: batch-update-settings
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Update Settings
+  description: Update multiple WooCommerce setting options within a specified settings group
+  quickHelp: help.md
+configuration:
+  - title: Settings Configuration
+    items:
+      - label: Settings Group ID
+        variable: groupId
+        type: text
+        required: true
+        helpText: The ID of the settings group to update (e.g., 'general', 'products', 'tax', etc.)
+        placeholder: general
+        defaultValue: general
+      - label: Settings to Update
+        variable: settings
+        type: text
+        required: true
+        textOptions:
+          type: multiline
+        helpText: "Enter the settings to update in JSON format. Each setting should have an 'id' and 'value' property."
+        placeholder: '[{"id":"woocommerce_currency","value":"USD"},{"id":"woocommerce_demo_store","value":"yes"}]'
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable name to store the updated settings response

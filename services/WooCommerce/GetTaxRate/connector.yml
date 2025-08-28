@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-tax-rate
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Tax Rate
+  description: Retrieves a specific tax rate by ID from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Tax Rate Details
+    items:
+      - label: Tax Rate ID
+        helpText: The unique identifier of the tax rate you want to retrieve
+        variable: taxRateId
+        required: true
+        type: text
+        placeholder: e.g., 72
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the retrieved tax rate information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

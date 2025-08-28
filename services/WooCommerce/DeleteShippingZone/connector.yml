@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: delete-shipping-zone
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Shipping Zone
+  description: Permanently delete a shipping zone from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Configuration
+    items:
+      - label: Shipping Zone ID
+        helpText: The ID of the shipping zone you want to delete
+        variable: zoneId
+        required: true
+        type: text
+        placeholder: '5'
+      - label: Force Delete
+        helpText: Must be true as shipping zones do not support trashing
+        variable: force
+        required: true
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes (Required)
+              value: 'true'
+      - label: Output Variable
+        helpText: Variable name to store the deleted shipping zone details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

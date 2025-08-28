@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Action
+id: get-reviews-totals
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Reviews Totals
+  description: Retrieves totals for product reviews by rating from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the review totals data
+        variable: outputVariable
+        type: outputVariableName
+        placeholder: reviewTotals

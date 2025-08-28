@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-country-data
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Country Data
+  description: Retrieve detailed information about a specific country, including its states
+  quickHelp: help.md
+configuration:
+  - title: Country Configuration
+    items:
+      - label: Country Code
+        helpText: ISO3166 alpha-2 country code (e.g., us, br, de). Case-insensitive.
+        variable: countryCode
+        required: true
+        type: text
+        placeholder: e.g., us
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the country data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

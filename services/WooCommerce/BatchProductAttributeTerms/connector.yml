@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: batch-product-attribute-terms
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Product Attribute Terms
+  description: Create, update, and delete multiple product attribute terms in a single operation.
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Attribute ID
+        helpText: The ID of the product attribute to manage terms for.
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: e.g., 2
+      - label: Create Terms
+        helpText: JSON array of terms to create. Each term should include a name and optionally slug, description, and menu_order.
+        variable: createTerms
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name":"XXS"},{"name":"S","description":"Small size"}]'
+      - label: Update Terms
+        helpText: JSON array of terms to update. Each term must include an ID and can include name, slug, description, and menu_order.
+        variable: updateTerms
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id":19,"name":"XL","menu_order":6}]'
+      - label: Delete Terms
+        helpText: Comma-separated list of term IDs to permanently delete.
+        variable: deleteTerms
+        required: false
+        type: text
+        placeholder: 21,20
+      - label: Output Variable
+        helpText: Variable name to store the operation results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

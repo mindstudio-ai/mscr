@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: delete-refund
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Refund
+  description: Permanently delete a refund from a WooCommerce order
+  quickHelp: help.md
+configuration:
+  - title: Refund Information
+    items:
+      - label: Order ID
+        helpText: The ID of the order containing the refund
+        variable: orderId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Refund ID
+        helpText: The ID of the refund to delete
+        variable: refundId
+        required: true
+        type: text
+        placeholder: '456'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the deleted refund data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

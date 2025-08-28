@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Action
+id: update-product-review
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Product Review
+  description: Update an existing product review in WooCommerce by ID
+  quickHelp: help.md
+configuration:
+  - title: Review Details
+    items:
+      - label: Review ID
+        helpText: The ID of the review you want to update
+        variable: reviewId
+        required: true
+        type: text
+      - label: Status
+        helpText: The status of the review
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Approved
+              value: approved
+            - label: On Hold
+              value: hold
+            - label: Spam
+              value: spam
+            - label: Unspam
+              value: unspam
+            - label: Trash
+              value: trash
+            - label: Untrash
+              value: untrash
+      - label: Reviewer Name
+        helpText: The name of the reviewer
+        variable: reviewer
+        required: false
+        type: text
+      - label: Reviewer Email
+        helpText: The email of the reviewer
+        variable: reviewerEmail
+        required: false
+        type: text
+      - label: Review Content
+        helpText: The content of the review
+        variable: review
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Rating
+        helpText: The rating given in the review (0-5)
+        variable: rating
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: 0 Stars
+              value: 0
+            - label: 1 Star
+              value: 1
+            - label: 2 Stars
+              value: 2
+            - label: 3 Stars
+              value: 3
+            - label: 4 Stars
+              value: 4
+            - label: 5 Stars
+              value: 5
+      - label: Verified
+        helpText: Whether the review is from a verified buyer
+        variable: verified
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: True
+              value: true
+            - label: False
+              value: false
+      - label: Output Variable
+        helpText: Name of the variable to store the updated review information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Action
+id: list-product-variations
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Product Variations
+  description: Retrieve a list of variations for a specific WooCommerce product
+  quickHelp: help.md
+configuration:
+  - title: Product Information
+    items:
+      - label: Product ID
+        variable: productId
+        type: text
+        required: true
+        helpText: The ID of the parent product for which to list variations
+        placeholder: Enter product ID...
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Results Per Page
+        variable: perPage
+        type: text
+        required: false
+        helpText: Number of results to return per page (default 10, max 100)
+        defaultValue: '10'
+      - label: Page Number
+        variable: page
+        type: text
+        required: false
+        helpText: Page number of results to return (default 1)
+        defaultValue: '1'
+      - label: Search Term
+        variable: search
+        type: text
+        required: false
+        helpText: Search for specific variations by name or description
+      - label: Sort Order
+        variable: order
+        type: select
+        required: false
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Descending (newest first)
+              value: desc
+            - label: Ascending (oldest first)
+              value: asc
+      - label: Sort By
+        variable: orderby
+        type: select
+        required: false
+        defaultValue: date
+        selectOptions:
+          options:
+            - label: Date
+              value: date
+            - label: ID
+              value: id
+            - label: Title
+              value: title
+            - label: Modified Date
+              value: modified
+      - label: SKU
+        variable: sku
+        type: text
+        required: false
+        helpText: Filter by product SKU
+      - label: Stock Status
+        variable: stockStatus
+        type: select
+        required: false
+        selectOptions:
+          options:
+            - label: Any
+              value: ''
+            - label: In Stock
+              value: instock
+            - label: Out of Stock
+              value: outofstock
+            - label: On Backorder
+              value: onbackorder
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the list of product variations

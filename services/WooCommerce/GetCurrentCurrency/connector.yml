@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-current-currency
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Current Currency
+  description: Retrieves the store's current currency settings including code, name, and symbol
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the currency information
+        variable: outputVariable
+        type: outputVariableName

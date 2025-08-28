@@ -5,7 +5,7 @@ id: woocommerce
 metadata:
   name: WooCommerce
   description: A free, open-source WordPress plugin that transforms a WordPress website into a fully functional online store
-  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756327081925.png
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756344018322.png
 configuration:
   - id: url
     type: plaintext

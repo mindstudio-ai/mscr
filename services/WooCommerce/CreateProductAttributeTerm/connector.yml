@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: create-product-attribute-term
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Product Attribute Term
+  description: Creates a new term for a specific product attribute in WooCommerce
+  quickHelp: help.md
+configuration:
+  - title: Attribute Term Details
+    items:
+      - label: Attribute ID
+        helpText: The ID of the product attribute to which this term will be added
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: Enter attribute ID (e.g., 2)
+      - label: Term Name
+        helpText: Name of the attribute term (e.g., 'XXS', 'Red', 'Cotton')
+        variable: name
+        required: true
+        type: text
+        placeholder: Enter term name
+      - label: Term Slug
+        helpText: Unique identifier for the term. Leave blank to auto-generate from name.
+        variable: slug
+        required: false
+        type: text
+        placeholder: Enter term slug (e.g., xxs, red, cotton)
+      - label: Description
+        helpText: HTML description of the term
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Enter term description (optional)
+      - label: Menu Order
+        helpText: Order in which the term appears (numeric value)
+        variable: menuOrder
+        required: false
+        type: text
+        placeholder: Enter menu order (e.g., 1)
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the created attribute term data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

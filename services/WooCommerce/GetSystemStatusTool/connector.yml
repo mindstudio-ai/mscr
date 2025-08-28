@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-system-status-tool
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get System Status Tool
+  description: Retrieves details for a specific System Status tool in WooCommerce by its ID
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Tool ID
+        helpText: The unique identifier of the system status tool to retrieve
+        variable: toolId
+        required: true
+        type: text
+        placeholder: e.g., clear_transients
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the tool information
+        variable: outputVariable
+        type: outputVariableName

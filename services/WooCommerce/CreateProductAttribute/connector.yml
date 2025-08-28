@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Action
+id: create-product-attribute
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Product Attribute
+  description: Creates a new product attribute in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Product Attribute Details
+    items:
+      - label: Attribute Name
+        required: true
+        helpText: The name of the attribute (e.g., Color, Size)
+        variable: name
+        type: text
+      - label: Attribute Slug
+        required: false
+        helpText: Alphanumeric identifier for the attribute (e.g., pa_color). If left blank, will be generated automatically.
+        variable: slug
+        type: text
+        placeholder: pa_color
+      - label: Order By
+        required: false
+        helpText: Controls how attribute terms are sorted
+        variable: orderBy
+        type: select
+        defaultValue: menu_order
+        selectOptions:
+          options:
+            - label: Menu Order
+              value: menu_order
+            - label: Name
+              value: name
+            - label: Name Numeric
+              value: name_num
+            - label: ID
+              value: id
+      - label: Enable Archives
+        required: false
+        helpText: Enable/disable attribute archives on the frontend
+        variable: hasArchives
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Output Variable
+        required: true
+        helpText: The variable to store the created attribute information
+        variable: outputVariable
+        type: outputVariableName

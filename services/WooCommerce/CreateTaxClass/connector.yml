@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: create-tax-class
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Tax Class
+  description: Create a new tax class in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Tax Class Details
+    items:
+      - label: Tax Class Name
+        helpText: The name of the tax class you want to create (e.g., "Zero Rate", "Reduced Rate")
+        variable: name
+        required: true
+        type: text
+        placeholder: Enter tax class name...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created tax class information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

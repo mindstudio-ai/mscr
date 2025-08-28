@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: delete-product-review
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Product Review
+  description: Delete a product review from a WooCommerce store by its ID
+  quickHelp: help.md
+configuration:
+  - title: Review Details
+    items:
+      - label: Review ID
+        helpText: The ID of the product review you want to delete
+        variable: reviewId
+        required: true
+        type: text
+        placeholder: "123"
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: Variable to store the deletion result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

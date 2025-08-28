@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Action
+id: list-webhooks
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Webhooks
+  description: Retrieve a paginated list of webhooks from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Filter Options
+    items:
+      - label: Status
+        helpText: Filter webhooks by status
+        variable: status
+        required: false
+        type: select
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All
+              value: all
+            - label: Active
+              value: active
+            - label: Paused
+              value: paused
+            - label: Disabled
+              value: disabled
+      - label: Page
+        helpText: Page number of results to retrieve
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+      - label: Per Page
+        helpText: Number of results per page
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Search
+        helpText: Search term to filter webhooks
+        variable: search
+        required: false
+        type: text
+      - label: Order By
+        helpText: Sort webhooks by field
+        variable: orderby
+        required: false
+        type: select
+        defaultValue: date
+        selectOptions:
+          options:
+            - label: Date
+              value: date
+            - label: ID
+              value: id
+            - label: Title
+              value: title
+      - label: Order
+        helpText: Sort order
+        variable: order
+        required: false
+        type: select
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Descending
+              value: desc
+            - label: Ascending
+              value: asc
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of webhooks
+        variable: outputVariable
+        required: true
+        type: outputVariableName

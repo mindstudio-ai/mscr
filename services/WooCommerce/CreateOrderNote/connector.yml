@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: create-order-note
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Order Note
+  description: Creates a new note for a specific WooCommerce order
+  quickHelp: help.md
+configuration:
+  - title: Order Information
+    items:
+      - label: Order ID
+        variable: orderId
+        type: text
+        required: true
+        helpText: The ID of the WooCommerce order to add a note to
+        placeholder: '123'
+  - title: Note Details
+    items:
+      - label: Note Content
+        variable: noteContent
+        type: text
+        required: true
+        helpText: The content of the note to add to the order
+        textOptions:
+          type: multiline
+        placeholder: Enter your note here...
+      - label: Customer Visibility
+        variable: customerNote
+        type: select
+        required: false
+        helpText: If set to 'Yes', the note will be visible to the customer and they will be notified
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No - Internal note only
+              value: 'false'
+            - label: Yes - Customer can see this note
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the created note data

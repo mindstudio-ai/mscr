@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-continents
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Continents
+  description: Retrieves a list of all continents with their countries and states from a WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the list of continents
+        variable: outputVariable
+        type: outputVariableName

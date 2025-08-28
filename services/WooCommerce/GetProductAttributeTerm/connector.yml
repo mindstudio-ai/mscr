@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-product-attribute-term
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Product Attribute Term
+  description: Retrieves a single term for a specific product attribute by its ID.
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Attribute ID
+        helpText: The ID of the product attribute (e.g., 2 for Size)
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: '2'
+      - label: Term ID
+        helpText: The ID of the term to retrieve (e.g., 23 for 'XXS')
+        variable: termId
+        required: true
+        type: text
+        placeholder: '23'
+      - label: Output Variable
+        helpText: Variable name to store the retrieved attribute term
+        variable: outputVariable
+        required: true
+        type: outputVariableName

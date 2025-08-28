@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: delete-product
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Product
+  description: Delete a WooCommerce product by ID, with option to permanently delete or move to trash
+  quickHelp: help.md
+configuration:
+  - title: Product Information
+    items:
+      - label: Product ID
+        helpText: The ID of the product you want to delete
+        variable: productId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Permanently Delete
+        helpText: If set to Yes, the product will be permanently deleted. If No, it will be moved to trash.
+        variable: force
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes (permanent delete)'
+              value: 'true'
+            - label: 'No (move to trash)'
+              value: 'false'
+      - label: Output Variable
+        helpText: Variable name to store the deleted product information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

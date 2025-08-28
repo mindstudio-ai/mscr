@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-shipping-zone
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Shipping Zone
+  description: Retrieves a specific shipping zone by ID from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Details
+    items:
+      - label: Zone ID
+        helpText: Enter the ID of the shipping zone you want to retrieve
+        variable: zoneId
+        required: true
+        type: text
+        placeholder: 'e.g., 5'
+      - label: Output Variable
+        helpText: Variable name to store the shipping zone data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

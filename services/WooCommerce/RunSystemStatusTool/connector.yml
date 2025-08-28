@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Action
+id: run-system-status-tool
+serviceId: woocommerce
+active: true
+metadata:
+  name: Run System Status Tool
+  description: Execute a specific WooCommerce system status tool by its ID to perform maintenance operations
+  quickHelp: help.md
+configuration:
+  - title: Tool Selection
+    items:
+      - label: Tool ID
+        required: true
+        helpText: The system status tool to run
+        variable: toolId
+        type: select
+        defaultValue: clear_transients
+        selectOptions:
+          options:
+            - label: Clear Transients
+              value: clear_transients
+            - label: Clear Template Cache
+              value: template_cache
+            - label: Clear API Keys
+              value: clear_api_keys
+            - label: Clear Expired Transients
+              value: clear_expired_transients
+            - label: Clear Product Transients
+              value: clear_product_transients
+            - label: Clear Shipping Transients
+              value: clear_shipping_transients
+            - label: Reset Roles
+              value: reset_roles
+            - label: Recount Terms
+              value: recount_terms
+            - label: Delete Orphaned Variations
+              value: delete_orphaned_variations
+            - label: Clear Sessions
+              value: clear_sessions
+            - label: Update Database
+              value: update_db_to_latest_version
+            - label: Add Order Indexes
+              value: add_order_indexes
+            - label: Remove Order Indexes
+              value: remove_order_indexes
+            - label: Reset Image Regeneration
+              value: regenerate_thumbnails
+  - title: Confirmation
+    items:
+      - label: Confirm Execution
+        required: true
+        helpText: You must confirm to execute the selected tool. Some tools may perform destructive actions.
+        variable: confirm
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes, I confirm
+              value: 'true'
+            - label: No, cancel
+              value: 'false'
+  - title: Output
+    items:
+      - label: Result Variable
+        required: true
+        helpText: Variable name to store the tool execution result
+        variable: outputVariable
+        type: outputVariableName

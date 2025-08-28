@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-payment-gateways
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Payment Gateways
+  description: Retrieve all payment gateways configured in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable to store the list of payment gateways
+        variable: outputVariable
+        type: outputVariableName

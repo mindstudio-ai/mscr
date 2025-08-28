@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: Action
+id: create-tax-rate
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Tax Rate
+  description: Creates a new tax rate in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Tax Rate Information
+    items:
+      - label: Tax Rate Name
+        helpText: A name for this tax rate (e.g., 'State Tax', 'VAT')
+        variable: name
+        required: true
+        type: text
+        placeholder: State Tax
+      - label: Country
+        helpText: ISO 3166-1 alpha-2 country code (e.g., 'US', 'GB')
+        variable: country
+        required: true
+        type: text
+        defaultValue: US
+        placeholder: US
+      - label: State/Province
+        helpText: State or province code (e.g., 'CA', 'NY')
+        variable: state
+        required: false
+        type: text
+        placeholder: CA
+      - label: Tax Rate (%)
+        helpText: The tax rate percentage (e.g., '6' for 6%)
+        variable: rate
+        required: true
+        type: text
+        placeholder: 6
+  - title: Additional Settings
+    collapsed: true
+    items:
+      - label: Cities
+        helpText: Comma-separated list of city names where this tax applies (e.g., 'New York, Albany, Buffalo')
+        variable: cities
+        required: false
+        type: text
+        placeholder: New York, Albany, Buffalo
+      - label: Postcodes/ZIP Codes
+        helpText: Comma-separated list of postcodes/ZIP codes where this tax applies (e.g., '10001, 10002, 10003')
+        variable: postcodes
+        required: false
+        type: text
+        placeholder: 10001, 10002, 10003
+      - label: Tax Class
+        variable: class
+        required: false
+        type: select
+        defaultValue: standard
+        selectOptions:
+          options:
+            - label: Standard
+              value: standard
+            - label: Reduced Rate
+              value: reduced-rate
+            - label: Zero Rate
+              value: zero-rate
+      - label: Apply to Shipping
+        variable: shipping
+        required: false
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Compound Tax
+        helpText: When enabled, this tax will be applied on top of other taxes
+        variable: compound
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the created tax rate information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

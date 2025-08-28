@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-shipping-zones
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Shipping Zones
+  description: Retrieves all shipping zones from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Shipping Zones Variable
+        required: true
+        helpText: Variable name to store the list of shipping zones
+        variable: outputVariable
+        type: outputVariableName

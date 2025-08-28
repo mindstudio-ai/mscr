@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: Action
+id: update-product
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Product
+  description: Update an existing product in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Product Information
+    items:
+      - label: Product ID
+        helpText: The ID of the product you want to update
+        variable: productId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Product Details to Update
+    items:
+      - label: Name
+        helpText: The product name
+        variable: name
+        required: false
+        type: text
+      - label: Description
+        helpText: The product description
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Short Description
+        helpText: Brief description of the product
+        variable: shortDescription
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Regular Price
+        helpText: Product regular price (e.g., 19.99)
+        variable: regularPrice
+        required: false
+        type: text
+        placeholder: '19.99'
+      - label: Sale Price
+        helpText: Product sale price (e.g., 15.99)
+        variable: salePrice
+        required: false
+        type: text
+        placeholder: '15.99'
+      - label: Status
+        helpText: Product status
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Draft
+              value: draft
+            - label: Pending
+              value: pending
+            - label: Private
+              value: private
+            - label: Published
+              value: publish
+      - label: Catalog Visibility
+        helpText: Product visibility in catalog
+        variable: catalogVisibility
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Visible
+              value: visible
+            - label: Catalog
+              value: catalog
+            - label: Search
+              value: search
+            - label: Hidden
+              value: hidden
+      - label: Featured
+        helpText: Whether the product is featured
+        variable: featured
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the updated product information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

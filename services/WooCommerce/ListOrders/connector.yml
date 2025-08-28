@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Action
+id: list-orders
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Orders
+  description: List and filter WooCommerce orders from your store
+  quickHelp: help.md
+configuration:
+  - title: Filtering Options
+    items:
+      - label: Status
+        type: select
+        variable: status
+        required: false
+        helpText: Filter orders by status
+        selectOptions:
+          options:
+            - label: Any
+              value: ''
+            - label: Pending
+              value: 'pending'
+            - label: Processing
+              value: 'processing'
+            - label: On Hold
+              value: 'on-hold'
+            - label: Completed
+              value: 'completed'
+            - label: Cancelled
+              value: 'cancelled'
+            - label: Refunded
+              value: 'refunded'
+            - label: Failed
+              value: 'failed'
+            - label: Trash
+              value: 'trash'
+      - label: Customer ID
+        type: text
+        variable: customer
+        required: false
+        helpText: Filter orders by customer ID
+        placeholder: e.g., 42
+      - label: Product ID
+        type: text
+        variable: product
+        required: false
+        helpText: Filter orders by product ID
+        placeholder: e.g., 123
+      - label: Date Range - After
+        type: text
+        variable: after
+        required: false
+        helpText: Show orders created after this date (ISO8601 format, e.g., 2023-01-01T00:00:00Z)
+        placeholder: YYYY-MM-DDTHH:MM:SSZ
+      - label: Date Range - Before
+        type: text
+        variable: before
+        required: false
+        helpText: Show orders created before this date (ISO8601 format, e.g., 2023-12-31T23:59:59Z)
+        placeholder: YYYY-MM-DDTHH:MM:SSZ
+  - title: Pagination Options
+    items:
+      - label: Page
+        type: text
+        variable: page
+        required: false
+        defaultValue: '1'
+        helpText: Page number of results to return
+        placeholder: e.g., 1
+      - label: Items Per Page
+        type: text
+        variable: perPage
+        required: false
+        defaultValue: '10'
+        helpText: Number of orders to return per page (max 100)
+        placeholder: e.g., 10
+      - label: Sort Order
+        type: select
+        variable: order
+        required: false
+        defaultValue: 'desc'
+        helpText: Sort orders ascending or descending
+        selectOptions:
+          options:
+            - label: Descending (newest first)
+              value: 'desc'
+            - label: Ascending (oldest first)
+              value: 'asc'
+      - label: Sort By
+        type: select
+        variable: orderby
+        required: false
+        defaultValue: 'date'
+        helpText: Field to sort orders by
+        selectOptions:
+          options:
+            - label: Date
+              value: 'date'
+            - label: Modified Date
+              value: 'modified'
+            - label: ID
+              value: 'id'
+            - label: Title
+              value: 'title'
+  - title: Output Options
+    items:
+      - label: Output Variable
+        type: outputVariableName
+        variable: outputVariable
+        required: true
+        helpText: Name of the variable to store the list of orders

@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: batch-update-product-attributes
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Update Product Attributes
+  description: Create, update, and delete multiple product attributes in a single operation
+  quickHelp: help.md
+configuration:
+  - title: Create Attributes
+    items:
+      - label: Attributes to Create
+        helpText: JSON array of attributes to create. Each object should include a 'name' field. Optional fields include 'slug', 'type', 'order_by', and 'has_archives'.
+        variable: attributesToCreate
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name": "Brand"}, {"name": "Publisher"}]'
+  - title: Update Attributes
+    items:
+      - label: Attributes to Update
+        helpText: JSON array of attributes to update. Each object must include an 'id' field and any fields to update.
+        variable: attributesToUpdate
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 2, "order_by": "name"}]'
+  - title: Delete Attributes
+    items:
+      - label: Attribute IDs to Delete
+        helpText: JSON array of attribute IDs to delete.
+        variable: attributesToDelete
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[1, 2, 3]'
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: Variable name to store the batch update results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

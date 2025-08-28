@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: add-shipping-method
+serviceId: woocommerce
+active: true
+metadata:
+  name: Add Shipping Method to Zone
+  description: Creates a new shipping method instance within a specific WooCommerce shipping zone
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Details
+    items:
+      - label: Zone ID
+        helpText: The ID of the shipping zone to add the method to
+        variable: zoneId
+        required: true
+        type: text
+        placeholder: 'e.g., 5'
+      - label: Shipping Method
+        helpText: The shipping method to add to the zone
+        variable: methodId
+        required: true
+        type: select
+        defaultValue: flat_rate
+        selectOptions:
+          options:
+            - label: Flat Rate
+              value: flat_rate
+            - label: Free Shipping
+              value: free_shipping
+            - label: Local Pickup
+              value: local_pickup
+      - label: Output Variable
+        helpText: Name of the variable to store the created shipping method details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

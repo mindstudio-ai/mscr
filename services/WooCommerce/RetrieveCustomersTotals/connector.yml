@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: retrieve-customers-totals
+serviceId: woocommerce
+active: true
+metadata:
+  name: Retrieve Customers Totals
+  description: Retrieves totals for customers by type (paying and non-paying) from a WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the customer totals data
+        variable: outputVariable
+        type: outputVariableName

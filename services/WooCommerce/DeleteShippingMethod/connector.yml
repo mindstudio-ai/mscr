@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: delete-shipping-method
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Shipping Method
+  description: Permanently delete a shipping method from a WooCommerce shipping zone
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Information
+    items:
+      - label: Zone ID
+        helpText: The ID of the shipping zone containing the method to delete
+        variable: zoneId
+        required: true
+        type: text
+        placeholder: '5'
+      - label: Method ID
+        helpText: The instance ID of the shipping method to delete
+        variable: methodId
+        required: true
+        type: text
+        placeholder: '26'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the deleted shipping method details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

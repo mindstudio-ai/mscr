@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: delete-tax-rate
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Tax Rate
+  description: Permanently delete a tax rate from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Tax Rate ID
+        helpText: The unique identifier of the tax rate you want to delete
+        variable: taxRateId
+        required: true
+        type: text
+        placeholder: Enter tax rate ID (e.g., 72)
+  - title: Confirmation
+    items:
+      - label: Confirm Deletion
+        helpText: Please confirm that you want to permanently delete this tax rate. This action cannot be undone.
+        variable: confirmDeletion
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes, permanently delete this tax rate
+              value: 'true'
+            - label: No, cancel deletion
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the deleted tax rate data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

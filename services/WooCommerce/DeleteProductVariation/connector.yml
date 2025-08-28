@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: delete-product-variation
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Product Variation
+  description: Permanently delete a product variation from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Product Variation Information
+    items:
+      - label: Product ID
+        helpText: The ID of the parent product containing the variation
+        variable: productId
+        required: true
+        type: text
+        placeholder: 'e.g., 123'
+      - label: Variation ID
+        helpText: The ID of the variation to delete
+        variable: variationId
+        required: true
+        type: text
+        placeholder: 'e.g., 456'
+      - label: Force Delete
+        helpText: Must be set to 'Yes' to permanently delete the variation
+        variable: forceDelete
+        required: true
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Output Variable
+        helpText: Variable name to store the deleted variation data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

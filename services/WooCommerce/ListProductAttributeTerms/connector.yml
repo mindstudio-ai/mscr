@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: Action
+id: list-product-attribute-terms
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Product Attribute Terms
+  description: List all terms for a specific product attribute in WooCommerce
+  quickHelp: help.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Attribute ID
+        helpText: The product attribute ID to list terms for
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: '1'
+      - label: Output Variable
+        helpText: Variable to store the attribute terms results
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Items Per Page
+        helpText: Number of items to return per page
+        variable: perPage
+        required: false
+        type: text
+        placeholder: '10'
+        defaultValue: '10'
+      - label: Page Number
+        helpText: Page of results to return
+        variable: page
+        required: false
+        type: text
+        placeholder: '1'
+        defaultValue: '1'
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Search
+        helpText: Search string to filter results
+        variable: search
+        required: false
+        type: text
+        placeholder: 'Search terms...'
+      - label: Sort Order
+        helpText: Order to sort results
+        variable: order
+        required: false
+        type: select
+        defaultValue: 'asc'
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+      - label: Sort By
+        helpText: Field to sort results by
+        variable: orderBy
+        required: false
+        type: select
+        defaultValue: 'name'
+        selectOptions:
+          options:
+            - label: Name
+              value: name
+            - label: ID
+              value: id
+            - label: Slug
+              value: slug
+            - label: Count
+              value: count
+            - label: Description
+              value: description
+      - label: Hide Empty Terms
+        helpText: Whether to hide terms with no products
+        variable: hideEmpty
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: delete-product-category
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Product Category
+  description: Permanently delete a product category from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Category Details
+    items:
+      - label: Category ID
+        helpText: The ID of the product category you want to delete
+        variable: categoryId
+        required: true
+        type: text
+        placeholder: "9"
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Force Delete
+        helpText: Categories must be force deleted as they don't support trash
+        variable: force
+        required: true
+        type: select
+        defaultValue: "true"
+        selectOptions:
+          options:
+            - label: Yes (Required)
+              value: "true"
+  - title: Output
+    items:
+      - label: Store Result As
+        helpText: The variable name to store the deleted category information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

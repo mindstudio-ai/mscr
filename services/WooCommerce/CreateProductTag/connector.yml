@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: create-product-tag
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Product Tag
+  description: Create a new product tag in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Tag Details
+    items:
+      - label: Name
+        required: true
+        helpText: The name of the product tag (required)
+        variable: name
+        type: text
+        placeholder: Leather Shoes
+      - label: Slug
+        required: false
+        helpText: Custom URL slug for the tag. If left blank, it will be generated automatically from the name.
+        variable: slug
+        type: text
+        placeholder: leather-shoes
+      - label: Description
+        required: false
+        helpText: HTML description of the tag
+        variable: description
+        type: text
+        textOptions:
+          type: multiline
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created tag information
+        variable: outputVariable
+        type: outputVariableName

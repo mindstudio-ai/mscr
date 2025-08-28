@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: delete-product-attribute-term
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Product Attribute Term
+  description: Permanently delete a product attribute term from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Attribute ID
+        helpText: The ID of the product attribute containing the term to delete
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: e.g., 2
+      - label: Term ID
+        helpText: The ID of the term to permanently delete
+        variable: termId
+        required: true
+        type: text
+        placeholder: e.g., 23
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the deleted term data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

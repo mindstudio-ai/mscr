@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: list-product-attributes
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Product Attributes
+  description: Retrieves a list of all product attributes from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Context
+        helpText: Scope under which the request is made
+        variable: context
+        required: false
+        type: select
+        defaultValue: view
+        selectOptions:
+          options:
+            - label: View
+              value: view
+            - label: Edit
+              value: edit
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of product attributes
+        variable: outputVariable
+        type: outputVariableName

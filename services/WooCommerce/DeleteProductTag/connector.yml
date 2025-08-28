@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: delete-product-tag
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Product Tag
+  description: Permanently delete a product tag from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Tag Information
+    items:
+      - label: Tag ID
+        helpText: The unique identifier of the product tag you want to delete
+        variable: tagId
+        required: true
+        type: text
+        placeholder: 'e.g., 34'
+      - label: Confirm Deletion
+        helpText: This action permanently deletes the tag and cannot be undone
+        variable: confirmDeletion
+        required: true
+        type: select
+        defaultValue: 'no'
+        selectOptions:
+          options:
+            - label: 'No, do not delete'
+              value: 'no'
+            - label: 'Yes, permanently delete this tag'
+              value: 'yes'
+      - label: Output Variable
+        helpText: The variable that will contain the deleted tag information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

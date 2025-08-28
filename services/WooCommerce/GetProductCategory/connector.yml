@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-product-category
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Product Category
+  description: Retrieves a single product category by ID from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Category Details
+    items:
+      - label: Category ID
+        helpText: The unique identifier of the product category you want to retrieve
+        variable: categoryId
+        required: true
+        type: text
+        placeholder: '9'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the retrieved category information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

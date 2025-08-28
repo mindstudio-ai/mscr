@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: delete-customer
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Customer
+  description: Permanently delete a WooCommerce customer
+  quickHelp: help.md
+configuration:
+  - title: Customer Information
+    items:
+      - label: Customer ID
+        helpText: The ID of the customer to delete
+        variable: customerId
+        required: true
+        type: text
+        placeholder: e.g., 25
+  - title: Delete Options
+    items:
+      - label: Force Delete
+        helpText: Set to true to permanently delete the customer (required)
+        variable: forceDelete
+        required: true
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes (Permanently Delete)
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Reassign Posts To User ID
+        helpText: Optional user ID to reassign posts to
+        variable: reassignPosts
+        required: false
+        type: text
+        placeholder: e.g., 1
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the deleted customer data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

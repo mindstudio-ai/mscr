@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Action
+id: list-shipping-classes
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Shipping Classes
+  description: Retrieves a list of all product shipping classes from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Shipping Classes Options
+    items:
+      - label: Results Per Page
+        helpText: Number of shipping classes to return per page (1-100)
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: "10"
+      - label: Page Number
+        helpText: Page number of results to return
+        variable: page
+        required: false
+        type: text
+        defaultValue: "1"
+      - label: Sort Order
+        helpText: Order of sorting results
+        variable: order
+        required: false
+        type: select
+        defaultValue: "asc"
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+      - label: Sort By
+        helpText: Field to sort results by
+        variable: orderby
+        required: false
+        type: select
+        defaultValue: "name"
+        selectOptions:
+          options:
+            - label: Name
+              value: name
+            - label: ID
+              value: id
+            - label: Slug
+              value: slug
+            - label: Count
+              value: count
+            - label: Description
+              value: description
+      - label: Search Term
+        helpText: Search shipping classes by name
+        variable: search
+        required: false
+        type: text
+      - label: Output Variable
+        helpText: Variable name to store the list of shipping classes
+        variable: outputVariable
+        required: true
+        type: outputVariableName

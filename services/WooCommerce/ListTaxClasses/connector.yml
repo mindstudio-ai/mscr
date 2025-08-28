@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-tax-classes
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Tax Classes
+  description: Retrieve all tax classes from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the list of tax classes
+        variable: outputVariable
+        type: outputVariableName

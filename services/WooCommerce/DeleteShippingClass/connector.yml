@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: delete-shipping-class
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Shipping Class
+  description: Permanently delete a product shipping class by ID
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Shipping Class ID
+        helpText: The ID of the shipping class you want to delete
+        variable: shippingClassId
+        required: true
+        type: text
+        placeholder: "32"
+      - label: Force Delete
+        helpText: Whether to permanently delete the shipping class (must be true as WooCommerce doesn't support trashing for shipping classes)
+        variable: force
+        required: true
+        type: select
+        defaultValue: "true"
+        selectOptions:
+          options:
+            - label: Yes (Permanently Delete)
+              value: "true"
+      - label: Output Variable
+        helpText: Name of the variable to store the deleted shipping class data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

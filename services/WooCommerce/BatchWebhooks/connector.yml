@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: batch-webhooks
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Webhooks
+  description: Create, update, or delete multiple webhooks in a single operation
+  quickHelp: help.md
+configuration:
+  - title: Create Webhooks
+    items:
+      - label: Webhooks to Create
+        helpText: JSON array of webhooks to create. Each webhook should include name, topic, and delivery_url.
+        variable: createWebhooks
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name": "Order created", "topic": "order.created", "delivery_url": "https://example.com/webhook"}]'
+  - title: Update Webhooks
+    items:
+      - label: Webhooks to Update
+        helpText: JSON array of webhooks to update. Each webhook must include id and any fields to update (name, status, topic, delivery_url, secret).
+        variable: updateWebhooks
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 123, "name": "Updated webhook", "status": "paused"}]'
+  - title: Delete Webhooks
+    items:
+      - label: Webhook IDs to Delete
+        helpText: Comma-separated list of webhook IDs to delete.
+        variable: deleteWebhooks
+        required: false
+        type: text
+        placeholder: '123, 456, 789'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the results of the batch operation.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

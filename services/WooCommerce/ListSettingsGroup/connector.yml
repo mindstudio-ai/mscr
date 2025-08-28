@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: list-settings-group
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Settings Group Options
+  description: Retrieves all setting options within a specified WooCommerce settings group
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Settings Group
+        helpText: The settings group to retrieve options from
+        variable: groupId
+        required: true
+        type: select
+        defaultValue: general
+        selectOptions:
+          options:
+            - label: General
+              value: general
+            - label: Products
+              value: products
+            - label: Tax
+              value: tax
+            - label: Shipping
+              value: shipping
+            - label: Checkout
+              value: checkout
+            - label: Account
+              value: account
+            - label: Email
+              value: email
+            - label: Advanced
+              value: advanced
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the retrieved settings
+        variable: outputVariable
+        type: outputVariableName

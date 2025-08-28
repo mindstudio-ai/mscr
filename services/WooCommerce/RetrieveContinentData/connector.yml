@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: retrieve-continent-data
+serviceId: woocommerce
+active: true
+metadata:
+  name: Retrieve Continent Data
+  description: Retrieves data for a specific continent from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Continent Code
+        required: true
+        helpText: Select the continent to retrieve data for
+        variable: continentCode
+        type: select
+        defaultValue: eu
+        selectOptions:
+          options:
+            - label: Africa
+              value: af
+            - label: Antarctica
+              value: an
+            - label: Asia
+              value: as
+            - label: Europe
+              value: eu
+            - label: North America
+              value: na
+            - label: Oceania
+              value: oc
+            - label: South America
+              value: sa
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the continent data
+        variable: outputVariable
+        type: outputVariableName

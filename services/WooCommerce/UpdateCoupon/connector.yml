@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: Action
+id: update-coupon
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Coupon
+  description: Update an existing coupon in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Coupon Details
+    items:
+      - label: Coupon ID
+        variable: couponId
+        type: text
+        required: true
+        helpText: The ID of the coupon you want to update
+        placeholder: e.g., 719
+  - title: Coupon Properties
+    items:
+      - label: Discount Amount
+        variable: amount
+        type: text
+        required: false
+        helpText: The amount of discount (fixed amount or percentage based on discount type)
+        placeholder: e.g., 10
+      - label: Discount Type
+        variable: discountType
+        type: select
+        required: false
+        helpText: The type of discount to apply
+        selectOptions:
+          options:
+            - label: Fixed cart discount
+              value: fixed_cart
+            - label: Percentage discount
+              value: percent
+            - label: Fixed product discount
+              value: fixed_product
+            - label: Percentage product discount
+              value: percent_product
+      - label: Description
+        variable: description
+        type: text
+        required: false
+        helpText: Description of the coupon
+        textOptions:
+          type: multiline
+      - label: Expiry Date
+        variable: dateExpires
+        type: text
+        required: false
+        helpText: The date the coupon expires, in format YYYY-MM-DD
+        placeholder: e.g., 2023-12-31
+      - label: Minimum Spend
+        variable: minimumAmount
+        type: text
+        required: false
+        helpText: Minimum order amount that needs to be in the cart before the coupon can be applied
+        placeholder: e.g., 50
+      - label: Maximum Spend
+        variable: maximumAmount
+        type: text
+        required: false
+        helpText: Maximum order amount allowed when using the coupon
+        placeholder: e.g., 1000
+      - label: Individual Use Only
+        variable: individualUse
+        type: select
+        required: false
+        helpText: If true, the coupon cannot be used in conjunction with other coupons
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Exclude Sale Items
+        variable: excludeSaleItems
+        type: select
+        required: false
+        helpText: If true, the coupon cannot be used on sale items
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Usage Limit Per Coupon
+        variable: usageLimit
+        type: text
+        required: false
+        helpText: How many times the coupon can be used in total
+        placeholder: e.g., 100
+      - label: Usage Limit Per User
+        variable: usageLimitPerUser
+        type: text
+        required: false
+        helpText: How many times the coupon can be used by a single user
+        placeholder: e.g., 1
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the updated coupon information

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-customer-downloads
+serviceId: woocommerce
+active: true
+metadata:
+  name: Retrieve Customer Downloads
+  description: Get download permissions and links for a specific WooCommerce customer
+  quickHelp: help.md
+configuration:
+  - title: Customer Information
+    items:
+      - label: Customer ID
+        helpText: The ID of the customer whose downloads you want to retrieve
+        variable: customerId
+        required: true
+        type: text
+        placeholder: 'e.g., 26'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the customer's downloads information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

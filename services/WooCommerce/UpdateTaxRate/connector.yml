@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: Action
+id: update-tax-rate
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Tax Rate
+  description: Updates an existing tax rate in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Tax Rate Details
+    items:
+      - label: Tax Rate ID
+        helpText: The ID of the tax rate you want to update
+        variable: taxRateId
+        required: true
+        type: text
+        placeholder: '72'
+      - label: Tax Rate Name
+        helpText: The name of the tax rate (e.g., 'State Tax', 'VAT')
+        variable: name
+        required: false
+        type: text
+        placeholder: 'US Tax'
+      - label: Country
+        helpText: Two-letter country code (e.g., 'US', 'GB')
+        variable: country
+        required: false
+        type: text
+        placeholder: 'US'
+      - label: State
+        helpText: Two-letter state code (e.g., 'CA', 'NY')
+        variable: state
+        required: false
+        type: text
+        placeholder: 'AL'
+      - label: Tax Rate
+        helpText: The tax rate percentage (e.g., '4.0000' for 4%)
+        variable: rate
+        required: false
+        type: text
+        placeholder: '4.0000'
+  - title: Additional Options
+    collapsed: true
+    items:
+      - label: Priority
+        helpText: Tax priority. Controls which tax rate is applied when multiple rates match
+        variable: priority
+        required: false
+        type: text
+        placeholder: '1'
+      - label: Compound
+        helpText: Whether or not this is a compound tax rate
+        variable: compound
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Apply to Shipping
+        helpText: Whether or not this tax rate applies to shipping
+        variable: shipping
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Tax Class
+        helpText: The tax class (e.g., 'standard', 'reduced-rate')
+        variable: class
+        required: false
+        type: text
+        defaultValue: 'standard'
+      - label: Cities
+        helpText: Comma-separated list of cities where this tax rate applies
+        variable: cities
+        required: false
+        type: text
+        placeholder: 'Cardiff, Alpine, Brookside'
+      - label: Postcodes
+        helpText: Comma-separated list of postcodes/ZIP codes where this tax rate applies
+        variable: postcodes
+        required: false
+        type: text
+        placeholder: '35041, 35014, 35036'
+      - label: Order
+        helpText: The order in which tax rates are displayed
+        variable: order
+        required: false
+        type: text
+        placeholder: '1'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the updated tax rate information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,10 +1,8 @@
+// https://github.com/woocommerce/woocommerce-rest-api-docs/tree/trunk/source/includes/wp-api-v3
 const docsPages = `
-https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_authentication.md
 https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_coupons.md
 https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_customers.md
 https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_data.md
-https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_index.md
-https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_introduction.md
 https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_order-actions.md
 https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_order-notes.md
 https://raw.githubusercontent.com/woocommerce/woocommerce-rest-api-docs/refs/heads/trunk/source/includes/wp-api-v3/_order-refunds.md

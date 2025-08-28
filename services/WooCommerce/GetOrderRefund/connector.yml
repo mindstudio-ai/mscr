@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: get-order-refund
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Order Refund
+  description: Retrieves a specific refund for a WooCommerce order
+  quickHelp: help.md
+configuration:
+  - title: Order Information
+    items:
+      - label: Order ID
+        helpText: The ID of the order containing the refund
+        variable: orderId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Refund ID
+        helpText: The ID of the refund to retrieve
+        variable: refundId
+        required: true
+        type: text
+        placeholder: '456'
+  - title: Options
+    collapsed: true
+    items:
+      - label: Decimal Points
+        helpText: Number of decimal points to use in the response (optional)
+        variable: decimalPoints
+        required: false
+        type: text
+        placeholder: '2'
+      - label: Output Variable
+        helpText: Name of the variable to store the refund information
+        variable: outputVariable
+        required: true
+        type: outputVariableName
