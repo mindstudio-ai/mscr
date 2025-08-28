@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-coupon-totals
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Coupon Totals
+  description: Retrieves totals for coupons by type from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the coupon totals data
+        variable: outputVariable
+        type: outputVariableName

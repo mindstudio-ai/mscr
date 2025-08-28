@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: delete-merge-field
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete Merge Field
+  description: Delete a specific merge field from a MailChimp list (audience)
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list (audience)
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Merge Field ID
+        helpText: The ID of the merge field you want to delete
+        variable: mergeId
+        required: true
+        type: text
+        placeholder: e.g., 123456

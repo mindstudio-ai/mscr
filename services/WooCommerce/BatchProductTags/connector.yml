@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Action
+id: batch-product-tags
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Product Tags
+  description: Create, update, or delete multiple product tags in a single operation
+  quickHelp: help.md
+configuration:
+  - title: Create Tags
+    items:
+      - label: Tags to Create
+        helpText: 'Enter JSON array of tags to create. Each tag should have a name and optionally slug and description.'
+        variable: createTags
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name":"Round toe"},{"name":"Flat"}]'
+        defaultValue: '[]'
+  - title: Update Tags
+    items:
+      - label: Tags to Update
+        helpText: 'Enter JSON array of tags to update. Each tag must have an id and fields to update.'
+        variable: updateTags
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id":34,"description":"Genuine leather."}]'
+        defaultValue: '[]'
+  - title: Delete Tags
+    items:
+      - label: Tags to Delete
+        helpText: 'Enter JSON array of tag IDs to delete.'
+        variable: deleteTags
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[35, 36]'
+        defaultValue: '[]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: 'Variable name to store the operation results'
+        variable: outputVariable
+        required: true
+        type: outputVariableName

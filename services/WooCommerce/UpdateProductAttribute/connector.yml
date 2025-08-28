@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Action
+id: update-product-attribute
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Product Attribute
+  description: Updates an existing product attribute in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Attribute Details
+    items:
+      - label: Attribute ID
+        helpText: The ID of the product attribute to update
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: '1'
+      - label: Name
+        helpText: The name of the attribute (e.g., Color, Size)
+        variable: name
+        required: false
+        type: text
+        placeholder: 'Color'
+      - label: Slug
+        helpText: The slug for the attribute (usually prefixed with pa_)
+        variable: slug
+        required: false
+        type: text
+        placeholder: 'pa_color'
+      - label: Type
+        helpText: The type of the attribute
+        variable: type
+        required: false
+        type: select
+        defaultValue: 'select'
+        selectOptions:
+          options:
+            - label: Select
+              value: select
+      - label: Order By
+        helpText: How to order attribute values
+        variable: orderBy
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Menu Order
+              value: menu_order
+            - label: Name
+              value: name
+            - label: Name (numeric)
+              value: name_num
+            - label: ID
+              value: id
+      - label: Has Archives
+        helpText: Enable/disable attribute archives
+        variable: hasArchives
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Output Variable
+        helpText: The variable name to store the updated attribute data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

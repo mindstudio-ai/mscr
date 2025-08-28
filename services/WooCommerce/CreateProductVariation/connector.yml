@@ -1,0 +1,135 @@
+apiVersion: v1
+kind: Action
+id: create-product-variation
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Product Variation
+  description: Creates a new variation for a specific WooCommerce product
+  quickHelp: help.md
+configuration:
+  - title: Product Information
+    items:
+      - label: Product ID
+        helpText: The ID of the parent product to create a variation for
+        variable: productId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Regular Price
+        helpText: Regular price for the variation (e.g., 19.99)
+        variable: regularPrice
+        required: true
+        type: text
+        placeholder: '19.99'
+      - label: Sale Price
+        helpText: Optional sale price for the variation (e.g., 14.99)
+        variable: salePrice
+        required: false
+        type: text
+        placeholder: '14.99'
+      - label: SKU
+        helpText: Stock Keeping Unit for the variation
+        variable: sku
+        required: false
+        type: text
+        placeholder: 'PROD-VAR-001'
+  - title: Attributes
+    items:
+      - label: Attributes
+        helpText: 'JSON array of attributes. Format: [{"id": 1, "option": "Red"}, {"name": "Size", "option": "Large"}]'
+        variable: attributes
+        required: true
+        type: text
+        placeholder: '[{"id": 1, "option": "Red"}]'
+  - title: Stock Settings
+    collapsed: true
+    items:
+      - label: Manage Stock
+        helpText: Enable stock management at variation level
+        variable: manageStock
+        required: false
+        type: select
+        defaultValue: 'parent'
+        selectOptions:
+          options:
+            - label: Use parent product setting
+              value: 'parent'
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Stock Quantity
+        helpText: Stock quantity (only used when Manage Stock is enabled)
+        variable: stockQuantity
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Stock Status
+        helpText: Stock status of the variation
+        variable: stockStatus
+        required: false
+        type: select
+        defaultValue: 'instock'
+        selectOptions:
+          options:
+            - label: In stock
+              value: 'instock'
+            - label: Out of stock
+              value: 'outofstock'
+            - label: On backorder
+              value: 'onbackorder'
+  - title: Advanced Settings
+    collapsed: true
+    items:
+      - label: Status
+        helpText: Variation status
+        variable: status
+        required: false
+        type: select
+        defaultValue: 'publish'
+        selectOptions:
+          options:
+            - label: Published
+              value: 'publish'
+            - label: Draft
+              value: 'draft'
+            - label: Pending Review
+              value: 'pending'
+            - label: Private
+              value: 'private'
+      - label: Virtual Product
+        helpText: Virtual products are intangible and aren't shipped
+        variable: virtual
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Downloadable Product
+        helpText: Downloadable products give access to a file upon purchase
+        variable: downloadable
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Image ID
+        helpText: ID of the image to use for this variation
+        variable: imageId
+        required: false
+        type: text
+        placeholder: '123'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the created variation data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

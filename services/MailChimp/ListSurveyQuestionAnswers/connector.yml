@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Action
+id: list-survey-question-answers
+serviceid: mailchimp
+active: true
+metadata:
+  name: List Answers for Survey Question
+  description: Get answers for a specific survey question including respondent information
+  quickHelp: help.md
+configuration:
+  - title: Survey Information
+    items:
+      - label: Survey ID
+        variable: surveyId
+        type: text
+        required: true
+        helpText: The ID of the survey you want to get answers from.
+        placeholder: Enter survey ID...
+      - label: Question ID
+        variable: questionId
+        type: text
+        required: true
+        helpText: The ID of the specific question you want to retrieve answers for.
+        placeholder: Enter question ID...
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Respondent Familiarity
+        variable: respondentFamiliarity
+        type: select
+        required: false
+        helpText: Filter survey responses by familiarity of the respondents.
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: All Respondents
+              value: ''
+            - label: New Respondents
+              value: 'new'
+            - label: Known Respondents
+              value: 'known'
+            - label: Unknown Respondents
+              value: 'unknown'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the survey question answers.

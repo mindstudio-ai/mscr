@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-product-attribute
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Product Attribute
+  description: Retrieves a specific product attribute by ID from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Attribute ID
+        helpText: The unique identifier of the product attribute to retrieve
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: Enter attribute ID...
+      - label: Output Variable
+        helpText: Name of the variable to store the retrieved attribute data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Action
+id: delete-list-member-permanent
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete List Member Permanently
+  description: Permanently deletes a member from a MailChimp list, removing all personally identifiable information. This action cannot be undone.
+  quickHelp: help.md
+configuration:
+  - title: Member Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list (audience) from which to delete the member
+        variable: listId
+        required: true
+        type: text
+        placeholder: abc123def
+      - label: Email Address
+        helpText: The email address of the list member to be permanently deleted
+        variable: email
+        required: true
+        type: text
+        placeholder: user@example.com
+  - title: Confirmation
+    items:
+      - label: Confirm Deletion
+        helpText: This action permanently deletes the member and cannot be undone. Please confirm to proceed.
+        variable: confirmDeletion
+        required: true
+        type: select
+        defaultValue: no
+        selectOptions:
+          options:
+            - label: Yes, permanently delete this member
+              value: yes
+            - label: No, cancel this action
+              value: no
+      - label: Output Variable
+        helpText: Variable to store the operation result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

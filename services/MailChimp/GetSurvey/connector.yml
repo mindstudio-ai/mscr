@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-survey
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Survey
+  description: Retrieve details about a specific survey from a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Survey Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list containing the survey
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter list ID...
+      - label: Survey ID
+        helpText: The unique ID of the survey to retrieve
+        variable: surveyId
+        required: true
+        type: text
+        placeholder: Enter survey ID...
+      - label: Output Variable
+        helpText: Variable name to store the survey details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

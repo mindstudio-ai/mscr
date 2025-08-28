@@ -1,0 +1,145 @@
+apiVersion: v1
+kind: Action
+id: update-customer
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Customer
+  description: Updates an existing customer in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Customer Information
+    items:
+      - label: Customer ID
+        variable: customerId
+        type: text
+        required: true
+        helpText: The ID of the customer you want to update
+      - label: First Name
+        variable: firstName
+        type: text
+        required: false
+        helpText: The customer's first name
+      - label: Last Name
+        variable: lastName
+        type: text
+        required: false
+        helpText: The customer's last name
+      - label: Email
+        variable: email
+        type: text
+        required: false
+        helpText: The customer's email address
+  - title: Billing Information
+    collapsed: true
+    items:
+      - label: First Name
+        variable: billingFirstName
+        type: text
+        required: false
+        helpText: Billing first name
+      - label: Last Name
+        variable: billingLastName
+        type: text
+        required: false
+        helpText: Billing last name
+      - label: Company
+        variable: billingCompany
+        type: text
+        required: false
+        helpText: Billing company name
+      - label: Address Line 1
+        variable: billingAddress1
+        type: text
+        required: false
+        helpText: Billing street address
+      - label: Address Line 2
+        variable: billingAddress2
+        type: text
+        required: false
+        helpText: Billing apartment, suite, unit, etc.
+      - label: City
+        variable: billingCity
+        type: text
+        required: false
+        helpText: Billing city
+      - label: State/Province
+        variable: billingState
+        type: text
+        required: false
+        helpText: Billing state or province
+      - label: Postal Code
+        variable: billingPostcode
+        type: text
+        required: false
+        helpText: Billing postal code
+      - label: Country
+        variable: billingCountry
+        type: text
+        required: false
+        helpText: Billing country (2-letter country code)
+      - label: Phone
+        variable: billingPhone
+        type: text
+        required: false
+        helpText: Billing phone number
+      - label: Email
+        variable: billingEmail
+        type: text
+        required: false
+        helpText: Billing email address
+  - title: Shipping Information
+    collapsed: true
+    items:
+      - label: First Name
+        variable: shippingFirstName
+        type: text
+        required: false
+        helpText: Shipping first name
+      - label: Last Name
+        variable: shippingLastName
+        type: text
+        required: false
+        helpText: Shipping last name
+      - label: Company
+        variable: shippingCompany
+        type: text
+        required: false
+        helpText: Shipping company name
+      - label: Address Line 1
+        variable: shippingAddress1
+        type: text
+        required: false
+        helpText: Shipping street address
+      - label: Address Line 2
+        variable: shippingAddress2
+        type: text
+        required: false
+        helpText: Shipping apartment, suite, unit, etc.
+      - label: City
+        variable: shippingCity
+        type: text
+        required: false
+        helpText: Shipping city
+      - label: State/Province
+        variable: shippingState
+        type: text
+        required: false
+        helpText: Shipping state or province
+      - label: Postal Code
+        variable: shippingPostcode
+        type: text
+        required: false
+        helpText: Shipping postal code
+      - label: Country
+        variable: shippingCountry
+        type: text
+        required: false
+        helpText: Shipping country (2-letter country code)
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the updated customer information

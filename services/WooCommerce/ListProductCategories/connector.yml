@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Action
+id: list-product-categories
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Product Categories
+  description: Retrieve a paginated list of product categories from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Category Listing Options
+    items:
+      - label: Search Term
+        helpText: Filter categories by search term
+        variable: search
+        type: text
+        placeholder: Search categories...
+      - label: Items Per Page
+        helpText: Number of categories to return per page (max 100)
+        variable: perPage
+        type: text
+        defaultValue: "10"
+      - label: Page Number
+        helpText: Page number to retrieve
+        variable: page
+        type: text
+        defaultValue: "1"
+      - label: Order
+        helpText: Sort order for categories
+        variable: order
+        type: select
+        defaultValue: asc
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+      - label: Order By
+        helpText: Field to order categories by
+        variable: orderby
+        type: select
+        defaultValue: name
+        selectOptions:
+          options:
+            - label: Name
+              value: name
+            - label: ID
+              value: id
+            - label: Slug
+              value: slug
+            - label: Count
+              value: count
+            - label: Description
+              value: description
+      - label: Hide Empty Categories
+        helpText: Whether to hide categories with no products
+        variable: hideEmpty
+        type: select
+        defaultValue: "false"
+        selectOptions:
+          options:
+            - label: Yes
+              value: "true"
+            - label: No
+              value: "false"
+      - label: Parent Category ID
+        helpText: Filter by parent category ID (0 for top-level categories)
+        variable: parent
+        type: text
+        placeholder: Leave empty for all categories
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of product categories
+        variable: outputVariable
+        type: outputVariableName

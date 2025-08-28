@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: get-list-member-goals
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get List Member Goals
+  description: Retrieve the last 50 Goal events for a member on a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the MailChimp list
+        placeholder: e.g., abc123def
+      - label: Subscriber Identifier
+        variable: subscriberId
+        type: text
+        required: true
+        helpText: The subscriber's email address, MD5 hash of the lowercase email, or contact ID
+        placeholder: e.g., user@example.com
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: Optional comma-separated list of fields to return
+        placeholder: e.g., goals.event,goals.last_visited_at
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: Optional comma-separated list of fields to exclude
+        placeholder: e.g., _links,email_id
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable name to store the member's goal events

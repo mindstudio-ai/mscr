@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: update-shipping-zone-locations
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Shipping Zone Locations
+  description: Replace all locations of a specific WooCommerce shipping zone with the provided list
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Configuration
+    items:
+      - label: Shipping Zone ID
+        variable: zoneId
+        type: text
+        required: true
+        helpText: The ID of the shipping zone to update
+        placeholder: 'e.g., 5'
+  - title: Locations
+    items:
+      - label: Locations
+        variable: locations
+        type: text
+        required: true
+        helpText: "JSON array of location objects. Each object must have 'code' and 'type' properties. Type must be one of: postcode, state, country, continent."
+        placeholder: '[{"code": "US:CA", "type": "state"}, {"code": "US:NY", "type": "state"}]'
+        textOptions:
+          type: multiline
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the updated locations

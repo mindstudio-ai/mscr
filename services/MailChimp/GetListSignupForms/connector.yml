@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-list-signup-forms
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get List Signup Forms
+  description: Retrieve all signup forms for a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the MailChimp list you want to retrieve signup forms for
+        variable: listId
+        type: text
+        placeholder: e.g., abc123def
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the retrieved signup forms data
+        variable: outputVariable
+        type: outputVariableName

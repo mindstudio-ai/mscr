@@ -1,0 +1,180 @@
+apiVersion: v1
+kind: Action
+id: create-order
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Order
+  description: Creates a new WooCommerce order with customer information, line items, and shipping details
+  quickHelp: help.md
+configuration:
+  - title: Order Details
+    items:
+      - label: Payment Method ID
+        required: true
+        helpText: The payment method identifier (e.g., 'bacs', 'cod', 'paypal')
+        variable: paymentMethodId
+        type: text
+        defaultValue: bacs
+      - label: Payment Method Title
+        required: true
+        helpText: Human-readable payment method name shown to customers
+        variable: paymentMethodTitle
+        type: text
+        defaultValue: Direct Bank Transfer
+      - label: Set as Paid
+        required: true
+        helpText: If set to 'Yes', the order will be marked as paid, setting status to processing and reducing stock
+        variable: setPaid
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Billing Information
+    items:
+      - label: First Name
+        required: true
+        helpText: Customer's billing first name
+        variable: billingFirstName
+        type: text
+      - label: Last Name
+        required: true
+        helpText: Customer's billing last name
+        variable: billingLastName
+        type: text
+      - label: Email
+        required: true
+        helpText: Customer's email address
+        variable: billingEmail
+        type: text
+      - label: Phone
+        required: false
+        helpText: Customer's phone number
+        variable: billingPhone
+        type: text
+      - label: Address Line 1
+        required: true
+        helpText: First line of billing address
+        variable: billingAddress1
+        type: text
+      - label: Address Line 2
+        required: false
+        helpText: Second line of billing address (optional)
+        variable: billingAddress2
+        type: text
+      - label: City
+        required: true
+        helpText: Billing city
+        variable: billingCity
+        type: text
+      - label: State/Province
+        required: true
+        helpText: Billing state or province (use state code for US addresses, e.g., 'CA' for California)
+        variable: billingState
+        type: text
+      - label: Postal Code
+        required: true
+        helpText: Billing postal/ZIP code
+        variable: billingPostcode
+        type: text
+      - label: Country
+        required: true
+        helpText: Billing country (use 2-letter country code, e.g., 'US' for United States)
+        variable: billingCountry
+        type: text
+        defaultValue: US
+  - title: Shipping Information
+    items:
+      - label: Same as Billing
+        required: true
+        helpText: Use the same address for shipping as billing
+        variable: sameAsBilling
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: First Name
+        required: false
+        helpText: Customer's shipping first name (if different from billing)
+        variable: shippingFirstName
+        type: text
+      - label: Last Name
+        required: false
+        helpText: Customer's shipping last name (if different from billing)
+        variable: shippingLastName
+        type: text
+      - label: Address Line 1
+        required: false
+        helpText: First line of shipping address (if different from billing)
+        variable: shippingAddress1
+        type: text
+      - label: Address Line 2
+        required: false
+        helpText: Second line of shipping address (optional)
+        variable: shippingAddress2
+        type: text
+      - label: City
+        required: false
+        helpText: Shipping city (if different from billing)
+        variable: shippingCity
+        type: text
+      - label: State/Province
+        required: false
+        helpText: Shipping state or province (if different from billing)
+        variable: shippingState
+        type: text
+      - label: Postal Code
+        required: false
+        helpText: Shipping postal/ZIP code (if different from billing)
+        variable: shippingPostcode
+        type: text
+      - label: Country
+        required: false
+        helpText: Shipping country (if different from billing)
+        variable: shippingCountry
+        type: text
+  - title: Line Items
+    items:
+      - label: Line Items JSON
+        required: true
+        helpText: "JSON array of products to include in the order. Each item requires 'product_id' and 'quantity'. Add 'variation_id' if needed."
+        variable: lineItems
+        type: text
+        textOptions:
+          type: multiline
+        defaultValue: '[{"product_id": 123, "quantity": 1}]'
+  - title: Shipping Method
+    items:
+      - label: Method ID
+        required: true
+        helpText: Shipping method identifier (e.g., 'flat_rate', 'free_shipping')
+        variable: shippingMethodId
+        type: text
+        defaultValue: flat_rate
+      - label: Method Title
+        required: true
+        helpText: Human-readable shipping method name shown to customers
+        variable: shippingMethodTitle
+        type: text
+        defaultValue: Flat Rate
+      - label: Shipping Cost
+        required: true
+        helpText: Total shipping cost (e.g., '10.00')
+        variable: shippingCost
+        type: text
+        defaultValue: '0.00'
+  - title: Output
+    items:
+      - label: Order ID Variable
+        required: true
+        helpText: Variable name to store the created order ID
+        variable: outputVariable
+        type: outputVariableName

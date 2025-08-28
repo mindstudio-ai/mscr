@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-system-status
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get System Status
+  description: Retrieve detailed system status information from your WooCommerce store, including environment details, database information, active plugins, theme information, and more.
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the system status information
+        variable: outputVariable
+        type: outputVariableName

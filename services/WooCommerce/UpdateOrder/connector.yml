@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Action
+id: update-order
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Order
+  description: Update an existing WooCommerce order by ID
+  quickHelp: help.md
+configuration:
+  - title: Order Details
+    items:
+      - label: Order ID
+        helpText: The ID of the order you want to update
+        variable: orderId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Order Status
+        helpText: New status for the order
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Pending
+              value: pending
+            - label: Processing
+              value: processing
+            - label: On Hold
+              value: on-hold
+            - label: Completed
+              value: completed
+            - label: Cancelled
+              value: cancelled
+            - label: Refunded
+              value: refunded
+            - label: Failed
+              value: failed
+            - label: Trash
+              value: trash
+      - label: Customer Note
+        helpText: Add a note visible to the customer
+        variable: customerNote
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Additional JSON
+        helpText: Additional fields to update in JSON format (billing, shipping, meta_data, etc.)
+        variable: additionalJson
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '{"meta_data": [{"key": "tracking_number", "value": "123456789"}]}'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated order details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

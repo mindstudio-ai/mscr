@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: send-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Send Campaign
+  description: Send a Mailchimp campaign immediately (RSS campaigns will send according to their schedule)
+  quickHelp: help.md
+configuration:
+  - title: Campaign Settings
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the campaign you want to send. You can find this in your MailChimp dashboard.
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def456
+  - title: Output
+    items:
+      - label: Success Message
+        helpText: Variable name to store the success message
+        variable: outputVariable
+        required: true
+        type: outputVariableName

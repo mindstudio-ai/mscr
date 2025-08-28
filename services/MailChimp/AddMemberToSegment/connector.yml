@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: add-member-to-segment
+serviceid: mailchimp
+active: true
+metadata:
+  name: Add Member to Segment
+  description: Add a subscriber to a static segment in a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Segment Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter your list ID...
+      - label: Segment ID
+        helpText: The unique ID for the segment within the list
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: Enter your segment ID...
+      - label: Email Address
+        helpText: Email address of the subscriber to add to the segment
+        variable: emailAddress
+        required: true
+        type: text
+        placeholder: subscriber@example.com
+      - label: Output Variable
+        helpText: Name of the variable to store the API response
+        variable: outputVar
+        required: true
+        type: outputVariableName

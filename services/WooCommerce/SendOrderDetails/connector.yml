@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: send-order-details
+serviceId: woocommerce
+active: true
+metadata:
+  name: Send Order Details
+  description: Sends order details to a customer via email
+  quickHelp: help.md
+configuration:
+  - title: Order Information
+    items:
+      - label: Order ID
+        helpText: The ID of the order for which to send details.
+        variable: orderId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Email Options
+    items:
+      - label: Email Address
+        helpText: Email address to send order details to. Required if the order has no billing email or if you want to overwrite the existing one.
+        variable: email
+        required: false
+        type: text
+        placeholder: customer@example.com
+      - label: Force Email Update
+        helpText: Set to true to overwrite an existing billing email with the provided email.
+        variable: forceEmailUpdate
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+  - title: Response
+    items:
+      - label: Output Variable
+        helpText: The variable to store the response message.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

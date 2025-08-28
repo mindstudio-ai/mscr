@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: pause-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Pause RSS Campaign
+  description: Pauses an RSS-driven campaign in Mailchimp
+  quickHelp: help.md
+configuration:
+  - title: Campaign Configuration
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the RSS-driven campaign you want to pause
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: abc123def
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: Name of the variable to store the operation result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

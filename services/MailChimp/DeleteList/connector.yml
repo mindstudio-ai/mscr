@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Action
+id: delete-list
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete List
+  description: Permanently delete a list (audience) from your Mailchimp account
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list/audience you want to delete. You can find this in your Mailchimp dashboard or via the API.
+        variable: listId
+        required: true
+        type: text
+        placeholder: abc123def
+  - title: Confirmation
+    items:
+      - label: Confirm Deletion
+        helpText: 'WARNING: Deleting a list will permanently remove all subscribers, campaign history, and performance data. This action cannot be undone.'
+        variable: confirmDeletion
+        required: true
+        type: select
+        defaultValue: cancelled
+        selectOptions:
+          options:
+            - label: Yes, I understand this action is permanent
+              value: confirmed
+            - label: No, cancel this operation
+              value: cancelled

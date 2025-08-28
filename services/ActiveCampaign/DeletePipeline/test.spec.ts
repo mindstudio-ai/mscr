@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
 test('deletes a pipeline when confirmation is yes', async () => {

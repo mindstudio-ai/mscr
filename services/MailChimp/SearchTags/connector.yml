@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: search-tags
+serviceid: mailchimp
+active: true
+metadata:
+  name: Search Tags
+  description: Search for tags on a MailChimp list by name or retrieve all tags on a list
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter your list ID...
+      - label: Tag Name
+        helpText: The search query to filter tags. If left empty, all tags will be returned
+        variable: tagName
+        required: false
+        type: text
+        placeholder: Enter tag name to search for...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the search results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

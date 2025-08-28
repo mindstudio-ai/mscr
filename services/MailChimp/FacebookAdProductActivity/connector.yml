@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Action
+id: facebook-ad-product-activity
+serviceid: mailchimp
+active: true
+metadata:
+  name: Facebook Ad Product Activity Report
+  description: Retrieves a breakdown of product activity for a Facebook ad outreach in Mailchimp
+  quickHelp: help.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Facebook Ad Outreach ID
+        helpText: The ID of the Facebook ad outreach campaign
+        variable: outreachId
+        required: true
+        type: text
+        placeholder: Enter outreach ID...
+      - label: Output Variable
+        helpText: Name of the variable to store the product activity report
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Number of Products
+        helpText: The number of products to return (max 1000)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Offset
+        helpText: Number of records to skip for pagination
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: '0'
+      - label: Sort By
+        helpText: Field to sort the results by
+        variable: sortField
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Product Title
+              value: title
+            - label: Total Revenue
+              value: total_revenue
+            - label: Total Purchased
+              value: total_purchased
+      - label: Fields to Include
+        helpText: Comma-separated list of fields to include in the response
+        variable: fields
+        required: false
+        type: text
+        placeholder: 'title,sku,total_revenue,total_purchased'

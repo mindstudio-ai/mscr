@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-eepurl-activity
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign EepURL Activity
+  description: Retrieve social activity for a Mailchimp campaign tracked by EepURL
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign to retrieve EepURL activity for
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: Enter campaign ID...
+  - title: Response Options
+    collapsed: true
+    items:
+      - label: Fields
+        helpText: Optional comma-separated list of fields to return (e.g., twitter,clicks,referrers)
+        variable: fields
+        required: false
+        type: text
+        placeholder: Leave blank to return all fields
+      - label: Exclude Fields
+        helpText: Optional comma-separated list of fields to exclude
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: Leave blank to include all fields
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the EepURL activity data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

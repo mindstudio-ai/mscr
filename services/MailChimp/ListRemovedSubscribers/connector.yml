@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: list-removed-subscribers
+serviceid: mailchimp
+active: true
+metadata:
+  name: List Removed Subscribers
+  description: Get information about subscribers who were removed from a Mailchimp automation workflow
+  quickHelp: help.md
+configuration:
+  - title: Workflow Configuration
+    items:
+      - label: Workflow ID
+        helpText: The unique ID for the Automation workflow you want to check
+        variable: workflowId
+        required: true
+        type: text
+        placeholder: Enter workflow ID...
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of removed subscribers
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: delete-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete Campaign
+  description: Remove a campaign from your Mailchimp account
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the campaign you want to delete
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def456
+  - title: Confirmation
+    items:
+      - label: Confirmation Message
+        helpText: Optional message to confirm the campaign was deleted
+        variable: confirmationMessage
+        required: false
+        type: text
+        defaultValue: Campaign deleted successfully

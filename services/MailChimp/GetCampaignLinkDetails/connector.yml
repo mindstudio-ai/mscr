@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-link-details
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign Link Details
+  description: Retrieve click details for a specific link in a MailChimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        required: true
+        helpText: The unique ID for the campaign
+        variable: campaignId
+        type: text
+        placeholder: e.g., abc123def456
+      - label: Link ID
+        required: true
+        helpText: The ID for the link you want to get details about
+        variable: linkId
+        type: text
+        placeholder: e.g., xyz789
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        required: false
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        type: text
+        placeholder: e.g., id,url,total_clicks
+      - label: Fields to Exclude
+        required: false
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        type: text
+        placeholder: e.g., _links,ab_split
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the link details
+        variable: outputVariable
+        type: outputVariableName

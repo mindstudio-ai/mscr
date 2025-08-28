@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: get-file
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get File
+  description: Get information about a specific file in the MailChimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: File Information
+    items:
+      - label: File ID
+        variable: fileId
+        type: text
+        required: true
+        helpText: The unique ID for the file in MailChimp's File Manager
+        placeholder: Enter file ID...
+
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: Optional. A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., id,name,full_size_url
+
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: Optional. A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., _links,created_by
+
+      - label: Output Variable
+        variable: outputVar
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the file information

@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Action
+id: get-conversation-messages
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Conversation Messages
+  description: Retrieve messages from a specific Mailchimp conversation
+  quickHelp: help.md
+configuration:
+  - title: Conversation Details
+    items:
+      - label: Conversation ID
+        required: true
+        helpText: The unique ID for the conversation you want to retrieve messages from.
+        variable: conversationId
+        type: text
+        placeholder: Enter conversation ID...
+  - title: Filter Options
+    collapsed: true
+    items:
+      - label: Filter by Read Status
+        required: false
+        helpText: Filter messages by whether they have been read or not.
+        variable: isRead
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: All Messages
+              value: ''
+            - label: Read Messages Only
+              value: 'true'
+            - label: Unread Messages Only
+              value: 'false'
+      - label: Since Timestamp
+        required: false
+        helpText: Retrieve messages created after this time (ISO 8601 format)
+        variable: sinceTimestamp
+        type: text
+        placeholder: e.g., 2023-01-01T00:00:00+00:00
+      - label: Before Timestamp
+        required: false
+        helpText: Retrieve messages created before this time (ISO 8601 format)
+        variable: beforeTimestamp
+        type: text
+        placeholder: e.g., 2023-12-31T23:59:59+00:00
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the conversation messages.
+        variable: outputVariable
+        type: outputVariableName

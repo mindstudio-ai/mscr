@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: list-order-notes
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Order Notes
+  description: Retrieves all notes for a specific WooCommerce order
+  quickHelp: help.md
+configuration:
+  - title: Order Configuration
+    items:
+      - label: Order ID
+        helpText: The ID of the WooCommerce order to retrieve notes for
+        variable: orderId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Note Type
+        helpText: Filter notes by type
+        variable: noteType
+        required: false
+        type: select
+        defaultValue: any
+        selectOptions:
+          options:
+            - label: Any
+              value: any
+            - label: Customer
+              value: customer
+            - label: Internal
+              value: internal
+      - label: Output Variable
+        helpText: The variable name to store the list of order notes
+        variable: outputVariable
+        required: true
+        type: outputVariableName

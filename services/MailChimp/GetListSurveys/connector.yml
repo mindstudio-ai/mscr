@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-list-surveys
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get List Surveys
+  description: Retrieve information about all available surveys for a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the MailChimp list you want to retrieve surveys from
+        variable: listId
+        type: text
+        placeholder: e.g., abc123def456
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of surveys
+        variable: outputVariable
+        type: outputVariableName

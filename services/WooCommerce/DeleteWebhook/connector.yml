@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: delete-webhook
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Webhook
+  description: Delete a webhook from your WooCommerce store by ID
+  quickHelp: help.md
+configuration:
+  - title: Webhook Configuration
+    items:
+      - label: Webhook ID
+        variable: webhookId
+        type: text
+        required: true
+        helpText: The ID of the webhook you want to delete
+        placeholder: Enter webhook ID...
+      - label: Force Delete
+        variable: forceDelete
+        type: select
+        required: true
+        helpText: If true, permanently deletes the webhook. If false, the webhook may be moved to trash depending on your site configuration.
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No (Soft Delete)
+              value: 'false'
+            - label: Yes (Permanent Delete)
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable where the deleted webhook data will be stored

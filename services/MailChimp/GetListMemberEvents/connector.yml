@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Action
+id: get-list-member-events
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get List Member Events
+  description: Retrieve events for a specific contact in a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Member Configuration
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the MailChimp list/audience
+        placeholder: abc123def...
+      - label: Subscriber Identifier
+        variable: subscriberId
+        type: text
+        required: true
+        helpText: The subscriber's email address, contact ID, or MD5 hash of their email
+        placeholder: user@example.com
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Count
+        variable: count
+        type: text
+        required: false
+        helpText: 'The number of records to return (default: 10, maximum: 1000)'
+        placeholder: '10'
+        defaultValue: '10'
+      - label: Offset
+        variable: offset
+        type: text
+        required: false
+        helpText: The number of records to skip (used for pagination)
+        placeholder: '0'
+        defaultValue: '0'
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to return (leave blank for all fields)
+        placeholder: events.name,events.occurred_at
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to exclude from the response
+        placeholder: _links
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the list member events

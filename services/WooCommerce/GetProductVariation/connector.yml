@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-product-variation
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Product Variation
+  description: Retrieves detailed information about a specific product variation from your WooCommerce store.
+  quickHelp: help.md
+configuration:
+  - title: Product Information
+    items:
+      - label: Product ID
+        helpText: The ID of the parent product that contains the variation.
+        variable: productId
+        required: true
+        type: text
+        placeholder: 'e.g., 123'
+      - label: Variation ID
+        helpText: The ID of the specific variation you want to retrieve.
+        variable: variationId
+        required: true
+        type: text
+        placeholder: 'e.g., 456'
+      - label: Output Variable
+        helpText: The name of the variable to store the product variation data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

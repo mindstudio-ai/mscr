@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: update-payment-gateway
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Payment Gateway
+  description: Update a WooCommerce payment gateway's settings and status
+  quickHelp: help.md
+configuration:
+  - title: Payment Gateway Details
+    items:
+      - label: Gateway ID
+        variable: gatewayId
+        type: text
+        required: true
+        helpText: The payment gateway ID (e.g., 'bacs', 'paypal', 'cod')
+        placeholder: e.g., bacs
+      - label: Gateway Status
+        variable: enabled
+        type: select
+        required: false
+        helpText: Enable or disable this payment gateway
+        selectOptions:
+          options:
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+            - label: Don't change
+              value: ''
+  - title: Gateway Settings
+    collapsed: true
+    items:
+      - label: Settings (JSON)
+        variable: settings
+        type: text
+        required: false
+        helpText: 'JSON object with settings to update. Format: {"setting_key": {"value": "new_value"}}. Example: {"title": {"value": "My bank transfer"}}'
+        textOptions:
+          type: multiline
+        placeholder: '{"title": {"value": "My payment method"}}'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable to store the updated payment gateway details

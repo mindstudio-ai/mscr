@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-webhook
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Webhook
+  description: Retrieves details for a specific WooCommerce webhook by ID
+  quickHelp: help.md
+configuration:
+  - title: Webhook Details
+    items:
+      - label: Webhook ID
+        helpText: The ID of the webhook you want to retrieve
+        variable: webhookId
+        required: true
+        type: text
+        placeholder: '142'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the webhook details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

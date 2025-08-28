@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: upload-file
+serviceid: mailchimp
+active: true
+metadata:
+  name: Upload File to MailChimp
+  description: Upload a new image or file to the MailChimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: File Details
+    items:
+      - label: File Name
+        helpText: The name of the file to be uploaded.
+        variable: fileName
+        required: true
+        type: text
+      - label: File Content
+        helpText: The base64-encoded contents of the file.
+        variable: fileContent
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Folder ID
+        helpText: The ID of the folder where the file should be uploaded. Leave empty to upload to the root folder.
+        variable: folderId
+        required: false
+        type: text
+        placeholder: Optional folder ID...
+      - label: Output Variable
+        helpText: The variable name to store the upload result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

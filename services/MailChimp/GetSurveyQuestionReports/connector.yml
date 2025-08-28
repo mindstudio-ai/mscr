@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-survey-question-reports
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Survey Question Reports
+  description: Retrieve reports for questions in a Mailchimp survey
+  quickHelp: help.md
+configuration:
+  - title: Survey Information
+    items:
+      - label: Survey ID
+        helpText: The unique identifier for the survey you want to get question reports for
+        variable: surveyId
+        required: true
+        type: text
+        placeholder: Enter survey ID...
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        required: false
+        type: text
+        placeholder: 'e.g., questions.id,questions.query,questions.type'
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: 'e.g., _links,questions._links'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the survey question reports
+        variable: outputVariable
+        required: true
+        type: outputVariableName

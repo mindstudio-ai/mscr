@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: batch-update-product-categories
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Update Product Categories
+  description: Batch create, update, and delete product categories in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Create Categories
+    collapsed: true
+    items:
+      - label: Categories to Create
+        helpText: JSON array of category objects to create. Each object should include name and optionally slug, parent, description, display, image, and menu_order.
+        variable: createCategories
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name": "New Category"}, {"name": "Another Category", "description": "Description here"}]'
+  - title: Update Categories
+    collapsed: true
+    items:
+      - label: Categories to Update
+        helpText: JSON array of category objects to update. Each object must include id and the fields to update.
+        variable: updateCategories
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 10, "name": "Updated Name"}, {"id": 15, "description": "New description"}]'
+  - title: Delete Categories
+    collapsed: true
+    items:
+      - label: Category IDs to Delete
+        helpText: Comma-separated list of category IDs to delete (e.g., 11,12,13)
+        variable: deleteCategories
+        required: false
+        type: text
+        placeholder: "11,12,13"
+  - title: Response
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

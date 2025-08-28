@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Action
+id: list-product-reviews
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Product Reviews
+  description: Retrieve product reviews from your WooCommerce store with optional filtering and pagination
+  quickHelp: help.md
+configuration:
+  - title: Review Filters
+    items:
+      - label: Product IDs
+        helpText: Filter reviews by product IDs. Comma-separated list of product IDs.
+        variable: productIds
+        type: text
+        placeholder: "e.g., 123, 456, 789"
+      - label: Status
+        helpText: Filter reviews by status.
+        variable: status
+        type: select
+        defaultValue: approved
+        selectOptions:
+          options:
+            - label: All
+              value: all
+            - label: Approved
+              value: approved
+            - label: Hold
+              value: hold
+            - label: Spam
+              value: spam
+            - label: Trash
+              value: trash
+      - label: Sort Order
+        helpText: Order of reviews in the results.
+        variable: order
+        type: select
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Newest First
+              value: desc
+            - label: Oldest First
+              value: asc
+      - label: Sort By
+        helpText: Sort reviews by this parameter.
+        variable: orderby
+        type: select
+        defaultValue: date_gmt
+        selectOptions:
+          options:
+            - label: Date
+              value: date_gmt
+            - label: ID
+              value: id
+            - label: Product
+              value: product
+  - title: Pagination
+    items:
+      - label: Results Per Page
+        helpText: Number of reviews to return per page (max 100).
+        variable: perPage
+        type: text
+        defaultValue: "10"
+      - label: Page Number
+        helpText: Page number of results to return.
+        variable: page
+        type: text
+        defaultValue: "1"
+      - label: Search Term
+        helpText: Search for reviews containing this term.
+        variable: search
+        type: text
+        placeholder: "Optional search term..."
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of reviews.
+        variable: outputVariable
+        type: outputVariableName

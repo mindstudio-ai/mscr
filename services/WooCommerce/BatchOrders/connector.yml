@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: batch-orders
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Orders
+  description: Create, update, and delete multiple WooCommerce orders in a single request
+  quickHelp: help.md
+configuration:
+  - title: Create Orders
+    items:
+      - label: Orders to Create
+        helpText: JSON array of orders to create. Each order should include payment details, billing/shipping info, line items, etc.
+        variable: createOrders
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"payment_method": "bacs", "billing": {"first_name": "John"}, "line_items": [{"product_id": 123, "quantity": 1}]}]'
+  - title: Update Orders
+    items:
+      - label: Orders to Update
+        helpText: JSON array of orders to update. Each order must include an 'id' field.
+        variable: updateOrders
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 727, "status": "completed"}]'
+  - title: Delete Orders
+    items:
+      - label: Order IDs to Delete
+        helpText: Comma-separated list of order IDs to delete
+        variable: deleteOrders
+        required: false
+        type: text
+        placeholder: '723, 724, 725'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the batch operation results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

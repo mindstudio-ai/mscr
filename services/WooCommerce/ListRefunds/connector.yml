@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Action
+id: list-refunds
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Refunds
+  description: Retrieve all refunds across orders from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Items Per Page
+        helpText: Number of refunds to return per page (1-100)
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Page Number
+        helpText: Page number of results to return
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+      - label: Sort Order
+        helpText: Order of results
+        variable: order
+        required: false
+        type: select
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Descending (newest first)
+              value: desc
+            - label: Ascending (oldest first)
+              value: asc
+      - label: Sort By
+        helpText: Sort refunds by field
+        variable: orderby
+        required: false
+        type: select
+        defaultValue: date
+        selectOptions:
+          options:
+            - label: Date
+              value: date
+            - label: ID
+              value: id
+            - label: Modified Date
+              value: modified
+      - label: Search Term
+        helpText: Search for specific refunds
+        variable: search
+        required: false
+        type: text
+      - label: After Date
+        helpText: ISO8601 date format (YYYY-MM-DDTHH:MM:SS) - return refunds created after this date
+        variable: after
+        required: false
+        type: text
+      - label: Before Date
+        helpText: ISO8601 date format (YYYY-MM-DDTHH:MM:SS) - return refunds created before this date
+        variable: before
+        required: false
+        type: text
+      - label: Parent Order IDs
+        helpText: Filter by parent order IDs (comma-separated list of order IDs)
+        variable: parent
+        required: false
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of refunds
+        variable: outputVariable
+        required: true
+        type: outputVariableName

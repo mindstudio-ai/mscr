@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Action
+id: create-interest-category
+serviceid: mailchimp
+active: true
+metadata:
+  name: Create Interest Category
+  description: Create a new interest category for a Mailchimp list
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the Mailchimp list where you want to create the interest category.
+        placeholder: e.g., abc123def
+  - title: Interest Category Details
+    items:
+      - label: Category Name
+        variable: title
+        type: text
+        required: true
+        helpText: The name of this category. This field appears on signup forms and is often phrased as a question.
+        placeholder: e.g., What topics are you interested in?
+      - label: Display Type
+        variable: type
+        type: select
+        required: true
+        helpText: Determines how this category's interests appear on signup forms.
+        defaultValue: checkboxes
+        selectOptions:
+          options:
+            - label: Checkboxes
+              value: checkboxes
+            - label: Dropdown
+              value: dropdown
+            - label: Radio Buttons
+              value: radio
+            - label: Hidden
+              value: hidden
+      - label: Display Order
+        variable: displayOrder
+        type: text
+        required: false
+        helpText: The order that the categories are displayed in the list. Lower numbers display first.
+        placeholder: e.g., 1
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the created interest category information.

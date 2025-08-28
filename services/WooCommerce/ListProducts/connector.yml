@@ -1,0 +1,139 @@
+apiVersion: v1
+kind: Action
+id: list-products
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Products
+  description: Retrieve a list of products from your WooCommerce store with optional filtering and pagination
+  quickHelp: help.md
+configuration:
+  - title: Filtering Options
+    items:
+      - label: Search Term
+        helpText: Search products by keyword
+        variable: search
+        required: false
+        type: text
+      - label: Category ID
+        helpText: Filter products by category ID
+        variable: category
+        required: false
+        type: text
+      - label: Tag ID
+        helpText: Filter products by tag ID
+        variable: tag
+        required: false
+        type: text
+      - label: SKU
+        helpText: Filter products by SKU
+        variable: sku
+        required: false
+        type: text
+      - label: Product Type
+        helpText: Filter products by type
+        variable: type
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Types
+              value: ''
+            - label: Simple
+              value: simple
+            - label: Grouped
+              value: grouped
+            - label: External
+              value: external
+            - label: Variable
+              value: variable
+      - label: Stock Status
+        helpText: Filter products by stock status
+        variable: stockStatus
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Any
+              value: ''
+            - label: In Stock
+              value: instock
+            - label: Out of Stock
+              value: outofstock
+            - label: On Backorder
+              value: onbackorder
+      - label: Featured Products Only
+        helpText: Show only featured products
+        variable: featured
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No
+              value: ''
+            - label: Yes
+              value: 'true'
+      - label: On Sale Products Only
+        helpText: Show only products on sale
+        variable: onSale
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: No
+              value: ''
+            - label: Yes
+              value: 'true'
+  - title: Sorting & Pagination
+    items:
+      - label: Sort By
+        helpText: Field to sort products by
+        variable: orderby
+        required: false
+        type: select
+        defaultValue: date
+        selectOptions:
+          options:
+            - label: Date
+              value: date
+            - label: Title
+              value: title
+            - label: ID
+              value: id
+            - label: Price
+              value: price
+            - label: Popularity
+              value: popularity
+            - label: Rating
+              value: rating
+      - label: Sort Order
+        helpText: Ascending or descending order
+        variable: order
+        required: false
+        type: select
+        defaultValue: desc
+        selectOptions:
+          options:
+            - label: Descending
+              value: desc
+            - label: Ascending
+              value: asc
+      - label: Products Per Page
+        helpText: Number of products to return per page (max 100)
+        variable: perPage
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Page Number
+        helpText: Page number of results to return
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the list of products
+        variable: outputVariable
+        required: true
+        type: outputVariableName

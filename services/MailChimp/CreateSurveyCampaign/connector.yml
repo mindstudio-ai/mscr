@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Action
+id: create-survey-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Create Survey Campaign
+  description: Creates a campaign linked to a survey in MailChimp
+  quickHelp: help.md
+configuration:
+  - title: List and Survey
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID for the list
+        variable: listId
+        type: text
+        placeholder: e.g., abc123def456
+      - label: Survey ID
+        required: true
+        helpText: The ID of the survey
+        variable: surveyId
+        type: text
+        placeholder: e.g., 123456
+  - title: Campaign Details
+    items:
+      - label: Subject Line
+        required: true
+        helpText: The subject line for the campaign
+        variable: subjectLine
+        type: text
+        placeholder: e.g., Take our customer satisfaction survey
+      - label: Preview Text
+        required: false
+        helpText: The preview text shown in email clients
+        variable: previewText
+        type: text
+        placeholder: e.g., Share your feedback with us
+      - label: Campaign Title
+        required: false
+        helpText: Internal title for the campaign (defaults to subject line if not provided)
+        variable: campaignTitle
+        type: text
+        placeholder: e.g., Q2 Customer Survey
+      - label: From Name
+        required: true
+        helpText: The name that will appear in the From field
+        variable: fromName
+        type: text
+        placeholder: e.g., Your Company Name
+      - label: Reply To
+        required: true
+        helpText: The reply-to email address for the campaign
+        variable: replyTo
+        type: text
+        placeholder: e.g., support@yourcompany.com
+      - label: To Name
+        required: false
+        helpText: The campaign's custom 'To' name (typically a merge field like *|FNAME|*)
+        variable: toName
+        type: text
+        placeholder: e.g., *|FNAME|*
+  - title: Additional Settings
+    collapsed: true
+    items:
+      - label: Use Conversation Feature
+        required: false
+        helpText: Use Mailchimp Conversation feature to manage replies
+        variable: useConversation
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the created campaign ID
+        variable: outputVariable
+        type: outputVariableName
+        placeholder: e.g., campaignId

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-payment-gateway
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Payment Gateway
+  description: Retrieve details for a specific payment gateway by its ID
+  quickHelp: help.md
+configuration:
+  - title: Gateway Details
+    items:
+      - label: Gateway ID
+        helpText: The payment gateway ID (e.g., 'bacs', 'paypal', 'cod')
+        variable: gatewayId
+        required: true
+        type: text
+        placeholder: e.g., bacs
+      - label: Output Variable
+        helpText: Variable name to store the payment gateway details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

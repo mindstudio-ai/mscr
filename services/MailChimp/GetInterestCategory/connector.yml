@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Action
+id: get-interest-category
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Interest Category
+  description: Retrieve information about a specific interest category from a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Interest Category Details
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the MailChimp list
+        placeholder: Enter list ID...
+      - label: Interest Category ID
+        variable: interestCategoryId
+        type: text
+        required: true
+        helpText: The unique ID for the interest category
+        placeholder: Enter interest category ID...
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable name to store the interest category information
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., title,type,display_order
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., _links

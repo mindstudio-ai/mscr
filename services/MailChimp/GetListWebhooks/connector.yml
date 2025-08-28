@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-list-webhooks
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get List Webhooks
+  description: Retrieve all webhooks configured for a specific MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list you want to retrieve webhooks for
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., 4ca5becb8d
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list webhooks results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

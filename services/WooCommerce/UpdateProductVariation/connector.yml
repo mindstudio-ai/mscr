@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: Action
+id: update-product-variation
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Product Variation
+  description: Update fields of an existing product variation in your WooCommerce store.
+  quickHelp: help.md
+configuration:
+  - title: Product Information
+    items:
+      - label: Product ID
+        helpText: The ID of the parent product containing the variation.
+        variable: productId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Variation ID
+        helpText: The ID of the variation you want to update.
+        variable: variationId
+        required: true
+        type: text
+        placeholder: '456'
+  - title: Variation Details
+    items:
+      - label: Regular Price
+        helpText: The regular price of the variation (e.g., 19.99).
+        variable: regularPrice
+        required: false
+        type: text
+        placeholder: '19.99'
+      - label: Sale Price
+        helpText: The sale price of the variation (e.g., 15.99).
+        variable: salePrice
+        required: false
+        type: text
+        placeholder: '15.99'
+      - label: Status
+        helpText: The publication status of this variation.
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Published
+              value: publish
+            - label: Private
+              value: private
+            - label: Draft
+              value: draft
+      - label: SKU
+        helpText: Unique identifier for the variation.
+        variable: sku
+        required: false
+        type: text
+        placeholder: 'PROD-VAR-001'
+  - title: Inventory
+    collapsed: true
+    items:
+      - label: Manage Stock
+        helpText: Whether to enable stock management for this variation.
+        variable: manageStock
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Stock Quantity
+        helpText: The quantity of this variation in stock.
+        variable: stockQuantity
+        required: false
+        type: text
+        placeholder: '100'
+      - label: Stock Status
+        helpText: The stock status of this variation.
+        variable: stockStatus
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: In Stock
+              value: instock
+            - label: Out of Stock
+              value: outofstock
+            - label: On Backorder
+              value: onbackorder
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the updated variation data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

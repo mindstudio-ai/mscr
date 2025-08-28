@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-system-status-tools
+serviceId: woocommerce
+active: true
+metadata:
+  name: List System Status Tools
+  description: Retrieve a list of all available System Status tools in WooCommerce
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of system status tools
+        variable: outputVariable
+        type: outputVariableName

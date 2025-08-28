@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Action
+id: batch-update-product-variations
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Update Product Variations
+  description: Batch create, update, and delete multiple variations for a WooCommerce product
+  quickHelp: help.md
+configuration:
+  - title: Product Information
+    items:
+      - label: Product ID
+        helpText: The ID of the parent product for which you want to manage variations
+        variable: productId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Create Variations
+    collapsed: false
+    items:
+      - label: Create Variations
+        helpText: 'JSON array of variation objects to create. Each object should include attributes like regular_price and attributes array.'
+        variable: createVariations
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"regular_price":"10.00","attributes":[{"id":6,"option":"Blue"}]}]'
+  - title: Update Variations
+    collapsed: false
+    items:
+      - label: Update Variations
+        helpText: 'JSON array of variation objects to update. Each object must include an id and the fields to update.'
+        variable: updateVariations
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id":733,"regular_price":"10.00"}]'
+  - title: Delete Variations
+    collapsed: false
+    items:
+      - label: Delete Variations
+        helpText: 'JSON array of variation IDs to delete.'
+        variable: deleteVariations
+        required: false
+        type: text
+        placeholder: '[732, 733]'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

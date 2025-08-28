@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: delete-coupon
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Coupon
+  description: Delete a coupon from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Coupon Details
+    items:
+      - label: Coupon ID
+        helpText: The ID of the coupon you want to delete
+        variable: couponId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Permanently Delete
+        helpText: Set to 'Yes' to permanently delete the coupon
+        variable: force
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+  - title: Response Handling
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the deleted coupon data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

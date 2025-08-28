@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: Action
+id: update-list-webhook
+serviceid: mailchimp
+active: true
+metadata:
+  name: Update List Webhook
+  description: Update an existing webhook for a Mailchimp list
+  quickHelp: help.md
+configuration:
+  - title: Webhook Details
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the Mailchimp list
+      - label: Webhook ID
+        variable: webhookId
+        type: text
+        required: true
+        helpText: The ID of the webhook to update
+      - label: Webhook URL
+        variable: url
+        type: text
+        required: true
+        helpText: A valid URL for the webhook
+        placeholder: https://yourdomain.com/webhook
+  - title: Events
+    items:
+      - label: Subscribe
+        variable: subscribeEvent
+        type: select
+        required: false
+        helpText: Trigger webhook when a list subscriber is added
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Unsubscribe
+        variable: unsubscribeEvent
+        type: select
+        required: false
+        helpText: Trigger webhook when a list member unsubscribes
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Profile Update
+        variable: profileEvent
+        type: select
+        required: false
+        helpText: Trigger webhook when a subscriber's profile is updated
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Email Cleaned
+        variable: cleanedEvent
+        type: select
+        required: false
+        helpText: Trigger webhook when a subscriber's email is cleaned from the list
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Email Updated
+        variable: upemailEvent
+        type: select
+        required: false
+        helpText: Trigger webhook when a subscriber's email address is changed
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Campaign Sent
+        variable: campaignEvent
+        type: select
+        required: false
+        helpText: Trigger webhook when a campaign is sent or cancelled
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+  - title: Sources
+    items:
+      - label: User Actions
+        variable: userSource
+        type: select
+        required: false
+        helpText: Trigger webhook for subscriber-initiated actions
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: Admin Actions
+        variable: adminSource
+        type: select
+        required: false
+        helpText: Trigger webhook for admin-initiated actions in the web interface
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+      - label: API Actions
+        variable: apiSource
+        type: select
+        required: false
+        helpText: Trigger webhook for actions initiated via the API
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The variable to store the webhook update response

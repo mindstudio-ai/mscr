@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: update-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Update Campaign
+  description: Updates an existing Mailchimp campaign's settings
+  quickHelp: help.md
+configuration:
+  - title: Campaign Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the campaign to update
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+  - title: Campaign Settings
+    items:
+      - label: Subject Line
+        helpText: The subject line for the campaign
+        variable: subjectLine
+        required: false
+        type: text
+        placeholder: e.g., Your Monthly Newsletter
+      - label: From Name
+        helpText: The from name for the campaign (who the campaign comes from)
+        variable: fromName
+        required: false
+        type: text
+        placeholder: e.g., Your Company Name
+      - label: Reply-To Email
+        helpText: The reply-to email address for the campaign
+        variable: replyTo
+        required: false
+        type: text
+        placeholder: e.g., reply@example.com
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the updated campaign details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

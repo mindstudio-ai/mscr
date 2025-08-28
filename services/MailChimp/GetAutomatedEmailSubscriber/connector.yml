@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: get-automated-email-subscriber
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Automated Email Subscriber
+  description: Retrieve information about a specific subscriber in a classic automation email queue
+  quickHelp: help.md
+configuration:
+  - title: Automation Details
+    items:
+      - label: Workflow ID
+        helpText: The unique ID for the Automation workflow
+        variable: workflowId
+        required: true
+        type: text
+        placeholder: e.g., 57afe96172
+      - label: Workflow Email ID
+        helpText: The unique ID for the Automation workflow email
+        variable: workflowEmailId
+        required: true
+        type: text
+        placeholder: e.g., 8a5d66a273
+      - label: Subscriber Hash
+        helpText: The MD5 hash of the lowercase version of the list member's email address
+        variable: subscriberHash
+        required: true
+        type: text
+        placeholder: e.g., 62eeb292278cc15f5817cb78f7790b08
+      - label: Output Variable
+        helpText: The variable to store the subscriber information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

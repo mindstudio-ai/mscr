@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Action
+id: update-workflow-email
+serviceid: mailchimp
+active: true
+metadata:
+  name: Update Workflow Email
+  description: Update settings for a classic automation workflow email. Only works with workflows of type abandonedBrowse, abandonedCart, emailFollowup, or singleWelcome.
+  quickHelp: help.md
+configuration:
+  - title: Workflow Information
+    items:
+      - label: Workflow ID
+        required: true
+        helpText: The unique ID for the Automation workflow.
+        variable: workflowId
+        type: text
+        placeholder: e.g., 4e3f41f35d
+      - label: Workflow Email ID
+        required: true
+        helpText: The unique ID for the Automation workflow email.
+        variable: workflowEmailId
+        type: text
+        placeholder: e.g., 8a5d3a7b9c
+  - title: Email Settings
+    items:
+      - label: Subject Line
+        required: false
+        helpText: The subject line for the campaign.
+        variable: subjectLine
+        type: text
+        placeholder: e.g., "Your Monthly Newsletter"
+      - label: Preview Text
+        required: false
+        helpText: The preview text for the campaign.
+        variable: previewText
+        type: text
+        placeholder: e.g., "Check out our latest updates and offers"
+      - label: Title
+        required: false
+        helpText: The title of the Automation.
+        variable: title
+        type: text
+        placeholder: e.g., "Monthly Newsletter Automation"
+      - label: From Name
+        required: false
+        helpText: The 'from' name for the Automation (not an email address).
+        variable: fromName
+        type: text
+        placeholder: e.g., "Company Name"
+      - label: Reply To
+        required: false
+        helpText: The reply-to email address for the Automation.
+        variable: replyTo
+        type: text
+        placeholder: e.g., "support@example.com"
+  - title: Delay Settings
+    collapsed: true
+    items:
+      - label: Delay Amount
+        required: false
+        helpText: The delay amount for an automation email (number).
+        variable: delayAmount
+        type: text
+        placeholder: e.g., 1
+      - label: Delay Type
+        required: false
+        helpText: The type of delay for an automation email.
+        variable: delayType
+        type: select
+        selectOptions:
+          options:
+            - label: Now
+              value: now
+            - label: Day
+              value: day
+            - label: Hour
+              value: hour
+            - label: Week
+              value: week
+      - label: Delay Direction
+        required: false
+        helpText: Whether the delay settings describe before or after the delay action.
+        variable: delayDirection
+        type: select
+        selectOptions:
+          options:
+            - label: After
+              value: after
+      - label: Delay Action
+        required: false
+        helpText: The action that triggers the delay of an automation email.
+        variable: delayAction
+        type: select
+        selectOptions:
+          options:
+            - label: Signup
+              value: signup
+            - label: Abandoned Browse
+              value: ecomm_abandoned_browse
+            - label: Abandoned Cart
+              value: ecomm_abandoned_cart
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the response data.
+        variable: outputVariable
+        type: outputVariableName
+        placeholder: updatedWorkflowEmail

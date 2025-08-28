@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-locations
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign Locations
+  description: Retrieve top open locations for a specific MailChimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign you want to get location data for
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Number of Results
+        helpText: The number of records to return (max 1000)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: Number of records to skip for pagination
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+      - label: Fields to Include
+        helpText: Comma-separated list of fields to return (leave empty for all fields)
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., locations.country_code,locations.region_name
+      - label: Fields to Exclude
+        helpText: Comma-separated list of fields to exclude from the response
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the campaign location data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

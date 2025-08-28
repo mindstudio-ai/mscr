@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: add-campaign-feedback
+serviceid: mailchimp
+active: true
+metadata:
+  name: Add Campaign Feedback
+  description: Add feedback on a specific Mailchimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Feedback Configuration
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign you want to add feedback to
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def456
+      - label: Feedback Message
+        helpText: The content of the feedback
+        variable: message
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Block ID
+        helpText: The block ID for the editable block that the feedback addresses (optional)
+        variable: blockId
+        required: false
+        type: text
+        placeholder: e.g., 12345
+      - label: Mark as Complete
+        helpText: The status of the feedback
+        variable: isComplete
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Output Variable
+        helpText: The variable name to store the feedback response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

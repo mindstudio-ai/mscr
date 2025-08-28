@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Action
+id: update-product-attribute-term
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Product Attribute Term
+  description: Update an existing product attribute term in WooCommerce
+  quickHelp: help.md
+configuration:
+  - title: Update Product Attribute Term
+    items:
+      - label: Attribute ID
+        helpText: The product attribute ID to update a term for.
+        variable: attributeId
+        required: true
+        type: text
+        placeholder: '1'
+      - label: Term ID
+        helpText: The ID of the term to update.
+        variable: termId
+        required: true
+        type: text
+        placeholder: '23'
+      - label: Name
+        helpText: New name for the attribute term.
+        variable: name
+        required: false
+        type: text
+        placeholder: 'XXS'
+      - label: Slug
+        helpText: New slug for the attribute term. Will be automatically generated from name if not provided.
+        variable: slug
+        required: false
+        type: text
+        placeholder: 'xxs'
+      - label: Description
+        helpText: HTML description of the term.
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: 'Extra extra small size'
+      - label: Menu Order
+        helpText: Menu order, used to custom sort terms.
+        variable: menuOrder
+        required: false
+        type: text
+        placeholder: '0'
+      - label: Output Variable
+        helpText: Name of the variable to store the updated term data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

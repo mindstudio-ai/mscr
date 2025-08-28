@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: replicate-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Replicate Campaign
+  description: Create a copy of an existing campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the campaign you want to replicate
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., 123abc456def
+      - label: Output Variable
+        helpText: Variable name to store the replicated campaign information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

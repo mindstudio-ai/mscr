@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: start-automated-email
+serviceid: mailchimp
+active: true
+metadata:
+  name: Start Automated Email
+  description: Starts an automated email within a MailChimp automation workflow
+  quickHelp: help.md
+configuration:
+  - title: Automation Details
+    items:
+      - label: Workflow ID
+        required: true
+        helpText: The unique ID for the Automation workflow
+        variable: workflowId
+        type: text
+        placeholder: Enter workflow ID...
+      - label: Workflow Email ID
+        required: true
+        helpText: The unique ID for the specific email within the automation workflow
+        variable: workflowEmailId
+        type: text
+        placeholder: Enter workflow email ID...

@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: send-test-email
+serviceid: mailchimp
+active: true
+metadata:
+  name: Send Test Email
+  description: Send a test email for a MailChimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign you want to test
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def456
+  - title: Test Email Settings
+    items:
+      - label: Test Email Addresses
+        helpText: Comma-separated list of email addresses to send the test to
+        variable: testEmails
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: email1@example.com, email2@example.com
+      - label: Email Format
+        helpText: Choose the type of test email to send
+        variable: sendType
+        required: true
+        type: select
+        defaultValue: html
+        selectOptions:
+          options:
+            - label: HTML
+              value: html
+            - label: Plain Text
+              value: plaintext
+  - title: Result
+    items:
+      - label: Success Variable
+        helpText: Variable to store the success status (true/false)
+        variable: successVariable
+        required: true
+        type: outputVariableName

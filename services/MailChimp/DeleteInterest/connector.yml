@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: delete-interest
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete Interest
+  description: Delete an interest (group name) from a specific interest category within a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Interest Details
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list (audience)
+        variable: listId
+        required: true
+        type: text
+        placeholder: abc123def
+      - label: Interest Category ID
+        helpText: The unique ID for the interest category
+        variable: interestCategoryId
+        required: true
+        type: text
+        placeholder: def456ghi
+      - label: Interest ID
+        helpText: The specific interest or group name to delete
+        variable: interestId
+        required: true
+        type: text
+        placeholder: ghi789jkl
+  - title: Confirmation
+    items:
+      - label: Success Message Variable
+        helpText: Variable name to store the success message
+        variable: outputVariable
+        required: true
+        type: outputVariableName

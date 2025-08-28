@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Action
+id: batch-tax-rates
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Tax Rates
+  description: Create, update, or delete multiple tax rates in a single request
+  quickHelp: help.md
+configuration:
+  - title: Operation
+    items:
+      - label: Operation Type
+        helpText: Select which batch operation to perform
+        variable: operationType
+        required: true
+        type: select
+        defaultValue: create
+        selectOptions:
+          options:
+            - label: Create new tax rates
+              value: create
+            - label: Update existing tax rates
+              value: update
+            - label: Delete tax rates
+              value: delete
+            - label: Mixed operations
+              value: mixed
+  - title: Create Tax Rates
+    items:
+      - label: Tax Rates to Create
+        helpText: JSON array of tax rates to create. Each tax rate should include country, state, rate, name, shipping, and order properties.
+        variable: createTaxRates
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"country": "US", "state": "AL", "rate": "4.0000", "name": "State Tax", "shipping": false, "order": 1}]'
+  - title: Update Tax Rates
+    items:
+      - label: Tax Rates to Update
+        helpText: JSON array of tax rates to update. Each tax rate must include an id and the properties to update.
+        variable: updateTaxRates
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 72, "rate": "5.0000", "name": "Updated State Tax"}]'
+  - title: Delete Tax Rates
+    items:
+      - label: Tax Rate IDs to Delete
+        helpText: Comma-separated list of tax rate IDs to delete
+        variable: deleteTaxRateIds
+        required: true
+        type: text
+        placeholder: '72, 73, 74'
+  - title: Response
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the API response
+        variable: outputVariable
+        required: true
+        type: outputVariableName

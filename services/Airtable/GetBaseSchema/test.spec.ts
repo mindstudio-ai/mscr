@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
 test('fetches base schema and saves to output variable', async () => {

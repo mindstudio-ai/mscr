@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: delete-tax-class
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Tax Class
+  description: Permanently delete a tax class and all tax rates in that class
+  quickHelp: help.md
+configuration:
+  - title: Tax Class Details
+    items:
+      - label: Tax Class Slug
+        helpText: The unique identifier of the tax class to delete (e.g., 'zero-rate', 'reduced-rate')
+        variable: slug
+        required: true
+        type: text
+        placeholder: e.g., zero-rate
+  - title: Confirmation
+    items:
+      - label: Confirm Deletion
+        helpText: This action permanently deletes the tax class and all associated tax rates. This cannot be undone.
+        variable: confirmDeletion
+        required: true
+        type: select
+        defaultValue: no
+        selectOptions:
+          options:
+            - label: Yes, permanently delete this tax class
+              value: yes
+            - label: No, cancel deletion
+              value: no
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: The variable where the result will be stored
+        variable: outputVariable
+        required: true
+        type: outputVariableName

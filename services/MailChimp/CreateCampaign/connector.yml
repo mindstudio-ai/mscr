@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Action
+id: create-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Create Campaign
+  description: Create a new MailChimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Settings
+    items:
+      - label: Campaign Type
+        required: true
+        helpText: Select the type of campaign to create
+        variable: type
+        type: select
+        defaultValue: regular
+        selectOptions:
+          options:
+            - label: Regular Campaign
+              value: regular
+            - label: Plain-text Campaign
+              value: plaintext
+            - label: RSS Campaign
+              value: rss
+            - label: A/B Test Campaign
+              value: variate
+      - label: Campaign Name
+        required: true
+        helpText: Internal name to identify this campaign
+        variable: campaignName
+        type: text
+        placeholder: My Awesome Campaign
+      - label: Subject Line
+        required: true
+        helpText: The subject line for your campaign
+        variable: subjectLine
+        type: text
+        placeholder: Your email subject line
+      - label: Preview Text
+        required: false
+        helpText: The preview text shown in email clients
+        variable: previewText
+        type: text
+        placeholder: A brief preview of your email content
+      - label: From Name
+        required: true
+        helpText: The from name for your campaign (not an email address)
+        variable: fromName
+        type: text
+        placeholder: Your Name or Company
+      - label: Reply-To Email
+        required: true
+        helpText: The reply-to email address for your campaign
+        variable: replyTo
+        type: text
+        placeholder: reply@yourdomain.com
+  - title: Audience Settings
+    items:
+      - label: List ID
+        required: true
+        helpText: The unique ID of the list to send this campaign to
+        variable: listId
+        type: text
+        placeholder: abc123def
+  - title: Campaign Options
+    collapsed: true
+    items:
+      - label: Include Auto Footer
+        required: false
+        helpText: Automatically append MailChimp's default footer to the campaign
+        variable: autoFooter
+        type: select
+        defaultValue: true
+        selectOptions:
+          options:
+            - label: Yes
+              value: true
+            - label: No
+              value: false
+      - label: Inline CSS
+        required: false
+        helpText: Automatically inline the CSS included with the campaign content
+        variable: inlineCss
+        type: select
+        defaultValue: true
+        selectOptions:
+          options:
+            - label: Yes
+              value: true
+            - label: No
+              value: false
+  - title: Output
+    items:
+      - label: Campaign ID Output
+        required: true
+        helpText: The variable name to store the created campaign ID
+        variable: outputVariable
+        type: outputVariableName

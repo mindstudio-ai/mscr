@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-report
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign Report
+  description: Retrieve detailed performance metrics for a specific MailChimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign you want to get a report for
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+  - title: Report Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Leave empty to return all fields.
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., id,campaign_title,emails_sent
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude from the response
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links,timeseries
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the campaign report data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

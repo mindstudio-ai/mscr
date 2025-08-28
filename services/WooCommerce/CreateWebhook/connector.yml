@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Action
+id: create-webhook
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Webhook
+  description: Creates a new webhook in WooCommerce to receive notifications for various events
+  quickHelp: help.md
+configuration:
+  - title: Webhook Details
+    items:
+      - label: Webhook Name
+        helpText: A friendly name for the webhook (e.g., 'Order Updated Notification')
+        variable: name
+        required: true
+        type: text
+        placeholder: My WooCommerce Webhook
+      - label: Event Topic
+        helpText: The event that will trigger this webhook
+        variable: topic
+        required: true
+        type: select
+        selectOptions:
+          options:
+            - label: Order Created
+              value: order.created
+            - label: Order Updated
+              value: order.updated
+            - label: Order Deleted
+              value: order.deleted
+            - label: Product Created
+              value: product.created
+            - label: Product Updated
+              value: product.updated
+            - label: Product Deleted
+              value: product.deleted
+            - label: Customer Created
+              value: customer.created
+            - label: Customer Updated
+              value: customer.updated
+            - label: Customer Deleted
+              value: customer.deleted
+            - label: Coupon Created
+              value: coupon.created
+            - label: Coupon Updated
+              value: coupon.updated
+            - label: Coupon Deleted
+              value: coupon.deleted
+      - label: Delivery URL
+        helpText: The URL where webhook data will be sent (must be HTTP or HTTPS)
+        variable: deliveryUrl
+        required: true
+        type: text
+        placeholder: https://example.com/webhook-endpoint
+      - label: Secret Key
+        helpText: Optional secret key used to generate a signature for the webhook payload
+        variable: secret
+        required: false
+        type: text
+        placeholder: your-secret-key
+      - label: Output Variable
+        helpText: Variable name to store the created webhook information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

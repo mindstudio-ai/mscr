@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-feedback
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign Feedback
+  description: Retrieve team feedback for a specific Mailchimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        variable: campaignId
+        type: text
+        required: true
+        helpText: The unique ID of the Mailchimp campaign for which to retrieve feedback
+        placeholder: e.g., 1a2b3c4d5e
+  - title: Response Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: Optional. A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., feedback.message,feedback.created_at
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: Optional. A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., _links,campaign_id
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The name of the variable to store the campaign feedback results

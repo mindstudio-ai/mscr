@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Action
+id: update-shipping-method
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Shipping Method
+  description: Update settings or attributes of a shipping method instance within a WooCommerce shipping zone
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Details
+    items:
+      - label: Shipping Zone ID
+        required: true
+        helpText: The ID of the shipping zone containing the method to update
+        variable: zoneId
+        type: text
+        placeholder: '5'
+      - label: Shipping Method Instance ID
+        required: true
+        helpText: The instance ID of the shipping method to update
+        variable: methodId
+        type: text
+        placeholder: '26'
+  - title: Method Settings
+    items:
+      - label: Method Title
+        required: false
+        helpText: The title displayed to customers during checkout
+        variable: title
+        type: text
+        placeholder: 'Flat rate'
+      - label: Enabled
+        required: false
+        helpText: Enable or disable this shipping method
+        variable: enabled
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Cost
+        required: false
+        helpText: The shipping cost (for flat rate methods)
+        variable: cost
+        type: text
+        placeholder: '10.00'
+      - label: Tax Status
+        required: false
+        helpText: Whether this shipping method is taxable
+        variable: taxStatus
+        type: select
+        selectOptions:
+          options:
+            - label: Taxable
+              value: 'taxable'
+            - label: None
+              value: 'none'
+      - label: Calculation Type
+        required: false
+        helpText: How to calculate shipping for multiple items
+        variable: calculationType
+        type: select
+        selectOptions:
+          options:
+            - label: Per class (charge for each shipping class individually)
+              value: 'class'
+            - label: Per order (charge for the most expensive shipping class)
+              value: 'order'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the updated shipping method details
+        variable: outputVariable
+        type: outputVariableName

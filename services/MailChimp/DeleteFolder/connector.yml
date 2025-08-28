@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Action
+id: delete-folder
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete Folder
+  description: Delete a specific folder in the MailChimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: Delete Folder Configuration
+    items:
+      - label: Folder ID
+        helpText: The unique ID of the folder you want to delete from the File Manager.
+        variable: folderId
+        required: true
+        type: text
+        placeholder: Enter folder ID...

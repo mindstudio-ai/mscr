@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: update-folder
+serviceid: mailchimp
+active: true
+metadata:
+  name: Update Folder
+  description: Update a specific File Manager folder in MailChimp
+  quickHelp: help.md
+configuration:
+  - title: Folder Information
+    items:
+      - label: Folder ID
+        helpText: The unique ID of the File Manager folder you want to update
+        variable: folderId
+        required: true
+        type: text
+        placeholder: 123456
+      - label: New Folder Name
+        helpText: The new name for the folder
+        variable: folderName
+        required: true
+        type: text
+        placeholder: My Updated Folder
+      - label: Output Variable
+        helpText: The variable name to store the updated folder information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

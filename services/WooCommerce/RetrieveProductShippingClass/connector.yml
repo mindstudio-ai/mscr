@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: retrieve-product-shipping-class
+serviceId: woocommerce
+active: true
+metadata:
+  name: Retrieve Product Shipping Class
+  description: Get a WooCommerce shipping class by its ID
+  quickHelp: help.md
+configuration:
+  - title: Shipping Class Details
+    items:
+      - label: Shipping Class ID
+        helpText: The ID of the shipping class to retrieve
+        variable: shippingClassId
+        required: true
+        type: text
+        placeholder: '32'
+      - label: Output Variable
+        helpText: Variable name to store the shipping class details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

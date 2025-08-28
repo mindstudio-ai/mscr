@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: batch-product-categories
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Product Categories
+  description: Create, update, and delete multiple product categories in a single request
+  quickHelp: help.md
+configuration:
+  - title: Create Categories
+    items:
+      - label: Categories to Create
+        helpText: Enter JSON array of categories to create. Each object should have at least a 'name' property.
+        variable: categoriesToCreate
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name": "Electronics"}, {"name": "Books", "description": "All books"}]'
+  - title: Update Categories
+    items:
+      - label: Categories to Update
+        helpText: Enter JSON array of categories to update. Each object must include an 'id' and the fields to update.
+        variable: categoriesToUpdate
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 10, "name": "Updated Name"}, {"id": 11, "description": "New description"}]'
+  - title: Delete Categories
+    items:
+      - label: Categories to Delete
+        helpText: Enter comma-separated list of category IDs to delete
+        variable: categoriesToDelete
+        required: false
+        type: text
+        placeholder: '10, 11, 12'
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: Variable name to store the operation results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-info
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign Info
+  description: Retrieve detailed information about a specific Mailchimp campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign you want to retrieve information about
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., 1a2b3c4d5e
+      - label: Fields to Include
+        helpText: Optional. A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., id,web_id,status,settings.subject_line
+      - label: Fields to Exclude
+        helpText: Optional. A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links,tracking
+      - label: Include Resend Shortcut Eligibility
+        helpText: Return information about whether the campaign is eligible for various Campaign Resend Shortcuts
+        variable: includeResendShortcutEligibility
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Include Resend Shortcut Usage
+        helpText: Return information about campaigns related by a shortcut
+        variable: includeResendShortcutUsage
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the campaign information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

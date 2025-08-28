@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Action
+id: create-coupon
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Coupon
+  description: Create a new WooCommerce coupon with customizable discount settings
+  quickHelp: help.md
+configuration:
+  - title: Basic Coupon Information
+    items:
+      - label: Coupon Code
+        required: true
+        helpText: Unique coupon code that customers will enter at checkout
+        variable: code
+        type: text
+        placeholder: e.g., SUMMER10
+      - label: Discount Type
+        required: true
+        helpText: The type of discount this coupon applies
+        variable: discountType
+        type: select
+        defaultValue: percent
+        selectOptions:
+          options:
+            - label: Percentage discount
+              value: percent
+            - label: Fixed cart discount
+              value: fixed_cart
+            - label: Fixed product discount
+              value: fixed_product
+      - label: Discount Amount
+        required: true
+        helpText: The amount of discount (number only, no currency symbol)
+        variable: amount
+        type: text
+        placeholder: e.g., 10
+      - label: Description
+        helpText: Internal description of the coupon
+        variable: description
+        type: text
+        textOptions:
+          type: multiline
+  - title: Usage Restrictions
+    collapsed: true
+    items:
+      - label: Individual Use Only
+        helpText: If enabled, this coupon cannot be used with other coupons
+        variable: individualUse
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Exclude Sale Items
+        helpText: If enabled, this coupon will not apply to items on sale
+        variable: excludeSaleItems
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Minimum Spend
+        helpText: Minimum order amount needed to use this coupon (leave empty for no minimum)
+        variable: minimumAmount
+        type: text
+        placeholder: e.g., 50.00
+      - label: Maximum Spend
+        helpText: Maximum order amount this coupon can be applied to (leave empty for no maximum)
+        variable: maximumAmount
+        type: text
+        placeholder: e.g., 200.00
+      - label: Email Restrictions
+        helpText: Comma-separated list of emails that can use this coupon
+        variable: emailRestrictions
+        type: text
+        placeholder: e.g., user@example.com, customer@example.com
+  - title: Usage Limits
+    collapsed: true
+    items:
+      - label: Usage Limit Per Coupon
+        helpText: How many times this coupon can be used in total (leave empty for unlimited)
+        variable: usageLimit
+        type: text
+        placeholder: e.g., 100
+      - label: Usage Limit Per User
+        helpText: How many times this coupon can be used by a single customer (leave empty for unlimited)
+        variable: usageLimitPerUser
+        type: text
+        placeholder: e.g., 1
+      - label: Expiry Date
+        helpText: When this coupon will expire (YYYY-MM-DD format, leave empty for no expiration)
+        variable: dateExpires
+        type: text
+        placeholder: e.g., 2023-12-31
+  - title: Additional Options
+    collapsed: true
+    items:
+      - label: Allow Free Shipping
+        helpText: If enabled, this coupon will also grant free shipping on orders that meet the requirements
+        variable: freeShipping
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created coupon details
+        variable: outputVariable
+        type: outputVariableName

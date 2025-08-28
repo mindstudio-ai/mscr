@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Action
+id: send-order-notification-email
+serviceId: woocommerce
+active: true
+metadata:
+  name: Send Order Notification Email
+  description: Trigger a specific order status email template to be sent to the customer
+  quickHelp: help.md
+configuration:
+  - title: Order Information
+    items:
+      - label: Order ID
+        helpText: The ID of the order for which to send the notification email
+        variable: orderId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Email Configuration
+    items:
+      - label: Email Template
+        helpText: The email template to send to the customer
+        variable: templateId
+        required: true
+        type: select
+        defaultValue: customer_completed_order
+        selectOptions:
+          options:
+            - label: Completed Order
+              value: customer_completed_order
+            - label: Order on Hold
+              value: customer_on_hold_order
+            - label: Invoice/Order Details
+              value: customer_invoice
+            - label: Refunded Order
+              value: customer_refunded_order
+      - label: Custom Email Address
+        helpText: Optional. Send to a specific email address instead of the billing email on the order.
+        variable: email
+        required: false
+        type: text
+        placeholder: customer@example.com
+      - label: Update Order Email
+        helpText: Whether to update the order's billing email with the custom email address provided above
+        variable: forceEmailUpdate
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: The variable to store the result of the email notification operation
+        variable: outputVariable
+        required: true
+        type: outputVariableName

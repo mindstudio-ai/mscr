@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-countries
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Countries
+  description: Retrieves a list of all countries and their states from a WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable Name
+        required: true
+        helpText: The variable name to store the list of countries and their states
+        variable: outputVariable
+        type: outputVariableName

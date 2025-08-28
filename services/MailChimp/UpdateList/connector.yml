@@ -1,0 +1,155 @@
+apiVersion: v1
+kind: Action
+id: update-list
+serviceid: mailchimp
+active: true
+metadata:
+  name: Update List
+  description: Update the settings for a specific Mailchimp list/audience.
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list you want to update.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def...
+      - label: List Name
+        helpText: The name of the list.
+        variable: name
+        required: true
+        type: text
+        placeholder: My Awesome List
+      - label: Permission Reminder
+        helpText: The permission reminder for the list, explaining how subscribers got on your list.
+        variable: permissionReminder
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: You're receiving this email because you signed up at our website.
+      - label: Email Type Option
+        helpText: Whether subscribers can choose to receive HTML or plain-text emails.
+        variable: emailTypeOption
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Contact Information
+    items:
+      - label: Company Name
+        helpText: The company name for the list.
+        variable: companyName
+        required: true
+        type: text
+        placeholder: Your Company Name
+      - label: Address Line 1
+        helpText: The street address for the list contact.
+        variable: address1
+        required: true
+        type: text
+        placeholder: 123 Main St
+      - label: City
+        helpText: The city for the list contact.
+        variable: city
+        required: true
+        type: text
+        placeholder: New York
+      - label: State/Province
+        helpText: The state or province for the list contact.
+        variable: state
+        required: true
+        type: text
+        placeholder: NY
+      - label: Postal/Zip Code
+        helpText: The postal or zip code for the list contact.
+        variable: zip
+        required: true
+        type: text
+        placeholder: 10001
+      - label: Country
+        helpText: A two-character ISO3166 country code (e.g., US, GB, CA).
+        variable: country
+        required: true
+        type: text
+        placeholder: US
+  - title: Campaign Defaults
+    items:
+      - label: From Name
+        helpText: The default from name for campaigns sent to this list.
+        variable: fromName
+        required: true
+        type: text
+        placeholder: John Smith
+      - label: From Email
+        helpText: The default from email for campaigns sent to this list.
+        variable: fromEmail
+        required: true
+        type: text
+        placeholder: john@example.com
+      - label: Subject
+        helpText: The default subject line for campaigns sent to this list.
+        variable: subject
+        required: true
+        type: text
+        placeholder: News from Our Company
+      - label: Language
+        helpText: The default language for this list's forms (e.g., en, es, fr).
+        variable: language
+        required: true
+        type: text
+        defaultValue: en
+        placeholder: en
+  - title: Additional Settings
+    collapsed: true
+    items:
+      - label: Double Opt-in
+        helpText: Whether subscribers must confirm their subscription via email.
+        variable: doubleOptin
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Marketing Permissions
+        helpText: Whether the list has marketing permissions (GDPR) enabled.
+        variable: marketingPermissions
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Notify On Subscribe
+        helpText: Email address to send subscribe notifications to (leave empty for none).
+        variable: notifyOnSubscribe
+        required: false
+        type: text
+        placeholder: notifications@example.com
+      - label: Notify On Unsubscribe
+        helpText: Email address to send unsubscribe notifications to (leave empty for none).
+        variable: notifyOnUnsubscribe
+        required: false
+        type: text
+        placeholder: notifications@example.com
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated list information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

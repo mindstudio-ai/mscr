@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: batch-update-coupons
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Update Coupons
+  description: Create, update, and delete WooCommerce coupons in a single batch operation
+  quickHelp: help.md
+configuration:
+  - title: Create Coupons
+    items:
+      - label: Coupons to Create
+        helpText: JSON array of coupon objects to create. Each object must include a 'code' field.
+        variable: createCoupons
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{ "code": "20off", "discount_type": "percent", "amount": "20" }]'
+  - title: Update Coupons
+    items:
+      - label: Coupons to Update
+        helpText: JSON array of coupon objects to update. Each object must include an 'id' field.
+        variable: updateCoupons
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{ "id": 123, "amount": "30" }]'
+  - title: Delete Coupons
+    items:
+      - label: Coupon IDs to Delete
+        helpText: JSON array of coupon IDs to delete.
+        variable: deleteCoupons
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[123, 456]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the batch operation results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-currency-data
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Currency Data
+  description: Retrieves detailed information about a specific currency from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Currency Information
+    items:
+      - label: Currency Code
+        helpText: ISO4217 currency code (e.g., USD, EUR, BRL)
+        variable: currencyCode
+        required: true
+        type: text
+        placeholder: e.g., USD
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the currency data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

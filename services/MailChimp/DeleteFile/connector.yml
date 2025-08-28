@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: delete-file
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete File
+  description: Remove a specific file from the MailChimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: File Details
+    items:
+      - label: File ID
+        helpText: The unique ID of the file you want to delete from the File Manager
+        variable: fileId
+        required: true
+        type: text
+        placeholder: Enter the file ID...
+  - title: Confirmation
+    items:
+      - label: Confirmation Message
+        helpText: Variable name to store the confirmation message after deletion
+        variable: outputVariable
+        required: true
+        type: outputVariableName

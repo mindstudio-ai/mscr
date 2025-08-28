@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: delete-workflow-email
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete Workflow Email
+  description: Removes an individual classic automation workflow email from a MailChimp account
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Workflow ID
+        helpText: The unique ID for the Automation workflow
+        variable: workflowId
+        required: true
+        type: text
+        placeholder: e.g., 57afe96172
+      - label: Workflow Email ID
+        helpText: The unique ID for the Automation workflow email to delete
+        variable: workflowEmailId
+        required: true
+        type: text
+        placeholder: e.g., 8a5d3a2b76

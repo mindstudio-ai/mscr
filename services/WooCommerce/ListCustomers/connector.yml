@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Action
+id: list-customers
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Customers
+  description: Retrieve a paginated list of customers from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Customer List Options
+    items:
+      - label: Page Number
+        helpText: The page number of results to return (starts at 1)
+        variable: page
+        required: true
+        type: text
+        defaultValue: '1'
+      - label: Results Per Page
+        helpText: Number of customers to return per page (max 100)
+        variable: perPage
+        required: true
+        type: text
+        defaultValue: '10'
+      - label: Sort Order
+        helpText: Sort order for customer results
+        variable: order
+        required: true
+        type: select
+        defaultValue: asc
+        selectOptions:
+          options:
+            - label: Ascending (A-Z)
+              value: asc
+            - label: Descending (Z-A)
+              value: desc
+      - label: Sort By
+        helpText: Field to sort customers by
+        variable: orderby
+        required: true
+        type: select
+        defaultValue: name
+        selectOptions:
+          options:
+            - label: Name
+              value: name
+            - label: ID
+              value: id
+            - label: Registration Date
+              value: registered_date
+  - title: Filters
+    collapsed: true
+    items:
+      - label: Search Term
+        helpText: Search for customers by name or email
+        variable: search
+        required: false
+        type: text
+      - label: Email Filter
+        helpText: Filter customers by exact email address
+        variable: email
+        required: false
+        type: text
+      - label: Role
+        helpText: Filter customers by user role
+        variable: role
+        required: false
+        type: select
+        defaultValue: customer
+        selectOptions:
+          options:
+            - label: All Roles
+              value: all
+            - label: Customer
+              value: customer
+            - label: Administrator
+              value: administrator
+            - label: Shop Manager
+              value: shop_manager
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of customers
+        variable: outputVariable
+        required: true
+        type: outputVariableName

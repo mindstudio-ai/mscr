@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Action
+id: add-list-member
+serviceid: mailchimp
+active: true
+metadata:
+  name: Add Member to List
+  description: Add a new subscriber to a MailChimp list or audience
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the list. You can find this in your MailChimp account under Audience settings.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def...
+  - title: Member Information
+    items:
+      - label: Email Address
+        helpText: Email address for the subscriber.
+        variable: emailAddress
+        required: true
+        type: text
+        placeholder: john.doe@example.com
+      - label: Subscription Status
+        helpText: The subscriber's status on the list.
+        variable: status
+        required: true
+        type: select
+        defaultValue: subscribed
+        selectOptions:
+          options:
+            - label: Subscribed
+              value: subscribed
+            - label: Pending
+              value: pending
+            - label: Unsubscribed
+              value: unsubscribed
+            - label: Cleaned
+              value: cleaned
+            - label: Transactional
+              value: transactional
+      - label: Email Type
+        helpText: Type of email this member prefers to receive.
+        variable: emailType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: HTML
+              value: html
+            - label: Text
+              value: text
+      - label: Merge Fields (JSON)
+        helpText: 'A JSON object of merge fields where the keys are the merge tags (e.g., {"FNAME":"John", "LNAME":"Doe"})'
+        variable: mergeFields
+        required: false
+        type: text
+        placeholder: '{"FNAME":"John", "LNAME":"Doe"}'
+      - label: Tags
+        helpText: Comma-separated list of tags to apply to this member (e.g., new,customer,2023)
+        variable: tags
+        required: false
+        type: text
+        placeholder: new,customer,2023
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the response data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: search-campaigns
+serviceid: mailchimp
+active: true
+metadata:
+  name: Search Campaigns
+  description: Search all campaigns in your MailChimp account for specific query terms
+  quickHelp: help.md
+configuration:
+  - title: Search Parameters
+    items:
+      - label: Search Query
+        helpText: The search term to find in your campaigns
+        variable: query
+        required: true
+        type: text
+        placeholder: Enter search term...
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., id,web_id,status,settings.subject_line
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links,settings.template_id
+  - title: Output Options
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the search results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

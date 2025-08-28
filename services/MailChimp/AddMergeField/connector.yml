@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: Action
+id: add-merge-field
+serviceid: mailchimp
+active: true
+metadata:
+  name: Add Merge Field
+  description: Add a new custom field to a Mailchimp audience to collect additional information from subscribers
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp audience/list where you want to add the merge field
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter your list ID...
+  - title: Merge Field Details
+    items:
+      - label: Field Name
+        helpText: The name of the merge field as it will appear in your audience
+        variable: name
+        required: true
+        type: text
+        placeholder: First Name, Birthday, Favorite Color, etc.
+      - label: Field Tag
+        helpText: The merge tag that will be used in campaigns (e.g., FNAME). If not provided, Mailchimp will generate one based on the field name
+        variable: tag
+        required: false
+        type: text
+        placeholder: FNAME, BIRTHDAY, FAVCOLOR, etc.
+      - label: Field Type
+        helpText: The type of data this merge field will contain
+        variable: type
+        required: true
+        type: select
+        defaultValue: text
+        selectOptions:
+          options:
+            - label: Text
+              value: text
+            - label: Number
+              value: number
+            - label: Address
+              value: address
+            - label: Phone
+              value: phone
+            - label: Date
+              value: date
+            - label: URL
+              value: url
+            - label: Image URL
+              value: imageurl
+            - label: Radio Buttons
+              value: radio
+            - label: Dropdown
+              value: dropdown
+            - label: Birthday
+              value: birthday
+            - label: Zip Code
+              value: zip
+      - label: Required Field
+        helpText: Whether this field is required when subscribers sign up
+        variable: required
+        required: false
+        type: select
+        defaultValue: false
+        selectOptions:
+          options:
+            - label: Yes
+              value: true
+            - label: No
+              value: false
+      - label: Default Value
+        helpText: The default value for this field if none is provided
+        variable: defaultValue
+        required: false
+        type: text
+        placeholder: Enter a default value...
+      - label: Show on Signup Form
+        helpText: Whether this field should be visible on signup forms
+        variable: public
+        required: false
+        type: select
+        defaultValue: true
+        selectOptions:
+          options:
+            - label: Yes
+              value: true
+            - label: No
+              value: false
+      - label: Help Text
+        helpText: Extra text to help subscribers understand what to enter in this field
+        variable: helpText
+        required: false
+        type: text
+        placeholder: Enter help text for subscribers...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the created merge field information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

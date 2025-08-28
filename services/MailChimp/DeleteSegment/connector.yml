@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: delete-segment
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete Segment
+  description: Delete a specific segment from a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Segment Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list containing the segment
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter list ID...
+      - label: Segment ID
+        helpText: The unique ID of the segment to delete
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: Enter segment ID...
+  - title: Confirmation
+    items:
+      - label: Success Message
+        helpText: Variable to store the success message after deletion
+        variable: outputMessage
+        required: true
+        type: outputVariableName

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: create-product-shipping-class
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Product Shipping Class
+  description: Creates a new shipping class for products in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Shipping Class Details
+    items:
+      - label: Name
+        helpText: The name of the shipping class (required)
+        variable: name
+        required: true
+        type: text
+        placeholder: e.g., Priority, Express, Standard
+      - label: Slug
+        helpText: An alphanumeric unique identifier for the shipping class (optional)
+        variable: slug
+        required: false
+        type: text
+        placeholder: e.g., priority, express, standard
+      - label: Description
+        helpText: Description for the shipping class (optional)
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the created shipping class details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

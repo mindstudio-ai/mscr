@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: create-shipping-zone
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Shipping Zone
+  description: Creates a new shipping zone in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Details
+    items:
+      - label: Zone Name
+        helpText: The name of the shipping zone to create (e.g., "United States", "Europe", "International")
+        variable: zoneName
+        required: true
+        type: text
+        placeholder: Enter zone name...
+      - label: Output Variable
+        helpText: Variable name to store the created shipping zone details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

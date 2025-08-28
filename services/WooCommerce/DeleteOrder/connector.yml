@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: delete-order
+serviceId: woocommerce
+active: true
+metadata:
+  name: Delete Order
+  description: Delete a WooCommerce order (optionally permanently)
+  quickHelp: help.md
+configuration:
+  - title: Order Details
+    items:
+      - label: Order ID
+        helpText: The ID of the order you want to delete
+        variable: orderId
+        required: true
+        type: text
+        placeholder: '727'
+      - label: Force Delete
+        helpText: If set to true, the order will be permanently deleted. Otherwise, it will be moved to trash.
+        variable: force
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No (Move to Trash)
+              value: 'false'
+            - label: Yes (Permanently Delete)
+              value: 'true'
+  - title: Response
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the deleted order details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

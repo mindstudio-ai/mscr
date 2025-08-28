@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Action
+id: batch-update-products
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Update Products
+  description: Create, update, and delete multiple products in a single request
+  quickHelp: help.md
+configuration:
+  - title: Batch Operations
+    items:
+      - label: Create Products
+        helpText: JSON array of products to create. Each product should include properties like name, type, regular_price, etc.
+        variable: createProducts
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name": "Product Name", "type": "simple", "regular_price": "19.99"}]'
+      - label: Update Products
+        helpText: JSON array of products to update. Each product must include an 'id' and the properties to update.
+        variable: updateProducts
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 123, "name": "Updated Name", "regular_price": "29.99"}]'
+      - label: Delete Products
+        helpText: JSON array of product IDs to delete.
+        variable: deleteProducts
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[123, 456, 789]'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the API response containing the results of the batch operations.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

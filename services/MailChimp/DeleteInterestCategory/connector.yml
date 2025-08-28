@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: delete-interest-category
+serviceid: mailchimp
+active: true
+metadata:
+  name: Delete Interest Category
+  description: Delete a specific interest category from a MailChimp list.
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list (audience).
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter list ID...
+      - label: Interest Category ID
+        helpText: The unique ID for the interest category you want to delete.
+        variable: interestCategoryId
+        required: true
+        type: text
+        placeholder: Enter interest category ID...

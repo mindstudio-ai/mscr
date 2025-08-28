@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: batch-shipping-classes
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Shipping Classes
+  description: Create, update, and delete multiple shipping classes in a single operation
+  quickHelp: help.md
+configuration:
+  - title: Create Shipping Classes
+    items:
+      - label: Classes to Create
+        variable: createClasses
+        type: text
+        required: false
+        helpText: "JSON array of shipping classes to create. Each object should include 'name' (required), 'slug' (optional), and 'description' (optional)."
+        placeholder: '[{"name": "Small Items"}, {"name": "Large Items", "description": "For bulky shipments"}]'
+        textOptions:
+          type: multiline
+  - title: Update Shipping Classes
+    items:
+      - label: Classes to Update
+        variable: updateClasses
+        type: text
+        required: false
+        helpText: "JSON array of shipping classes to update. Each object must include 'id' and can include 'name', 'slug', and 'description'."
+        placeholder: '[{"id": 33, "name": "Express", "description": "Fast shipping option"}]'
+        textOptions:
+          type: multiline
+  - title: Delete Shipping Classes
+    items:
+      - label: Class IDs to Delete
+        variable: deleteClassIds
+        type: text
+        required: false
+        helpText: "Comma-separated list of shipping class IDs to delete."
+        placeholder: "32, 45, 67"
+  - title: Output
+    items:
+      - label: Result Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: "Variable name to store the operation results."

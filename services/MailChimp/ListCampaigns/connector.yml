@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Action
+id: list-campaigns
+serviceid: mailchimp
+active: true
+metadata:
+  name: List Campaigns
+  description: Retrieve a list of campaigns from your MailChimp account
+  quickHelp: help.md
+configuration:
+  - title: Campaign Filters
+    items:
+      - label: Campaign Type
+        helpText: Filter campaigns by type
+        variable: campaignType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Types
+              value: ''
+            - label: Regular
+              value: 'regular'
+            - label: Plain Text
+              value: 'plaintext'
+            - label: A/B Split
+              value: 'absplit'
+            - label: RSS
+              value: 'rss'
+            - label: Variate
+              value: 'variate'
+      - label: Campaign Status
+        helpText: Filter campaigns by status
+        variable: campaignStatus
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Statuses
+              value: ''
+            - label: Save
+              value: 'save'
+            - label: Paused
+              value: 'paused'
+            - label: Schedule
+              value: 'schedule'
+            - label: Sending
+              value: 'sending'
+            - label: Sent
+              value: 'sent'
+      - label: List ID
+        helpText: Filter campaigns by the list they were sent to
+        variable: listId
+        required: false
+        type: text
+        placeholder: 'e.g., abc123def456'
+  - title: Pagination
+    items:
+      - label: Count
+        helpText: The number of records to return (max 1000)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: The number of records to skip
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable to store the list of campaigns
+        variable: outputVariable
+        required: true
+        type: outputVariableName

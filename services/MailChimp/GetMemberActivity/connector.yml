@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Action
+id: get-member-activity
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Member Activity
+  description: Retrieves a member's activity on a specific list, including opens, clicks, and unsubscribes
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp list/audience.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Identifier
+        helpText: The email address, MD5 hash of the lowercase email, or contact_id of the list member.
+        variable: subscriberId
+        required: true
+        type: text
+        placeholder: e.g., user@example.com
+  - title: Query Options
+    items:
+      - label: Activity Types to Include
+        helpText: Filter results to specific activity types. Leave empty to include all activity types.
+        variable: activityFilters
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Email Opens
+              value: open
+            - label: Email Clicks
+              value: click
+            - label: Email Bounces
+              value: bounce
+            - label: Unsubscribes
+              value: unsub
+            - label: Emails Sent
+              value: sent
+            - label: Conversations
+              value: conversation
+            - label: Notes
+              value: note
+            - label: Orders
+              value: order
+            - label: Marketing Permissions
+              value: marketing_permission
+            - label: Survey Responses
+              value: survey_response
+      - label: Number of Records
+        helpText: The number of records to return. Maximum value is 1000.
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: e.g., 50
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the member's activity data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Action
+id: schedule-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Schedule Campaign
+  description: Schedule a Mailchimp campaign for delivery at a specified time
+  quickHelp: help.md
+configuration:
+  - title: Campaign Settings
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign you want to schedule
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def456
+      - label: Schedule Time
+        helpText: The UTC date and time to schedule the campaign for delivery in ISO 8601 format (e.g., 2023-12-31T12:00:00Z). Campaigns may only be scheduled to send on the quarter-hour (:00, :15, :30, :45).
+        variable: scheduleTime
+        required: true
+        type: text
+        placeholder: YYYY-MM-DDTHH:MM:SSZ
+      - label: Use Timewarp
+        helpText: When enabled, the campaign will be sent to recipients based on their local time zones
+        variable: useTimewarp
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Batch Delivery Settings (Optional)
+    collapsed: true
+    items:
+      - label: Use Batch Delivery
+        helpText: When enabled, the campaign will be sent in multiple batches. Cannot be used with Timewarp.
+        variable: useBatchDelivery
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Batch Delay (minutes)
+        helpText: The delay, in minutes, between batches
+        variable: batchDelay
+        required: false
+        type: text
+        placeholder: e.g., 30
+      - label: Number of Batches
+        helpText: The number of batches for the campaign send
+        variable: batchCount
+        required: false
+        type: text
+        placeholder: e.g., 3

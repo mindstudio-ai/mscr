@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: update-product-tag
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Product Tag
+  description: Update an existing product tag in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Tag Details
+    items:
+      - label: Tag ID
+        helpText: The ID of the product tag you want to update.
+        variable: tagId
+        required: true
+        type: text
+        placeholder: '34'
+      - label: Tag Name
+        helpText: The name of the product tag.
+        variable: name
+        required: false
+        type: text
+      - label: Tag Slug
+        helpText: The slug of the product tag. Leave empty to auto-generate from the name.
+        variable: slug
+        required: false
+        type: text
+      - label: Tag Description
+        helpText: The description of the product tag.
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Output Variable
+        helpText: The variable name to store the updated tag information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

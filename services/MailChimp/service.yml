@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: mailchimp
+metadata:
+  name: MailChimp
+  description: Email Marketing
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756323048905.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your MailChimp API key. To learn about creating an API key, visit: https://mailchimp.com/developer/marketing/guides/quick-start/#generate-your-api-key'
+    placeholder: XXX...
+  - id: serverPrefix
+    type: plaintext
+    name: Server Prefix
+    placeholder: e.g., us19

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-product-review
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Product Review
+  description: Retrieves a single product review by ID from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Review Details
+    items:
+      - label: Review ID
+        helpText: The ID of the product review you want to retrieve
+        variable: reviewId
+        required: true
+        type: text
+        placeholder: "22"
+      - label: Output Variable
+        helpText: Name of the variable to store the review data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

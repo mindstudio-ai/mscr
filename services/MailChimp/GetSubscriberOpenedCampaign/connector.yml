@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Action
+id: get-subscriber-opened-campaign
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Subscriber Info for Opened Campaign
+  description: Get information about a specific subscriber who opened a campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign and Subscriber Details
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Hash
+        helpText: The MD5 hash of the lowercase version of the list member's email address
+        variable: subscriberHash
+        required: true
+        type: text
+        placeholder: e.g., 00000000000000000000000000000000
+      - label: Output Variable
+        helpText: Name of the variable to store the subscriber information
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        variable: fields
+        required: false
+        type: text
+        placeholder: e.g., email_address,opens_count,opens
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: e.g., _links,merge_fields

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: campaign-domain-performance
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign Domain Performance
+  description: Retrieve domain performance statistics for a Mailchimp campaign, showing metrics across different email domains
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID of the Mailchimp campaign to analyze
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: abc123def
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: A comma-separated list of fields to return. Use dot notation for sub-fields.
+        variable: fields
+        required: false
+        type: text
+        placeholder: domains.domain,domains.opens,domains.clicks
+      - label: Fields to Exclude
+        helpText: A comma-separated list of fields to exclude. Use dot notation for sub-fields.
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: domains.bounces_pct,domains.clicks_pct
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the domain performance results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: remove-workflow-subscriber
+serviceid: mailchimp
+active: true
+metadata:
+  name: Remove Subscriber from Workflow
+  description: Remove a subscriber from a Mailchimp automation workflow. Once removed, subscribers cannot be added back to the same workflow.
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Workflow ID
+        helpText: The unique ID for the Automation workflow to remove the subscriber from
+        variable: workflowId
+        required: true
+        type: text
+        placeholder: e.g., 57afe96172
+      - label: Email Address
+        helpText: The email address of the subscriber to remove from the workflow
+        variable: emailAddress
+        required: true
+        type: text
+        placeholder: subscriber@example.com
+      - label: Output Variable
+        helpText: Variable name to store the removal confirmation details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Action
+id: list-tax-rates
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Tax Rates
+  description: Retrieves a paginated list of tax rates from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Pagination
+    items:
+      - label: Page Number
+        helpText: The page number of results to return (for pagination)
+        variable: page
+        required: false
+        type: text
+        placeholder: '1'
+      - label: Items Per Page
+        helpText: Number of tax rates to return per page
+        variable: perPage
+        required: false
+        type: text
+        placeholder: '10'
+  - title: Sorting
+    items:
+      - label: Sort Order
+        helpText: Sort order of the tax rates
+        variable: order
+        required: false
+        type: select
+        defaultValue: asc
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+      - label: Sort By
+        helpText: Field to sort tax rates by
+        variable: orderby
+        required: false
+        type: select
+        defaultValue: order
+        selectOptions:
+          options:
+            - label: ID
+              value: id
+            - label: Order
+              value: order
+            - label: Priority
+              value: priority
+  - title: Filtering
+    items:
+      - label: Tax Class
+        helpText: Filter tax rates by tax class (e.g., 'standard', 'reduced-rate')
+        variable: class
+        required: false
+        type: text
+        placeholder: 'standard'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the list of tax rates
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: get-abuse-report
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Abuse Report
+  description: Retrieve details about a specific abuse report for a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Abuse Report Details
+    items:
+      - label: List ID
+        variable: listId
+        type: text
+        required: true
+        helpText: The unique ID for the MailChimp list/audience
+        placeholder: e.g., abc123def
+      - label: Report ID
+        variable: reportId
+        type: text
+        required: true
+        helpText: The ID of the abuse report to retrieve
+        placeholder: e.g., 123
+      - label: Fields to Include
+        variable: fields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., id,email_address,date
+      - label: Fields to Exclude
+        variable: excludeFields
+        type: text
+        required: false
+        helpText: A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+        placeholder: e.g., _links,merge_fields
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the abuse report details

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-list-webhook
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get List Webhook
+  description: Retrieves information about a specific webhook configured for a Mailchimp list
+  quickHelp: help.md
+configuration:
+  - title: Webhook Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., 4ca5becb8d
+      - label: Webhook ID
+        helpText: The unique ID of the webhook to retrieve
+        variable: webhookId
+        required: true
+        type: text
+        placeholder: e.g., 5d9a5e3f7b
+      - label: Output Variable
+        helpText: Name of the variable to store the webhook information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

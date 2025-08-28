@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: get-list-member
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get List Member
+  description: Retrieve information about a specific member of a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter list ID...
+      - label: Subscriber Email or ID
+        helpText: The email address or MD5 hash of the subscriber's email address
+        variable: subscriberId
+        required: true
+        type: text
+        placeholder: Enter email address or subscriber hash...
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Fields to Include
+        helpText: Optional comma-separated list of fields to return (e.g., "email_address,status,merge_fields")
+        variable: fields
+        required: false
+        type: text
+        placeholder: Leave blank to include all fields
+      - label: Fields to Exclude
+        helpText: Optional comma-separated list of fields to exclude
+        variable: excludeFields
+        required: false
+        type: text
+        placeholder: Leave blank to exclude no fields
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the member information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

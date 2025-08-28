@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-reports
+serviceid: mailchimp
+active: true
+metadata:
+  name: Get Campaign Reports
+  description: Retrieve campaign reports from your Mailchimp account with filtering options
+  quickHelp: help.md
+configuration:
+  - title: Report Filters
+    items:
+      - label: Campaign Type
+        helpText: Filter reports by campaign type
+        variable: campaignType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Types
+              value: ''
+            - label: Regular
+              value: regular
+            - label: Plain Text
+              value: plaintext
+            - label: A/B Split
+              value: absplit
+            - label: RSS
+              value: rss
+            - label: Variate
+              value: variate
+      - label: Since Send Time
+        helpText: Restrict results to campaigns sent after this date (ISO 8601 format)
+        variable: sinceSendTime
+        required: false
+        type: text
+        placeholder: 'e.g., 2023-01-01T00:00:00+00:00'
+      - label: Before Send Time
+        helpText: Restrict results to campaigns sent before this date (ISO 8601 format)
+        variable: beforeSendTime
+        required: false
+        type: text
+        placeholder: 'e.g., 2023-12-31T23:59:59+00:00'
+  - title: Pagination
+    items:
+      - label: Number of Reports
+        helpText: Number of reports to return (maximum 1000)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: Number of records to skip for pagination
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the campaign reports
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Action
+id: pause-automation-emails
+serviceid: mailchimp
+active: true
+metadata:
+  name: Pause Automation Emails
+  description: Pause all emails in a specific classic automation workflow
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Workflow ID
+        helpText: The unique ID for the Automation workflow you want to pause
+        variable: workflowId
+        required: true
+        type: text
+        placeholder: e.g., 57afe96172

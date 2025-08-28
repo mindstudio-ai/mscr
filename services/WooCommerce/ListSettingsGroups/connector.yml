@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-settings-groups
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Settings Groups
+  description: Retrieves all WooCommerce settings groups from your store
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of settings groups
+        variable: outputVariable
+        type: outputVariableName

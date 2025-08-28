@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-customer
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Customer
+  description: Retrieves a customer by ID from your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Customer Information
+    items:
+      - label: Customer ID
+        helpText: The ID of the customer you want to retrieve
+        variable: customerId
+        required: true
+        type: text
+        placeholder: '25'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the customer information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

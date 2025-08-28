@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Action
+id: create-refund
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Refund
+  description: Creates a refund for an existing WooCommerce order
+  quickHelp: help.md
+configuration:
+  - title: Order Information
+    items:
+      - label: Order ID
+        required: true
+        helpText: The ID of the order to refund
+        variable: orderId
+        type: text
+        placeholder: '123'
+  - title: Refund Details
+    items:
+      - label: Refund Amount
+        required: true
+        helpText: Total refund amount (e.g., "10.00")
+        variable: amount
+        type: text
+        placeholder: '10.00'
+      - label: Reason
+        required: false
+        helpText: Reason for the refund
+        variable: reason
+        type: text
+        placeholder: 'Customer returned product'
+      - label: Process Payment Gateway Refund
+        required: true
+        helpText: Attempt to refund via payment gateway API
+        variable: apiRefund
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Restock Items
+        required: true
+        helpText: Restock refunded items in inventory
+        variable: apiRestock
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Line Items (Optional)
+    collapsed: true
+    items:
+      - label: Line Items JSON
+        required: false
+        helpText: 'JSON array of line items to refund. Format: [{"id": 123, "refund_total": 10}]'
+        variable: lineItems
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"id": 123, "refund_total": 10, "refund_tax": [{"id": 456, "refund_total": 2}]}]'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the refund result
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: list-clicked-link-subscribers
+serviceid: mailchimp
+active: true
+metadata:
+  name: List Clicked Link Subscribers
+  description: Get information about list members who clicked on a specific link in a campaign
+  quickHelp: help.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique ID for the campaign
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: e.g., abc123def456
+      - label: Link ID
+        helpText: The ID for the link you want to get click data for
+        variable: linkId
+        required: true
+        type: text
+        placeholder: e.g., xyz789
+  - title: Filtering Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: The number of records to return (max 1000)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: The number of records to skip for pagination
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+  - title: Output Options
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

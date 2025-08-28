@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-shipping-method
+serviceId: woocommerce
+active: true
+metadata:
+  name: Get Shipping Method
+  description: Retrieves a specific shipping method instance from a WooCommerce shipping zone
+  quickHelp: help.md
+configuration:
+  - title: Shipping Zone Details
+    items:
+      - label: Shipping Zone ID
+        variable: zoneId
+        type: text
+        required: true
+        helpText: The ID of the shipping zone containing the method
+        placeholder: e.g., 5
+      - label: Shipping Method ID
+        variable: methodId
+        type: text
+        required: true
+        helpText: The instance ID of the shipping method within the zone
+        placeholder: e.g., 26
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the shipping method details

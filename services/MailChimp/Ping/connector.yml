@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: ping
+serviceid: mailchimp
+active: true
+metadata:
+  name: Ping MailChimp API
+  description: A simple health check for the MailChimp API that returns a status message
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the API health status response
+        variable: outputVariable
+        type: outputVariableName

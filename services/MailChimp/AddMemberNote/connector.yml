@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: add-member-note
+serviceid: mailchimp
+active: true
+metadata:
+  name: Add Member Note
+  description: Add a note to a specific subscriber in a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the MailChimp list
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Email
+        helpText: The email address of the subscriber to add a note to
+        variable: subscriberEmail
+        required: true
+        type: text
+        placeholder: subscriber@example.com
+      - label: Note
+        helpText: The content of the note (limited to 1,000 characters)
+        variable: note
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Output Variable
+        helpText: The variable to store the result in
+        variable: outputVariable
+        required: true
+        type: outputVariableName

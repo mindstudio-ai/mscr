@@ -1,0 +1,157 @@
+apiVersion: v1
+kind: Action
+id: create-customer
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Customer
+  description: Creates a new customer in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Customer Information
+    items:
+      - label: Email
+        helpText: Customer's email address (required)
+        variable: email
+        required: true
+        type: text
+        placeholder: customer@example.com
+      - label: First Name
+        helpText: Customer's first name
+        variable: firstName
+        required: false
+        type: text
+        placeholder: John
+      - label: Last Name
+        helpText: Customer's last name
+        variable: lastName
+        required: false
+        type: text
+        placeholder: Doe
+      - label: Username
+        helpText: Customer's username (if not provided, will be generated from email)
+        variable: username
+        required: false
+        type: text
+        placeholder: johndoe
+      - label: Password
+        helpText: Customer's password (if not provided, a random one will be generated)
+        variable: password
+        required: false
+        type: text
+        placeholder: Password123
+  - title: Billing Information
+    collapsed: true
+    items:
+      - label: First Name
+        variable: billingFirstName
+        required: false
+        type: text
+        placeholder: John
+      - label: Last Name
+        variable: billingLastName
+        required: false
+        type: text
+        placeholder: Doe
+      - label: Company
+        variable: billingCompany
+        required: false
+        type: text
+        placeholder: Company Inc.
+      - label: Address Line 1
+        variable: billingAddress1
+        required: false
+        type: text
+        placeholder: 123 Main St
+      - label: Address Line 2
+        variable: billingAddress2
+        required: false
+        type: text
+        placeholder: Apt 4B
+      - label: City
+        variable: billingCity
+        required: false
+        type: text
+        placeholder: San Francisco
+      - label: State/Province
+        variable: billingState
+        required: false
+        type: text
+        placeholder: CA
+      - label: Postal/Zip Code
+        variable: billingPostcode
+        required: false
+        type: text
+        placeholder: 94103
+      - label: Country
+        helpText: Two-letter country code (e.g., US, CA, GB)
+        variable: billingCountry
+        required: false
+        type: text
+        placeholder: US
+      - label: Email
+        variable: billingEmail
+        required: false
+        type: text
+        placeholder: customer@example.com
+      - label: Phone
+        variable: billingPhone
+        required: false
+        type: text
+        placeholder: (555) 555-5555
+  - title: Shipping Information
+    collapsed: true
+    items:
+      - label: First Name
+        variable: shippingFirstName
+        required: false
+        type: text
+        placeholder: John
+      - label: Last Name
+        variable: shippingLastName
+        required: false
+        type: text
+        placeholder: Doe
+      - label: Company
+        variable: shippingCompany
+        required: false
+        type: text
+        placeholder: Company Inc.
+      - label: Address Line 1
+        variable: shippingAddress1
+        required: false
+        type: text
+        placeholder: 123 Main St
+      - label: Address Line 2
+        variable: shippingAddress2
+        required: false
+        type: text
+        placeholder: Apt 4B
+      - label: City
+        variable: shippingCity
+        required: false
+        type: text
+        placeholder: San Francisco
+      - label: State/Province
+        variable: shippingState
+        required: false
+        type: text
+        placeholder: CA
+      - label: Postal/Zip Code
+        variable: shippingPostcode
+        required: false
+        type: text
+        placeholder: 94103
+      - label: Country
+        helpText: Two-letter country code (e.g., US, CA, GB)
+        variable: shippingCountry
+        required: false
+        type: text
+        placeholder: US
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the created customer information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Action
+id: create-list
+serviceid: mailchimp
+active: true
+metadata:
+  name: Create List
+  description: Create a new subscriber list in your Mailchimp account
+  quickHelp: help.md
+configuration:
+  - title: List Details
+    items:
+      - label: List Name
+        helpText: Enter a name for your new list
+        variable: name
+        required: true
+        type: text
+      - label: Permission Reminder
+        helpText: Remind subscribers how they signed up to your list
+        variable: permissionReminder
+        required: true
+        type: text
+        placeholder: "e.g., You're receiving this email because you signed up for our newsletter"
+      - label: Email Type Option
+        helpText: Let subscribers choose whether to receive HTML or plain-text emails
+        variable: emailTypeOption
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Contact Information
+    items:
+      - label: Company
+        helpText: Company name for the list
+        variable: company
+        required: true
+        type: text
+      - label: Address Line 1
+        helpText: Street address for the list contact
+        variable: address1
+        required: true
+        type: text
+      - label: City
+        helpText: City for the list contact
+        variable: city
+        required: true
+        type: text
+      - label: State/Province
+        helpText: State or province for the list contact
+        variable: state
+        required: false
+        type: text
+      - label: Postal Code
+        helpText: Postal or zip code for the list contact
+        variable: zip
+        required: false
+        type: text
+      - label: Country
+        helpText: Two-character country code (e.g., US, GB, CA)
+        variable: country
+        required: true
+        type: text
+        placeholder: 'US'
+  - title: Campaign Defaults
+    items:
+      - label: From Name
+        helpText: Default sender name for campaigns sent to this list
+        variable: fromName
+        required: true
+        type: text
+      - label: From Email
+        helpText: Default sender email for campaigns sent to this list
+        variable: fromEmail
+        required: true
+        type: text
+        placeholder: 'you@example.com'
+      - label: Default Subject
+        helpText: Default subject line for campaigns sent to this list
+        variable: subject
+        required: true
+        type: text
+        placeholder: 'Newsletter from {company}'
+      - label: Language
+        helpText: Default language for this list's forms (e.g., en, fr, es)
+        variable: language
+        required: true
+        type: text
+        defaultValue: 'en'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created list information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

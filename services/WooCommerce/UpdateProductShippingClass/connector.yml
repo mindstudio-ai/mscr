@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: update-product-shipping-class
+serviceId: woocommerce
+active: true
+metadata:
+  name: Update Product Shipping Class
+  description: Updates an existing shipping class in WooCommerce by ID
+  quickHelp: help.md
+configuration:
+  - title: Shipping Class Details
+    items:
+      - label: Shipping Class ID
+        helpText: The ID of the shipping class you want to update
+        variable: shippingClassId
+        required: true
+        type: text
+        placeholder: '32'
+      - label: Name
+        helpText: The name of the shipping class
+        variable: name
+        required: false
+        type: text
+        placeholder: 'Priority'
+      - label: Slug
+        helpText: The slug of the shipping class (used in URLs)
+        variable: slug
+        required: false
+        type: text
+        placeholder: 'priority'
+      - label: Description
+        helpText: Description of the shipping class
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: 'Priority mail.'
+  - title: Response Handling
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the updated shipping class details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

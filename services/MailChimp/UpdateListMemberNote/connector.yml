@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Action
+id: update-list-member-note
+serviceid: mailchimp
+active: true
+metadata:
+  name: Update List Member Note
+  description: Update a specific note for a specific list member in Mailchimp.
+  quickHelp: help.md
+configuration:
+  - title: List and Member Information
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp list.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Hash or Email
+        helpText: The MD5 hash of the lowercase version of the list member's email address, or the member's email address directly.
+        variable: subscriberHash
+        required: true
+        type: text
+        placeholder: e.g., example@email.com
+      - label: Note ID
+        helpText: The ID of the note you want to update.
+        variable: noteId
+        required: true
+        type: text
+        placeholder: e.g., 123
+  - title: Note Content
+    items:
+      - label: Note Content
+        helpText: The content of the note. Limited to 1,000 characters.
+        variable: noteContent
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Enter your note content here...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the updated note information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

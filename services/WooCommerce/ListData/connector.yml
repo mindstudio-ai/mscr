@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: list-data
+serviceId: woocommerce
+active: true
+metadata:
+  name: List Data Endpoints
+  description: Retrieves a list of available data endpoints from your WooCommerce store.
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the list of data endpoints.
+        variable: outputVariable
+        type: outputVariableName

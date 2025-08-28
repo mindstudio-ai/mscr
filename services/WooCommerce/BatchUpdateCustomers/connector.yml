@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: batch-update-customers
+serviceId: woocommerce
+active: true
+metadata:
+  name: Batch Update Customers
+  description: Batch create, update, and delete WooCommerce customers in a single operation
+  quickHelp: help.md
+configuration:
+  - title: Batch Operations
+    items:
+      - label: Create New Customers
+        helpText: JSON array of customer objects to create. Each object should include fields like email, first_name, last_name, etc.
+        variable: createCustomers
+        required: false
+        type: text
+        placeholder: '[{"email": "customer@example.com", "first_name": "John", "last_name": "Doe"}]'
+        textOptions:
+          type: multiline
+      - label: Update Existing Customers
+        helpText: JSON array of customer objects to update. Each object must include an 'id' field and the fields to update.
+        variable: updateCustomers
+        required: false
+        type: text
+        placeholder: '[{"id": 123, "email": "updated@example.com"}]'
+        textOptions:
+          type: multiline
+      - label: Delete Customers
+        helpText: Comma-separated list of customer IDs to delete.
+        variable: deleteCustomers
+        required: false
+        type: text
+        placeholder: '123, 456, 789'
+      - label: Output Variable
+        helpText: Variable name to store the batch operation results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

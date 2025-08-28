@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Action
+id: remove-list-member-from-segment
+serviceid: mailchimp
+active: true
+metadata:
+  name: Remove List Member from Segment
+  description: Removes a subscriber from a specific segment in a Mailchimp list
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: List ID
+        helpText: The unique ID for the Mailchimp list/audience
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Segment ID
+        helpText: The unique ID for the segment
+        variable: segmentId
+        required: true
+        type: text
+        placeholder: e.g., 12345
+      - label: Subscriber Email
+        helpText: Email address of the subscriber to remove from the segment
+        variable: subscriberEmail
+        required: true
+        type: text
+        placeholder: subscriber@example.com

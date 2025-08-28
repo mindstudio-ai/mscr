@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Action
+id: create-product
+serviceId: woocommerce
+active: true
+metadata:
+  name: Create Product
+  description: Creates a new product in your WooCommerce store
+  quickHelp: help.md
+configuration:
+  - title: Basic Product Information
+    items:
+      - label: Name
+        helpText: The name of the product
+        variable: name
+        required: true
+        type: text
+        placeholder: Premium Quality T-Shirt
+      - label: Type
+        helpText: The product type
+        variable: type
+        required: true
+        type: select
+        defaultValue: simple
+        selectOptions:
+          options:
+            - label: Simple
+              value: simple
+            - label: Variable
+              value: variable
+            - label: Grouped
+              value: grouped
+            - label: External
+              value: external
+      - label: Regular Price
+        helpText: The regular price of the product (without currency symbol)
+        variable: regularPrice
+        required: true
+        type: text
+        placeholder: 21.99
+      - label: Sale Price
+        helpText: Optional sale price of the product (without currency symbol)
+        variable: salePrice
+        required: false
+        type: text
+        placeholder: 19.99
+      - label: Description
+        helpText: Full product description
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Short Description
+        helpText: Brief product description
+        variable: shortDescription
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: Product Status
+    collapsed: true
+    items:
+      - label: Status
+        helpText: Product publication status
+        variable: status
+        required: true
+        type: select
+        defaultValue: publish
+        selectOptions:
+          options:
+            - label: Published
+              value: publish
+            - label: Draft
+              value: draft
+            - label: Pending
+              value: pending
+            - label: Private
+              value: private
+      - label: Featured
+        helpText: Whether the product should be featured
+        variable: featured
+        required: false
+        type: select
+        defaultValue: false
+        selectOptions:
+          options:
+            - label: Yes
+              value: true
+            - label: No
+              value: false
+  - title: Categories and Tags
+    collapsed: true
+    items:
+      - label: Categories
+        helpText: Category IDs (comma-separated, e.g., 9,14)
+        variable: categories
+        required: false
+        type: text
+        placeholder: 9,14
+      - label: Tags
+        helpText: Tag IDs (comma-separated, e.g., 34,56)
+        variable: tags
+        required: false
+        type: text
+        placeholder: 34,56
+  - title: Images
+    collapsed: true
+    items:
+      - label: Image URLs
+        helpText: Image URLs (comma-separated)
+        variable: imageUrls
+        required: false
+        type: text
+        placeholder: https://example.com/image1.jpg,https://example.com/image2.jpg
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the created product data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

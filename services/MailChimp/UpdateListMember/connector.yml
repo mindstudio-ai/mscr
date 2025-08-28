@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Action
+id: update-list-member
+serviceid: mailchimp
+active: true
+metadata:
+  name: Update List Member
+  description: Update information for a specific member of a MailChimp list
+  quickHelp: help.md
+configuration:
+  - title: List Member Details
+    items:
+      - label: List ID
+        helpText: The unique ID for the list. You can find this in your MailChimp account.
+        variable: listId
+        required: true
+        type: text
+        placeholder: e.g., abc123def
+      - label: Subscriber Email
+        helpText: The email address of the subscriber you want to update.
+        variable: subscriberEmail
+        required: true
+        type: text
+        placeholder: e.g., subscriber@example.com
+      - label: Email Type
+        helpText: Type of email this member will receive.
+        variable: emailType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: HTML
+              value: html
+            - label: Text
+              value: text
+      - label: Status
+        helpText: Subscriber's status in the list.
+        variable: status
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Subscribed
+              value: subscribed
+            - label: Unsubscribed
+              value: unsubscribed
+            - label: Cleaned
+              value: cleaned
+            - label: Pending
+              value: pending
+  - title: Merge Fields
+    collapsed: true
+    items:
+      - label: Merge Fields (JSON)
+        helpText: 'A JSON object of merge fields where keys are merge tags (like FNAME, LNAME) and values are the values to be added to the merge field. Example: {"FNAME":"John","LNAME":"Doe"}'
+        variable: mergeFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: Additional Settings
+    collapsed: true
+    items:
+      - label: VIP Status
+        helpText: Set VIP status for this subscriber.
+        variable: vip
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+            - label: Don't Change
+              value: ''
+      - label: Language
+        helpText: Subscriber's language preference (ISO code, e.g., 'en' for English).
+        variable: language
+        required: false
+        type: text
+        placeholder: e.g., en
+      - label: Skip Merge Validation
+        helpText: If true, member data will be accepted without merge field values, even if the merge field is usually required.
+        variable: skipMergeValidation
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the updated member information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: create-folder
+serviceid: mailchimp
+active: true
+metadata:
+  name: Create Folder
+  description: Create a new folder in the Mailchimp File Manager
+  quickHelp: help.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Folder Name
+        helpText: The name of the folder to create in the File Manager.
+        variable: folderName
+        required: true
+        type: text
+        placeholder: My New Folder
+      - label: Output Variable
+        helpText: The variable to store the created folder information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
