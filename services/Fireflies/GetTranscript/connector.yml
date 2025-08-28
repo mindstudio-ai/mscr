@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: get-transcript
+serviceId: fireflies
+active: true
+metadata:
+  name: Get Transcript
+  description: Retrieve details for a specific transcript from Fireflies.ai
+  quickHelp: readme.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Transcript ID
+        helpText: The ID of the transcript you want to retrieve
+        variable: transcriptId
+        required: true
+        type: text
+        placeholder: Enter transcript ID...
+      - label: Fields to Include
+        helpText: Select the level of detail to include in the response
+        variable: fields
+        required: true
+        type: select
+        defaultValue: basic
+        selectOptions:
+          options:
+            - label: Basic (title, id, date, duration)
+              value: basic
+            - label: Standard (basic + speakers, sentences, summary)
+              value: standard
+            - label: Complete (all available fields)
+              value: complete
+      - label: Output Variable
+        helpText: Variable name to store the transcript data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: update-meeting-title
+serviceId: fireflies
+active: true
+metadata:
+  name: Update Meeting Title
+  description: Updates the title of a meeting transcript in Fireflies.ai
+  quickHelp: readme.md
+configuration:
+  - title: Meeting Information
+    items:
+      - label: Transcript ID
+        helpText: The ID of the transcript/meeting you want to update
+        variable: transcriptId
+        required: true
+        type: text
+        placeholder: Enter transcript ID...
+      - label: New Title
+        helpText: The new title for the meeting
+        variable: newTitle
+        required: true
+        type: text
+        placeholder: Enter new meeting title...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the updated meeting title information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

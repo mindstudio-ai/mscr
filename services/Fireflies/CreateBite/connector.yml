@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Action
+id: create-bite
+serviceId: fireflies
+active: true
+metadata:
+  name: Create Bite
+  description: Create a clip from a meeting transcript with specified start and end times
+  quickHelp: readme.md
+configuration:
+  - title: Bite Configuration
+    items:
+      - label: Transcript ID
+        helpText: The ID of the transcript from which to create a bite
+        variable: transcriptId
+        required: true
+        type: text
+        placeholder: Enter transcript ID...
+      - label: Start Time (seconds)
+        helpText: The start time of the bite in seconds (e.g., 120 for 2 minutes)
+        variable: startTime
+        required: true
+        type: text
+        placeholder: '0'
+      - label: End Time (seconds)
+        helpText: The end time of the bite in seconds (e.g., 180 for 3 minutes)
+        variable: endTime
+        required: true
+        type: text
+        placeholder: '60'
+      - label: Bite Name
+        helpText: Optional name for the bite (max 256 characters)
+        variable: name
+        required: false
+        type: text
+        placeholder: My Bite
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Media Type
+        helpText: Type of media for the bite
+        variable: mediaType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Video
+              value: video
+            - label: Audio
+              value: audio
+      - label: Privacy Settings
+        helpText: Who can access this bite
+        variable: privacies
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Team Members
+              value: team
+            - label: Participants
+              value: participants
+            - label: Public
+              value: public
+      - label: Summary
+        helpText: Optional summary for the bite (max 500 characters)
+        variable: summary
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Brief description of this bite...
+      - label: Output Variable
+        helpText: Name of the variable to store the created bite information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

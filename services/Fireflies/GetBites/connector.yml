@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Action
+id: get-bites
+serviceId: fireflies
+active: true
+metadata:
+  name: Get Bites
+  description: Retrieve a list of bites (short clips) from your Fireflies.ai account
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Mine
+        helpText: When set to true, fetches bites specific to the owner of the API key
+        variable: mine
+        required: true
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Transcript ID
+        helpText: Filter bites for a specific transcript ID
+        variable: transcriptId
+        required: false
+        type: text
+        placeholder: transcript-123
+      - label: My Team
+        helpText: When set to true, fetches bites for the owner's team
+        variable: myTeam
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Limit
+        helpText: Maximum number of bites to fetch (max 50)
+        variable: limit
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Skip
+        helpText: Number of records to skip (for pagination)
+        variable: skip
+        required: false
+        type: text
+        placeholder: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the retrieved bites
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: add-to-live-meeting
+serviceId: fireflies
+active: true
+metadata:
+  name: Add to Live Meeting
+  description: Add the Fireflies.ai bot to an ongoing meeting to transcribe and analyze the conversation
+  quickHelp: readme.md
+configuration:
+  - title: Meeting Details
+    items:
+      - label: Meeting Link
+        helpText: A valid URL for the meeting (Google Meet, Zoom, etc.)
+        variable: meetingLink
+        required: true
+        type: text
+        placeholder: https://meet.google.com/xxx-xxxx-xxx
+      - label: Meeting Title
+        helpText: Title or name of the meeting (max 256 characters). If not provided, a default title will be set automatically.
+        variable: title
+        required: false
+        type: text
+        placeholder: Weekly Team Sync
+      - label: Meeting Password
+        helpText: Password for the meeting, if applicable (max 32 characters)
+        variable: meetingPassword
+        required: false
+        type: text
+        placeholder: password123
+  - title: Additional Options
+    collapsed: true
+    items:
+      - label: Duration (minutes)
+        helpText: Meeting duration in minutes. Defaults to 60 minutes if not provided. Min 15, Max 120.
+        variable: duration
+        required: false
+        type: text
+        placeholder: '60'
+      - label: Language
+        helpText: Language of the meeting. Defaults to English if not provided.
+        variable: language
+        required: false
+        type: text
+        placeholder: en-US
+  - title: Output
+    items:
+      - label: Success Variable
+        helpText: Variable to store the success status of the operation
+        variable: outputVariable
+        required: true
+        type: outputVariableName

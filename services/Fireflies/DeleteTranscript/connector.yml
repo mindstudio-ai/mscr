@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: delete-transcript
+serviceId: fireflies
+active: true
+metadata:
+  name: Delete Transcript
+  description: Delete a specific transcript from Fireflies.ai by its ID
+  quickHelp: readme.md
+configuration:
+  - title: Transcript Information
+    items:
+      - label: Transcript ID
+        helpText: The unique ID of the transcript you want to delete
+        variable: transcriptId
+        required: true
+        type: text
+        placeholder: Enter transcript ID...
+  - title: Response Options
+    items:
+      - label: Output Variable
+        helpText: Variable name to store information about the deleted transcript
+        variable: outputVariable
+        required: true
+        type: outputVariableName
