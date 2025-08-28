@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Action
+id: get-leads-from-list
+serviceId: heyreach
+active: true
+metadata:
+  name: Get Leads From List
+  description: Retrieve leads from a specified HeyReach list with filtering options
+  quickHelp: readme.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The ID of the lead list you want to retrieve leads from.
+        variable: listId
+        required: true
+        type: text
+      - label: Limit
+        helpText: Maximum number of leads to return (up to 1000).
+        variable: limit
+        required: true
+        type: text
+        defaultValue: '100'
+      - label: Offset
+        helpText: Number of leads to skip for pagination.
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+  - title: Filter Options
+    collapsed: true
+    items:
+      - label: Search Keyword
+        helpText: Optional search term to filter leads by name or other relevant fields.
+        variable: keyword
+        required: false
+        type: text
+      - label: LinkedIn Profile URL
+        helpText: Filter by specific LinkedIn profile URL.
+        variable: leadProfileUrl
+        required: false
+        type: text
+        placeholder: 'https://www.linkedin.com/in/john-doe/'
+      - label: LinkedIn ID
+        helpText: Filter by LinkedIn ID (found in other HeyReach API responses).
+        variable: leadLinkedInId
+        required: false
+        type: text
+      - label: Created From
+        helpText: Filter leads created on or after this date (ISO 8601 format).
+        variable: createdFrom
+        required: false
+        type: text
+        placeholder: '2023-01-01T00:00:00Z'
+      - label: Created To
+        helpText: Filter leads created before or at this date (ISO 8601 format).
+        variable: createdTo
+        required: false
+        type: text
+        placeholder: '2023-12-31T23:59:59Z'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the retrieved leads.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

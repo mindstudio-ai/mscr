@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: resume-campaign
+serviceId: heyreach
+active: true
+metadata:
+  name: Resume Campaign
+  description: Resumes a paused HeyReach campaign by its ID
+  quickHelp: readme.md
+configuration:
+  - title: Campaign Details
+    items:
+      - label: Campaign ID
+        helpText: The ID of the campaign to resume
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: 123456789
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the resumed campaign details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

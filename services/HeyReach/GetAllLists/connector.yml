@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Action
+id: get-all-lists
+serviceId: heyreach
+active: true
+metadata:
+  name: Get All Lists
+  description: Retrieve a paginated collection of all company and lead lists from HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: List Filters
+    items:
+      - label: Keyword
+        helpText: Filter lists by name (optional)
+        variable: keyword
+        required: false
+        type: text
+        placeholder: Enter a keyword to search for...
+      - label: List Type
+        helpText: Filter by list type (optional)
+        variable: listType
+        required: false
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: All Lists
+              value: ''
+            - label: User Lists
+              value: 'USER_LIST'
+            - label: System Lists
+              value: 'SYSTEM_LIST'
+  - title: Pagination
+    items:
+      - label: Offset
+        helpText: Number of items to skip
+        variable: offset
+        required: true
+        type: text
+        defaultValue: '0'
+      - label: Limit
+        helpText: Maximum number of lists to return (max 100)
+        variable: limit
+        required: true
+        type: text
+        defaultValue: '10'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the retrieved lists
+        variable: outputVariable
+        required: true
+        type: outputVariableName

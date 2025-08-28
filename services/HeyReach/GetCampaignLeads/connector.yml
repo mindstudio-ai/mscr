@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-leads
+serviceId: heyreach
+active: true
+metadata:
+  name: Get Campaign Leads
+  description: Retrieves leads from a HeyReach campaign with their status information
+  quickHelp: readme.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The ID of the campaign you want to retrieve leads from.
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: '1805'
+  - title: Pagination Options
+    items:
+      - label: Offset
+        helpText: The number of records to skip (for pagination).
+        variable: offset
+        required: true
+        type: text
+        defaultValue: '0'
+      - label: Limit
+        helpText: The maximum number of records to return (max 100).
+        variable: limit
+        required: true
+        type: text
+        defaultValue: '100'
+  - title: Time Filtering
+    items:
+      - label: Time Filter Type
+        helpText: Defines how to filter leads based on time.
+        variable: timeFilter
+        required: true
+        type: select
+        defaultValue: Everywhere
+        selectOptions:
+          options:
+            - label: Creation Time
+              value: CreationTime
+            - label: No Time Filter
+              value: Everywhere
+      - label: From Date
+        helpText: Start date for filtering (ISO 8601 format, e.g., 2024-10-06T17:34:00+02:00). Required if Time Filter Type is 'Creation Time'.
+        variable: timeFrom
+        required: false
+        type: text
+        placeholder: '2024-10-06T17:34:00+02:00'
+      - label: To Date
+        helpText: End date for filtering (ISO 8601 format, e.g., 2024-10-07T17:36:00+02:00). Required if Time Filter Type is 'Creation Time'.
+        variable: timeTo
+        required: false
+        type: text
+        placeholder: '2024-10-07T17:36:00+02:00'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable where the campaign leads data will be stored.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

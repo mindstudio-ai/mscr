@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-list-by-id
+serviceId: heyreach
+active: true
+metadata:
+  name: Get List By ID
+  description: Retrieves a specific list from HeyReach by its ID
+  quickHelp: readme.md
+configuration:
+  - title: List Details
+    items:
+      - label: List ID
+        helpText: The ID of the HeyReach list you want to retrieve
+        variable: listId
+        required: true
+        type: text
+        placeholder: Enter list ID...
+      - label: Output Variable
+        helpText: Name of the variable to store the list details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

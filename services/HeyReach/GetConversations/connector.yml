@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Action
+id: get-conversations
+serviceId: heyreach
+active: true
+metadata:
+  name: Get LinkedIn Conversations
+  description: Retrieve LinkedIn conversations from your HeyReach account with optional filtering
+  quickHelp: readme.md
+configuration:
+  - title: Filtering Options
+    items:
+      - label: LinkedIn Account IDs
+        helpText: Comma-separated list of LinkedIn account IDs to filter conversations by
+        variable: linkedInAccountIds
+        required: false
+        type: text
+        placeholder: 'e.g., 123, 456, 789'
+      - label: Campaign IDs
+        helpText: Comma-separated list of campaign IDs to filter conversations by
+        variable: campaignIds
+        required: false
+        type: text
+        placeholder: 'e.g., 123, 456, 789'
+      - label: Search String
+        helpText: Search for specific text within conversations
+        variable: searchString
+        required: false
+        type: text
+        placeholder: 'Search for keywords...'
+      - label: Lead LinkedIn Profile URL
+        helpText: Filter conversations by a specific LinkedIn profile URL
+        variable: leadProfileUrl
+        required: false
+        type: text
+        placeholder: 'https://www.linkedin.com/in/username/'
+      - label: Message Status
+        helpText: Filter conversations by read/unread status
+        variable: seen
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Messages
+              value: ''
+            - label: Read Messages
+              value: 'true'
+            - label: Unread Messages
+              value: 'false'
+  - title: Pagination
+    items:
+      - label: Limit
+        helpText: Maximum number of conversations to return (max 100)
+        variable: limit
+        required: true
+        type: text
+        defaultValue: '10'
+      - label: Offset
+        helpText: Number of conversations to skip
+        variable: offset
+        required: true
+        type: text
+        defaultValue: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the retrieved conversations
+        variable: outputVariable
+        required: true
+        type: outputVariableName

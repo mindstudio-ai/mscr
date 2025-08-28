@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: stop-lead-in-campaign
+serviceId: heyreach
+active: true
+metadata:
+  name: Stop Lead in Campaign
+  description: Stops a lead's progression in a HeyReach campaign
+  quickHelp: readme.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The ID of the campaign from which to stop the lead
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Lead Member ID
+        helpText: The LinkedIn member ID of the lead to stop (can be obtained from GetLeadsFromCampaign or GetLeadsFromList methods)
+        variable: leadMemberId
+        required: true
+        type: text
+        placeholder: '123123123'
+      - label: Lead LinkedIn URL
+        helpText: The LinkedIn URL of the lead to stop
+        variable: leadUrl
+        required: true
+        type: text
+        placeholder: 'https://www.linkedin.com/in/john-doe'
+      - label: Output Variable
+        helpText: Name of the variable to store the operation result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

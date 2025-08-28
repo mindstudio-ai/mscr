@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: check-api-key
+serviceId: heyreach
+active: true
+metadata:
+  name: Check API Key
+  description: Verify if your HeyReach API key is valid and working properly
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the result of the API key check (true if valid, false if invalid)
+        variable: outputVariable
+        type: outputVariableName

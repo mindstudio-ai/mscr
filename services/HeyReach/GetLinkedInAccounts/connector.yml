@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: get-linkedin-accounts
+serviceId: heyreach
+active: true
+metadata:
+  name: Get LinkedIn Accounts
+  description: Retrieve a paginated list of LinkedIn accounts from HeyReach with optional filtering
+  quickHelp: readme.md
+configuration:
+  - title: Search Parameters
+    items:
+      - label: Keyword
+        helpText: Filter accounts by name (optional)
+        variable: keyword
+        required: false
+        type: text
+        defaultValue: ''
+        placeholder: Enter search term...
+      - label: Results Limit
+        helpText: Maximum number of accounts to return (up to 100)
+        variable: limit
+        required: true
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Results Offset
+        helpText: Number of results to skip for pagination
+        variable: offset
+        required: true
+        type: text
+        defaultValue: '0'
+        placeholder: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of LinkedIn accounts
+        variable: outputVariable
+        required: true
+        type: outputVariableName

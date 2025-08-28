@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-campaign-by-id
+serviceId: heyreach
+active: true
+metadata:
+  name: Get Campaign by ID
+  description: Retrieves detailed information about a HeyReach campaign using its ID
+  quickHelp: readme.md
+configuration:
+  - title: Campaign Information
+    items:
+      - label: Campaign ID
+        helpText: The unique identifier of the campaign you want to retrieve
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: Enter campaign ID...
+      - label: Output Variable
+        helpText: Name of the variable where the campaign details will be stored
+        variable: outputVariable
+        required: true
+        type: outputVariableName

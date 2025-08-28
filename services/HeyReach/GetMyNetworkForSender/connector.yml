@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: get-my-network-for-sender
+serviceId: heyreach
+active: true
+metadata:
+  name: Get My Network For Sender
+  description: Retrieves a paginated list of LinkedIn connections in a sender's network
+  quickHelp: readme.md
+configuration:
+  - title: Request Parameters
+    items:
+      - label: Sender ID
+        variable: senderId
+        type: text
+        required: true
+        helpText: The ID of the sender account for which to retrieve the network
+        placeholder: 1234
+      - label: Page Number
+        variable: pageNumber
+        type: text
+        required: true
+        defaultValue: '0'
+        helpText: The page number to retrieve (starting from 0)
+      - label: Page Size
+        variable: pageSize
+        type: text
+        required: true
+        defaultValue: '100'
+        helpText: Number of records to return per page (max 100)
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable to store the network connections data
