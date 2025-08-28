@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Continents
   description: Retrieves all continents with their countries and states from a WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

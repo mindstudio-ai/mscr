@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Product Attribute Term
   description: Update an existing product attribute term in WooCommerce
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Update Product Attribute Term
     items:

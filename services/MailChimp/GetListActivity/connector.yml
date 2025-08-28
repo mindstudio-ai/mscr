@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Activity
   description: Retrieve up to 180 days of daily detailed activity stats for a Mailchimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Configuration
     items:

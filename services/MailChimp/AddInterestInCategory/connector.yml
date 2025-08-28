@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Interest in Category
   description: Create a new interest or 'group name' for a specific category in a MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Interest Details
     items:

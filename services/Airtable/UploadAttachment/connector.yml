@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Upload Attachment
   description: Upload a file as an attachment to a specific record in Airtable
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Airtable Record Details
     items:

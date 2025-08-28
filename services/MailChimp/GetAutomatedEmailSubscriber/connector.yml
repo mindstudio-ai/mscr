@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Automated Email Subscriber
   description: Retrieve information about a specific subscriber in a classic automation email queue
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Automation Details
     items:

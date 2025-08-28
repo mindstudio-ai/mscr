@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Search for Accounts
   description: Search for accounts in your Apollo database using various filters and parameters
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Search Parameters
     items:

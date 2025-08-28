@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Table
   description: Updates an Airtable table's name, description, or date dependency settings
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Table Information
     items:

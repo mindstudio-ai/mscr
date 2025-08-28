@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Lists
   description: Retrieve information about all audiences (lists) in your MailChimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Filtering Options
     collapsed: false

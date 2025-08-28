@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Segment
   description: Retrieve information about a specific segment belonging to a publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Segment Information
     items:

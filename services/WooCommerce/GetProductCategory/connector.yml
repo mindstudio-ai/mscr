@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Product Category
   description: Retrieves a single product category by ID from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Category Details
     items:

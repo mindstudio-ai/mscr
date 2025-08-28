@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get System Status Tool
   description: Retrieves details for a specific System Status tool in WooCommerce by its ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

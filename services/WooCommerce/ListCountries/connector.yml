@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Countries
   description: Retrieves a list of all countries and their states from a WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

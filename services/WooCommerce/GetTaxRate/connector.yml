@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Tax Rate
   description: Retrieves a specific tax rate by ID from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Tax Rate Details
     items:

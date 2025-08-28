@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Product Variations
   description: Retrieve a list of variations for a specific WooCommerce product
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Product Information
     items:

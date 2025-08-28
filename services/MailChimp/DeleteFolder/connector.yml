@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Folder
   description: Delete a specific folder in the MailChimp File Manager
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Delete Folder Configuration
     items:

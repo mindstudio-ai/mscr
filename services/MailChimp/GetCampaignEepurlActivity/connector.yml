@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign EepURL Activity
   description: Retrieve social activity for a Mailchimp campaign tracked by EepURL
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Order
   description: Creates a new WooCommerce order with customer information, line items, and shipping details
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Details
     items:

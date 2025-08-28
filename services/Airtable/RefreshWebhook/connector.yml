@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Refresh Webhook
   description: Extends the life of an Airtable webhook by 7 days from the time of refresh
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Details
     items:

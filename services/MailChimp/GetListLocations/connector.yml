@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Locations
   description: Retrieve the countries where your list's subscribers are located based on IP address geocoding
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

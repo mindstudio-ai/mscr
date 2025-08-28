@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Clicked Link Subscriber
   description: Get information about a specific subscriber who clicked a link in a specific campaign.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Information
     items:

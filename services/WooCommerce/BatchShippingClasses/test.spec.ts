@@ -13,17 +13,19 @@ test('batch shipping classes operations', async () => {
     json: async () => ({
       create: [{ id: 34, name: 'Small Items' }],
       update: [{ id: 33, name: 'Express', description: 'Updated description' }],
-      delete: [{ id: 32, name: 'Priority' }]
-    })
+      delete: [{ id: 32, name: 'Priority' }],
+    }),
   });
 
   const { handler } = await import('./handler.ts');
-  
+
   const ctx = await runConnector(handler, {
     createClasses: [{ name: 'Small Items' }],
-    updateClasses: [{ id: 33, name: 'Express', description: 'Updated description' }],
+    updateClasses: [
+      { id: 33, name: 'Express', description: 'Updated description' },
+    ],
     deleteClassIds: '32',
-    outputVariable: 'result'
+    outputVariable: 'result',
   });
 
   expect(ctx.outputs.result).toBeTruthy();

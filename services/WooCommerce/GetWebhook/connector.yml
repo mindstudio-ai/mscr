@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Webhook
   description: Retrieves details for a specific WooCommerce webhook by ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Update Product Variations
   description: Batch create, update, and delete multiple variations for a WooCommerce product
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Product Information
     items:

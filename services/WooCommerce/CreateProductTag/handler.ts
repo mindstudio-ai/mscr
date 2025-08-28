@@ -1,8 +1,9 @@
+import fetch from 'node-fetch';
+
 export const handler = async ({
   inputs,
   setOutput,
   log,
-  uploadFile,
 }: {
   inputs: Record<string, any>;
   setOutput: (variable: string, value: any) => void;
@@ -14,15 +15,13 @@ export const handler = async ({
 
   // Validate environment variables
   if (!url) {
-    throw new Error(
-      'Missing store URL. Please configure your WooCommerce store URL in the connector settings.',
-    );
+    throw new Error('Missing WooCommerce store URL');
   }
-
-  if (!consumerKey || !consumerSecret) {
-    throw new Error(
-      'Missing API credentials. Please configure your WooCommerce API Consumer Key and Secret in the connector settings.',
-    );
+  if (!consumerKey) {
+    throw new Error('Missing WooCommerce API Consumer Key');
+  }
+  if (!consumerSecret) {
+    throw new Error('Missing WooCommerce API Consumer Secret');
   }
 
   // Extract inputs
@@ -32,12 +31,6 @@ export const handler = async ({
   if (!name) {
     throw new Error('Tag name is required');
   }
-
-  // Construct the API endpoint URL
-  const baseUrl = url.endsWith('/') ? url.slice(0, -1) : url;
-  const apiUrl = `${baseUrl}/wp-json/wc/v3/products/tags`;
-
-  log(`Creating new product tag: "${name}"`);
 
   // Prepare request body
   const requestBody: Record<string, string> = {
@@ -52,42 +45,45 @@ export const handler = async ({
     requestBody.description = description;
   }
 
-  try {
-    // Create the authorization header for Basic Auth
-    const authString = Buffer.from(`${consumerKey}:${consumerSecret}`).toString(
-      'base64',
-    );
+  // Prepare API endpoint
+  const endpoint = `${url.replace(/\/$/, '')}/wp-json/wc/v3/products/tags`;
 
+  // Create authorization header (Basic Auth)
+  const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString(
+    'base64',
+  );
+
+  log(`Creating product tag "${name}" in WooCommerce...`);
+
+  try {
     // Make the API request
-    const response = await fetch(apiUrl, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${authString}`,
+        Authorization: `Basic ${auth}`,
       },
       body: JSON.stringify(requestBody),
     });
 
     // Parse the response
-    const responseData = await response.json();
+    const data = await response.json();
 
-    // Handle error responses
+    // Check for errors
     if (!response.ok) {
-      const errorMessage = responseData.message || 'Unknown error occurred';
-      throw new Error(
-        `Failed to create tag: ${errorMessage} (Status: ${response.status})`,
-      );
+      const errorMessage = data.message || 'Unknown error occurred';
+      throw new Error(`WooCommerce API error: ${errorMessage}`);
     }
 
-    // Log success and set output
-    log(`Successfully created tag "${name}" with ID: ${responseData.id}`);
-    setOutput(outputVariable, responseData);
+    log(`Successfully created product tag "${name}" with ID ${data.id}`);
+
+    // Set the output variable with the complete tag data
+    setOutput(outputVariable, data);
   } catch (error) {
-    // Handle any errors that occurred during the request
     if (error instanceof Error) {
-      throw new Error(`Error creating product tag: ${error.message}`);
-    } else {
-      throw new Error('Unknown error occurred while creating product tag');
+      log(`Error creating product tag: ${error.message}`);
+      throw error;
     }
+    throw new Error('Unknown error occurred while creating product tag');
   }
 };

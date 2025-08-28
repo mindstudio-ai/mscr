@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Subscription
   description: Create a new subscription for a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Information
     items:

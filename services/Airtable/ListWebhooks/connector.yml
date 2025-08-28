@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Webhooks
   description: Lists all webhooks registered for an Airtable base, along with their statuses
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base Configuration
     items:

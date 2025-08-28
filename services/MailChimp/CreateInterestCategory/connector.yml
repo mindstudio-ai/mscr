@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Interest Category
   description: Create a new interest category for a Mailchimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

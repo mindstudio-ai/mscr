@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Start Automation Emails
   description: Start all emails in a classic automation workflow
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Automation Details
     items:

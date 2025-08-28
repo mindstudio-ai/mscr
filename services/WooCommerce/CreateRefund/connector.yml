@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Refund
   description: Creates a refund for an existing WooCommerce order
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Tiers
   description: Retrieve all tiers belonging to a specific publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Information
     items:

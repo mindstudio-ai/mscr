@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Tax Classes
   description: Retrieve all tax classes from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Currencies
   description: Retrieves a list of all supported currencies from a WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

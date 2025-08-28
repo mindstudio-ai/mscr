@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Product Variation
   description: Update fields of an existing product variation in your WooCommerce store.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Product Information
     items:

@@ -11,7 +11,7 @@ test('updates a shipping class and saves output', async () => {
   const ctx = await runConnector(handler, {
     shippingClassId: '32',
     description: 'Priority mail shipping option',
-    outputVariable: 'updatedShippingClass'
+    outputVariable: 'updatedShippingClass',
   });
 
   expect(ctx.outputs['updatedShippingClass']).toBeTruthy();

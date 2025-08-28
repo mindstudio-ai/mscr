@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Shipping Class
   description: Permanently delete a product shipping class by ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:
@@ -15,17 +15,17 @@ configuration:
         variable: shippingClassId
         required: true
         type: text
-        placeholder: "32"
+        placeholder: '32'
       - label: Force Delete
         helpText: Whether to permanently delete the shipping class (must be true as WooCommerce doesn't support trashing for shipping classes)
         variable: force
         required: true
         type: select
-        defaultValue: "true"
+        defaultValue: 'true'
         selectOptions:
           options:
             - label: Yes (Permanently Delete)
-              value: "true"
+              value: 'true'
       - label: Output Variable
         helpText: Name of the variable to store the deleted shipping class data
         variable: outputVariable

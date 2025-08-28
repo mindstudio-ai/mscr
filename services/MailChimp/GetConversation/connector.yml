@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Conversation
   description: Retrieve details about an individual conversation in Mailchimp
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Conversation Details
     items:

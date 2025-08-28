@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Customer
   description: Permanently delete a WooCommerce customer
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Customer Information
     items:

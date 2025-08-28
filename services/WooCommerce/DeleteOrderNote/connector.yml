@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Order Note
   description: Permanently delete a specific note from a WooCommerce order
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Information
     items:

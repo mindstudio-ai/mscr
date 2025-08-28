@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Pause Automation Emails
   description: Pause all emails in a specific classic automation workflow
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

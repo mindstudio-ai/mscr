@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete List Member Note
   description: Delete a specific note for a specific list member in MailChimp.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

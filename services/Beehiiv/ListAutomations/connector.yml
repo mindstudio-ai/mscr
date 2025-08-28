@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Automations
   description: Retrieves a list of automations for a specified Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

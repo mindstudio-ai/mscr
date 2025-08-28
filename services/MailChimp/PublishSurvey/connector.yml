@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Publish Survey
   description: Publish a survey that is in draft, unpublished, or has been previously published and edited.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Survey Information
     items:

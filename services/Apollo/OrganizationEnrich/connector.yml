@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Organization Enrichment
   description: Enriches company data with industry information, revenue, employee counts, and more
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Company Information
     items:

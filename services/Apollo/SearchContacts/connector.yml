@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Search Contacts
   description: Search for contacts in your Apollo.io account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Search Parameters
     items:

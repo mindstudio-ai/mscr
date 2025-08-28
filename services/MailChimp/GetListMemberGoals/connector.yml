@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get List Member Goals
   description: Retrieve the last 50 Goal events for a member on a specific MailChimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

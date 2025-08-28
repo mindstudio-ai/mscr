@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Shipping Classes
   description: Retrieves a list of all product shipping classes from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Classes Options
     items:
@@ -15,19 +15,19 @@ configuration:
         variable: perPage
         required: false
         type: text
-        defaultValue: "10"
+        defaultValue: '10'
       - label: Page Number
         helpText: Page number of results to return
         variable: page
         required: false
         type: text
-        defaultValue: "1"
+        defaultValue: '1'
       - label: Sort Order
         helpText: Order of sorting results
         variable: order
         required: false
         type: select
-        defaultValue: "asc"
+        defaultValue: 'asc'
         selectOptions:
           options:
             - label: Ascending
@@ -39,7 +39,7 @@ configuration:
         variable: orderby
         required: false
         type: select
-        defaultValue: "name"
+        defaultValue: 'name'
         selectOptions:
           options:
             - label: Name

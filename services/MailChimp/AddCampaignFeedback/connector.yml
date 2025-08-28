@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Campaign Feedback
   description: Add feedback on a specific Mailchimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Feedback Configuration
     items:

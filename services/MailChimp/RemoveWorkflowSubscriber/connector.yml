@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Remove Subscriber from Workflow
   description: Remove a subscriber from a Mailchimp automation workflow. Once removed, subscribers cannot be added back to the same workflow.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

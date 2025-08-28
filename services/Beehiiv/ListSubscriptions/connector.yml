@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Subscriptions
   description: Retrieve all subscriptions belonging to a specific Beehiiv publication with optional filtering
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Information
     items:

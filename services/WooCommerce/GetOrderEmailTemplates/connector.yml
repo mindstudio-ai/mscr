@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Order Email Templates
   description: Retrieves a list of available email templates for a specific WooCommerce order
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Information
     items:

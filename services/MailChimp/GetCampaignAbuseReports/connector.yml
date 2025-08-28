@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Campaign Abuse Reports
   description: Retrieve a list of abuse complaints for a specific Mailchimp campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Configuration
     items:

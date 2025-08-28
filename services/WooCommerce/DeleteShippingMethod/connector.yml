@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Shipping Method
   description: Permanently delete a shipping method from a WooCommerce shipping zone
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Zone Information
     items:

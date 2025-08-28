@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Product Review
   description: Update an existing product review in WooCommerce by ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Review Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Product Tag
   description: Permanently delete a product tag from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Tag Information
     items:

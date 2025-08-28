@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Member Event
   description: Add an event for a specific list member in MailChimp
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

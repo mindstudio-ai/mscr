@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Posts
   description: Retrieve a list of posts from a specified Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Configuration
     items:

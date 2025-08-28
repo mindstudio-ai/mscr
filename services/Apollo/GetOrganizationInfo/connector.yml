@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Organization Info
   description: Retrieves complete details about an organization from the Apollo.io database
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Organization Details
     items:

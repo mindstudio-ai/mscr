@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Webhook
   description: Creates a new webhook in WooCommerce to receive notifications for various events
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Details
     items:

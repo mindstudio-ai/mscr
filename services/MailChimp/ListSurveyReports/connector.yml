@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Survey Reports
   description: Retrieve a list of survey reports from your Mailchimp account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Survey Report Options
     items:

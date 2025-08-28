@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Shipping Class
   description: Create a new shipping class in WooCommerce
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Class Details
     items:

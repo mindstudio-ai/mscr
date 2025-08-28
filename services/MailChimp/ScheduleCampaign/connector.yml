@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Schedule Campaign
   description: Schedule a Mailchimp campaign for delivery at a specified time
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Settings
     items:

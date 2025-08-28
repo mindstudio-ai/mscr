@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Archive Automation
   description: Permanently ends an automation workflow while preserving the report data. Archived automations can be replicated but not restarted.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

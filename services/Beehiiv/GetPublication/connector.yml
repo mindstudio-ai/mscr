@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Publication
   description: Retrieve details about a single Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

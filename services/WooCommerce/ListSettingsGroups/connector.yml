@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Settings Groups
   description: Retrieves all WooCommerce settings groups from your store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

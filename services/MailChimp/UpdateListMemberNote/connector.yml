@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update List Member Note
   description: Update a specific note for a specific list member in Mailchimp.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List and Member Information
     items:

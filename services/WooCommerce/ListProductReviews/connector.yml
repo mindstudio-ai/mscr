@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Product Reviews
   description: Retrieve product reviews from your WooCommerce store with optional filtering and pagination
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Review Filters
     items:
@@ -14,7 +14,7 @@ configuration:
         helpText: Filter reviews by product IDs. Comma-separated list of product IDs.
         variable: productIds
         type: text
-        placeholder: "e.g., 123, 456, 789"
+        placeholder: 'e.g., 123, 456, 789'
       - label: Status
         helpText: Filter reviews by status.
         variable: status
@@ -62,17 +62,17 @@ configuration:
         helpText: Number of reviews to return per page (max 100).
         variable: perPage
         type: text
-        defaultValue: "10"
+        defaultValue: '10'
       - label: Page Number
         helpText: Page number of results to return.
         variable: page
         type: text
-        defaultValue: "1"
+        defaultValue: '1'
       - label: Search Term
         helpText: Search for reviews containing this term.
         variable: search
         type: text
-        placeholder: "Optional search term..."
+        placeholder: 'Optional search term...'
       - label: Output Variable
         required: true
         helpText: Variable name to store the list of reviews.

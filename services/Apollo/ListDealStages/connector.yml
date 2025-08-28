@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Deal Stages
   description: Retrieves all deal stages available in your Apollo account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

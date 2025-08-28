@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Tax Rates
   description: Create, update, or delete multiple tax rates in a single request
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Operation
     items:

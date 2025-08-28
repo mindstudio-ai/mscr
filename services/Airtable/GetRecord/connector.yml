@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Record
   description: Retrieves a single record from an Airtable table
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Airtable Configuration
     items:

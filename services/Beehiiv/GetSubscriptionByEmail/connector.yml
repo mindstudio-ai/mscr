@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Subscription by Email
   description: Retrieve a single subscription belonging to a specific email address in a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

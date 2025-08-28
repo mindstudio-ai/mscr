@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Shipping Method
   description: Update settings or attributes of a shipping method instance within a WooCommerce shipping zone
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Zone Details
     items:

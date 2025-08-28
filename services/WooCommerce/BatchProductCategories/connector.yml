@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Product Categories
   description: Create, update, and delete multiple product categories in a single request
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Create Categories
     items:

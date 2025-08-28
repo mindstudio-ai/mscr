@@ -6,7 +6,7 @@ active: true
 metadata:
   name: View Account
   description: Retrieves detailed information about an account (company) from Apollo.io
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Account Information
     items:

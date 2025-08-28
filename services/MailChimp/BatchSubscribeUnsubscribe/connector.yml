@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Subscribe or Unsubscribe
   description: Add or update multiple members to a MailChimp list in a single operation
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

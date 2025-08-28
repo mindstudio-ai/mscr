@@ -6,12 +6,12 @@ active: true
 metadata:
   name: Batch Update Product Reviews
   description: Create, update, and delete multiple product reviews in a single request
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Create Reviews
     items:
       - label: Reviews to Create
-        helpText: "JSON array of reviews to create. Each review should include product_id, review, reviewer, reviewer_email, and rating."
+        helpText: 'JSON array of reviews to create. Each review should include product_id, review, reviewer, reviewer_email, and rating.'
         variable: createReviews
         required: false
         type: text
@@ -21,7 +21,7 @@ configuration:
   - title: Update Reviews
     items:
       - label: Reviews to Update
-        helpText: "JSON array of reviews to update. Each review must include id and any fields you want to update."
+        helpText: 'JSON array of reviews to update. Each review must include id and any fields you want to update.'
         variable: updateReviews
         required: false
         type: text
@@ -31,15 +31,15 @@ configuration:
   - title: Delete Reviews
     items:
       - label: Review IDs to Delete
-        helpText: "Comma-separated list of review IDs to delete."
+        helpText: 'Comma-separated list of review IDs to delete.'
         variable: deleteReviews
         required: false
         type: text
-        placeholder: "123, 456, 789"
+        placeholder: '123, 456, 789'
   - title: Output
     items:
       - label: Result Variable
-        helpText: "Variable name to store the operation results."
+        helpText: 'Variable name to store the operation results.'
         variable: outputVariable
         required: true
         type: outputVariableName

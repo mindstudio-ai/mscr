@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Segment
   description: Delete a segment from a Beehiiv publication. Deleting the segment does not affect the subscriptions in the segment.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Segment Information
     items:

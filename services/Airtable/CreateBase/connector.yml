@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Base
   description: Creates a new Airtable base with specified tables and fields
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base Configuration
     items:

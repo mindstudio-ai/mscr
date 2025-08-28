@@ -12,16 +12,16 @@ test('updates a product category and saves output', async () => {
     ok: true,
     json: async () => ({
       id: 9,
-      name: "Clothing",
-      description: "Updated description"
-    })
+      name: 'Clothing',
+      description: 'Updated description',
+    }),
   });
 
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
     categoryId: '9',
     description: 'Updated description',
-    outputVariable: 'updatedCategory'
+    outputVariable: 'updatedCategory',
   });
 
   expect(ctx.outputs.updatedCategory).toBeTruthy();

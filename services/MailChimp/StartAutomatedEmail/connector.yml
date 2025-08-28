@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Start Automated Email
   description: Starts an automated email within a MailChimp automation workflow
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Automation Details
     items:

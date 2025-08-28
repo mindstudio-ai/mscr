@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Base Schema
   description: Retrieves the schema of tables in a specified Airtable base
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Base Information
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Account
   description: Updates an existing account in Apollo with new information
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Account Information
     items:

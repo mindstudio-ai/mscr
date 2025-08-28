@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Product Category
   description: Update an existing product category in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Category Details
     items:
@@ -15,25 +15,25 @@ configuration:
         helpText: The ID of the category you want to update
         variable: categoryId
         type: text
-        placeholder: "9"
+        placeholder: '9'
       - label: Name
         required: false
         helpText: The name of the category
         variable: name
         type: text
-        placeholder: "Clothing"
+        placeholder: 'Clothing'
       - label: Slug
         required: false
         helpText: The slug of the category (URL friendly version of the name)
         variable: slug
         type: text
-        placeholder: "clothing"
+        placeholder: 'clothing'
       - label: Parent Category ID
         required: false
         helpText: The ID of the parent category (0 for a top-level category)
         variable: parent
         type: text
-        placeholder: "0"
+        placeholder: '0'
       - label: Description
         required: false
         helpText: The description of the category
@@ -41,7 +41,7 @@ configuration:
         type: text
         textOptions:
           type: multiline
-        placeholder: "All kinds of clothes."
+        placeholder: 'All kinds of clothes.'
       - label: Display Type
         required: false
         helpText: How to display the category in your store
@@ -62,7 +62,7 @@ configuration:
         helpText: The order to display the category in menus (0 by default)
         variable: menuOrder
         type: text
-        placeholder: "0"
+        placeholder: '0'
   - title: Output
     items:
       - label: Output Variable

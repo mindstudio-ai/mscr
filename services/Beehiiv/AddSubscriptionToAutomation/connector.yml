@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Subscription to Automation
   description: Adds an existing subscriber to a Beehiiv automation flow
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Automation Details
     items:

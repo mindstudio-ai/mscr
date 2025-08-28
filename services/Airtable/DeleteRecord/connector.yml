@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Record
   description: Deletes a single record from an Airtable table
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Airtable Configuration
     items:

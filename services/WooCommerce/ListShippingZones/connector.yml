@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Shipping Zones
   description: Retrieves all shipping zones from your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

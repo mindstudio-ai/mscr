@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Automation Info
   description: Retrieve detailed information about a specific automation workflow in MailChimp
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Automation Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Shipping Method to Zone
   description: Creates a new shipping method instance within a specific WooCommerce shipping zone
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Shipping Zone Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Member Activity
   description: Retrieves a member's activity on a specific list, including opens, clicks, and unsubscribes
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

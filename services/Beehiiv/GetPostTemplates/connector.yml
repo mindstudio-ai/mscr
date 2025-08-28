@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Post Templates
   description: Retrieve a list of post templates available for a beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Publication Details
     items:

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Subscription by ID
   description: Retrieve a single subscription belonging to a specific publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Basic Configuration
     items:

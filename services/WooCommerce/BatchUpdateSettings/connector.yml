@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Batch Update Settings
   description: Update multiple WooCommerce setting options within a specified settings group
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Settings Configuration
     items:

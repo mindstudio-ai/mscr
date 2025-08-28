@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Coupon
   description: Update an existing coupon in your WooCommerce store
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Coupon Details
     items:

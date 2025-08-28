@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Check Email Stats
   description: Retrieve detailed statistics and information about an email sent through Apollo
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Email Details
     items:

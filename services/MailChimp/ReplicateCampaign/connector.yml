@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Replicate Campaign
   description: Create a copy of an existing campaign
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Campaign Details
     items:

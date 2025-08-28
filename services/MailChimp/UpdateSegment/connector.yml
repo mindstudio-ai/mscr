@@ -7,7 +7,7 @@ active: true
 metadata:
   name: Update Segment
   description: Updates a specific segment in a Mailchimp list
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List Information
     items:

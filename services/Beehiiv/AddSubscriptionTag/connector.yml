@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add Subscription Tags
   description: Adds tags to a subscription in beehiiv. If the tag doesn't exist, it will be created automatically.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Subscription Details
     items:

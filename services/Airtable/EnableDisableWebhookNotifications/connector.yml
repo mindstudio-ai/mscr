@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Enable/Disable Webhook Notifications
   description: Enables or disables notification pings for a webhook in Airtable
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Configuration
     items:

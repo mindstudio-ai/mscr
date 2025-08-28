@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Custom Field
   description: Retrieves a specific custom field from a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Custom Field Details
     items:

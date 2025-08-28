@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Update Custom Field
   description: Updates a custom field for a publication in Beehiiv
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Update Custom Field Configuration
     items:

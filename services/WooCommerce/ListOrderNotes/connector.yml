@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Order Notes
   description: Retrieves all notes for a specific WooCommerce order
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Order Configuration
     items:

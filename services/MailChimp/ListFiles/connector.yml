@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Files
   description: Retrieve a list of files and images stored in your MailChimp File Manager
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: File Filtering Options
     items:

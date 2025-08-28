@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Create Deal
   description: Creates a new deal in Apollo to track account activity, monetary values, and deal stages
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Deal Information
     items:

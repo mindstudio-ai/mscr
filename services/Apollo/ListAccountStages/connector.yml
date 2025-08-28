@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Account Stages
   description: Retrieves all account stages from your Apollo.io account
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output
     items:

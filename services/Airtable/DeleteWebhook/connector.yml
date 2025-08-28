@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Webhook
   description: Deletes a webhook from an Airtable base
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Configuration
     items:

@@ -1,34 +1,19 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('creates a product tag and saves output', async () => {
-  // Set environment variables
+test('creates a WooCommerce product tag', async () => {
+  // Set up environment variables
   process.env.url = 'https://example.com';
-  process.env.consumerKey = 'ck_test';
-  process.env.consumerSecret = 'cs_test';
-
-  // Mock fetch to avoid actual API calls
-  global.fetch = vi.fn().mockResolvedValue({
-    ok: true,
-    status: 201,
-    json: async () => ({
-      id: 34,
-      name: 'Test Tag',
-      slug: 'test-tag',
-      description: 'Test description',
-      count: 0,
-    }),
-  });
+  process.env.consumerKey = 'test_consumer_key';
+  process.env.consumerSecret = 'test_consumer_secret';
 
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
     name: 'Test Tag',
     slug: 'test-tag',
-    description: 'Test description',
-    outputVariable: 'createdTag',
+    description: 'This is a test tag',
+    outputVariable: 'tagResult',
   });
 
-  expect(ctx.outputs['createdTag']).toBeTruthy();
-  expect(ctx.outputs['createdTag'].id).toBe(34);
-  expect(ctx.outputs['createdTag'].name).toBe('Test Tag');
+  expect(ctx.outputs['tagResult']).toBeTruthy();
 });

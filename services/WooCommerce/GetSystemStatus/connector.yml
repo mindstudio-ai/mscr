@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get System Status
   description: Retrieve detailed system status information from your WooCommerce store, including environment details, database information, active plugins, theme information, and more.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

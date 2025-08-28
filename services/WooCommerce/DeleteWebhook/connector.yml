@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Delete Webhook
   description: Delete a webhook from your WooCommerce store by ID
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Webhook Configuration
     items:

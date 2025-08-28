@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Landing Page Reports
   description: Retrieve analytics reports for your Mailchimp landing pages
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Query Parameters
     items:

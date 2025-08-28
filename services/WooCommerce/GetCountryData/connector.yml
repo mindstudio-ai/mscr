@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Country Data
   description: Retrieve detailed information about a specific country, including its states
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Country Configuration
     items:

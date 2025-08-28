@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get User Info
   description: Retrieves the authenticated user's ID and optionally their email address from Airtable
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Output Configuration
     items:

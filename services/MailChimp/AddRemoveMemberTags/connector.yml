@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Add or Remove Member Tags
   description: Add or remove tags from a MailChimp list member
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: List and Member Information
     items:

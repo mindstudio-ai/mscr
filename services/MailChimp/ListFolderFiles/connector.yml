@@ -6,7 +6,7 @@ active: true
 metadata:
   name: List Files in Folder
   description: Get a list of files and images stored in a specific folder in MailChimp's File Manager
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Folder Information
     items:

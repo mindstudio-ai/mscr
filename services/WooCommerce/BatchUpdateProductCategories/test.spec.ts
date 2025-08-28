@@ -13,17 +13,17 @@ test('batch update product categories', async () => {
     json: async () => ({
       create: [{ id: 15, name: 'New Category' }],
       update: [{ id: 10, name: 'Updated Category' }],
-      delete: [{ id: 11, name: 'Deleted Category' }]
-    })
+      delete: [{ id: 11, name: 'Deleted Category' }],
+    }),
   });
 
   const { handler } = await import('./handler.ts');
-  
+
   const ctx = await runConnector(handler, {
     createCategories: [{ name: 'New Category' }],
     updateCategories: [{ id: 10, name: 'Updated Category' }],
     deleteCategories: '11',
-    outputVariable: 'result'
+    outputVariable: 'result',
   });
 
   expect(ctx.outputs.result).toBeTruthy();

@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Product Attribute Term
   description: Retrieves a single term for a specific product attribute by its ID.
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Configuration
     items:

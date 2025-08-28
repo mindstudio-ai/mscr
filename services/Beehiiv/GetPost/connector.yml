@@ -6,7 +6,7 @@ active: true
 metadata:
   name: Get Post
   description: Retrieves a single post from a Beehiiv publication
-  quickHelp: help.md
+  quickHelp: readme.md
 configuration:
   - title: Post Details
     items:
