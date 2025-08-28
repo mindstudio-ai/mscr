@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: send-message
+serviceId: heyreach
+active: true
+metadata:
+  name: Send LinkedIn Message
+  description: Send a message to a LinkedIn conversation using HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: Message Details
+    items:
+      - label: Message Content
+        helpText: The message content to send to the LinkedIn conversation
+        variable: message
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Subject
+        helpText: Optional subject line for the message
+        variable: subject
+        required: false
+        type: text
+      - label: Conversation ID
+        helpText: The ID of the LinkedIn conversation to send the message to
+        variable: conversationId
+        required: true
+        type: text
+        placeholder: 'e.g., 2-ODM0YmIzNzgtOGEyOS00ZTYzLWExYTItNmM0MWNhMjNlNGZj'
+      - label: LinkedIn Account ID
+        helpText: The ID of your LinkedIn sender account
+        variable: linkedInAccountId
+        required: true
+        type: text
+        placeholder: 'e.g., 123'
+      - label: Success Variable
+        helpText: Variable to store the success status (true/false)
+        variable: successVariable
+        required: true
+        type: outputVariableName

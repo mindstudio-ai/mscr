@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-lead-tags
+serviceId: heyreach
+active: true
+metadata:
+  name: Get Lead Tags
+  description: Retrieves tags associated with a LinkedIn profile from HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: Lead Information
+    items:
+      - label: LinkedIn Profile URL
+        helpText: The full LinkedIn profile URL of the lead
+        variable: profileUrl
+        required: true
+        type: text
+        placeholder: https://www.linkedin.com/in/username/
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the retrieved tags
+        variable: outputVariable
+        type: outputVariableName

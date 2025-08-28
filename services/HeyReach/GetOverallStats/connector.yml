@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: get-overall-stats
+serviceId: heyreach
+active: true
+metadata:
+  name: Get Overall Stats
+  description: Retrieves LinkedIn engagement statistics from HeyReach for a specified date range
+  quickHelp: readme.md
+configuration:
+  - title: Date Range
+    items:
+      - label: Start Date
+        helpText: The start date for the stats period (format YYYY-MM-DD)
+        variable: startDate
+        required: true
+        type: text
+        defaultValue: '2023-01-01'
+      - label: End Date
+        helpText: The end date for the stats period (format YYYY-MM-DD)
+        variable: endDate
+        required: true
+        type: text
+        defaultValue: '2023-01-07'
+  - title: Filters (Optional)
+    collapsed: true
+    items:
+      - label: Account IDs
+        helpText: Comma-separated list of LinkedIn sender account IDs. Leave empty to include all accounts.
+        variable: accountIds
+        required: false
+        type: text
+        placeholder: 'e.g., 1234,5678'
+      - label: Campaign IDs
+        helpText: Comma-separated list of campaign IDs. Leave empty to include all campaigns.
+        variable: campaignIds
+        required: false
+        type: text
+        placeholder: 'e.g., 100,101,102'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the stats results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

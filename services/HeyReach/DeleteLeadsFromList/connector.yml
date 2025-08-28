@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: delete-leads-from-list
+serviceId: heyreach
+active: true
+metadata:
+  name: Delete Leads From List
+  description: Removes specified leads from a HeyReach list using their LinkedIn profile URLs
+  quickHelp: readme.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The ID of the HeyReach list from which to delete leads
+        variable: listId
+        required: true
+        type: text
+        placeholder: 1234
+  - title: Leads to Delete
+    items:
+      - label: LinkedIn Profile URLs
+        helpText: LinkedIn profile URLs of leads to delete, one per line
+        variable: profileUrls
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: "https://www.linkedin.com/in/john-doe/\nhttps://www.linkedin.com/in/jane-doe/"
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store information about leads that were not found in the list
+        variable: outputVariable
+        required: true
+        type: outputVariableName

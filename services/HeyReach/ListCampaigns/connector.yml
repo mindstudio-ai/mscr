@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Action
+id: list-campaigns
+serviceId: heyreach
+active: true
+metadata:
+  name: List Campaigns
+  description: Retrieve a paginated list of HeyReach campaigns with filtering options
+  quickHelp: readme.md
+configuration:
+  - title: Filter Options
+    items:
+      - label: Search Keyword
+        helpText: Filter campaigns by name (optional)
+        variable: keyword
+        required: false
+        type: text
+        placeholder: Enter campaign name...
+      - label: Campaign Statuses
+        helpText: Filter campaigns by their status (optional)
+        variable: statuses
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Draft
+              value: DRAFT
+            - label: Active
+              value: ACTIVE
+            - label: Paused
+              value: PAUSED
+            - label: Completed
+              value: COMPLETED
+      - label: Account IDs
+        helpText: Filter by specific account IDs, comma-separated (optional)
+        variable: accountIds
+        required: false
+        type: text
+        placeholder: e.g., 123,456,789
+  - title: Pagination
+    items:
+      - label: Results Per Page
+        helpText: Maximum number of campaigns to return (1-100)
+        variable: limit
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: Enter a number between 1-100
+      - label: Page Offset
+        helpText: Number of campaigns to skip
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: Enter a number
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of campaigns
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: get-chatroom
+serviceId: heyreach
+active: true
+metadata:
+  name: Get LinkedIn Conversation
+  description: Retrieves a LinkedIn conversation with its messages by ID from HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: Conversation Details
+    items:
+      - label: Account ID
+        helpText: The ID of the LinkedIn account in HeyReach
+        variable: accountId
+        required: true
+        type: text
+        placeholder: Enter account ID...
+      - label: Conversation ID
+        helpText: The ID of the LinkedIn conversation to retrieve
+        variable: conversationId
+        required: true
+        type: text
+        placeholder: Enter conversation ID...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the conversation details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

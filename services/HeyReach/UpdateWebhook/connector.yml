@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Action
+id: update-webhook
+serviceId: heyreach
+active: true
+metadata:
+  name: Update Webhook
+  description: Updates an existing webhook configuration in HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: Webhook Details
+    items:
+      - label: Webhook ID
+        required: true
+        helpText: The unique identifier of the webhook to update
+        variable: webhookId
+        type: text
+        placeholder: '1234'
+      - label: Webhook Name
+        required: false
+        helpText: The name of the webhook. Leave empty to keep the original name
+        variable: webhookName
+        type: text
+        placeholder: 'My Webhook'
+      - label: Webhook URL
+        required: false
+        helpText: The URL to which the webhook will send POST requests. Leave empty to keep the original URL
+        variable: webhookUrl
+        type: text
+        placeholder: 'https://example.com/webhook'
+      - label: Event Type
+        required: false
+        helpText: The type of event that triggers the webhook. Leave empty to keep the original event type
+        variable: eventType
+        type: select
+        selectOptions:
+          options:
+            - label: Connection Request Sent
+              value: CONNECTION_REQUEST_SENT
+            - label: Connection Request Accepted
+              value: CONNECTION_REQUEST_ACCEPTED
+            - label: Message Sent
+              value: MESSAGE_SENT
+            - label: Message Reply Received
+              value: MESSAGE_REPLY_RECEIVED
+            - label: InMail Sent
+              value: INMAIL_SENT
+            - label: InMail Reply Received
+              value: INMAIL_REPLY_RECEIVED
+            - label: Follow Sent
+              value: FOLLOW_SENT
+            - label: Liked Post
+              value: LIKED_POST
+            - label: Viewed Profile
+              value: VIEWED_PROFILE
+            - label: Campaign Completed
+              value: CAMPAIGN_COMPLETED
+            - label: Lead Tag Updated
+              value: LEAD_TAG_UPDATED
+      - label: Campaign IDs
+        required: false
+        helpText: "A comma-separated list of campaign IDs. Leave empty to keep the original campaign IDs. Use '[]' to listen to all campaigns"
+        variable: campaignIds
+        type: text
+        placeholder: '123,456,789'
+      - label: Is Active
+        required: false
+        helpText: Determines whether the webhook should be active
+        variable: isActive
+        type: select
+        selectOptions:
+          options:
+            - label: Enabled
+              value: 'true'
+            - label: Disabled
+              value: 'false'
+            - label: Keep Original Status
+              value: ''
+  - title: Response
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the API response
+        variable: outputVariable
+        type: outputVariableName

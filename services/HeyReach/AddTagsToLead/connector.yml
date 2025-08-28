@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: add-tags-to-lead
+serviceId: heyreach
+active: true
+metadata:
+  name: Add Tags to Lead
+  description: Adds tags to a lead in HeyReach using their LinkedIn profile URL or LinkedIn ID
+  quickHelp: readme.md
+configuration:
+  - title: Lead Identification
+    items:
+      - label: LinkedIn Profile URL
+        helpText: The LinkedIn profile URL of the lead (e.g., https://www.linkedin.com/in/john-doe/)
+        variable: leadProfileUrl
+        required: false
+        type: text
+        placeholder: https://www.linkedin.com/in/...
+      - label: LinkedIn ID
+        helpText: The LinkedIn ID of the lead. You can find this ID as 'linkedin_id' in responses from other HeyReach endpoints.
+        variable: leadLinkedInId
+        required: false
+        type: text
+        placeholder: LinkedIn ID...
+  - title: Tag Configuration
+    items:
+      - label: Tags
+        helpText: Comma-separated list of tags to add to the lead (e.g., 'prospect, follow-up, interested')
+        variable: tags
+        required: true
+        type: text
+        placeholder: tag1, tag2, tag3
+      - label: Create Tags If Not Existing
+        helpText: If set to 'Yes', tags that don't exist will be created. If 'No', the request will fail if any tag doesn't exist.
+        variable: createTagIfNotExisting
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the newly assigned tags
+        variable: outputVariable
+        required: true
+        type: outputVariableName
