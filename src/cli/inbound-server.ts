@@ -24,7 +24,6 @@ function safeJoinBase(relPath: string): string {
 
 app.post('/generate', async (req, res) => {
   const { path: connectorPath, code, test, quickHelp, yaml } = req.body;
-  console.log(req.body);
 
   try {
     // Resolve and create directory
