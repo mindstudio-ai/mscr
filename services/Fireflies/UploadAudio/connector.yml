@@ -1,0 +1,102 @@
+apiVersion: v1
+kind: Action
+id: upload-audio
+serviceId: fireflies
+active: true
+metadata:
+  name: Upload Audio
+  description: Upload audio files to Fireflies.ai for transcription
+  quickHelp: readme.md
+configuration:
+  - title: Audio Source
+    items:
+      - label: Audio URL
+        variable: url
+        type: text
+        required: true
+        helpText: 'HTTPS URL to the audio/video file. Must be publicly accessible and in mp3, mp4, wav, m4a, or ogg format.'
+        placeholder: 'https://example.com/audio.mp3'
+
+  - title: Meeting Details
+    items:
+      - label: Meeting Title
+        variable: title
+        type: text
+        required: true
+        helpText: 'Title or name of the meeting. This will be used to identify the transcribed file.'
+        placeholder: 'Team Weekly Sync'
+
+      - label: Language
+        variable: custom_language
+        type: select
+        required: false
+        helpText: 'Specify a custom language for the meeting transcription.'
+        selectOptions:
+          options:
+            - label: English (Default)
+              value: ''
+            - label: Spanish
+              value: 'es'
+            - label: German
+              value: 'de'
+            - label: French
+              value: 'fr'
+            - label: Italian
+              value: 'it'
+            - label: Portuguese
+              value: 'pt'
+            - label: Japanese
+              value: 'ja'
+            - label: Chinese
+              value: 'zh'
+
+      - label: Save Video
+        variable: save_video
+        type: select
+        required: false
+        helpText: 'Specify whether the video should be saved or not.'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Client Reference ID
+        variable: client_reference_id
+        type: text
+        required: false
+        helpText: 'Custom identifier to track this upload in your system.'
+        placeholder: 'meeting-123'
+
+      - label: Bypass Size Check
+        variable: bypass_size_check
+        type: select
+        required: false
+        helpText: "Set to 'Yes' to process very short audio clips (smaller than 50kb)."
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+
+      - label: Attendees JSON
+        variable: attendees
+        type: text
+        required: false
+        helpText: 'JSON array of meeting attendees. Format: [{"displayName":"Name","email":"email@example.com","phoneNumber":"1234567890"}]'
+        textOptions:
+          type: multiline
+        placeholder: '[{"displayName":"John Doe","email":"john@example.com","phoneNumber":"1234567890"}]'
+
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: 'Name of the variable to store the upload result.'

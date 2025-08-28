@@ -1,0 +1,157 @@
+apiVersion: v1
+kind: Action
+id: get-transcripts
+serviceId: fireflies
+active: true
+metadata:
+  name: Get Transcripts
+  description: Retrieve transcripts from Fireflies.ai with various search criteria
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Keyword Search
+        helpText: Search for keywords in meeting title and/or words spoken during the meeting
+        variable: keyword
+        required: false
+        type: text
+        placeholder: Enter search terms...
+
+      - label: Search Scope
+        helpText: Specify where to search for the keyword
+        variable: scope
+        required: false
+        type: select
+        defaultValue: title
+        selectOptions:
+          options:
+            - label: Title Only
+              value: title
+            - label: Sentences Only
+              value: sentences
+            - label: Title and Sentences
+              value: all
+
+      - label: From Date
+        helpText: Return transcripts created after this date (ISO 8601 format)
+        variable: fromDate
+        required: false
+        type: text
+        placeholder: 2023-01-01T00:00:00.000Z
+
+      - label: To Date
+        helpText: Return transcripts created before this date (ISO 8601 format)
+        variable: toDate
+        required: false
+        type: text
+        placeholder: 2023-12-31T23:59:59.999Z
+
+      - label: Host Email
+        helpText: Filter meetings by host email address
+        variable: hostEmail
+        required: false
+        type: text
+        placeholder: host@example.com
+
+      - label: Participant Email
+        helpText: Filter meetings that include this email as an attendee
+        variable: participantEmail
+        required: false
+        type: text
+        placeholder: participant@example.com
+
+      - label: User ID
+        helpText: Filter meetings that have this user ID as organizer or participant
+        variable: userId
+        required: false
+        type: text
+        placeholder: user_123456
+
+      - label: My Meetings Only
+        helpText: Filter meetings where you are the organizer
+        variable: mine
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+
+      - label: Result Limit
+        helpText: Maximum number of transcripts to return (max 50)
+        variable: limit
+        required: false
+        type: text
+        defaultValue: '10'
+
+      - label: Skip Results
+        helpText: Number of transcripts to skip
+        variable: skip
+        required: false
+        type: text
+        defaultValue: '0'
+
+  - title: Result Fields
+    items:
+      - label: Include Transcript Details
+        helpText: Include basic transcript details like title, ID, date, and duration
+        variable: includeDetails
+        required: true
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+
+      - label: Include Sentences
+        helpText: Include the actual transcript sentences and speaker information
+        variable: includeSentences
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+
+      - label: Include Summary
+        helpText: Include meeting summary, action items, and keywords
+        variable: includeSummary
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+
+      - label: Include Analytics
+        helpText: Include meeting analytics like sentiment analysis and speaker metrics
+        variable: includeAnalytics
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the transcript results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

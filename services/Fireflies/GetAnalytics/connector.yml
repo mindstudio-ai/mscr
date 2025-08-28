@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Action
+id: get-analytics
+serviceId: fireflies
+active: true
+metadata:
+  name: Get Analytics
+  description: Retrieve conversation and meeting analytics data from Fireflies.ai
+  quickHelp: readme.md
+configuration:
+  - title: Date Range
+    items:
+      - label: Start Date
+        helpText: The start date for analytics in ISO 8601 format (e.g., 2024-01-01T00:00:00Z)
+        variable: startTime
+        required: true
+        type: text
+        defaultValue: '2024-01-01T00:00:00Z'
+      - label: End Date
+        helpText: The end date for analytics in ISO 8601 format (e.g., 2024-01-31T23:59:59Z)
+        variable: endTime
+        required: true
+        type: text
+        defaultValue: '2024-01-31T23:59:59Z'
+  - title: Analytics Options
+    items:
+      - label: Analytics Level
+        helpText: Choose whether to retrieve team-level or user-level analytics
+        variable: analyticsLevel
+        required: true
+        type: select
+        defaultValue: team
+        selectOptions:
+          options:
+            - label: Team Analytics
+              value: team
+            - label: User Analytics
+              value: users
+            - label: Both Team and User Analytics
+              value: both
+  - title: Team Analytics Metrics
+    collapsed: true
+    items:
+      - label: Include Team Conversation Metrics
+        helpText: Select which team conversation metrics to include
+        variable: includeTeamConversation
+        required: false
+        type: select
+        defaultValue: basic
+        selectOptions:
+          options:
+            - label: Basic Metrics
+              value: basic
+            - label: All Metrics
+              value: all
+            - label: None
+              value: none
+      - label: Include Team Meeting Metrics
+        helpText: Select which team meeting metrics to include
+        variable: includeTeamMeeting
+        required: false
+        type: select
+        defaultValue: basic
+        selectOptions:
+          options:
+            - label: Basic Metrics
+              value: basic
+            - label: All Metrics
+              value: all
+            - label: None
+              value: none
+  - title: User Analytics Metrics
+    collapsed: true
+    items:
+      - label: Include User Conversation Metrics
+        helpText: Select which user conversation metrics to include
+        variable: includeUserConversation
+        required: false
+        type: select
+        defaultValue: basic
+        selectOptions:
+          options:
+            - label: Basic Metrics
+              value: basic
+            - label: All Metrics
+              value: all
+            - label: None
+              value: none
+      - label: Include User Meeting Metrics
+        helpText: Select which user meeting metrics to include
+        variable: includeUserMeeting
+        required: false
+        type: select
+        defaultValue: basic
+        selectOptions:
+          options:
+            - label: Basic Metrics
+              value: basic
+            - label: All Metrics
+              value: all
+            - label: None
+              value: none
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the analytics results
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: get-ai-apps-outputs
+serviceId: fireflies
+active: true
+metadata:
+  name: Get AI Apps Outputs
+  description: Retrieves AI-generated insights from Fireflies.ai meeting transcripts
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Transcript ID
+        helpText: The ID of a specific transcript/meeting to retrieve AI App outputs for (optional)
+        variable: transcriptId
+        required: false
+        type: text
+        placeholder: Enter transcript ID...
+      - label: App ID
+        helpText: The ID of a specific AI App to retrieve outputs for (optional)
+        variable: appId
+        required: false
+        type: text
+        placeholder: Enter app ID...
+      - label: Output Variable
+        helpText: Variable name to store the AI App outputs
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Skip
+        helpText: Number of records to skip (for pagination)
+        variable: skip
+        required: false
+        type: text
+        placeholder: 0
+        defaultValue: '0'
+      - label: Limit
+        helpText: Maximum number of outputs to fetch (max 10)
+        variable: limit
+        required: false
+        type: text
+        placeholder: 10
+        defaultValue: '10'

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-user-groups
+serviceId: fireflies
+active: true
+metadata:
+  name: Get User Groups
+  description: Retrieves a list of user groups from your Fireflies.ai account, including group details and members.
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Only My Groups
+        helpText: If set to 'Yes', returns only user groups that the current user belongs to. If set to 'No', returns all user groups in the team.
+        variable: onlyMyGroups
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Output Variable
+        helpText: The variable name to store the list of user groups.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

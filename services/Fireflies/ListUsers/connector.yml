@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: list-users
+serviceId: fireflies
+active: true
+metadata:
+  name: List Users
+  description: Retrieves a list of all users within your Fireflies.ai team with their details
+  quickHelp: readme.md
+configuration:
+  - title: Query Options
+    items:
+      - label: Include User Groups
+        helpText: Whether to include user group information in the results
+        variable: includeUserGroups
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the list of users
+        variable: outputVariable
+        type: outputVariableName

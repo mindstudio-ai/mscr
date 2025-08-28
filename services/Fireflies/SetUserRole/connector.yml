@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: set-user-role
+serviceId: fireflies
+active: true
+metadata:
+  name: Set User Role
+  description: Update a user's role within a Fireflies.ai team
+  quickHelp: readme.md
+configuration:
+  - title: User Information
+    items:
+      - label: User ID
+        helpText: The unique identifier of the user whose role you want to change
+        variable: userId
+        required: true
+        type: text
+        placeholder: Enter user ID...
+      - label: Role
+        helpText: The role to assign to the user
+        variable: role
+        required: true
+        type: select
+        defaultValue: user
+        selectOptions:
+          options:
+            - label: Admin
+              value: admin
+            - label: User
+              value: user
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated user information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

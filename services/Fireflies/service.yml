@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: fireflies
+metadata:
+  name: Fireflies.ai
+  description: AI-powered voice assistant that transcribes, summarizes, and takes notes in meetings
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756385956631.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your Fireflies.ai API key. To learn about creating an API key, visit: https://docs.fireflies.ai/getting-started/quickstart#obtaining-authentication-credentials'
+    placeholder: XXX...

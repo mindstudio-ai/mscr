@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: get-bite
+serviceId: fireflies
+active: true
+metadata:
+  name: Get Bite
+  description: Retrieves detailed information about a specific bite from Fireflies.ai
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Bite ID
+        helpText: The unique identifier of the bite you want to retrieve
+        variable: biteId
+        required: true
+        type: text
+        placeholder: Enter bite ID...
+      - label: Fields to Include
+        helpText: Select the level of detail to include in the response
+        variable: fieldsToInclude
+        required: true
+        type: select
+        defaultValue: basic
+        selectOptions:
+          options:
+            - label: Basic (id, name, status, summary)
+              value: basic
+            - label: Standard (basic + transcript details, timestamps)
+              value: standard
+            - label: Complete (all available fields)
+              value: complete
+      - label: Output Variable
+        helpText: The variable name to store the bite information
+        variable: outputVariable
+        required: true
+        type: outputVariableName
