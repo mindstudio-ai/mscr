@@ -12,7 +12,7 @@ test('creates a WooCommerce product tag', async () => {
     name: 'Test Tag',
     slug: 'test-tag',
     description: 'This is a test tag',
-    outputVariable: 'tagResult'
+    outputVariable: 'tagResult',
   });
 
   expect(ctx.outputs['tagResult']).toBeTruthy();

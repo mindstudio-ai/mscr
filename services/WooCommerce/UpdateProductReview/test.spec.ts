@@ -6,7 +6,7 @@ test('updates product review and saves output', async () => {
   process.env.url = 'https://example.com';
   process.env.consumerKey = 'ck_test';
   process.env.consumerSecret = 'cs_test';
-  
+
   // Mock fetch to avoid actual API calls
   global.fetch = vi.fn().mockResolvedValue({
     ok: true,
@@ -17,8 +17,8 @@ test('updates product review and saves output', async () => {
       status: 'approved',
       review: 'Now works just fine.',
       rating: 5,
-      verified: true
-    })
+      verified: true,
+    }),
   });
 
   const { handler } = await import('./handler.ts');
@@ -26,13 +26,13 @@ test('updates product review and saves output', async () => {
     reviewId: '20',
     rating: 5,
     review: 'Now works just fine.',
-    outputVariable: 'updatedReview'
+    outputVariable: 'updatedReview',
   });
 
   expect(ctx.outputs['updatedReview']).toBeTruthy();
   expect(ctx.outputs['updatedReview'].id).toBe(20);
   expect(ctx.outputs['updatedReview'].rating).toBe(5);
-  
+
   // Verify fetch was called with correct parameters
   expect(fetch).toHaveBeenCalledTimes(1);
   const [url, options] = (fetch as any).mock.calls[0];

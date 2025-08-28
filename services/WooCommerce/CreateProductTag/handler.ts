@@ -12,7 +12,7 @@ export const handler = async ({
 }) => {
   // Extract environment variables
   const { url, consumerKey, consumerSecret } = process.env;
-  
+
   // Validate environment variables
   if (!url) {
     throw new Error('Missing WooCommerce store URL');
@@ -26,7 +26,7 @@ export const handler = async ({
 
   // Extract inputs
   const { name, slug, description, outputVariable } = inputs;
-  
+
   // Validate required inputs
   if (!name) {
     throw new Error('Tag name is required');
@@ -47,10 +47,12 @@ export const handler = async ({
 
   // Prepare API endpoint
   const endpoint = `${url.replace(/\/$/, '')}/wp-json/wc/v3/products/tags`;
-  
+
   // Create authorization header (Basic Auth)
-  const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
-  
+  const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString(
+    'base64',
+  );
+
   log(`Creating product tag "${name}" in WooCommerce...`);
 
   try {
@@ -59,7 +61,7 @@ export const handler = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${auth}`,
+        Authorization: `Basic ${auth}`,
       },
       body: JSON.stringify(requestBody),
     });
@@ -74,7 +76,7 @@ export const handler = async ({
     }
 
     log(`Successfully created product tag "${name}" with ID ${data.id}`);
-    
+
     // Set the output variable with the complete tag data
     setOutput(outputVariable, data);
   } catch (error) {

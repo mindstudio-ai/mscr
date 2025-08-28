@@ -9,12 +9,12 @@ test('retrieves product categories', async () => {
 
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    perPage: "5",
-    page: "1",
-    order: "asc",
-    orderby: "name",
-    hideEmpty: "false",
-    outputVariable: 'categories'
+    perPage: '5',
+    page: '1',
+    order: 'asc',
+    orderby: 'name',
+    hideEmpty: 'false',
+    outputVariable: 'categories',
   });
 
   expect(ctx.outputs['categories']).toBeTruthy();

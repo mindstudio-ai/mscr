@@ -9,7 +9,7 @@ test('creates a shipping class and saves output', async () => {
 
   // Import handler
   const { handler } = await import('./handler.ts');
-  
+
   // Mock fetch to return a successful response
   global.fetch = vi.fn().mockResolvedValue({
     ok: true,
@@ -18,7 +18,7 @@ test('creates a shipping class and saves output', async () => {
       name: 'Priority',
       slug: 'priority',
       description: 'Test description',
-      count: 0
+      count: 0,
     }),
   });
 
@@ -27,7 +27,7 @@ test('creates a shipping class and saves output', async () => {
     name: 'Priority',
     slug: 'priority',
     description: 'Test description',
-    outputVariable: 'shippingClass'
+    outputVariable: 'shippingClass',
   });
 
   // Verify the output was set correctly
