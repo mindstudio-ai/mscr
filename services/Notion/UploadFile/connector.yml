@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: upload-file
+serviceId: notion
+active: true
+metadata:
+  name: Upload File to Notion
+  description: Upload a file to your Notion workspace from a URL
+  quickHelp: readme.md
+configuration:
+  - title: File Details
+    items:
+      - label: File URL
+        helpText: URL to the file you want to upload to Notion. The file will be downloaded and then uploaded to Notion.
+        variable: fileUrl
+        required: true
+        type: text
+        placeholder: https://example.com/myfile.pdf
+      - label: Filename
+        helpText: Name of the file to be created in Notion. Must include a file extension.
+        variable: filename
+        required: true
+        type: text
+        placeholder: document.pdf
+      - label: Content Type
+        helpText: MIME type of the file. If not provided, it will be inferred from the file extension.
+        variable: contentType
+        required: false
+        type: text
+        placeholder: application/pdf
+  - title: Upload Options
+    items:
+      - label: Upload Mode
+        helpText: Choose 'Single Part' for files under 20MB and 'Multi Part' for larger files.
+        variable: mode
+        required: true
+        type: select
+        defaultValue: single_part
+        selectOptions:
+          options:
+            - label: Single Part (files under 20MB)
+              value: single_part
+            - label: Multi Part (files over 20MB)
+              value: multi_part
+      - label: Output Variable
+        helpText: Name of the variable to store the file upload result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

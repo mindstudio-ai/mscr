@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Action
+id: create-database
+serviceId: notion
+active: true
+metadata:
+  name: Create Database
+  description: Creates a new database in your Notion workspace as a subpage of an existing page
+  quickHelp: readme.md
+configuration:
+  - title: Database Details
+    items:
+      - label: Parent Page ID
+        required: true
+        helpText: The ID of the page where the database will be created. You can use the full Notion URL or just the ID.
+        variable: parentPageId
+        type: text
+        placeholder: '98ad959b-2b6a-4774-80ee-00246fb0ea9b or https://www.notion.so/myworkspace/98ad959b2b6a477480ee00246fb0ea9b'
+      - label: Database Title
+        required: true
+        helpText: The title of your new database as it will appear in Notion.
+        variable: databaseTitle
+        type: text
+        placeholder: 'Grocery List'
+  - title: Database Properties
+    items:
+      - label: Properties Definition
+        required: true
+        helpText: 'Define the properties (columns) for your database in JSON format. Example: {"Name": {"title": {}}, "Price": {"number": {"format": "dollar"}}}'
+        variable: propertiesDefinition
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: |
+          {
+            "Name": {
+              "title": {}
+            },
+            "Price": {
+              "number": {
+                "format": "dollar"
+              }
+            },
+            "In Stock": {
+              "checkbox": {}
+            }
+          }
+  - title: Appearance (Optional)
+    collapsed: true
+    items:
+      - label: Icon (Emoji)
+        required: false
+        helpText: An emoji to use as the database icon (e.g., 📝, 🗂️, 📊)
+        variable: iconEmoji
+        type: text
+        placeholder: '📝'
+      - label: Cover Image URL
+        required: false
+        helpText: URL to an image to use as the database cover
+        variable: coverImageUrl
+        type: text
+        placeholder: 'https://example.com/image.jpg'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the created database information
+        variable: outputVariable
+        type: outputVariableName

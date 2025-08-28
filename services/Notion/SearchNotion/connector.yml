@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Action
+id: search-notion
+serviceId: notion
+active: true
+metadata:
+  name: Search Notion
+  description: Search for pages and databases in your Notion workspace
+  quickHelp: readme.md
+configuration:
+  - title: Search Configuration
+    items:
+      - label: Search Query
+        helpText: Text to search for in page and database titles. Leave empty to return all pages and databases.
+        variable: query
+        required: false
+        type: text
+      - label: Filter by Type
+        helpText: Limit results to only pages or only databases.
+        variable: filterType
+        required: false
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: All
+              value: ''
+            - label: Pages Only
+              value: page
+            - label: Databases Only
+              value: database
+      - label: Sort Direction
+        helpText: Direction to sort results.
+        variable: sortDirection
+        required: false
+        type: select
+        defaultValue: descending
+        selectOptions:
+          options:
+            - label: Newest First
+              value: descending
+            - label: Oldest First
+              value: ascending
+      - label: Results Per Page
+        helpText: Number of results to return (maximum 100).
+        variable: pageSize
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Start Cursor
+        helpText: Cursor for pagination. Use the 'next_cursor' from previous results.
+        variable: startCursor
+        required: false
+        type: text
+      - label: Output Variable
+        helpText: Variable to store the search results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

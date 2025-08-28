@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: create-comment
+serviceId: notion
+active: true
+metadata:
+  name: Create Comment
+  description: Creates a comment on a Notion page or in an existing discussion thread
+  quickHelp: readme.md
+configuration:
+  - title: Comment Location
+    items:
+      - label: Page ID
+        helpText: The ID of the Notion page to comment on. You can provide either a full Notion URL or just the page ID.
+        variable: pageId
+        required: false
+        type: text
+        placeholder: Page ID or Notion URL...
+      - label: Discussion ID
+        helpText: The ID of an existing discussion thread to comment on. Either Page ID or Discussion ID is required, but not both.
+        variable: discussionId
+        required: false
+        type: text
+        placeholder: Discussion thread ID...
+  - title: Comment Content
+    items:
+      - label: Comment Text
+        helpText: The text content of your comment.
+        variable: commentText
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Output Variable
+        helpText: Variable name to store the created comment information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

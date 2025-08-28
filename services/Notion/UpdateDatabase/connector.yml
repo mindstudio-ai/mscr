@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: update-database
+serviceId: notion
+active: true
+metadata:
+  name: Update Notion Database
+  description: Updates a Notion database's title, description, and properties
+  quickHelp: readme.md
+configuration:
+  - title: Database Information
+    items:
+      - label: Database ID or URL
+        helpText: Enter either the Notion database ID or the full Notion database URL
+        variable: databaseId
+        required: true
+        type: text
+        placeholder: 668d797c-76fa-4934-9b05-ad288df2d136 or https://www.notion.so/668d797c76fa49349b05ad288df2d136
+  - title: Update Options
+    items:
+      - label: Database Title
+        helpText: New title for the database. Leave blank to keep the current title.
+        variable: title
+        required: false
+        type: text
+        placeholder: My Updated Database
+      - label: Database Description
+        helpText: New description for the database. Leave blank to keep the current description.
+        variable: description
+        required: false
+        type: text
+        placeholder: Description of my database
+        textOptions:
+          type: multiline
+      - label: Database Properties (JSON)
+        helpText: JSON object defining the database properties to update. Leave blank to keep current properties.
+        variable: propertiesJson
+        required: false
+        type: text
+        placeholder: '{"Status": {"select": {"options": [{"name": "Not Started", "color": "red"}, {"name": "In Progress", "color": "blue"}, {"name": "Done", "color": "green"}]}}}'
+        textOptions:
+          type: multiline
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated database information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

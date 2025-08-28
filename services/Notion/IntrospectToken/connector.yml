@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: introspect-token
+serviceId: notion
+active: true
+metadata:
+  name: Introspect Token
+  description: Get information about a Notion token's active status, scope, and issued time
+  quickHelp: readme.md
+configuration:
+  - title: Token Information
+    items:
+      - label: Token to Introspect
+        helpText: The Notion access token you want to introspect. Leave blank to use the current integration token.
+        variable: tokenToIntrospect
+        required: false
+        type: text
+        placeholder: Enter token or leave blank to use integration token
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the token information
+        variable: outputVariable
+        type: outputVariableName

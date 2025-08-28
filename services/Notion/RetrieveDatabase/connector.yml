@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-database
+serviceId: notion
+active: true
+metadata:
+  name: Retrieve Database
+  description: Retrieves a Notion database object including its structure and columns
+  quickHelp: readme.md
+configuration:
+  - title: Database Information
+    items:
+      - label: Database ID
+        helpText: 'Enter your Notion database ID or the full Notion database URL. The ID is a 32-character string found in the database URL.'
+        variable: databaseId
+        required: true
+        type: text
+        placeholder: '668d797c-76fa-4934-9b05-ad288df2d136 or https://www.notion.so/workspace/668d797c76fa49349b05ad288df2d136'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: 'Name of the variable to store the database information'
+        variable: outputVariable
+        required: true
+        type: outputVariableName

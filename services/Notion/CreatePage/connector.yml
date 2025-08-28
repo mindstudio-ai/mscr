@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: Action
+id: create-page
+serviceId: notion
+active: true
+metadata:
+  name: Create Page
+  description: Creates a new page in Notion as a child of an existing page or database
+  quickHelp: readme.md
+configuration:
+  - title: Parent
+    items:
+      - label: Parent Type
+        required: true
+        helpText: Select whether to create a page under a database or another page
+        variable: parentType
+        type: select
+        defaultValue: database_id
+        selectOptions:
+          options:
+            - label: Database
+              value: database_id
+            - label: Page
+              value: page_id
+      - label: Parent ID
+        required: true
+        helpText: The ID of the database or page where this new page will be created
+        variable: parentId
+        type: text
+        placeholder: Enter the database or page ID...
+  - title: Page Content
+    items:
+      - label: Page Title
+        required: true
+        helpText: The title of the new page
+        variable: pageTitle
+        type: text
+      - label: Page Properties
+        required: false
+        helpText: Additional properties for the page in JSON format. Required when parent is a database.
+        variable: pageProperties
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '{"Property Name": {"type": "rich_text", "rich_text": [{"text": {"content": "Value"}}]}}'
+      - label: Page Content
+        required: false
+        helpText: Content to add to the page in JSON format. Must be a valid array of Notion block objects.
+        variable: pageContent
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"object": "block", "type": "paragraph", "paragraph": {"rich_text": [{"type": "text", "text": {"content": "Hello world"}}]}}]'
+  - title: Page Appearance
+    collapsed: true
+    items:
+      - label: Icon Type
+        required: false
+        helpText: The type of icon to use for the page
+        variable: iconType
+        type: select
+        defaultValue: none
+        selectOptions:
+          options:
+            - label: None
+              value: none
+            - label: Emoji
+              value: emoji
+            - label: External URL
+              value: external
+      - label: Icon Value
+        required: false
+        helpText: Emoji character or external URL for the icon
+        variable: iconValue
+        type: text
+        placeholder: 🚀 or https://example.com/icon.png
+      - label: Cover Image URL
+        required: false
+        helpText: URL for the page cover image
+        variable: coverImageUrl
+        type: text
+        placeholder: https://example.com/cover.jpg
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created page information
+        variable: outputVariable
+        type: outputVariableName

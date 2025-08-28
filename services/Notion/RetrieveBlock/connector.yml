@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-block
+serviceId: notion
+active: true
+metadata:
+  name: Retrieve Block
+  description: Retrieves a single block from Notion using its ID
+  quickHelp: readme.md
+configuration:
+  - title: Block Configuration
+    items:
+      - label: Block ID or URL
+        helpText: Enter either a Notion block ID or a Notion URL containing the block ID
+        variable: blockIdOrUrl
+        required: true
+        type: text
+        placeholder: c02fc1d3-db8b-45c5-a222-27595b15aea7 or https://www.notion.so/workspace/c02fc1d3db8b45c5a22227595b15aea7
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable to store the retrieved block data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

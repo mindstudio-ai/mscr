@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: list-comments
+serviceId: notion
+active: true
+metadata:
+  name: List Comments
+  description: Retrieves a list of un-resolved comments from a Notion page or block
+  quickHelp: readme.md
+configuration:
+  - title: Comments Configuration
+    items:
+      - label: Block ID
+        helpText: The ID of the Notion page or block to retrieve comments from. You can provide either the full Notion URL or just the ID.
+        variable: blockId
+        required: true
+        type: text
+        placeholder: Notion page URL or ID...
+      - label: Page Size
+        helpText: Number of comments to return per page. Maximum is 100.
+        variable: pageSize
+        required: false
+        type: text
+        defaultValue: '100'
+        placeholder: Enter a number between 1-100
+      - label: Start Cursor
+        helpText: Cursor for pagination. If provided, results will start after this cursor.
+        variable: startCursor
+        required: false
+        type: text
+        placeholder: Leave empty to start from the beginning
+      - label: Output Variable
+        helpText: Variable name to store the list of comments
+        variable: outputVariable
+        required: true
+        type: outputVariableName
