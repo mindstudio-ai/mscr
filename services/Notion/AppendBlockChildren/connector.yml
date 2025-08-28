@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: append-block-children
+serviceId: notion
+active: true
+metadata:
+  name: Append Block Children
+  description: Adds new content blocks to a Notion page or block
+  quickHelp: readme.md
+configuration:
+  - title: Block Information
+    items:
+      - label: Block ID or URL
+        helpText: Enter either a Notion block ID or a URL to a Notion page/block. URLs will be automatically parsed to extract the block ID.
+        variable: blockId
+        required: true
+        type: text
+        placeholder: 'b55c9c91... or https://www.notion.so/...'
+  - title: Content
+    items:
+      - label: Content Blocks
+        helpText: 'Enter the blocks to append in JSON format. Follow the Notion API block structure.'
+        variable: blocks
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"heading_2":{"rich_text":[{"text":{"content":"My Heading"}}]}}]'
+      - label: After Block ID (Optional)
+        helpText: Optionally specify a block ID to append the new blocks after. If not provided, blocks will be appended to the end.
+        variable: afterBlockId
+        required: false
+        type: text
+        placeholder: 'Optional block ID...'
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: Variable name to store the created blocks information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

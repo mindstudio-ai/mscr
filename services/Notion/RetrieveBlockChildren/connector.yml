@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: retrieve-block-children
+serviceId: notion
+active: true
+metadata:
+  name: Retrieve Block Children
+  description: Retrieves the children blocks of a specified Notion block or page
+  quickHelp: readme.md
+configuration:
+  - title: Block Information
+    items:
+      - label: Block ID or URL
+        helpText: Enter either a Notion block ID or a Notion URL. The connector will automatically extract the block ID from URLs.
+        variable: blockIdOrUrl
+        required: true
+        type: text
+        placeholder: 59833787-2cf9-4fdf-8782-e53db20768a5 or https://www.notion.so/Page-Title-59833787...
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Page Size
+        helpText: Number of items to return (maximum 100)
+        variable: pageSize
+        required: false
+        type: text
+        defaultValue: '100'
+        placeholder: '100'
+      - label: Start Cursor
+        helpText: If provided, will return results starting after this cursor
+        variable: startCursor
+        required: false
+        type: text
+        placeholder: Optional cursor for pagination
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the retrieved block children
+        variable: outputVariable
+        required: true
+        type: outputVariableName

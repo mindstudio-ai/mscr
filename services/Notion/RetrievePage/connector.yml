@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: retrieve-page
+serviceId: notion
+active: true
+metadata:
+  name: Retrieve Page
+  description: Retrieves a Notion page's properties and metadata using its ID or URL
+  quickHelp: readme.md
+configuration:
+  - title: Page Information
+    items:
+      - label: Page ID or URL
+        helpText: 'Enter either a Notion page ID (e.g., 59833787-2cf9-4fdf-8782-e53db20768a5) or a Notion page URL'
+        variable: pageIdOrUrl
+        required: true
+        type: text
+        placeholder: 'Paste a Notion page ID or URL...'
+      - label: Filter Properties (Optional)
+        helpText: 'Comma-separated list of page property IDs to include in the response. Leave empty to return all properties.'
+        variable: filterProperties
+        required: false
+        type: text
+        placeholder: 'e.g., prop1,prop2,prop3'
+      - label: Output Variable
+        helpText: 'The variable name to store the retrieved page data'
+        variable: outputVariable
+        required: true
+        type: outputVariableName

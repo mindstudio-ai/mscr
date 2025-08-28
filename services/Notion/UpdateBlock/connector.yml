@@ -1,0 +1,242 @@
+apiVersion: v1
+kind: Action
+id: update-block
+serviceId: notion
+active: true
+metadata:
+  name: Update Block
+  description: Updates the content of a Notion block
+  quickHelp: readme.md
+configuration:
+  - title: Block Identification
+    items:
+      - label: Block ID or URL
+        helpText: Enter a Notion block ID or a URL containing the block ID
+        variable: blockIdOrUrl
+        required: true
+        type: text
+        placeholder: Block ID or Notion URL
+  - title: Block Content
+    items:
+      - label: Block Type
+        helpText: The type of block to create
+        variable: blockType
+        required: true
+        type: select
+        defaultValue: paragraph
+        selectOptions:
+          options:
+            - label: Paragraph
+              value: paragraph
+            - label: Heading 1
+              value: heading_1
+            - label: Heading 2
+              value: heading_2
+            - label: Heading 3
+              value: heading_3
+            - label: Bulleted List Item
+              value: bulleted_list_item
+            - label: Numbered List Item
+              value: numbered_list_item
+            - label: To-Do
+              value: to_do
+            - label: Quote
+              value: quote
+            - label: Code
+              value: code
+            - label: Callout
+              value: callout
+      - label: Content
+        helpText: The text content for the block
+        variable: content
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Color
+        helpText: The color for the text content
+        variable: color
+        required: false
+        type: select
+        defaultValue: default
+        selectOptions:
+          options:
+            - label: Default
+              value: default
+            - label: Gray
+              value: gray
+            - label: Brown
+              value: brown
+            - label: Orange
+              value: orange
+            - label: Yellow
+              value: yellow
+            - label: Green
+              value: green
+            - label: Blue
+              value: blue
+            - label: Purple
+              value: purple
+            - label: Pink
+              value: pink
+            - label: Red
+              value: red
+      - label: Is Toggleable
+        helpText: Make heading blocks toggleable (only applies to headings)
+        variable: isToggleable
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Checked
+        helpText: Set whether a to-do item is checked (only applies to to-do blocks)
+        variable: checked
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Language
+        helpText: Programming language for code blocks (only applies to code blocks)
+        variable: language
+        required: false
+        type: select
+        defaultValue: plain text
+        selectOptions:
+          options:
+            - label: Plain Text
+              value: plain text
+            - label: JavaScript
+              value: javascript
+            - label: Python
+              value: python
+            - label: TypeScript
+              value: typescript
+            - label: HTML
+              value: html
+            - label: CSS
+              value: css
+            - label: JSON
+              value: json
+            - label: Shell
+              value: shell
+            - label: SQL
+              value: sql
+            - label: Java
+              value: java
+            - label: C++
+              value: c++
+            - label: C#
+              value: c#
+            - label: PHP
+              value: php
+            - label: Ruby
+              value: ruby
+            - label: Go
+              value: go
+            - label: Swift
+              value: swift
+            - label: Kotlin
+              value: kotlin
+            - label: Rust
+              value: rust
+      - label: Emoji
+        helpText: Emoji for callout blocks (only applies to callout blocks)
+        variable: emoji
+        required: false
+        type: text
+        placeholder: 'e.g., 💡'
+  - title: Text Formatting
+    collapsed: true
+    items:
+      - label: Bold
+        helpText: Make text bold
+        variable: bold
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Italic
+        helpText: Make text italic
+        variable: italic
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Strikethrough
+        helpText: Add strikethrough to text
+        variable: strikethrough
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Underline
+        helpText: Underline text
+        variable: underline
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Code
+        helpText: Format text as inline code
+        variable: code
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Block Status
+    collapsed: true
+    items:
+      - label: Archive Block
+        helpText: Archive (delete) this block
+        variable: archived
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Result
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the updated block information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

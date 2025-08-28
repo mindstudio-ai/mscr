@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-comment
+serviceId: notion
+active: true
+metadata:
+  name: Retrieve Comment
+  description: Retrieves a Notion comment by its ID or from a Notion URL
+  quickHelp: readme.md
+configuration:
+  - title: Comment Information
+    items:
+      - label: Comment ID or URL
+        helpText: Enter either a Notion comment ID or a Notion URL containing the comment ID
+        variable: commentIdOrUrl
+        required: true
+        type: text
+        placeholder: 249911a-125e-803e-a164-001cf338b8ec or https://www.notion.so/...
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the retrieved comment information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

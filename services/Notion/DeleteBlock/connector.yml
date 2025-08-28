@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: delete-block
+serviceId: notion
+active: true
+metadata:
+  name: Delete Block
+  description: Moves a Notion block to the trash by setting its archived property to true
+  quickHelp: readme.md
+configuration:
+  - title: Block Information
+    items:
+      - label: Block ID or URL
+        helpText: Enter either a Notion block ID or a URL containing the block ID. The connector will automatically extract the ID from a URL if provided.
+        variable: blockId
+        required: true
+        type: text
+        placeholder: 7985540b-2e77-4ac6-8615-c3047e36f872 or https://www.notion.so/myworkspace/7985540b2e774ac68615c3047e36f872
+  - title: Output
+    items:
+      - label: Result Variable
+        helpText: Name of the variable to store the deletion result information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

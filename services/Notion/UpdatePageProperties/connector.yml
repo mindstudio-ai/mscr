@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Action
+id: update-page-properties
+serviceId: notion
+active: true
+metadata:
+  name: Update Page Properties
+  description: Updates the properties of a Notion page that belongs to a database
+  quickHelp: readme.md
+configuration:
+  - title: Page Information
+    items:
+      - label: Page ID or URL
+        required: true
+        helpText: Enter either a Notion page ID or the full URL to the page
+        variable: pageIdOrUrl
+        type: text
+        placeholder: 59833787-2cf9-4fdf-8782-e53db20768a5 or https://notion.so/...
+  - title: Page Properties
+    items:
+      - label: Properties
+        required: true
+        helpText: 'JSON object containing the properties to update. Keys are property names/IDs and values are the new values.'
+        variable: properties
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '{"Status": {"select": {"name": "Completed"}}, "Priority": {"select": {"name": "High"}}}'
+  - title: Page Appearance
+    collapsed: true
+    items:
+      - label: Icon
+        required: false
+        helpText: "Emoji (e.g. '🚀') or URL to an external image"
+        variable: icon
+        type: text
+        placeholder: 🚀 or https://example.com/image.jpg
+      - label: Cover Image URL
+        required: false
+        helpText: URL to an external image to use as page cover
+        variable: coverUrl
+        type: text
+        placeholder: https://example.com/cover.jpg
+  - title: Page Status
+    collapsed: true
+    items:
+      - label: Archive Status
+        required: false
+        helpText: Set to 'Archive' to move the page to trash, 'Restore' to restore from trash, or 'No Change' to keep current status
+        variable: archiveStatus
+        type: select
+        defaultValue: noChange
+        selectOptions:
+          options:
+            - label: No Change
+              value: noChange
+            - label: Archive
+              value: archive
+            - label: Restore
+              value: restore
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the updated page information
+        variable: outputVariable
+        type: outputVariableName

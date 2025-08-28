@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: retrieve-page-property
+serviceId: notion
+active: true
+metadata:
+  name: Retrieve Page Property
+  description: Retrieves a property item for a given Notion page and property ID
+  quickHelp: readme.md
+configuration:
+  - title: Page Information
+    items:
+      - label: Page ID or URL
+        required: true
+        helpText: Enter either a Notion page ID (e.g., b55c9c91-384d-452b-81db-d1ef79372b75) or a full Notion page URL.
+        variable: pageId
+        type: text
+        placeholder: b55c9c91... or https://www.notion.so/...
+      - label: Property ID
+        required: true
+        helpText: The ID of the property to retrieve. You can find this in the database schema or by using the Retrieve a database endpoint.
+        variable: propertyId
+        type: text
+        placeholder: aBcD123...
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Page Size
+        required: false
+        helpText: Maximum number of property items to return per page. Default is 100.
+        variable: pageSize
+        type: text
+        placeholder: '100'
+      - label: Start Cursor
+        required: false
+        helpText: Cursor to start from for paginated results. Leave empty for the first page.
+        variable: startCursor
+        type: text
+        placeholder: ''
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the property value or list of property values.
+        variable: outputVariable
+        type: outputVariableName

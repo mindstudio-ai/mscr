@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Action
+id: query-database
+serviceId: notion
+active: true
+metadata:
+  name: Query Notion Database
+  description: Retrieves entries from a Notion database with optional filtering and sorting
+  quickHelp: readme.md
+configuration:
+  - title: Database Information
+    items:
+      - label: Database ID or URL
+        required: true
+        helpText: Enter either the Notion database ID or the full URL to the database
+        variable: databaseId
+        type: text
+        placeholder: d9824bdc-8445-4327-be8b-5b47500af6ce or https://www.notion.so/myworkspace/d9824bdc84454327be8b5b47500af6ce
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Filter
+        required: false
+        helpText: JSON filter to limit which pages are returned. Leave empty for no filtering.
+        variable: filter
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '{"property":"Status","select":{"equals":"Done"}}'
+      - label: Sort
+        required: false
+        helpText: JSON array of sort criteria. Leave empty for default sorting.
+        variable: sorts
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"property":"Last Updated","direction":"descending"}]'
+      - label: Page Size
+        required: false
+        helpText: Number of results to return per page (max 100)
+        variable: pageSize
+        type: text
+        defaultValue: '100'
+      - label: Start Cursor
+        required: false
+        helpText: Cursor for pagination. Leave empty to start from the beginning.
+        variable: startCursor
+        type: text
+      - label: Filter Properties
+        required: false
+        helpText: Comma-separated list of property IDs to include in the response. Leave empty to include all properties.
+        variable: filterProperties
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the query results
+        variable: outputVariable
+        type: outputVariableName
