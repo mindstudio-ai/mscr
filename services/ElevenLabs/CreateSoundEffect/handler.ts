@@ -92,7 +92,7 @@ export const handler = async ({
     }
 
     // Determine MIME type based on output format
-    let mimeType = 'audio/mpeg'; // Default for MP3
+    let mimeType = 'audio/mp3'; // Default for MP3
     if (outputFormat?.startsWith('pcm_')) {
       mimeType = 'audio/wav';
     } else if (outputFormat?.startsWith('opus_')) {
