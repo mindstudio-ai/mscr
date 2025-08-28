@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: get-companies-from-list
+serviceId: heyreach
+active: true
+metadata:
+  name: Get Companies From List
+  description: Retrieves a paginated collection of companies from a HeyReach list
+  quickHelp: readme.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        helpText: The ID of the HeyReach list from which to retrieve companies
+        variable: listId
+        required: true
+        type: text
+        placeholder: '123'
+      - label: Offset
+        helpText: Starting position for pagination (0-based)
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+      - label: Keyword
+        helpText: Filter companies by keyword
+        variable: keyword
+        required: false
+        type: text
+        placeholder: 'Enter search term...'
+      - label: Limit
+        helpText: Maximum number of companies to return (up to 1000)
+        variable: limit
+        required: false
+        type: text
+        defaultValue: '100'
+      - label: Output Variable
+        helpText: Name of the variable to store the retrieved companies
+        variable: outputVariable
+        required: true
+        type: outputVariableName

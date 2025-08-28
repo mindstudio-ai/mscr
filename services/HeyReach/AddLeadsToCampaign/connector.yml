@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: Action
+id: add-leads-to-campaign
+serviceId: heyreach
+active: true
+metadata:
+  name: Add Leads to Campaign
+  description: Add leads to a HeyReach campaign with detailed information
+  quickHelp: readme.md
+configuration:
+  - title: Campaign Configuration
+    items:
+      - label: Campaign ID
+        helpText: The ID of the campaign to add leads to
+        variable: campaignId
+        required: true
+        type: text
+        placeholder: '123'
+  - title: Lead Information
+    items:
+      - label: First Name
+        helpText: The first name of the lead
+        variable: firstName
+        required: true
+        type: text
+      - label: Last Name
+        helpText: The last name of the lead
+        variable: lastName
+        required: true
+        type: text
+      - label: LinkedIn Profile URL
+        helpText: The LinkedIn profile URL of the lead
+        variable: profileUrl
+        required: true
+        type: text
+        placeholder: 'https://www.linkedin.com/in/username'
+      - label: Email Address
+        helpText: The email address of the lead
+        variable: emailAddress
+        required: false
+        type: text
+      - label: Company Name
+        helpText: The company name of the lead
+        variable: companyName
+        required: false
+        type: text
+      - label: Position/Title
+        helpText: The job title or position of the lead
+        variable: position
+        required: false
+        type: text
+      - label: Location
+        helpText: The location of the lead
+        variable: location
+        required: false
+        type: text
+      - label: Summary
+        helpText: A brief summary about the lead
+        variable: summary
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: About
+        helpText: Detailed information about the lead
+        variable: about
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: LinkedIn Account (Optional)
+    collapsed: true
+    items:
+      - label: LinkedIn Account ID
+        helpText: The ID of the LinkedIn account to map this lead to in the campaign
+        variable: linkedInAccountId
+        required: false
+        type: text
+  - title: Custom Fields (Optional)
+    collapsed: true
+    items:
+      - label: Custom Fields (JSON)
+        helpText: 'Custom fields for the lead in JSON format. Field names must contain only alphanumeric characters or underscores. Example: [{"name":"favorite_color","value":"blue"}]'
+        variable: customUserFields
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: Response
+    items:
+      - label: Output Variable
+        helpText: The variable to store the response data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Action
+id: add-leads-to-list
+serviceId: heyreach
+active: true
+metadata:
+  name: Add Leads to List
+  description: Add leads to a HeyReach list and get counts of added, updated, and failed leads
+  quickHelp: readme.md
+configuration:
+  - title: List Configuration
+    items:
+      - label: List ID
+        required: true
+        helpText: The ID of the list to add leads to
+        variable: listId
+        type: text
+        placeholder: '123'
+  - title: Lead Information
+    items:
+      - label: First Name
+        required: true
+        helpText: First name of the lead
+        variable: firstName
+        type: text
+        placeholder: 'John'
+      - label: Last Name
+        required: true
+        helpText: Last name of the lead
+        variable: lastName
+        type: text
+        placeholder: 'Doe'
+      - label: Email Address
+        helpText: Email address of the lead
+        variable: emailAddress
+        type: text
+        placeholder: 'john.doe@example.com'
+      - label: LinkedIn Profile URL
+        helpText: LinkedIn profile URL of the lead
+        variable: profileUrl
+        type: text
+        placeholder: 'https://www.linkedin.com/in/username'
+      - label: Company Name
+        helpText: Company name of the lead
+        variable: companyName
+        type: text
+        placeholder: 'Acme Inc.'
+      - label: Position
+        helpText: Job title or position of the lead
+        variable: position
+        type: text
+        placeholder: 'Sales Manager'
+      - label: Location
+        helpText: Geographic location of the lead
+        variable: location
+        type: text
+        placeholder: 'San Francisco, CA'
+      - label: Summary
+        helpText: Brief summary or headline from the lead's profile
+        variable: summary
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: 'Sales Manager at Acme Inc.'
+      - label: About
+        helpText: Detailed description or about section for the lead
+        variable: about
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: 'Experienced sales professional with 10+ years in SaaS...'
+  - title: Custom Fields (Optional)
+    collapsed: true
+    items:
+      - label: Custom Fields
+        helpText: Add custom fields in JSON format. Each field must have a 'name' and 'value'. Names must contain only alphanumeric characters or underscores.
+        variable: customFields
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"name":"favorite_color","value":"blue"},{"name":"industry","value":"technology"}]'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the response data
+        variable: outputVariable
+        type: outputVariableName

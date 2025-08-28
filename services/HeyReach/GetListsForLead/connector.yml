@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: get-lists-for-lead
+serviceId: heyreach
+active: true
+metadata:
+  name: Get Lists For Lead
+  description: Retrieves the lists associated with a specific lead in HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: Lead Identification
+    items:
+      - label: Email
+        helpText: The email address of the lead
+        variable: email
+        required: false
+        type: text
+        placeholder: john_doe@example.com
+      - label: LinkedIn ID
+        helpText: The LinkedIn ID of the lead
+        variable: linkedinId
+        required: false
+        type: text
+        placeholder: 121313fsdf234
+      - label: LinkedIn Profile URL
+        helpText: The LinkedIn profile URL of the lead
+        variable: profileUrl
+        required: false
+        type: text
+        placeholder: https://www.linkedin.com/in/john_doe/
+  - title: Pagination
+    collapsed: true
+    items:
+      - label: Offset
+        helpText: The number of records to skip (for pagination)
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+      - label: Limit
+        helpText: The maximum number of records to return
+        variable: limit
+        required: false
+        type: text
+        defaultValue: '100'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the lists associated with the lead
+        variable: outputVariable
+        required: true
+        type: outputVariableName

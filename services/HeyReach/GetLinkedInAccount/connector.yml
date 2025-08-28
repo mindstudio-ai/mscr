@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-linkedin-account
+serviceId: heyreach
+active: true
+metadata:
+  name: Get LinkedIn Account
+  description: Retrieve a LinkedIn account by ID from HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account ID
+        variable: accountId
+        type: text
+        required: true
+        helpText: The ID of the LinkedIn account to retrieve
+        placeholder: Enter account ID...
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the account information

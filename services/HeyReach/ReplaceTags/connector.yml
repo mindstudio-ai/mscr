@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: replace-tags
+serviceId: heyreach
+active: true
+metadata:
+  name: Replace Tags
+  description: Replaces all existing tags on a lead with new tags
+  quickHelp: readme.md
+configuration:
+  - title: Lead Identification
+    items:
+      - label: LinkedIn Profile URL
+        helpText: The LinkedIn profile URL of the lead (e.g., https://www.linkedin.com/in/john-doe/)
+        variable: leadProfileUrl
+        required: false
+        type: text
+        placeholder: https://www.linkedin.com/in/john-doe/
+      - label: LinkedIn ID
+        helpText: The LinkedIn ID of the lead. You can find this ID as 'linkedin_id' in responses from other HeyReach endpoints.
+        variable: leadLinkedInId
+        required: false
+        type: text
+        placeholder: Enter LinkedIn ID...
+  - title: Tag Configuration
+    items:
+      - label: Tags
+        helpText: Comma-separated list of tags to replace existing tags (e.g., tag1, tag2, tag3)
+        variable: tags
+        required: true
+        type: text
+        placeholder: tag1, tag2, tag3
+      - label: Create Tags If Not Existing
+        helpText: If true, creates tags that don't exist. If false and a tag doesn't exist, the request will fail.
+        variable: createTagIfNotExisting
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the response data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

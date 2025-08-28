@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: get-all-webhooks
+serviceId: heyreach
+active: true
+metadata:
+  name: Get All Webhooks
+  description: Retrieves a list of all webhooks configured in your HeyReach account
+  quickHelp: readme.md
+configuration:
+  - title: Pagination
+    items:
+      - label: Offset
+        helpText: Number of records to skip
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: '0'
+      - label: Limit
+        helpText: Maximum number of webhooks to return (max 100)
+        variable: limit
+        required: false
+        type: text
+        defaultValue: '100'
+        placeholder: '100'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of webhooks
+        variable: outputVariable
+        required: true
+        type: outputVariableName

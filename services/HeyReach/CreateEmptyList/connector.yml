@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: create-empty-list
+serviceId: heyreach
+active: true
+metadata:
+  name: Create Empty List
+  description: Create an empty lead or company list in HeyReach
+  quickHelp: readme.md
+configuration:
+  - title: List Details
+    items:
+      - label: List Name
+        helpText: Enter a name for your new list
+        variable: listName
+        required: true
+        type: text
+        placeholder: My New List
+      - label: List Type
+        helpText: Select the type of list you want to create
+        variable: listType
+        required: true
+        type: select
+        defaultValue: USER_LIST
+        selectOptions:
+          options:
+            - label: Lead List
+              value: USER_LIST
+            - label: Company List
+              value: COMPANY_LIST
+      - label: Output Variable
+        helpText: Variable name to store the created list information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

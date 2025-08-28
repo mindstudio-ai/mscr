@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: is-connection
+serviceId: heyreach
+active: true
+metadata:
+  name: Check Connection Status
+  description: Checks if a lead is a connection to a specific sender account
+  quickHelp: readme.md
+configuration:
+  - title: Connection Details
+    items:
+      - label: Sender Account ID
+        required: true
+        helpText: The ID of the sender account for which to check the connection
+        variable: senderAccountId
+        type: text
+        placeholder: '123456'
+      - label: Lead Profile URL
+        required: false
+        helpText: The LinkedIn URL of the lead (either this or LinkedIn ID must be provided)
+        variable: leadProfileUrl
+        type: text
+        placeholder: https://www.linkedin.com/in/username/
+      - label: Lead LinkedIn ID
+        required: false
+        helpText: The LinkedIn ID of the lead (either this or Profile URL must be provided)
+        variable: leadLinkedInId
+        type: text
+        placeholder: 'abc123xyz'
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store whether the lead is a connection (true/false)
+        variable: outputVariable
+        type: outputVariableName
