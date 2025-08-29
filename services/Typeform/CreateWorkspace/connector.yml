@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: create-workspace
+serviceId: typeform
+active: true
+metadata:
+  name: Create Workspace
+  description: Creates a new workspace in your Typeform account
+  quickHelp: readme.md
+configuration:
+  - title: Workspace Configuration
+    items:
+      - label: Workspace Name
+        helpText: Name of the new workspace to create
+        variable: workspaceName
+        required: true
+        type: text
+        placeholder: My new workspace
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created workspace details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: retrieve-account-workspaces
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Account Workspaces
+  description: Retrieves all workspaces you have access to within a specific Typeform account
+  quickHelp: readme.md
+configuration:
+  - title: Account Information
+    items:
+      - label: Account ID
+        helpText: The ID of the Typeform account for which to retrieve workspaces
+        variable: accountId
+        required: true
+        type: text
+        placeholder: Enter your account ID
+  - title: Search Options
+    collapsed: true
+    items:
+      - label: Search Term
+        helpText: Filter workspaces that contain this search term
+        variable: search
+        required: false
+        type: text
+        placeholder: Optional search term
+      - label: Page
+        helpText: The page of results to retrieve (default is 1)
+        variable: page
+        required: false
+        type: text
+        placeholder: 1
+        defaultValue: '1'
+      - label: Page Size
+        helpText: Number of results per page (default is 10, maximum is 200)
+        variable: pageSize
+        required: false
+        type: text
+        placeholder: 10
+        defaultValue: '10'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the retrieved workspaces
+        variable: outputVariable
+        required: true
+        type: outputVariableName

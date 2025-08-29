@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: update-workspace
+serviceId: typeform
+active: true
+metadata:
+  name: Update Workspace
+  description: Update a Typeform workspace name or manage workspace members
+  quickHelp: readme.md
+configuration:
+  - title: Workspace Details
+    items:
+      - label: Workspace ID
+        helpText: The unique ID of the workspace you want to update
+        variable: workspaceId
+        required: true
+        type: text
+        placeholder: Enter workspace ID...
+  - title: Update Operations
+    items:
+      - label: Update Workspace Name
+        helpText: New name for the workspace (leave empty to keep current name)
+        variable: updateName
+        required: false
+        type: text
+        placeholder: Enter new workspace name...
+      - label: Add Member Email
+        helpText: Email address of the member to add to the workspace
+        variable: addMemberEmail
+        required: false
+        type: text
+        placeholder: email@example.com
+      - label: Member Role
+        helpText: Role to assign to the new member
+        variable: memberRole
+        required: false
+        type: select
+        defaultValue: editor
+        selectOptions:
+          options:
+            - label: Owner
+              value: owner
+            - label: Editor
+              value: editor
+            - label: Viewer
+              value: viewer
+      - label: Remove Member Email
+        helpText: Email address of the member to remove from the workspace
+        variable: removeMemberEmail
+        required: false
+        type: text
+        placeholder: email@example.com

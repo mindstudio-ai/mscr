@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: retrieve-background-by-size
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Background Image
+  description: Retrieves a background image from Typeform by its ID and size
+  quickHelp: readme.md
+configuration:
+  - title: Image Details
+    items:
+      - label: Image ID
+        helpText: Unique ID of the image to retrieve
+        variable: imageId
+        required: true
+        type: text
+        placeholder: Enter image ID...
+      - label: Image Size
+        helpText: Select the size of the image to retrieve
+        variable: imageSize
+        required: true
+        type: select
+        defaultValue: default
+        selectOptions:
+          options:
+            - label: Default (1680x1050px max)
+              value: default
+            - label: Tablet (1024x768px max)
+              value: tablet
+            - label: Mobile (460x320px max)
+              value: mobile
+            - label: Thumbnail (80x50px max)
+              value: thumbnail
+      - label: Response Format
+        helpText: Choose whether to return image metadata as JSON or the binary image data
+        variable: responseFormat
+        required: true
+        type: select
+        defaultValue: json
+        selectOptions:
+          options:
+            - label: JSON Metadata
+              value: json
+            - label: Binary Image
+              value: binary
+      - label: Output Variable
+        helpText: Name of the variable to store the result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

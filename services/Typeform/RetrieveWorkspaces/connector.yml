@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: retrieve-workspaces
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Workspaces
+  description: Retrieves all workspaces you have access to from Typeform
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Search Term
+        helpText: Filter workspaces that contain this search term
+        variable: search
+        required: false
+        type: text
+        placeholder: Enter search term...
+      - label: Page
+        helpText: The page number of results to retrieve (default is 1)
+        variable: page
+        required: false
+        type: text
+        placeholder: 1
+        defaultValue: '1'
+      - label: Page Size
+        helpText: Number of results per page (default is 10, maximum is 200)
+        variable: pageSize
+        required: false
+        type: text
+        placeholder: 10
+        defaultValue: '10'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable to store the list of workspaces
+        variable: outputVariable
+        required: true
+        type: outputVariableName

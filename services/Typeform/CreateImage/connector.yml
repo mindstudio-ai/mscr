@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: create-image
+serviceId: typeform
+active: true
+metadata:
+  name: Create Image
+  description: Upload an image to your Typeform account using either a URL or base64 encoded image data
+  quickHelp: readme.md
+configuration:
+  - title: Image Source
+    items:
+      - label: Upload Method
+        helpText: Choose how you want to upload the image
+        variable: uploadMethod
+        required: true
+        type: select
+        defaultValue: url
+        selectOptions:
+          options:
+            - label: Image URL
+              value: url
+            - label: Base64 Encoded Image
+              value: base64
+      - label: Image URL
+        helpText: URL of the image you want to upload
+        variable: imageUrl
+        required: false
+        type: text
+        placeholder: https://example.com/image.jpg
+      - label: Base64 Image
+        helpText: Base64 encoded image data (without descriptors like 'data:image/png;base64,')
+        variable: base64Image
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+  - title: Image Details
+    items:
+      - label: File Name
+        helpText: The name for the uploaded image file
+        variable: fileName
+        required: true
+        type: text
+        placeholder: my-image.jpg
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the URL of the uploaded image
+        variable: outputVariable
+        required: true
+        type: outputVariableName

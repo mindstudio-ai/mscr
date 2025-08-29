@@ -1,0 +1,158 @@
+apiVersion: v1
+kind: Action
+id: create-theme
+serviceId: typeform
+active: true
+metadata:
+  name: Create Theme
+  description: Creates a new theme in Typeform to control the visual appearance of your forms
+  quickHelp: readme.md
+configuration:
+  - title: Theme Information
+    items:
+      - label: Theme Name
+        required: true
+        helpText: Name for your theme
+        variable: themeName
+        type: text
+        placeholder: My Theme
+  - title: Colors
+    items:
+      - label: Answer Color
+        required: true
+        helpText: Color for answers (hexadecimal value)
+        variable: answerColor
+        type: text
+        defaultValue: '#4FB0AE'
+        placeholder: '#4FB0AE'
+      - label: Background Color
+        required: true
+        helpText: Color for the background (hexadecimal value)
+        variable: backgroundColor
+        type: text
+        defaultValue: '#FFFFFF'
+        placeholder: '#FFFFFF'
+      - label: Button Color
+        required: true
+        helpText: Color for buttons (hexadecimal value)
+        variable: buttonColor
+        type: text
+        defaultValue: '#4FB0AE'
+        placeholder: '#4FB0AE'
+      - label: Question Color
+        required: true
+        helpText: Color for questions (hexadecimal value)
+        variable: questionColor
+        type: text
+        defaultValue: '#3D3D3D'
+        placeholder: '#3D3D3D'
+  - title: Font & Layout
+    items:
+      - label: Font
+        required: true
+        variable: font
+        type: select
+        defaultValue: 'Source Sans Pro'
+        selectOptions:
+          options:
+            - label: 'Source Sans Pro'
+              value: 'Source Sans Pro'
+            - label: 'Arial'
+              value: 'Arial'
+            - label: 'Helvetica Neue'
+              value: 'Helvetica Neue'
+            - label: 'Open Sans'
+              value: 'Open Sans'
+            - label: 'Montserrat'
+              value: 'Montserrat'
+            - label: 'Lato'
+              value: 'Lato'
+            - label: 'Raleway'
+              value: 'Raleway'
+            - label: 'Georgia'
+              value: 'Georgia'
+      - label: Field Alignment
+        required: true
+        variable: fieldAlignment
+        type: select
+        defaultValue: 'left'
+        selectOptions:
+          options:
+            - label: 'Left'
+              value: 'left'
+            - label: 'Center'
+              value: 'center'
+      - label: Field Font Size
+        required: true
+        variable: fieldFontSize
+        type: select
+        defaultValue: 'medium'
+        selectOptions:
+          options:
+            - label: 'Small'
+              value: 'small'
+            - label: 'Medium'
+              value: 'medium'
+            - label: 'Large'
+              value: 'large'
+  - title: Screen Settings
+    items:
+      - label: Screen Alignment
+        required: true
+        helpText: Alignment for welcome and thank you screens
+        variable: screenAlignment
+        type: select
+        defaultValue: 'center'
+        selectOptions:
+          options:
+            - label: 'Left'
+              value: 'left'
+            - label: 'Center'
+              value: 'center'
+      - label: Screen Font Size
+        required: true
+        helpText: Font size for welcome and thank you screens
+        variable: screenFontSize
+        type: select
+        defaultValue: 'small'
+        selectOptions:
+          options:
+            - label: 'Small'
+              value: 'small'
+            - label: 'Medium'
+              value: 'medium'
+            - label: 'Large'
+              value: 'large'
+  - title: Button Style
+    items:
+      - label: Transparent Button
+        required: true
+        variable: transparentButton
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Rounded Corners
+        required: true
+        variable: roundedCorners
+        type: select
+        defaultValue: 'small'
+        selectOptions:
+          options:
+            - label: 'None'
+              value: 'none'
+            - label: 'Small'
+              value: 'small'
+            - label: 'Large'
+              value: 'large'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the created theme information
+        variable: outputVariable
+        type: outputVariableName

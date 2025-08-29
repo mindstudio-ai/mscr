@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-custom-form-messages
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Custom Form Messages
+  description: Retrieves the customizable messages for a Typeform form using the form's specified language
+  quickHelp: readme.md
+configuration:
+  - title: Form Information
+    items:
+      - label: Form ID
+        helpText: "Unique ID for the form. Find in your form URL. For example, in the URL 'https://mysite.typeform.com/to/u6nXL7' the form_id is 'u6nXL7'."
+        variable: formId
+        required: true
+        type: text
+        placeholder: 'Enter your form ID...'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: 'Variable name to store the form messages.'
+        variable: outputVariable
+        required: true
+        type: outputVariableName

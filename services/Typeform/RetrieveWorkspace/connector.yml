@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: retrieve-workspace
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Workspace
+  description: Retrieves details about a specific Typeform workspace
+  quickHelp: readme.md
+configuration:
+  - title: Workspace Configuration
+    items:
+      - label: Workspace ID
+        helpText: The unique identifier of the workspace you want to retrieve
+        variable: workspaceId
+        required: true
+        type: text
+        placeholder: Enter workspace ID...
+      - label: Output Variable
+        helpText: Name of the variable to store the workspace information
+        variable: outputVariable
+        required: true
+        type: outputVariableName
