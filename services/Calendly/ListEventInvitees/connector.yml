@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: list-event-invitees
+serviceId: calendly
+active: true
+metadata:
+  name: List Event Invitees
+  description: Retrieves a list of invitees for a specific Calendly event
+  quickHelp: readme.md
+configuration:
+  - title: Event Configuration
+    items:
+      - label: Event UUID
+        helpText: The UUID of the Calendly event for which to list invitees. This is the unique identifier for a specific scheduled event.
+        variable: eventUuid
+        required: true
+        type: text
+        placeholder: 'Example: 0123456789abcdef0123456789abcdef'
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: The number of invitees to return (1-100)
+        variable: count
+        required: false
+        type: text
+        placeholder: '25'
+        defaultValue: '25'
+      - label: Page Token
+        helpText: The token for the page of results to return. Used for pagination through large result sets.
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: Leave empty for first page
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the list of invitees.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

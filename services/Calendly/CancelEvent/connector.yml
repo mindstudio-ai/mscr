@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Action
+id: cancel-event
+serviceId: calendly
+active: true
+metadata:
+  name: Cancel Event
+  description: Cancels a scheduled event in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Event Details
+    items:
+      - label: Event UUID
+        helpText: The UUID of the scheduled event you want to cancel. You can find this in the event URL or via the List Events API.
+        variable: eventUuid
+        required: true
+        type: text
+        placeholder: e.g., 01234567-89ab-cdef-0123-456789abcdef
+      - label: Cancellation Reason
+        helpText: Optional reason for canceling the event.
+        variable: reason
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Output Variable
+        helpText: Variable name to store the result of the cancellation operation.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

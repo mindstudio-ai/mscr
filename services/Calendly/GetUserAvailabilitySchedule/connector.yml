@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-user-availability-schedule
+serviceId: calendly
+active: true
+metadata:
+  name: Get User Availability Schedule
+  description: Retrieves a user's availability schedule from Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Schedule ID
+        helpText: The unique identifier for the availability schedule you want to retrieve.
+        variable: scheduleId
+        required: true
+        type: text
+        placeholder: e.g., ABCDEFGHIJKLM
+      - label: Output Variable
+        helpText: The name of the variable where the availability schedule details will be stored.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

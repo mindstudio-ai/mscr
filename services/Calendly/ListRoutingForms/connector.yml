@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: list-routing-forms
+serviceId: calendly
+active: true
+metadata:
+  name: List Routing Forms
+  description: Retrieves a list of routing forms from your Calendly account
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Count
+        helpText: The number of results to return (1-100). Default is 10.
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Page Token
+        helpText: The token to retrieve the next page of results. Leave blank for the first page.
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: Leave blank for first page
+      - label: Sort By
+        helpText: Field to sort results by
+        variable: sort
+        required: false
+        type: select
+        defaultValue: created_at:desc
+        selectOptions:
+          options:
+            - label: Created (newest first)
+              value: created_at:desc
+            - label: Created (oldest first)
+              value: created_at:asc
+            - label: Updated (newest first)
+              value: updated_at:desc
+            - label: Updated (oldest first)
+              value: updated_at:asc
+            - label: Name (A-Z)
+              value: name:asc
+            - label: Name (Z-A)
+              value: name:desc
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of routing forms
+        variable: outputVariable
+        required: true
+        type: outputVariableName

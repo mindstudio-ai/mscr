@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: remove-user-from-organization
+serviceId: calendly
+active: true
+metadata:
+  name: Remove User from Organization
+  description: Removes a member from your Calendly organization
+  quickHelp: readme.md
+configuration:
+  - title: User to Remove
+    items:
+      - label: Organization Membership UUID
+        helpText: The UUID of the organization membership to remove. This can be found by listing the organization's memberships.
+        variable: membershipUuid
+        required: true
+        type: text
+        placeholder: e.g., 12345678-1234-1234-1234-123456789abc
+  - title: Notification Settings
+    collapsed: true
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the operation result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

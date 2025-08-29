@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: Action
+id: create-one-off-event-type
+serviceId: calendly
+active: true
+metadata:
+  name: Create One-Off Event Type
+  description: Creates a temporary event type in Calendly that doesn't appear in your regular event types list
+  quickHelp: readme.md
+configuration:
+  - title: Event Type Details
+    items:
+      - label: Event Name
+        helpText: The name of your event type (e.g., 'Sales Call', 'Interview')
+        variable: name
+        required: true
+        type: text
+      - label: Description
+        helpText: A description of your event type that will be displayed to invitees
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Color
+        helpText: The color for your event type (hex code, e.g., #FF0000)
+        variable: color
+        required: false
+        type: text
+      - label: Duration (minutes)
+        helpText: The length of the event in minutes
+        variable: duration
+        required: true
+        type: text
+        defaultValue: '30'
+  - title: Scheduling Options
+    items:
+      - label: Custom URL Slug
+        helpText: Custom part of the URL for this event (letters, numbers, and hyphens only)
+        variable: slug
+        required: false
+        type: text
+      - label: Event Kind
+        helpText: The type of event - one-on-one, group, or collective
+        variable: kind
+        required: true
+        type: select
+        defaultValue: solo
+        selectOptions:
+          options:
+            - label: One-on-One
+              value: solo
+            - label: Group
+              value: group
+            - label: Collective
+              value: collective
+      - label: Location Type
+        helpText: How the meeting will take place
+        variable: locationType
+        required: true
+        type: select
+        defaultValue: link
+        selectOptions:
+          options:
+            - label: Zoom
+              value: zoom
+            - label: Google Meet
+              value: google_meet
+            - label: Microsoft Teams
+              value: microsoft_teams_link
+            - label: Custom Link
+              value: link
+            - label: Phone Call
+              value: phone_call
+            - label: In Person
+              value: physical
+      - label: Custom Location
+        helpText: For custom links or physical locations, provide details here
+        variable: customLocation
+        required: false
+        type: text
+  - title: Availability
+    items:
+      - label: Scheduling Page ID
+        helpText: The ID of the scheduling page to use for availability (find in your Calendly account URL)
+        variable: profileId
+        required: true
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the created event type details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

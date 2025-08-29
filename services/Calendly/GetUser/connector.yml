@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-user
+serviceId: calendly
+active: true
+metadata:
+  name: Get User
+  description: Retrieves information about the current Calendly user
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the user information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

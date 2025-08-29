@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: Action
+id: update-event-type
+serviceId: calendly
+active: true
+metadata:
+  name: Update Event Type
+  description: Update an existing event type in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Event Type Details
+    items:
+      - label: Event Type UUID
+        variable: eventTypeUuid
+        type: text
+        required: true
+        helpText: The UUID of the event type you want to update. Can be found in the URL of the event type page or via the List Event Types endpoint.
+      - label: Name
+        variable: name
+        type: text
+        required: false
+        helpText: The name of the event type.
+      - label: Description
+        variable: description
+        type: text
+        textOptions:
+          type: multiline
+        required: false
+        helpText: A description of the event type.
+      - label: Color
+        variable: color
+        type: text
+        required: false
+        helpText: The color for the event type (hexadecimal format, e.g., #FF0000).
+      - label: Duration (minutes)
+        variable: duration
+        type: text
+        required: false
+        helpText: The length of the event in minutes.
+  - title: Booking Settings
+    collapsed: true
+    items:
+      - label: Minimum Notice Time (minutes)
+        variable: minimumNoticeTime
+        type: text
+        required: false
+        helpText: The minimum amount of time before the event start time that the invitee can schedule.
+      - label: Maximum Notice Time (days)
+        variable: maximumNoticeTime
+        type: text
+        required: false
+        helpText: The maximum amount of time before the event start time that the invitee can schedule, in days.
+      - label: Secret
+        variable: secret
+        type: select
+        required: false
+        helpText: Whether the event is secret and only available via a direct link.
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: True
+              value: 'true'
+            - label: False
+              value: 'false'
+      - label: Kind
+        variable: kind
+        type: select
+        required: false
+        helpText: The kind of event type.
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Solo
+              value: 'solo'
+            - label: Group
+              value: 'group'
+            - label: Round Robin
+              value: 'round_robin'
+            - label: Collective
+              value: 'collective'
+  - title: Availability Settings
+    collapsed: true
+    items:
+      - label: Active
+        variable: active
+        type: select
+        required: false
+        helpText: Whether the event type is active and can be booked.
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: True
+              value: 'true'
+            - label: False
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The name of the variable to store the updated event type information.

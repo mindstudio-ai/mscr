@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Action
+id: list-event-types
+serviceId: calendly
+active: true
+metadata:
+  name: List Event Types
+  description: Retrieves a list of event types for a Calendly user
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: User
+        helpText: The URI of the user to list event types for. Leave empty to use the current user.
+        variable: user
+        required: false
+        type: text
+        placeholder: https://api.calendly.com/users/USERID
+      - label: Active Status
+        helpText: Filter event types by their active status.
+        variable: active
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: All Event Types
+              value: ''
+            - label: Active Only
+              value: 'true'
+            - label: Inactive Only
+              value: 'false'
+      - label: Count
+        helpText: The number of results to return (1-100). Default is 10.
+        variable: count
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Page Token
+        helpText: The token for the page of results to return. Used for pagination.
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: next_page_token
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the list of event types.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

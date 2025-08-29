@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Action
+id: create-event-type
+serviceId: calendly
+active: true
+metadata:
+  name: Create Event Type
+  description: Creates a new event type in your Calendly account
+  quickHelp: readme.md
+configuration:
+  - title: Event Type Details
+    items:
+      - label: Event Type Name
+        helpText: The name of your event type (e.g., 'Discovery Call', 'Consultation')
+        variable: name
+        required: true
+        type: text
+      - label: Description
+        helpText: A brief description of the event type
+        variable: description
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Color
+        helpText: Hex color code for the event (e.g., #0088cc)
+        variable: color
+        required: false
+        type: text
+        placeholder: '#0088cc'
+      - label: Duration (minutes)
+        helpText: The length of the event in minutes (e.g., 15, 30, 60)
+        variable: duration
+        required: true
+        type: text
+        placeholder: '30'
+  - title: Scheduling Options
+    items:
+      - label: Custom URL Slug
+        helpText: Custom part of the URL for this event type (e.g., 'discovery-call')
+        variable: slug
+        required: false
+        type: text
+        placeholder: 'my-event-name'
+      - label: Event Kind
+        variable: kind
+        required: true
+        type: select
+        defaultValue: 'solo'
+        selectOptions:
+          options:
+            - label: One-on-One
+              value: solo
+            - label: Group
+              value: group
+            - label: Collective
+              value: collective
+            - label: Round Robin
+              value: round_robin
+      - label: Pooling Type
+        helpText: How to assign hosts for Round Robin events
+        variable: poolingType
+        required: false
+        type: select
+        defaultValue: 'round_robin'
+        selectOptions:
+          options:
+            - label: Round Robin
+              value: round_robin
+            - label: First Available
+              value: first_available
+      - label: Profile ID
+        helpText: The Calendly user profile ID to associate with this event type
+        variable: profileId
+        required: true
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the created event type details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

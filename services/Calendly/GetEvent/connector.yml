@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-event
+serviceId: calendly
+active: true
+metadata:
+  name: Get Event
+  description: Retrieves details about a specific Calendly event
+  quickHelp: readme.md
+configuration:
+  - title: Event Configuration
+    items:
+      - label: Event UUID
+        helpText: The UUID of the Calendly event you want to retrieve details for
+        variable: eventUuid
+        required: true
+        type: text
+        placeholder: e.g., 01234567-89ab-cdef-0123-456789abcdef
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the event details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

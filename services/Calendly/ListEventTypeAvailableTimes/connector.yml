@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: list-event-type-available-times
+serviceId: calendly
+active: true
+metadata:
+  name: List Event Type Available Times
+  description: Retrieves available time slots for a specific Calendly event type within a given date range
+  quickHelp: readme.md
+configuration:
+  - title: Event Type Configuration
+    items:
+      - label: Event Type UUID
+        variable: eventTypeUuid
+        type: text
+        required: true
+        helpText: The UUID of the Calendly event type you want to check availability for. You can find this in the URL of your event type page.
+        placeholder: e.g., 00000000-0000-0000-0000-000000000000
+  - title: Date Range
+    items:
+      - label: Start Time
+        variable: startTime
+        type: text
+        required: true
+        helpText: The start of the date range to check for availability (ISO 8601 format)
+        placeholder: e.g., 2023-01-01T00:00:00Z
+      - label: End Time
+        variable: endTime
+        type: text
+        required: true
+        helpText: The end of the date range to check for availability (ISO 8601 format)
+        placeholder: e.g., 2023-01-07T23:59:59Z
+  - title: Additional Options
+    collapsed: true
+    items:
+      - label: Timezone
+        variable: timezone
+        type: text
+        required: false
+        helpText: The IANA timezone to return available times in. Defaults to the event type's timezone.
+        placeholder: e.g., America/New_York
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable name to store the list of available time slots

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: list-user-availability-schedules
+serviceId: calendly
+active: true
+metadata:
+  name: List User Availability Schedules
+  description: Retrieves a list of availability schedules for a specified Calendly user
+  quickHelp: readme.md
+configuration:
+  - title: User Configuration
+    items:
+      - label: User URI
+        helpText: "The URI of the Calendly user. Format: 'https://api.calendly.com/users/{UUID}'"
+        variable: userUri
+        required: true
+        type: text
+        placeholder: 'https://api.calendly.com/users/ABCDEF123456'
+  - title: Response Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of availability schedules
+        variable: outputVariable
+        required: true
+        type: outputVariableName

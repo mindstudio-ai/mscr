@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: list-event-type-hosts
+serviceId: calendly
+active: true
+metadata:
+  name: List Event Type Hosts
+  description: Retrieves all hosts associated with a specific Calendly event type
+  quickHelp: readme.md
+configuration:
+  - title: Event Type
+    items:
+      - label: Event Type UUID
+        helpText: The UUID of the event type you want to list hosts for. You can find this in the URL when viewing the event type in Calendly.
+        variable: eventTypeUuid
+        required: true
+        type: text
+        placeholder: 00000000-0000-0000-0000-000000000000
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of hosts
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-event-invitee
+serviceId: calendly
+active: true
+metadata:
+  name: Get Event Invitee
+  description: Retrieves detailed information about a specific invitee for a Calendly event
+  quickHelp: readme.md
+configuration:
+  - title: Invitee Information
+    items:
+      - label: Event UUID
+        helpText: The UUID of the scheduled event (found in the event URL or API response)
+        variable: eventUuid
+        required: true
+        type: text
+        placeholder: Enter event UUID...
+      - label: Invitee UUID
+        helpText: The UUID of the invitee you want to retrieve information for
+        variable: inviteeUuid
+        required: true
+        type: text
+        placeholder: Enter invitee UUID...
+      - label: Output Variable
+        helpText: Variable name to store the invitee information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

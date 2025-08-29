@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Action
+id: invite-user
+serviceId: calendly
+active: true
+metadata:
+  name: Invite User to Organization
+  description: Invites a user to join a Calendly organization by sending an invitation email
+  quickHelp: readme.md
+configuration:
+  - title: Invitation Details
+    items:
+      - label: Organization UUID
+        helpText: The UUID of the organization to invite the user to. You can find this in your Calendly organization settings.
+        variable: organizationUuid
+        required: true
+        type: text
+        placeholder: 00000000-0000-0000-0000-000000000000
+      - label: Email Address
+        helpText: Email address of the user to invite
+        variable: email
+        required: true
+        type: text
+        placeholder: user@example.com
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the invitation details
+        variable: outputVariable
+        required: false
+        type: outputVariableName
