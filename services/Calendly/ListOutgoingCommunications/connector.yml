@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Action
+id: list-outgoing-communications
+serviceId: calendly
+active: true
+metadata:
+  name: List Outgoing Communications
+  description: Retrieves a list of outgoing communications from Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Organization URI
+        variable: organizationUri
+        type: text
+        required: true
+        helpText: 'The URI of the organization to list communications for. Example: https://api.calendly.com/organizations/ORGANIZATION_UUID'
+        placeholder: https://api.calendly.com/organizations/ORGANIZATION_UUID
+      - label: Status
+        variable: status
+        type: select
+        required: false
+        helpText: Filter communications by status
+        defaultValue: all
+        selectOptions:
+          options:
+            - label: All
+              value: all
+            - label: Pending
+              value: pending
+            - label: Sent
+              value: sent
+            - label: Failed
+              value: failed
+      - label: Sort
+        variable: sort
+        type: select
+        required: false
+        helpText: Sort order for the communications list
+        defaultValue: created_at:desc
+        selectOptions:
+          options:
+            - label: Created (Newest First)
+              value: created_at:desc
+            - label: Created (Oldest First)
+              value: created_at:asc
+      - label: Page Size
+        variable: pageSize
+        type: text
+        required: false
+        helpText: Number of results per page (1-100)
+        defaultValue: '25'
+        placeholder: '25'
+      - label: Page Token
+        variable: pageToken
+        type: text
+        required: false
+        helpText: Token for pagination to get the next set of results
+        placeholder: Leave empty for first page
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the list of communications

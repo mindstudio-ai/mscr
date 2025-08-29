@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Action
+id: create-webhook-subscription
+serviceId: calendly
+active: true
+metadata:
+  name: Create Webhook Subscription
+  description: Creates a new webhook subscription to receive notifications when specific Calendly events occur
+  quickHelp: readme.md
+configuration:
+  - title: Webhook Configuration
+    items:
+      - label: Callback URL
+        required: true
+        helpText: The URL where Calendly will send webhook events. Must be a valid HTTPS URL.
+        variable: callbackUrl
+        type: text
+        placeholder: https://example.com/webhook
+      - label: Events
+        required: true
+        helpText: Comma-separated list of events to subscribe to (e.g., invitee.created,invitee.canceled)
+        variable: events
+        type: text
+        defaultValue: invitee.created
+        placeholder: invitee.created,invitee.canceled
+      - label: Scope
+        required: true
+        helpText: Determines the scope of events this webhook will receive
+        variable: scope
+        type: select
+        defaultValue: user
+        selectOptions:
+          options:
+            - label: User
+              value: user
+            - label: Organization
+              value: organization
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Signing Key
+        required: false
+        helpText: Optional. A key used to sign the webhook payload for verification. Must be at least 16 characters.
+        variable: signingKey
+        type: text
+        placeholder: your-signing-key
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created webhook subscription details
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-invitee-no-show
+serviceId: calendly
+active: true
+metadata:
+  name: Get Invitee No-Show
+  description: Retrieves information about an invitee who did not show up for a scheduled event
+  quickHelp: readme.md
+configuration:
+  - title: No-Show Details
+    items:
+      - label: Invitee UUID
+        helpText: The UUID of the invitee who did not show up for the scheduled event
+        variable: inviteeUuid
+        required: true
+        type: text
+        placeholder: e.g., 12345678-1234-1234-1234-123456789012
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the no-show information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

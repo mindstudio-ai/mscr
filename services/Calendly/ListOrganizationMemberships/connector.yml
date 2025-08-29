@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: list-organization-memberships
+serviceId: calendly
+active: true
+metadata:
+  name: List Organization Memberships
+  description: Retrieves a list of all users who are members of the specified Calendly organization
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Organization UUID
+        helpText: The UUID of the organization to list memberships for
+        variable: organizationUuid
+        required: true
+        type: text
+        placeholder: Enter organization UUID...
+      - label: Count
+        helpText: The number of results to return (1-100, default 10)
+        variable: count
+        required: false
+        type: text
+        placeholder: '10'
+        defaultValue: '10'
+      - label: Page Token
+        helpText: The pagination token from a previous response to continue listing where that request left off
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: Enter page token...
+      - label: Output Variable
+        helpText: The variable name to store the list of organization memberships
+        variable: outputVariable
+        required: true
+        type: outputVariableName

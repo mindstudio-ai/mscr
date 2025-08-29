@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: get-sample-webhook-data
+serviceId: calendly
+active: true
+metadata:
+  name: Get Sample Webhook Data
+  description: Retrieves sample webhook data for testing and development purposes
+  quickHelp: readme.md
+configuration:
+  - title: Webhook Configuration
+    items:
+      - label: Webhook Event
+        helpText: Select the type of webhook event you want to see sample data for
+        variable: webhookEvent
+        required: true
+        type: select
+        defaultValue: invitee.created
+        selectOptions:
+          options:
+            - label: Invitee Created (when someone schedules an event)
+              value: invitee.created
+            - label: Invitee Canceled (when someone cancels a scheduled event)
+              value: invitee.canceled
+            - label: Routing Form Submission Created (when someone submits a routing form)
+              value: routing_form.submission.created
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the sample webhook data
+        variable: outputVariable
+        type: outputVariableName

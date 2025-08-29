@@ -12,7 +12,8 @@
     "format": "prettier --write \"**/*.{ts,js,cjs,yml}\"",
     "format:check": "prettier --check \"**/*.{ts,js,cjs,yml}\"",
     "prebuild": "npm run lint:fix && npm run format && npm run validate",
-    "start:inbound-server": "tsx src/cli/inbound-server.ts"
+    "start:inbound-server": "tsx src/cli/inbound-server.ts",
+    "build:sync-local": "npm run build && curl -X POST http://localhost:3129/v1/integrations/connector-registry/_hooks/sync -H \"Content-Type: application/json\" --data-binary @dist/registry.json"
   },
   "devDependencies": {
     "@eslint/js": "^9.34.0",

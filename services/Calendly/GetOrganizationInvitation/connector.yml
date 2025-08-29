@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-organization-invitation
+serviceId: calendly
+active: true
+metadata:
+  name: Get Organization Invitation
+  description: Retrieves details about a specific organization invitation in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Invitation Details
+    items:
+      - label: Invitation UUID
+        helpText: The UUID of the organization invitation you want to retrieve
+        variable: invitationUuid
+        required: true
+        type: text
+        placeholder: e.g., 0e8b4bda-25a0-4df6-a420-526dd7cffcf2
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the invitation details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

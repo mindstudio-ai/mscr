@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: create-share-link
+serviceId: calendly
+active: true
+metadata:
+  name: Create Share Link
+  description: Generate a customized sharing link for a Calendly event type
+  quickHelp: readme.md
+configuration:
+  - title: Create Share Link
+    items:
+      - label: Event Type Link
+        helpText: The full URL of the Calendly event type (e.g., https://calendly.com/username/30min)
+        variable: eventTypeLink
+        required: true
+        type: text
+        placeholder: https://calendly.com/username/30min
+      - label: Max Event Count
+        helpText: Maximum number of events that can be scheduled using this share link. Leave empty for unlimited.
+        variable: maxEventCount
+        required: false
+        type: text
+        placeholder: Leave empty for unlimited
+      - label: Output Variable
+        helpText: Variable name to store the generated share link
+        variable: outputVariable
+        required: true
+        type: outputVariableName

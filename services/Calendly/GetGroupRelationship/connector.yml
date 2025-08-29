@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-group-relationship
+serviceId: calendly
+active: true
+metadata:
+  name: Get Group Relationship
+  description: Retrieves information about the relationship between a group and its members in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Group Relationship
+    items:
+      - label: Group UUID
+        helpText: The UUID of the group to retrieve relationship information for
+        variable: groupUuid
+        required: true
+        type: text
+        placeholder: e.g., 123e4567-e89b-12d3-a456-426614174000
+      - label: Output Variable
+        helpText: The variable name to store the group relationship information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-organization-membership
+serviceId: calendly
+active: true
+metadata:
+  name: Get Organization Membership
+  description: Retrieves details about a user's membership in a Calendly organization
+  quickHelp: readme.md
+configuration:
+  - title: Membership Details
+    items:
+      - label: Organization Membership UUID
+        helpText: The UUID of the organization membership to retrieve. This can be found in the URL when viewing a user in your Calendly organization.
+        variable: organizationMembershipUuid
+        required: true
+        type: text
+        placeholder: e.g., 12345678-1234-1234-1234-123456789012
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the organization membership details.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

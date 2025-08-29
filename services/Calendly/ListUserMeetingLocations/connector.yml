@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: list-user-meeting-locations
+serviceId: calendly
+active: true
+metadata:
+  name: List User Meeting Locations
+  description: Retrieves a list of meeting locations for a Calendly user
+  quickHelp: readme.md
+configuration:
+  - title: User Configuration
+    items:
+      - label: User UUID
+        variable: userUuid
+        type: text
+        required: true
+        helpText: The UUID of the Calendly user whose meeting locations you want to retrieve. You can find this in the Calendly user profile URL.
+        placeholder: e.g., ABCDEFGHIJKLMNOPQRST
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The name of the variable where the list of meeting locations will be stored.

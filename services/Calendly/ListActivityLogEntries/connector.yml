@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Action
+id: list-activity-log-entries
+serviceId: calendly
+active: true
+metadata:
+  name: List Activity Log Entries
+  description: Retrieve activity log entries from your Calendly account with optional filtering
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Count
+        helpText: The number of results to return (1-100). Default is 10.
+        variable: count
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Sort Order
+        helpText: The order to sort the results.
+        variable: sort
+        required: false
+        type: select
+        defaultValue: created_at:desc
+        selectOptions:
+          options:
+            - label: Newest First
+              value: created_at:desc
+            - label: Oldest First
+              value: created_at:asc
+      - label: Action
+        helpText: Filter by the action performed (e.g., created, updated, deleted).
+        variable: action
+        required: false
+        type: text
+        placeholder: 'created'
+      - label: Namespace
+        helpText: Filter by namespace (e.g., scheduling_link, event_type).
+        variable: namespace
+        required: false
+        type: text
+        placeholder: 'event_type'
+  - title: Advanced Filters
+    collapsed: true
+    items:
+      - label: Page Token
+        helpText: The token for the page of results to return. Use the next_page_token from a previous response.
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: 'next_page_token'
+      - label: Actor User UUID
+        helpText: Filter by the UUID of the user who performed the action.
+        variable: actorUserUuid
+        required: false
+        type: text
+        placeholder: 'user_uuid'
+      - label: Organization URI
+        helpText: Filter by organization URI.
+        variable: organization
+        required: false
+        type: text
+        placeholder: 'https://api.calendly.com/organizations/ORGANIZATION_UUID'
+      - label: Min Created At
+        helpText: Filter by minimum creation date (ISO 8601 format).
+        variable: minCreatedAt
+        required: false
+        type: text
+        placeholder: '2023-01-01T00:00:00Z'
+      - label: Max Created At
+        helpText: Filter by maximum creation date (ISO 8601 format).
+        variable: maxCreatedAt
+        required: false
+        type: text
+        placeholder: '2023-12-31T23:59:59Z'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the activity log entries.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

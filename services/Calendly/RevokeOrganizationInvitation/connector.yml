@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: revoke-organization-invitation
+serviceId: calendly
+active: true
+metadata:
+  name: Revoke Organization Invitation
+  description: Revokes a pending invitation for a user to join an organization in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Invitation Details
+    items:
+      - label: Invitation UUID
+        helpText: The UUID of the invitation you want to revoke. This can be found in the URL of the invitation or via the List Organization Invitations endpoint.
+        variable: invitationUuid
+        required: true
+        type: text
+        placeholder: e.g., 1234abcd-5678-efgh-9012-ijklmnopqrst
+  - title: Response Configuration
+    items:
+      - label: Success Message Variable
+        helpText: Variable name to store the success message
+        variable: outputVariable
+        required: true
+        type: outputVariableName

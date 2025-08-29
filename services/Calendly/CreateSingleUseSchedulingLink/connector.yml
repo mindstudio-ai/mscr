@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: create-single-use-scheduling-link
+serviceId: calendly
+active: true
+metadata:
+  name: Create Single-Use Scheduling Link
+  description: Creates a single-use scheduling link in Calendly that can only be used once
+  quickHelp: readme.md
+configuration:
+  - title: Event Details
+    items:
+      - label: Event Type URL
+        helpText: The URL of the Calendly event type (e.g., https://calendly.com/username/30min)
+        variable: eventTypeUrl
+        required: true
+        type: text
+        placeholder: https://calendly.com/username/30min
+      - label: Max Event Count
+        helpText: Maximum number of times this link can be used (usually 1 for single-use links)
+        variable: maxEventCount
+        required: true
+        type: text
+        defaultValue: '1'
+      - label: Owner Email
+        helpText: Email of the Calendly user who owns this event type (optional)
+        variable: ownerEmail
+        required: false
+        type: text
+        placeholder: user@example.com
+  - title: Link Options
+    collapsed: true
+    items:
+      - label: Link Expiration
+        helpText: Number of days until this link expires (leave empty for no expiration)
+        variable: expirationDays
+        required: false
+        type: text
+        placeholder: '30'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable to store the scheduling link URL
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: list-organization-invitations
+serviceId: calendly
+active: true
+metadata:
+  name: List Organization Invitations
+  description: Retrieves a list of pending invitations for a Calendly organization
+  quickHelp: readme.md
+configuration:
+  - title: Organization
+    items:
+      - label: Organization URI
+        helpText: The URI of your Calendly organization. You can find this in your Calendly account settings.
+        variable: organizationUri
+        required: true
+        type: text
+        placeholder: https://api.calendly.com/organizations/ORGANIZATION_UUID
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: Maximum number of results to return per page (1-100).
+        variable: count
+        required: false
+        type: text
+        placeholder: '25'
+        defaultValue: '25'
+      - label: Page Token
+        helpText: Token for the page of results to return. Leave empty for first page.
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: Leave empty for first page
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the list of organization invitations.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

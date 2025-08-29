@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Action
+id: list-events
+serviceId: calendly
+active: true
+metadata:
+  name: List Events
+  description: Retrieves scheduled events from your Calendly account with optional filtering
+  quickHelp: readme.md
+configuration:
+  - title: Event Filters
+    items:
+      - label: Min Start Time
+        helpText: Filter by minimum start time (ISO 8601 format, e.g., 2023-01-01T00:00:00Z)
+        variable: minStartTime
+        required: false
+        type: text
+        placeholder: 2023-01-01T00:00:00Z
+      - label: Max Start Time
+        helpText: Filter by maximum start time (ISO 8601 format, e.g., 2023-12-31T23:59:59Z)
+        variable: maxStartTime
+        required: false
+        type: text
+        placeholder: 2023-12-31T23:59:59Z
+      - label: Event Status
+        helpText: Filter events by their status
+        variable: status
+        required: false
+        type: select
+        defaultValue: active
+        selectOptions:
+          options:
+            - label: Active
+              value: active
+            - label: Canceled
+              value: canceled
+      - label: Number of Events
+        helpText: Maximum number of events to return (1-100)
+        variable: count
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the list of events
+        variable: outputVariable
+        required: true
+        type: outputVariableName

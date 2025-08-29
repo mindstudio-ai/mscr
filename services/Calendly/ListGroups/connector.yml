@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: list-groups
+serviceId: calendly
+active: true
+metadata:
+  name: List Groups
+  description: Retrieves a list of groups in your Calendly organization
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Count
+        helpText: The number of results to return (1-100). Default is 10.
+        variable: count
+        required: false
+        type: text
+        placeholder: '10'
+      - label: Page Token
+        helpText: The token to retrieve the next page of results.
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: 'Leave empty for first page'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the list of groups.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

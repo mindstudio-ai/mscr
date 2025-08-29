@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: delete-invitee-data
+serviceId: calendly
+active: true
+metadata:
+  name: Delete Invitee Data
+  description: Delete an invitee's data from a scheduled event in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Event Details
+    items:
+      - label: Event UUID
+        helpText: The UUID of the scheduled event from which to delete invitee data.
+        variable: eventUuid
+        required: true
+        type: text
+        placeholder: Enter event UUID...
+      - label: Invitee UUID
+        helpText: The UUID of the invitee whose data you want to delete.
+        variable: inviteeUuid
+        required: true
+        type: text
+        placeholder: Enter invitee UUID...
+  - title: Response Handling
+    items:
+      - label: Success Output Variable
+        helpText: Variable name to store the operation result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

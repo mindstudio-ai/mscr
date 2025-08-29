@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Action
+id: delete-scheduled-event
+serviceId: calendly
+active: true
+metadata:
+  name: Delete Scheduled Event
+  description: Deletes a scheduled event in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Event Configuration
+    items:
+      - label: Event UUID
+        helpText: The UUID of the scheduled event you want to delete. This is the unique identifier for the event in Calendly.
+        variable: eventUuid
+        required: true
+        type: text
+        placeholder: 01234567-89ab-cdef-0123-456789abcdef
+      - label: Reason for Cancellation
+        helpText: Optional reason for cancelling the event.
+        variable: reason
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+      - label: Output Variable
+        helpText: Name of the variable to store the result of the operation.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

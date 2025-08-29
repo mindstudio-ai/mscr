@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-routing-form
+serviceId: calendly
+active: true
+metadata:
+  name: Get Routing Form
+  description: Retrieves detailed information about a specific Calendly routing form
+  quickHelp: readme.md
+configuration:
+  - title: Routing Form Configuration
+    items:
+      - label: Routing Form UUID
+        helpText: The UUID of the routing form you want to retrieve. This is the unique identifier for the form.
+        variable: routingFormUuid
+        required: true
+        type: text
+        placeholder: 'Example: 1234abcd-1234-abcd-1234-1234abcd1234'
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the routing form details.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

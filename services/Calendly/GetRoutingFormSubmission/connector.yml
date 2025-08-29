@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-routing-form-submission
+serviceId: calendly
+active: true
+metadata:
+  name: Get Routing Form Submission
+  description: Retrieves details of a specific routing form submission from Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Routing Form Submission
+    items:
+      - label: Submission UUID
+        helpText: The UUID of the routing form submission you want to retrieve
+        variable: submissionUuid
+        required: true
+        type: text
+        placeholder: e.g., 0b50d439-5855-4a91-9553-f9e301f5b56a
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the routing form submission details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: update-event-type-availability
+serviceId: calendly
+active: true
+metadata:
+  name: Update Event Type Availability
+  description: Updates the availability schedules for a Calendly event type
+  quickHelp: readme.md
+configuration:
+  - title: Event Type Details
+    items:
+      - label: Event Type UUID
+        variable: eventTypeUuid
+        type: text
+        required: true
+        helpText: The UUID of the event type to update. You can find this in the URL of your event type settings page.
+        placeholder: e.g., 00000000-0000-0000-0000-000000000000
+  - title: Availability Schedule
+    items:
+      - label: Availability Rules
+        variable: availabilityRules
+        type: text
+        required: true
+        helpText: JSON array of availability rules. Each rule defines when the event type is available.
+        textOptions:
+          type: multiline
+        defaultValue: '[{"type":"wday","days":[1,2,3,4,5],"intervals":[{"from":"09:00","to":"17:00"}]}]'
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Variable name to store the response

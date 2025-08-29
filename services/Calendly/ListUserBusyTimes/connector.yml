@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: list-user-busy-times
+serviceId: calendly
+active: true
+metadata:
+  name: List User Busy Times
+  description: Retrieves a list of busy times for a Calendly user within a specified date range
+  quickHelp: readme.md
+configuration:
+  - title: User Selection
+    items:
+      - label: User UUID
+        helpText: The UUID of the Calendly user whose busy times you want to retrieve. You can find this in the Calendly user profile URL.
+        variable: userUuid
+        required: true
+        type: text
+        placeholder: e.g., ABCDEFGHIJKLMNOPQRST
+  - title: Date Range
+    items:
+      - label: Start Time
+        helpText: The start of the date range to check for busy times (ISO-8601 format, e.g., 2023-01-01T00:00:00Z)
+        variable: startTime
+        required: true
+        type: text
+        placeholder: YYYY-MM-DDT00:00:00Z
+      - label: End Time
+        helpText: The end of the date range to check for busy times (ISO-8601 format, e.g., 2023-01-31T23:59:59Z)
+        variable: endTime
+        required: true
+        type: text
+        placeholder: YYYY-MM-DDT23:59:59Z
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the list of busy times
+        variable: outputVariable
+        required: true
+        type: outputVariableName

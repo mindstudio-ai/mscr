@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: list-group-relationships
+serviceId: calendly
+active: true
+metadata:
+  name: List Group Relationships
+  description: Retrieves a list of users who are members of a specified Calendly group
+  quickHelp: readme.md
+configuration:
+  - title: Group Configuration
+    items:
+      - label: Group URI
+        helpText: The URI of the Calendly group for which to list relationships. Example format - https://api.calendly.com/groups/ABCDEF
+        variable: groupUri
+        required: true
+        type: text
+        placeholder: https://api.calendly.com/groups/...
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Count
+        helpText: The number of results to return per page (default 100, max 100)
+        variable: count
+        required: false
+        type: text
+        placeholder: '100'
+        defaultValue: '100'
+      - label: Page Token
+        helpText: The token for the page of results to return. Used for pagination through large result sets.
+        variable: pageToken
+        required: false
+        type: text
+        placeholder: Leave empty for first page
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: The name of the variable to store the list of group relationships
+        variable: outputVariable
+        required: true
+        type: outputVariableName
