@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Action
+id: create-folder
+serviceId: canva
+active: true
+metadata:
+  name: Create Folder
+  description: Creates a new folder in a Canva user's projects
+  quickHelp: readme.md
+configuration:
+  - title: Folder Configuration
+    items:
+      - label: Folder Name
+        helpText: The name of the folder to create (1-255 characters)
+        variable: folderName
+        required: true
+        type: text
+        placeholder: My New Folder
+      - label: Parent Folder ID
+        helpText: "Use 'root' for the top level of projects, 'uploads' for the Uploads folder, or a specific folder ID"
+        variable: parentFolderId
+        required: true
+        type: text
+        placeholder: root
+        defaultValue: root
+      - label: Output Variable
+        helpText: Variable to store the created folder information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

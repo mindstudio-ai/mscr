@@ -1,0 +1,138 @@
+apiVersion: v1
+kind: Action
+id: export-design
+serviceId: canva
+active: true
+metadata:
+  name: Export Design
+  description: Export a Canva design in various formats (PDF, JPG, PNG, GIF, PPTX, MP4)
+  quickHelp: readme.md
+configuration:
+  - title: Design Information
+    items:
+      - label: Design ID
+        helpText: The ID of the Canva design to export
+        variable: designId
+        required: true
+        type: text
+        placeholder: e.g., DAVZr1z5464
+  - title: Export Format
+    items:
+      - label: Format Type
+        helpText: The format to export the design in
+        variable: formatType
+        required: true
+        type: select
+        defaultValue: pdf
+        selectOptions:
+          options:
+            - label: PDF
+              value: pdf
+            - label: JPG
+              value: jpg
+            - label: PNG
+              value: png
+            - label: GIF
+              value: gif
+            - label: PowerPoint
+              value: pptx
+            - label: MP4
+              value: mp4
+      - label: Export Quality
+        helpText: "Quality of the export. Note: 'Pro' quality may fail if the design contains premium elements and the user doesn't have the required license."
+        variable: exportQuality
+        required: false
+        type: select
+        defaultValue: regular
+        selectOptions:
+          options:
+            - label: Regular
+              value: regular
+            - label: Premium
+              value: pro
+  - title: Format-Specific Options
+    collapsed: true
+    items:
+      - label: PDF Size
+        helpText: The paper size for PDF exports (only applicable for Documents)
+        variable: pdfSize
+        required: false
+        type: select
+        defaultValue: a4
+        selectOptions:
+          options:
+            - label: A4
+              value: a4
+            - label: A3
+              value: a3
+            - label: Letter
+              value: letter
+            - label: Legal
+              value: legal
+      - label: JPG Quality (1-100)
+        helpText: Compression quality for JPG (1-100). Lower values create smaller files with more compression artifacts.
+        variable: jpgQuality
+        required: false
+        type: text
+        defaultValue: '90'
+      - label: Width (pixels)
+        helpText: Width in pixels (40-25000). If only one dimension is specified, aspect ratio will be maintained.
+        variable: width
+        required: false
+        type: text
+      - label: Height (pixels)
+        helpText: Height in pixels (40-25000). If only one dimension is specified, aspect ratio will be maintained.
+        variable: height
+        required: false
+        type: text
+      - label: PNG Options
+        helpText: Additional options for PNG exports
+        variable: pngOptions
+        required: false
+        type: select
+        defaultValue: default
+        selectOptions:
+          options:
+            - label: Default
+              value: default
+            - label: Transparent Background
+              value: transparent
+      - label: Video Quality
+        helpText: The orientation and resolution of the exported video
+        variable: videoQuality
+        required: false
+        type: select
+        defaultValue: horizontal_1080p
+        selectOptions:
+          options:
+            - label: Horizontal 480p
+              value: horizontal_480p
+            - label: Horizontal 720p
+              value: horizontal_720p
+            - label: Horizontal 1080p
+              value: horizontal_1080p
+            - label: Horizontal 4K
+              value: horizontal_4k
+            - label: Vertical 480p
+              value: vertical_480p
+            - label: Vertical 720p
+              value: vertical_720p
+            - label: Vertical 1080p
+              value: vertical_1080p
+            - label: Vertical 4K
+              value: vertical_4k
+  - title: Page Selection
+    collapsed: true
+    items:
+      - label: Pages to Export
+        helpText: "Comma-separated list of page numbers to export (e.g., '1,2,5'). Leave empty to export all pages. The first page is 1."
+        variable: pages
+        required: false
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the download URL(s)
+        variable: outputVariable
+        required: true
+        type: outputVariableName

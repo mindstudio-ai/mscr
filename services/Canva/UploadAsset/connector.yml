@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: upload-asset
+serviceId: canva
+active: true
+metadata:
+  name: Upload Asset to Canva
+  description: Upload an image or video to your Canva content library
+  quickHelp: readme.md
+configuration:
+  - title: Asset Details
+    items:
+      - label: Asset Name
+        helpText: Name for the asset in your Canva library (max 50 characters)
+        variable: assetName
+        required: true
+        type: text
+        placeholder: My Awesome Image
+      - label: File Path
+        helpText: Local file path or URL to the file you want to upload
+        variable: filePath
+        required: true
+        type: text
+        placeholder: /path/to/file.jpg or https://example.com/image.jpg
+      - label: Output Variable
+        helpText: Variable to store the uploaded asset information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-user-capabilities
+serviceId: canva
+active: true
+metadata:
+  name: Get User Capabilities
+  description: Retrieves the API capabilities for the user account associated with the provided access token
+  quickHelp: readme.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: The variable name to store the user's capabilities
+        variable: outputVariable
+        type: outputVariableName

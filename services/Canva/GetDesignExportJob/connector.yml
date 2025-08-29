@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: get-design-export-job
+serviceId: canva
+active: true
+metadata:
+  name: Get Design Export Job
+  description: Retrieves the status and results of a Canva design export job, including download links for completed exports
+  quickHelp: readme.md
+configuration:
+  - title: Export Job Details
+    items:
+      - label: Export Job ID
+        variable: exportId
+        required: true
+        type: text
+        helpText: The ID of the export job created using the Create design export job API
+        placeholder: e08861ae-3b29-45db-8dc1-1fe0bf7f1cc8
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+        helpText: Variable name to store the export job results

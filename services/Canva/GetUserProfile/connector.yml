@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-user-profile
+serviceId: canva
+active: true
+metadata:
+  name: Get User Profile
+  description: Retrieves the profile information of the current Canva user
+  quickHelp: readme.md
+configuration:
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the user profile information
+        variable: outputVariable
+        type: outputVariableName

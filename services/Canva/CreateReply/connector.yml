@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: create-reply
+serviceId: canva
+active: true
+metadata:
+  name: Create Reply
+  description: Reply to a comment or suggestion thread on a Canva design
+  quickHelp: readme.md
+configuration:
+  - title: Reply Configuration
+    items:
+      - label: Design ID
+        required: true
+        helpText: The ID of the design where the comment thread exists
+        variable: designId
+        type: text
+        placeholder: e.g., DAFVztcvd9z
+      - label: Thread ID
+        required: true
+        helpText: The ID of the comment thread to reply to
+        variable: threadId
+        type: text
+        placeholder: e.g., KeAbiEAjZEj
+      - label: Reply Message
+        required: true
+        helpText: The text content of your reply. You can mention users with [user_id:team_id] format.
+        variable: message
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Enter your reply message here...
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the response data
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-asset
+serviceId: notion
+active: true
+metadata:
+  name: Get Canva Asset
+  description: Retrieves metadata for a specific asset in a user's Canva project
+  quickHelp: readme.md
+configuration:
+  - title: Asset Information
+    items:
+      - label: Asset ID
+        helpText: The ID of the Canva asset you want to retrieve information for.
+        variable: assetId
+        required: true
+        type: text
+        placeholder: e.g., Msd59349ff
+      - label: Output Variable
+        helpText: Variable name to store the asset information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: upload-asset-from-url
+serviceId: canva
+active: true
+metadata:
+  name: Upload Asset from URL
+  description: Upload an asset from a URL to your Canva content library
+  quickHelp: readme.md
+configuration:
+  - title: Asset Details
+    items:
+      - label: Asset Name
+        helpText: A name for the asset that will appear in the Canva content library
+        variable: assetName
+        required: true
+        type: text
+        placeholder: My Awesome Asset
+      - label: Asset URL
+        helpText: The URL of the file to import. This URL must be accessible from the internet and be publicly available
+        variable: assetUrl
+        required: true
+        type: text
+        placeholder: https://example.com/my_asset.jpg
+      - label: Output Variable
+        helpText: Variable name to store the asset upload job details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

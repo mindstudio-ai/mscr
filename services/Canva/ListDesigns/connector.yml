@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Action
+id: list-designs
+serviceId: canva
+active: true
+metadata:
+  name: List Designs
+  description: Lists all designs in a Canva user's account with filtering and sorting options
+  quickHelp: readme.md
+configuration:
+  - title: List Options
+    items:
+      - label: Search Term
+        helpText: Filter designs by search term
+        variable: searchTerm
+        required: false
+        type: text
+        placeholder: Enter keywords to search for...
+      - label: Ownership Filter
+        helpText: Filter designs based on ownership
+        variable: ownership
+        required: false
+        type: select
+        defaultValue: any
+        selectOptions:
+          options:
+            - label: Any (owned and shared)
+              value: any
+            - label: Owned by user
+              value: owned
+            - label: Shared with user
+              value: shared
+      - label: Sort By
+        helpText: Sort the list of designs
+        variable: sortBy
+        required: false
+        type: select
+        defaultValue: relevance
+        selectOptions:
+          options:
+            - label: Relevance
+              value: relevance
+            - label: Last modified (newest first)
+              value: modified_descending
+            - label: Last modified (oldest first)
+              value: modified_ascending
+            - label: Title (A-Z)
+              value: title_ascending
+            - label: Title (Z-A)
+              value: title_descending
+      - label: Continuation Token
+        helpText: Token for retrieving the next page of results (leave empty for first page)
+        variable: continuation
+        required: false
+        type: text
+        placeholder: Paste continuation token here...
+      - label: Output Variable
+        helpText: Variable name to store the list of designs
+        variable: outputVariable
+        required: true
+        type: outputVariableName

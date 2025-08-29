@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Action
+id: canva-url-import
+serviceId: canva
+active: true
+metadata:
+  name: Import Design from URL
+  description: Import a design from a URL into Canva as a new design
+  quickHelp: readme.md
+configuration:
+  - title: Design Information
+    items:
+      - label: Design Title
+        helpText: A title for the design that will be created in Canva
+        variable: title
+        required: true
+        type: text
+        placeholder: My Awesome Design
+      - label: File URL
+        helpText: The URL of the file to import. This URL must be accessible from the internet and be publicly available.
+        variable: url
+        required: true
+        type: text
+        placeholder: https://example.com/myfile.pptx
+  - title: File Options
+    items:
+      - label: File Type
+        helpText: The MIME type of the file being imported. If not provided, Canva will attempt to automatically detect the file type.
+        variable: mimeType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Auto-detect (recommended)
+              value: ''
+            - label: PowerPoint
+              value: application/vnd.openxmlformats-officedocument.presentationml.presentation
+            - label: Keynote
+              value: application/vnd.apple.keynote
+            - label: PDF
+              value: application/pdf
+            - label: Word
+              value: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            - label: JPEG
+              value: image/jpeg
+            - label: PNG
+              value: image/png
+            - label: SVG
+              value: image/svg+xml
+      - label: Output Variable
+        helpText: Variable name to store the import job details
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -13,6 +13,7 @@ export const ServiceDefinition = z.object({
   apiVersion: z.literal('v1'),
   kind: z.literal('ServiceDefinition'),
   id: z.string().min(1),
+  isActive: z.boolean().optional(),
   metadata: z.object({
     name: z.string(),
     description: z.string().default(''),

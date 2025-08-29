@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Action
+id: list-brand-templates
+serviceId: canva
+active: true
+metadata:
+  name: List Brand Templates
+  description: Retrieve a list of brand templates available to the authenticated user
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Search Term
+        helpText: Search for brand templates by name
+        variable: searchTerm
+        required: false
+        type: text
+        placeholder: Enter search terms...
+      - label: Ownership
+        helpText: Filter templates based on ownership
+        variable: ownership
+        required: false
+        type: select
+        defaultValue: any
+        selectOptions:
+          options:
+            - label: Any (owned and shared)
+              value: any
+            - label: Owned by me
+              value: owned
+            - label: Shared with me
+              value: shared
+      - label: Sort By
+        helpText: Sort the list of brand templates
+        variable: sortBy
+        required: false
+        type: select
+        defaultValue: relevance
+        selectOptions:
+          options:
+            - label: Relevance
+              value: relevance
+            - label: Last Modified (newest first)
+              value: modified_descending
+            - label: Last Modified (oldest first)
+              value: modified_ascending
+            - label: Title (A-Z)
+              value: title_ascending
+            - label: Title (Z-A)
+              value: title_descending
+      - label: Dataset Filter
+        helpText: Filter templates based on dataset definitions
+        variable: datasetFilter
+        required: false
+        type: select
+        defaultValue: any
+        selectOptions:
+          options:
+            - label: Any templates
+              value: any
+            - label: Templates with data fields
+              value: non_empty
+      - label: Maximum Results
+        helpText: Maximum number of templates to return
+        variable: maxResults
+        required: false
+        type: text
+        defaultValue: '50'
+        placeholder: '50'
+      - label: Output Variable
+        helpText: Variable name to store the list of brand templates
+        variable: outputVariable
+        required: true
+        type: outputVariableName
