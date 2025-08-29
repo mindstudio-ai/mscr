@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Action
+id: delete-form-translation
+serviceId: typeform
+active: true
+metadata:
+  name: Delete Form Translation
+  description: Deletes a translation for a specific form and language in Typeform
+  quickHelp: readme.md
+configuration:
+  - title: Form Details
+    items:
+      - label: Form ID
+        variable: formId
+        type: text
+        required: true
+        helpText: The unique ID for your form. Find this in your form URL. For example, in 'https://mysite.typeform.com/to/u6nXL7' the form ID is 'u6nXL7'.
+        placeholder: u6nXL7
+      - label: Language Code
+        variable: language
+        type: select
+        required: true
+        helpText: The language code of the translation you want to delete.
+        selectOptions:
+          options:
+            - label: Arabic
+              value: ar
+            - label: Catalan
+              value: ca
+            - label: Czech
+              value: cs
+            - label: Danish
+              value: da
+            - label: German
+              value: de
+            - label: Greek
+              value: el
+            - label: English
+              value: en
+            - label: Spanish
+              value: es
+            - label: Estonian
+              value: et
+            - label: Finnish
+              value: fi
+            - label: French
+              value: fr
+            - label: Hebrew
+              value: he
+            - label: Croatian
+              value: hr
+            - label: Hungarian
+              value: hu
+            - label: Italian
+              value: it
+            - label: Japanese
+              value: ja
+            - label: Korean
+              value: ko
+            - label: Lithuanian
+              value: lt
+            - label: Dutch
+              value: nl
+            - label: Norwegian
+              value: no
+            - label: Polish
+              value: pl
+            - label: Portuguese
+              value: pt
+            - label: Russian
+              value: ru
+            - label: Swedish
+              value: sv
+            - label: Turkish
+              value: tr
+            - label: Ukrainian
+              value: uk
+            - label: Chinese
+              value: zh
+  - title: Response
+    items:
+      - label: Result Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the operation result.

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-form
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Form
+  description: Retrieves a form by its ID from Typeform, including any theme and images attached to the form.
+  quickHelp: readme.md
+configuration:
+  - title: Form Details
+    items:
+      - label: Form ID
+        variable: formId
+        type: text
+        required: true
+        helpText: "Unique ID for the form. Find in your form URL. For example, in the URL 'https://mysite.typeform.com/to/u6nXL7' the form_id is 'u6nXL7'."
+        placeholder: 'e.g., u6nXL7'
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: 'Name of the variable to store the form details.'

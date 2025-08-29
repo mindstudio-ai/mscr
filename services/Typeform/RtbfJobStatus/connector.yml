@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: rtbf-job-status
+serviceId: typeform
+active: true
+metadata:
+  name: Check RTBF Job Status
+  description: Retrieves the status of a Right To Be Forgotten (RTBF) job in Typeform
+  quickHelp: readme.md
+configuration:
+  - title: Job Information
+    items:
+      - label: Account ID
+        helpText: The Typeform account ID for which the RTBF job was created
+        variable: accountId
+        required: true
+        type: text
+        placeholder: 01D9W9DZ93G5Y9CSK6ADHP79B1
+      - label: Job ID
+        helpText: The ID of the RTBF job to check
+        variable: jobId
+        required: true
+        type: text
+        placeholder: job_12345
+      - label: Output Variable
+        helpText: Name of the variable to store the job status information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,203 @@
+apiVersion: v1
+kind: Action
+id: update-theme
+serviceId: typeform
+active: true
+metadata:
+  name: Update Theme
+  description: Updates a theme in your Typeform account with a complete theme definition
+  quickHelp: readme.md
+configuration:
+  - title: Theme Configuration
+    items:
+      - label: Theme ID
+        helpText: Unique ID for the theme you want to update. Note that you can only update private themes, not Typeform's public themes.
+        variable: themeId
+        required: true
+        type: text
+        placeholder: Enter theme ID...
+      - label: Theme Name
+        helpText: Name for the theme.
+        variable: name
+        required: true
+        type: text
+        placeholder: My Theme
+  - title: Colors
+    items:
+      - label: Answer Color
+        helpText: Color the theme will apply to answers. Hexadecimal value.
+        variable: answerColor
+        required: true
+        type: text
+        defaultValue: '#4FB0AE'
+        placeholder: '#4FB0AE'
+      - label: Background Color
+        helpText: Color the theme will apply to the background. Hexadecimal value.
+        variable: backgroundColor
+        required: true
+        type: text
+        defaultValue: '#FFFFFF'
+        placeholder: '#FFFFFF'
+      - label: Button Color
+        helpText: Color the theme will apply to buttons. Hexadecimal value.
+        variable: buttonColor
+        required: true
+        type: text
+        defaultValue: '#4FB0AE'
+        placeholder: '#4FB0AE'
+      - label: Question Color
+        helpText: Color the theme will apply to questions. Hexadecimal value.
+        variable: questionColor
+        required: true
+        type: text
+        defaultValue: '#3D3D3D'
+        placeholder: '#3D3D3D'
+  - title: Font & Style
+    items:
+      - label: Font
+        helpText: Font for the theme.
+        variable: font
+        required: true
+        type: select
+        defaultValue: Source Sans Pro
+        selectOptions:
+          options:
+            - label: Source Sans Pro
+              value: Source Sans Pro
+            - label: Arial
+              value: Arial
+            - label: Helvetica Neue
+              value: Helvetica Neue
+            - label: Open Sans
+              value: Open Sans
+            - label: Lato
+              value: Lato
+            - label: Montserrat
+              value: Montserrat
+            - label: Raleway
+              value: Raleway
+            - label: Georgia
+              value: Georgia
+            - label: Quicksand
+              value: Quicksand
+            - label: Playfair Display
+              value: Playfair Display
+      - label: Rounded Corners
+        helpText: Specifies border radius style of buttons and other elements in the form.
+        variable: roundedCorners
+        required: true
+        type: select
+        defaultValue: small
+        selectOptions:
+          options:
+            - label: None
+              value: none
+            - label: Small
+              value: small
+            - label: Large
+              value: large
+      - label: Transparent Button
+        helpText: Set to 'Yes' if buttons should be transparent.
+        variable: transparentButton
+        required: true
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+  - title: Fields Settings
+    items:
+      - label: Fields Alignment
+        helpText: Alignment for fields in the form.
+        variable: fieldsAlignment
+        required: true
+        type: select
+        defaultValue: left
+        selectOptions:
+          options:
+            - label: Left
+              value: left
+            - label: Center
+              value: center
+      - label: Fields Font Size
+        helpText: Font size for fields in the form.
+        variable: fieldsFontSize
+        required: true
+        type: select
+        defaultValue: medium
+        selectOptions:
+          options:
+            - label: Small
+              value: small
+            - label: Medium
+              value: medium
+            - label: Large
+              value: large
+  - title: Screens Settings
+    items:
+      - label: Screens Alignment
+        helpText: Alignment for welcome and thank you screens.
+        variable: screensAlignment
+        required: true
+        type: select
+        defaultValue: center
+        selectOptions:
+          options:
+            - label: Left
+              value: left
+            - label: Center
+              value: center
+      - label: Screens Font Size
+        helpText: Font size for welcome and thank you screens.
+        variable: screensFontSize
+        required: true
+        type: select
+        defaultValue: small
+        selectOptions:
+          options:
+            - label: Small
+              value: small
+            - label: Medium
+              value: medium
+            - label: Large
+              value: large
+  - title: Background Settings
+    collapsed: true
+    items:
+      - label: Background Image URL
+        helpText: URL of the background image to use (optional).
+        variable: backgroundImageUrl
+        required: false
+        type: text
+        placeholder: https://example.com/image.jpg
+      - label: Background Layout
+        helpText: Layout for the background image.
+        variable: backgroundLayout
+        required: false
+        type: select
+        defaultValue: fullscreen
+        selectOptions:
+          options:
+            - label: Fullscreen
+              value: fullscreen
+            - label: Repeat
+              value: repeat
+            - label: No Repeat
+              value: no-repeat
+      - label: Background Brightness
+        helpText: Brightness for the background. Value between -1 (darkest) and 1 (brightest).
+        variable: backgroundBrightness
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: '-0.5'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the updated theme information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

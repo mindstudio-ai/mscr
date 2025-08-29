@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-translation-payload
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Translation Payload
+  description: Retrieves the form content in the main language, as if it were a translation. Useful for using it as a base to translate different languages.
+  quickHelp: readme.md
+configuration:
+  - title: Form Information
+    items:
+      - label: Form ID
+        required: true
+        helpText: "Unique ID for the form. Find in your form URL. For example, in the URL 'https://mysite.typeform.com/to/u6nXL7' the form_id is 'u6nXL7'."
+        variable: formId
+        type: text
+        placeholder: 'e.g., u6nXL7'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the translation payload data.
+        variable: outputVariable
+        type: outputVariableName

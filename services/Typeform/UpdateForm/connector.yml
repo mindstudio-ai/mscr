@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: update-form
+serviceId: typeform
+active: true
+metadata:
+  name: Update Form
+  description: Updates an existing Typeform form with new fields, logic, and settings
+  quickHelp: readme.md
+configuration:
+  - title: Form Information
+    items:
+      - label: Form ID
+        variable: formId
+        type: text
+        required: true
+        helpText: The unique ID of the form you want to update. Find this in your form URL (e.g., in 'https://mysite.typeform.com/to/u6nXL7' the form ID is 'u6nXL7').
+      - label: Form Definition
+        variable: formDefinition
+        type: text
+        required: true
+        textOptions:
+          type: multiline
+        helpText: 'The complete JSON definition of the form. Must include all existing fields you want to keep, plus any new fields. Warning: Fields not included will be deleted from the form.'
+  - title: Output
+    items:
+      - label: Result Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: The name of the variable to store the API response.

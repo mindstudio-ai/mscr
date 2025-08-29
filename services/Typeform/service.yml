@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: typeform
+metadata:
+  name: Typeform
+  description: Interactive form builder
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756495915328.png
+configuration:
+  - id: token
+    type: bearerToken
+    managed: true

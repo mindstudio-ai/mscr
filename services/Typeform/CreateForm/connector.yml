@@ -1,0 +1,157 @@
+apiVersion: v1
+kind: Action
+id: create-form
+serviceId: typeform
+active: true
+metadata:
+  name: Create Form
+  description: Creates a new form in Typeform with customizable welcome screens, fields, and thank you screens
+  quickHelp: readme.md
+configuration:
+  - title: Form Basics
+    items:
+      - label: Form Title
+        required: true
+        helpText: The title of your form
+        variable: title
+        type: text
+        placeholder: My Awesome Form
+      - label: Form Description
+        required: false
+        helpText: A brief description of your form
+        variable: description
+        type: text
+        textOptions:
+          type: multiline
+      - label: Language
+        required: true
+        helpText: The language for your form
+        variable: language
+        type: select
+        defaultValue: en
+        selectOptions:
+          options:
+            - label: English
+              value: en
+            - label: Spanish
+              value: es
+            - label: French
+              value: fr
+            - label: German
+              value: de
+            - label: Italian
+              value: it
+            - label: Portuguese
+              value: pt
+            - label: Dutch
+              value: nl
+      - label: Is Public
+        required: true
+        helpText: Whether the form is publicly available
+        variable: isPublic
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+
+  - title: Welcome Screen
+    items:
+      - label: Welcome Title
+        required: true
+        helpText: The title for your welcome screen
+        variable: welcomeTitle
+        type: text
+        placeholder: Welcome to my form!
+      - label: Welcome Description
+        required: false
+        helpText: The description for your welcome screen
+        variable: welcomeDescription
+        type: text
+        textOptions:
+          type: multiline
+      - label: Show Button
+        required: true
+        helpText: Whether to display a button on the welcome screen
+        variable: welcomeShowButton
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Button Text
+        required: false
+        helpText: The text to display on the welcome screen button
+        variable: welcomeButtonText
+        type: text
+        defaultValue: Start
+
+  - title: Form Fields
+    items:
+      - label: Fields JSON
+        required: true
+        helpText: JSON array of fields to include in the form. See Typeform API documentation for field structure.
+        variable: fieldsJson
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"ref":"field_1","title":"What''s your name?","type":"short_text"}]'
+
+  - title: Thank You Screen
+    items:
+      - label: Thank You Title
+        required: true
+        helpText: The title for your thank you screen
+        variable: thankYouTitle
+        type: text
+        placeholder: Thanks for completing the form!
+      - label: Show Button
+        required: true
+        helpText: Whether to display a button on the thank you screen
+        variable: thankYouShowButton
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+      - label: Button Text
+        required: false
+        helpText: The text to display on the thank you screen button
+        variable: thankYouButtonText
+        type: text
+        defaultValue: Submit
+      - label: Redirect URL
+        required: false
+        helpText: URL to redirect to after form submission
+        variable: redirectUrl
+        type: text
+        placeholder: https://example.com/thank-you
+      - label: Show Social Share Icons
+        required: true
+        helpText: Whether to display social media sharing icons
+        variable: showShareIcons
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'true'
+            - label: No
+              value: 'false'
+
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created form data
+        variable: outputVariable
+        type: outputVariableName

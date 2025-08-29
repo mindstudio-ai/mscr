@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Action
+id: retrieve-forms
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Forms
+  description: Retrieves a list of forms from your Typeform account
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Search Term
+        helpText: Returns forms that contain the specified string
+        variable: search
+        required: false
+        type: text
+        placeholder: Search for forms...
+      - label: Page
+        helpText: The page of results to retrieve (default is 1)
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+        placeholder: '1'
+      - label: Page Size
+        helpText: Number of results per page (default is 10, maximum is 200)
+        variable: pageSize
+        required: false
+        type: text
+        defaultValue: '10'
+        placeholder: '10'
+      - label: Workspace ID
+        helpText: Retrieve forms for a specific workspace
+        variable: workspaceId
+        required: false
+        type: text
+        placeholder: ws_123456...
+      - label: Sort By
+        helpText: Field to sort the results by
+        variable: sortBy
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Created At
+              value: created_at
+            - label: Last Updated At
+              value: last_updated_at
+      - label: Order By
+        helpText: Order type (ascending or descending)
+        variable: orderBy
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Ascending
+              value: asc
+            - label: Descending
+              value: desc
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the list of forms
+        variable: outputVariable
+        required: true
+        type: outputVariableName

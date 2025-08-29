@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: retrieve-theme
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Theme
+  description: Retrieves detailed information about a specific theme in your Typeform account
+  quickHelp: readme.md
+configuration:
+  - title: Theme Information
+    items:
+      - label: Theme ID
+        helpText: Unique ID for the theme you want to retrieve
+        variable: themeId
+        required: true
+        type: text
+        placeholder: Enter theme ID (e.g., 456)
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the theme information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: retrieve-image-by-size
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Image by Size
+  description: Retrieves an image from Typeform by its ID and specified size
+  quickHelp: readme.md
+configuration:
+  - title: Image Details
+    items:
+      - label: Image ID
+        variable: imageId
+        type: text
+        required: true
+        helpText: Unique ID for the image to retrieve
+        placeholder: Enter image ID...
+      - label: Image Size
+        variable: imageSize
+        type: select
+        required: true
+        helpText: Size of the image to retrieve
+        defaultValue: default
+        selectOptions:
+          options:
+            - label: Default (800px width)
+              value: default
+            - label: Mobile (460px width)
+              value: mobile
+            - label: Thumbnail (80px width or 50px height)
+              value: thumbnail
+      - label: Response Format
+        variable: responseFormat
+        type: select
+        required: true
+        helpText: Choose whether to return image metadata (JSON) or the actual image file
+        defaultValue: json
+        selectOptions:
+          options:
+            - label: JSON Metadata
+              value: json
+            - label: Binary Image
+              value: binary
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the image data or metadata

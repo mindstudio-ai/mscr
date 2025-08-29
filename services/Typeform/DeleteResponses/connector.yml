@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: delete-responses
+serviceId: typeform
+active: true
+metadata:
+  name: Delete Responses
+  description: Delete specific responses from a Typeform form
+  quickHelp: readme.md
+configuration:
+  - title: Form Information
+    items:
+      - label: Form ID
+        helpText: The unique ID for your form. Find this in your form URL. For example, in 'https://mysite.typeform.com/to/u6nXL7' the form ID is 'u6nXL7'.
+        variable: formId
+        required: true
+        type: text
+        placeholder: u6nXL7
+  - title: Response Selection
+    items:
+      - label: Response IDs
+        helpText: Comma-separated list of response IDs to delete. You can list up to 1000 IDs.
+        variable: responseIds
+        required: true
+        type: text
+        placeholder: resp_123,resp_456,resp_789
+  - title: Output Configuration
+    items:
+      - label: Result Variable
+        helpText: Variable name to store the deletion result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

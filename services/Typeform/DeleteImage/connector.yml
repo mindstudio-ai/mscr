@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: delete-image
+serviceId: typeform
+active: true
+metadata:
+  name: Delete Image
+  description: Deletes an image from your Typeform account
+  quickHelp: readme.md
+configuration:
+  - title: Image Configuration
+    items:
+      - label: Image ID
+        helpText: The unique ID of the image you want to delete from your Typeform account
+        variable: imageId
+        required: true
+        type: text
+        placeholder: Enter image ID...
+  - title: Output Configuration
+    items:
+      - label: Success Message Variable
+        helpText: Variable name to store the success message
+        variable: outputVariable
+        required: true
+        type: outputVariableName

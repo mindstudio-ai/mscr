@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Action
+id: delete-responses-rtbf
+serviceId: typeform
+active: true
+metadata:
+  name: Delete Responses (RTBF)
+  description: Delete responses containing specific email addresses (Right To Be Forgotten)
+  quickHelp: readme.md
+configuration:
+  - title: Delete Responses Configuration
+    items:
+      - label: Email Addresses
+        variable: emails
+        type: text
+        required: true
+        helpText: List of email addresses to delete from responses. Enter one email per line.
+        textOptions:
+          type: multiline
+        placeholder: "email1@example.com\nemail2@example.com"
+
+      - label: Account ID
+        variable: accountId
+        type: text
+        required: true
+        helpText: Your Typeform account ID
+        placeholder: Enter your account ID...
+
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the job IDs

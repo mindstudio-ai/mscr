@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Action
+id: retrieve-image
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Image
+  description: Retrieves an image from Typeform by its ID, either as binary data or JSON metadata
+  quickHelp: readme.md
+configuration:
+  - title: Image Details
+    items:
+      - label: Image ID
+        helpText: The unique ID of the image to retrieve
+        variable: imageId
+        required: true
+        type: text
+        placeholder: Enter the image ID...
+      - label: Response Format
+        helpText: Choose whether to return the binary image data or JSON metadata
+        variable: responseFormat
+        required: true
+        type: select
+        defaultValue: binary
+        selectOptions:
+          options:
+            - label: Binary Image
+              value: binary
+            - label: JSON Metadata
+              value: json
+      - label: Output Variable
+        helpText: Name of the variable to store the result
+        variable: outputVariable
+        required: true
+        type: outputVariableName

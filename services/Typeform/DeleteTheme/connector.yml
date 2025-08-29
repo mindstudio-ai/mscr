@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Action
+id: delete-theme
+serviceId: typeform
+active: true
+metadata:
+  name: Delete Theme
+  description: Deletes a theme from your Typeform account
+  quickHelp: readme.md
+configuration:
+  - title: Theme Information
+    items:
+      - label: Theme ID
+        helpText: Unique ID of the theme you want to delete
+        variable: themeId
+        required: true
+        type: text
+        placeholder: Enter theme ID...
+  - title: Confirmation
+    items:
+      - label: Confirm Deletion
+        helpText: Please confirm that you want to delete this theme. This action cannot be undone.
+        variable: confirmDeletion
+        required: true
+        type: select
+        defaultValue: no
+        selectOptions:
+          options:
+            - label: Yes, delete this theme
+              value: yes
+            - label: No, cancel operation
+              value: no

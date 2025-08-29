@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: retrieve-themes
+serviceId: typeform
+active: true
+metadata:
+  name: Retrieve Themes
+  description: Retrieves a list of themes from your Typeform account (public and private)
+  quickHelp: readme.md
+configuration:
+  - title: Query Parameters
+    items:
+      - label: Page Number
+        helpText: The page of results to retrieve. Default is 1 (first page of results).
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+      - label: Results Per Page
+        helpText: Number of results to retrieve per page. Default is 10. Maximum is 200.
+        variable: pageSize
+        required: false
+        type: text
+        defaultValue: '10'
+      - label: Output Variable
+        helpText: The variable name to store the retrieved themes.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
