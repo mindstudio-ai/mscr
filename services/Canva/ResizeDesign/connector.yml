@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Action
+id: resize-design
+serviceId: canva
+active: true
+metadata:
+  name: Resize Design
+  description: Creates a resized copy of a Canva design and returns information about the new design
+  quickHelp: readme.md
+configuration:
+  - title: Design Information
+    items:
+      - label: Design ID
+        helpText: The ID of the design you want to resize. You can find this in the Canva design URL.
+        variable: designId
+        required: true
+        type: text
+        placeholder: DAGirp_1ZUA
+  - title: Resize Options
+    items:
+      - label: Resize Type
+        helpText: Choose whether to resize to a preset design type or custom dimensions.
+        variable: resizeType
+        required: true
+        type: select
+        defaultValue: custom
+        selectOptions:
+          options:
+            - label: Preset Design Type
+              value: preset
+            - label: Custom Dimensions
+              value: custom
+      - label: Preset Design Type
+        helpText: Select the type of design you want to create.
+        variable: presetType
+        required: false
+        type: select
+        defaultValue: presentation
+        selectOptions:
+          options:
+            - label: Presentation
+              value: presentation
+            - label: Whiteboard
+              value: whiteboard
+      - label: Width (pixels)
+        helpText: Width of the design in pixels (40-8000).
+        variable: width
+        required: false
+        type: text
+        placeholder: 1000
+      - label: Height (pixels)
+        helpText: Height of the design in pixels (40-8000).
+        variable: height
+        required: false
+        type: text
+        placeholder: 1500
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the resized design information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

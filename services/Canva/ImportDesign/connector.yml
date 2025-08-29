@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: import-design
+serviceId: canva
+active: true
+metadata:
+  name: Import Design
+  description: Import an external file as a new design in Canva
+  quickHelp: readme.md
+configuration:
+  - title: File Upload
+    items:
+      - label: File URL
+        helpText: URL to the file you want to import into Canva. The file must be publicly accessible.
+        variable: fileUrl
+        required: true
+        type: text
+        placeholder: https://example.com/myfile.pdf
+      - label: Design Title
+        helpText: The title for your new Canva design.
+        variable: designTitle
+        required: true
+        type: text
+        placeholder: My Awesome Design
+      - label: File Type
+        helpText: The MIME type of the file being imported. If not provided, Canva will attempt to detect it automatically.
+        variable: mimeType
+        required: false
+        type: select
+        defaultValue: auto
+        selectOptions:
+          options:
+            - label: Auto-detect
+              value: auto
+            - label: PDF Document
+              value: application/pdf
+            - label: JPEG Image
+              value: image/jpeg
+            - label: PNG Image
+              value: image/png
+            - label: PowerPoint Presentation
+              value: application/vnd.openxmlformats-officedocument.presentationml.presentation
+            - label: Word Document
+              value: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the import job result.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

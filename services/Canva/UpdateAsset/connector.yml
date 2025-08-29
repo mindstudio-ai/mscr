@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: update-asset
+serviceId: canva
+active: true
+metadata:
+  name: Update Asset
+  description: Update the metadata (name and tags) for an asset in a user's Canva projects
+  quickHelp: readme.md
+configuration:
+  - title: Asset Information
+    items:
+      - label: Asset ID
+        helpText: The ID of the asset you want to update
+        variable: assetId
+        required: true
+        type: text
+        placeholder: e.g., Msd59349ff
+      - label: Asset Name
+        helpText: The new name for the asset (maximum 50 characters)
+        variable: name
+        required: false
+        type: text
+        placeholder: My Awesome Upload
+      - label: Tags
+        helpText: Comma-separated list of tags for the asset (maximum 50 tags)
+        variable: tags
+        required: false
+        type: text
+        placeholder: image, holiday, best day ever
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the updated asset information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

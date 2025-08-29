@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Action
+id: move-folder-item
+serviceId: canva
+active: true
+metadata:
+  name: Move Folder Item
+  description: Moves an item from one folder to another in Canva
+  quickHelp: readme.md
+configuration:
+  - title: Move Item Configuration
+    items:
+      - label: Item ID
+        helpText: The ID of the item you want to move. Currently, video assets are not supported.
+        variable: itemId
+        required: true
+        type: text
+        placeholder: e.g., Msd59349ff
+      - label: Destination Folder ID
+        helpText: The ID of the folder you want to move the item to. Use 'root' to move to the top level of the user's projects.
+        variable: toFolderId
+        required: true
+        type: text
+        placeholder: e.g., FAF2lZtloor or root
+        defaultValue: root
+      - label: Success Variable
+        helpText: Variable to store the operation result status
+        variable: outputVariable
+        required: true
+        type: outputVariableName

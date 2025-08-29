@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Action
+id: create-design-autofill-job
+serviceId: canva
+active: true
+metadata:
+  name: Create Design Autofill Job
+  description: Creates an asynchronous job to autofill a Canva design from a brand template with your input data
+  quickHelp: readme.md
+configuration:
+  - title: Brand Template
+    items:
+      - label: Brand Template ID
+        variable: brandTemplateId
+        type: text
+        required: true
+        helpText: ID of the brand template to use for autofill (e.g., DAFVztcvd9z)
+      - label: Design Title
+        variable: title
+        type: text
+        required: false
+        helpText: Title for the autofilled design. If not provided, the brand template's title will be used.
+        placeholder: My Design Title
+  - title: Text Fields
+    items:
+      - label: Text Fields
+        variable: textFields
+        type: text
+        required: false
+        helpText: 'JSON object mapping text field names to values. Example: {"headline": "Welcome to our event", "subtitle": "Join us for an amazing day"}'
+        textOptions:
+          type: multiline
+  - title: Image Fields
+    items:
+      - label: Image Fields
+        variable: imageFields
+        type: text
+        required: false
+        helpText: 'JSON object mapping image field names to Canva asset IDs. Example: {"hero_image": "Msd59349ff", "logo": "Msd12345ab"}'
+        textOptions:
+          type: multiline
+  - title: Chart Fields
+    collapsed: true
+    items:
+      - label: Chart Fields
+        variable: chartFields
+        type: text
+        required: false
+        helpText: JSON object mapping chart field names to chart data. See documentation for format details.
+        textOptions:
+          type: multiline
+  - title: Output
+    items:
+      - label: Job ID Output Variable
+        variable: jobIdOutput
+        type: outputVariableName
+        required: true
+        helpText: Variable name to store the autofill job ID
+      - label: Design ID Output Variable
+        variable: designIdOutput
+        type: outputVariableName
+        required: false
+        helpText: Variable name to store the design ID (only available if job completes immediately)
+      - label: Design URL Output Variable
+        variable: designUrlOutput
+        type: outputVariableName
+        required: false
+        helpText: Variable name to store the design URL (only available if job completes immediately)

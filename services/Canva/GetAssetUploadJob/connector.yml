@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-asset-upload-job
+serviceId: canva
+active: true
+metadata:
+  name: Get Asset Upload Job
+  description: Check the status and results of an asset upload job in Canva
+  quickHelp: readme.md
+configuration:
+  - title: Job Information
+    items:
+      - label: Job ID
+        required: true
+        helpText: The ID of the asset upload job to check
+        variable: jobId
+        type: text
+        placeholder: e.g., e08861ae-3b29-45db-8dc1-1fe0bf7f1cc8
+      - label: Output Variable
+        required: true
+        helpText: Name of the variable to store the job status and details
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: get-thread
+serviceId: notion
+active: true
+metadata:
+  name: Canva - Get Thread
+  description: Retrieves metadata for a comment thread on a Canva design
+  quickHelp: readme.md
+configuration:
+  - title: Thread Information
+    items:
+      - label: Design ID
+        helpText: The ID of the Canva design containing the comment thread
+        variable: designId
+        required: true
+        type: text
+        placeholder: DAFVztcvd9z
+      - label: Thread ID
+        helpText: The ID of the comment thread to retrieve
+        variable: threadId
+        required: true
+        type: text
+        placeholder: KeAbiEAjZEj
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Name of the variable to store the thread information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

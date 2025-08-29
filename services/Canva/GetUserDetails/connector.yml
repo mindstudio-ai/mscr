@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-user-details
+serviceId: canva
+active: true
+metadata:
+  name: Get User Details
+  description: Retrieves the User ID and Team ID of the current Canva user
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the user details response
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Action
+id: list-folder-items
+serviceId: notion
+active: true
+metadata:
+  name: Canva - List Folder Items
+  description: Lists the contents of a Canva folder, including folders, designs, and image assets
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Folder ID
+        helpText: The ID of the Canva folder to list items from
+        variable: folderId
+        required: true
+        type: text
+        placeholder: Enter Canva folder ID...
+      - label: Filter By Type
+        helpText: Filter the folder items to only return specified types
+        variable: filterType
+        required: false
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: All Types
+              value: ''
+            - label: Designs
+              value: 'design'
+            - label: Folders
+              value: 'folder'
+            - label: Images
+              value: 'image'
+            - label: Designs & Folders
+              value: 'design,folder'
+            - label: Designs & Images
+              value: 'design,image'
+            - label: Folders & Images
+              value: 'folder,image'
+      - label: Sort By
+        helpText: Sort the list of folder items
+        variable: sortBy
+        required: false
+        type: select
+        defaultValue: 'modified_descending'
+        selectOptions:
+          options:
+            - label: Last Modified (Newest First)
+              value: 'modified_descending'
+            - label: Last Modified (Oldest First)
+              value: 'modified_ascending'
+            - label: Created Date (Newest First)
+              value: 'created_descending'
+            - label: Created Date (Oldest First)
+              value: 'created_ascending'
+            - label: Title (A-Z)
+              value: 'title_ascending'
+            - label: Title (Z-A)
+              value: 'title_descending'
+      - label: Output Variable
+        helpText: Name of the variable to store the folder items
+        variable: outputVariable
+        required: true
+        type: outputVariableName

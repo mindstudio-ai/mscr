@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: create-comment-thread
+serviceId: canva
+active: true
+metadata:
+  name: Create Comment Thread
+  description: Creates a new comment thread on a Canva design
+  quickHelp: readme.md
+configuration:
+  - title: Design Information
+    items:
+      - label: Design ID
+        helpText: The ID of the Canva design where you want to add a comment thread.
+        variable: designId
+        required: true
+        type: text
+        placeholder: DAFVztcvd9z
+  - title: Comment Details
+    items:
+      - label: Comment Message
+        helpText: The comment message in plaintext. To mention users, use the format [user_id:team_id].
+        variable: messagePlaintext
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Great work [userId:teamId]!
+      - label: Assignee ID
+        helpText: Optionally assign the comment to a Canva user using their User ID. If specified, you must mention this user in the comment message.
+        variable: assigneeId
+        required: false
+        type: text
+        placeholder: userId
+  - title: Response Handling
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the created comment thread information.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

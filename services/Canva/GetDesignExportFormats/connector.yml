@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-design-export-formats
+serviceId: canva
+active: true
+metadata:
+  name: Get Design Export Formats
+  description: Retrieves the available export formats for a specific Canva design
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Design ID
+        helpText: The ID of the Canva design to check available export formats for
+        variable: designId
+        required: true
+        type: text
+        placeholder: Enter design ID...
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the results
+        variable: outputVariable
+        type: outputVariableName

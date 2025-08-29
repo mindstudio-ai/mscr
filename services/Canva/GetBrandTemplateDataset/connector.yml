@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-brand-template-dataset
+serviceId: canva
+active: true
+metadata:
+  name: Get Brand Template Dataset
+  description: Retrieves the dataset definition of a Canva brand template, showing what data fields can be autofilled
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Brand Template ID
+        helpText: The ID of the brand template to retrieve dataset information for
+        variable: brandTemplateId
+        required: true
+        type: text
+        placeholder: Enter brand template ID...
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the brand template dataset information
+        variable: outputVariable
+        type: outputVariableName

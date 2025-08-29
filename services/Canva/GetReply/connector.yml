@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Action
+id: get-reply
+serviceId: canva
+active: true
+metadata:
+  name: Get Comment Reply
+  description: Retrieves a specific reply to a comment or suggestion thread on a Canva design
+  quickHelp: readme.md
+configuration:
+  - title: Design Information
+    items:
+      - label: Design ID
+        variable: designId
+        type: text
+        required: true
+        helpText: The ID of the Canva design containing the comment thread
+        placeholder: DAFVztcvd9z
+      - label: Thread ID
+        variable: threadId
+        type: text
+        required: true
+        helpText: The ID of the comment thread
+        placeholder: KeAbiEAjZEj
+      - label: Reply ID
+        variable: replyId
+        type: text
+        required: true
+        helpText: The ID of the specific reply to retrieve
+        placeholder: KeAZEAjijEb
+  - title: Output
+    items:
+      - label: Output Variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: Name of the variable to store the reply information

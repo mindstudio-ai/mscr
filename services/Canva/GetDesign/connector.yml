@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: get-design
+serviceId: canva
+active: true
+metadata:
+  name: Get Design
+  description: Retrieves metadata for a specific Canva design including owner information, URLs, and thumbnail details
+  quickHelp: readme.md
+configuration:
+  - title: Design Information
+    items:
+      - label: Design ID
+        required: true
+        helpText: The ID of the Canva design to retrieve
+        variable: designId
+        type: text
+        placeholder: e.g., DAFVztcvd9z
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the design information
+        variable: outputVariable
+        type: outputVariableName

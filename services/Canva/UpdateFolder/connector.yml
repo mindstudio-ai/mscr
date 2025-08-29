@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: update-folder
+serviceId: canva
+active: true
+metadata:
+  name: Update Folder
+  description: Updates a folder's metadata in Canva. Currently, only the folder name can be updated.
+  quickHelp: readme.md
+configuration:
+  - title: Folder Information
+    items:
+      - label: Folder ID
+        helpText: The ID of the folder you want to update
+        variable: folderId
+        required: true
+        type: text
+        placeholder: FAF2lZtloor
+      - label: Folder Name
+        helpText: The new name for the folder (1-255 characters)
+        variable: folderName
+        required: true
+        type: text
+        placeholder: My awesome folder
+      - label: Output Variable
+        helpText: Variable to store the updated folder information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

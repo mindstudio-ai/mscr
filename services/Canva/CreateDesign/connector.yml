@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Action
+id: create-design
+serviceId: canva
+active: true
+metadata:
+  name: Create Design
+  description: Creates a new Canva design using preset types or custom dimensions
+  quickHelp: readme.md
+configuration:
+  - title: Design Type
+    items:
+      - label: Design Type
+        helpText: Choose between preset design types or custom dimensions
+        variable: designTypeOption
+        required: true
+        type: select
+        defaultValue: preset
+        selectOptions:
+          options:
+            - label: Preset Design
+              value: preset
+            - label: Custom Dimensions
+              value: custom
+      - label: Preset Type
+        helpText: Select the type of Canva design to create
+        variable: presetName
+        required: true
+        type: select
+        defaultValue: doc
+        selectOptions:
+          options:
+            - label: Document
+              value: doc
+            - label: Whiteboard
+              value: whiteboard
+            - label: Presentation
+              value: presentation
+      - label: Width (pixels)
+        helpText: Width of the design in pixels (40-8000)
+        variable: width
+        required: false
+        type: text
+        placeholder: e.g., 1920
+      - label: Height (pixels)
+        helpText: Height of the design in pixels (40-8000)
+        variable: height
+        required: false
+        type: text
+        placeholder: e.g., 1080
+  - title: Design Details
+    items:
+      - label: Design Title
+        helpText: Name for your new design
+        variable: title
+        required: true
+        type: text
+        placeholder: My New Design
+      - label: Asset ID (Optional)
+        helpText: ID of an image asset to insert into the created design
+        variable: assetId
+        required: false
+        type: text
+        placeholder: e.g., Msd59349ff
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the created design information
+        variable: outputVariable
+        required: true
+        type: outputVariableName

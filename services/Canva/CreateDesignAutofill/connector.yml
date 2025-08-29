@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Action
+id: create-design-autofill
+serviceId: canva
+active: true
+metadata:
+  name: Create Design from Template
+  description: Autofill a Canva design from a brand template with your input data
+  quickHelp: readme.md
+configuration:
+  - title: Brand Template
+    items:
+      - label: Brand Template ID
+        required: true
+        helpText: ID of the brand template to use for autofill
+        variable: brandTemplateId
+        type: text
+        placeholder: e.g., DAFVztcvd9z
+      - label: Design Title
+        required: false
+        helpText: Title for the autofilled design. If not provided, the design will have the same title as the brand template.
+        variable: title
+        type: text
+        placeholder: My Design Title
+  - title: Data Fields
+    items:
+      - label: Data Fields
+        required: true
+        helpText: 'JSON object containing the data fields to populate the template. Each field should match the expected fields in the template.'
+        variable: dataFields
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '{"text_field": {"type": "text", "text": "Your text here"}, "image_field": {"type": "image", "asset_id": "AssetId"}}'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the design information including ID, URL, and thumbnail
+        variable: outputVariable
+        type: outputVariableName

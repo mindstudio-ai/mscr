@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: get-design-pages
+serviceId: canva
+active: true
+metadata:
+  name: Get Design Pages
+  description: Retrieves metadata for pages in a Canva design, including page-specific thumbnails
+  quickHelp: readme.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Design ID
+        required: true
+        helpText: The ID of the Canva design to retrieve pages from
+        variable: designId
+        type: text
+        placeholder: Enter design ID...
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the API response containing page metadata
+        variable: outputVariable
+        type: outputVariableName
+  - title: Pagination Options
+    collapsed: true
+    items:
+      - label: Offset
+        required: false
+        helpText: The page index to start from (minimum 1, maximum 500, default 1)
+        variable: offset
+        type: text
+        placeholder: '1'
+      - label: Limit
+        required: false
+        helpText: The number of pages to return (minimum 1, maximum 200, default 50)
+        variable: limit
+        type: text
+        placeholder: '50'
