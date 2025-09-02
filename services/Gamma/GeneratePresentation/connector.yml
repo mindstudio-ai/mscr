@@ -1,0 +1,187 @@
+apiVersion: v1
+kind: Action
+id: generate-presentation
+serviceId: gamma
+active: true
+metadata:
+  name: Generate Presentation
+  description: Create presentations, documents, or social media content using Gamma's AI generation capabilities
+  quickHelp: readme.md
+configuration:
+  - title: Basic Configuration
+    items:
+      - label: Input Text
+        helpText: Text used to generate your presentation. Can be brief or detailed.
+        variable: inputText
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Format
+        helpText: Choose the type of content to generate
+        variable: format
+        required: true
+        type: select
+        defaultValue: presentation
+        selectOptions:
+          options:
+            - label: Presentation
+              value: presentation
+            - label: Document
+              value: document
+            - label: Social Media
+              value: social
+      - label: Theme
+        helpText: Defines the theme for your presentation (colors and fonts)
+        variable: themeName
+        required: true
+        type: text
+        defaultValue: Oasis
+      - label: Output Variable
+        helpText: Variable to store the URL of the generated presentation
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+
+  - title: Content Options
+    collapsed: true
+    items:
+      - label: Text Mode
+        helpText: How to process your input text
+        variable: textMode
+        required: true
+        type: select
+        defaultValue: generate
+        selectOptions:
+          options:
+            - label: Generate (expand content)
+              value: generate
+            - label: Condense (summarize content)
+              value: condense
+            - label: Preserve (keep exact text)
+              value: preserve
+      - label: Number of Cards
+        helpText: Number of slides/cards to generate (1-60)
+        variable: numCards
+        required: true
+        type: text
+        defaultValue: 10
+      - label: Card Split
+        helpText: How to divide your content into cards
+        variable: cardSplit
+        required: true
+        type: select
+        defaultValue: auto
+        selectOptions:
+          options:
+            - label: Auto (based on number of cards)
+              value: auto
+            - label: Input Text Breaks (use --- as dividers)
+              value: inputTextBreaks
+      - label: Additional Instructions
+        helpText: Additional specifications for your presentation (optional)
+        variable: additionalInstructions
+        required: false
+        type: text
+        textOptions:
+          type: multiline
+
+  - title: Text Options
+    collapsed: true
+    items:
+      - label: Text Amount
+        helpText: How much text to include on each card
+        variable: textAmount
+        required: true
+        type: select
+        defaultValue: medium
+        selectOptions:
+          options:
+            - label: Brief
+              value: brief
+            - label: Medium
+              value: medium
+            - label: Detailed
+              value: detailed
+            - label: Extensive
+              value: extensive
+      - label: Tone
+        helpText: Define the mood or voice (e.g., professional, inspiring)
+        variable: tone
+        required: false
+        type: text
+      - label: Audience
+        helpText: Describe who will be viewing the presentation
+        variable: audience
+        required: false
+        type: text
+      - label: Language
+        helpText: Language code (e.g., en, es, fr)
+        variable: language
+        required: false
+        type: text
+        defaultValue: en
+
+  - title: Image Options
+    collapsed: true
+    items:
+      - label: Image Source
+        helpText: Where to source images from
+        variable: imageSource
+        required: true
+        type: select
+        defaultValue: aiGenerated
+        selectOptions:
+          options:
+            - label: AI Generated
+              value: aiGenerated
+            - label: Pictographic
+              value: pictographic
+            - label: Unsplash
+              value: unsplash
+            - label: Giphy
+              value: giphy
+            - label: Web - All Images
+              value: webAllImages
+            - label: Web - Free To Use
+              value: webFreeToUse
+            - label: Web - Free To Use Commercially
+              value: webFreeToUseCommercially
+            - label: Placeholder
+              value: placeholder
+            - label: No Images
+              value: noImages
+      - label: AI Image Model
+        helpText: Model to use for AI-generated images
+        variable: imageModel
+        required: false
+        type: select
+        defaultValue: flux-1-pro
+        selectOptions:
+          options:
+            - label: Flux 1 Pro
+              value: flux-1-pro
+            - label: Imagen 4 Pro
+              value: imagen-4-pro
+      - label: Image Style
+        helpText: Define the visual style (e.g., photorealistic, cartoon, minimal)
+        variable: imageStyle
+        required: false
+        type: text
+        defaultValue: photorealistic
+
+  - title: Export Options
+    collapsed: true
+    items:
+      - label: Export Format
+        helpText: Format to export the generated content
+        variable: exportAs
+        required: true
+        type: select
+        defaultValue: pdf
+        selectOptions:
+          options:
+            - label: PDF
+              value: pdf
+            - label: PowerPoint
+              value: pptx
