@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: gamma
+metadata:
+  name: Gamma
+  description: Gamma is your free-to-use AI design partner for creating effortless presentations, websites, and more. No coding or design skills required.
+  icon: https://images.mindstudio-cdn.com/images/fabdb1e7-f19a-4f09-944e-41f96f0c5dc3_1756489093997.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your Gamma API key. To learn about creating an API key, visit: https://developers.gamma.app/docs/get-access'
+    placeholder: sk-gamma-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
