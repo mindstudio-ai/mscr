@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ServiceDefinition
 id: canva
-isActive: false
+isActive: true
 metadata:
   name: Canva
   description: Online graphic design tool
