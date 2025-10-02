@@ -10,7 +10,7 @@ export const handler = async ({
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
   // Extract API key from environment variables
-  const { token: apiKey } = process.env;
+  const { apiKey } = process.env;
   if (!apiKey) {
     throw new Error(`Missing Gamma API key. Please configure your connection.`);
   }
