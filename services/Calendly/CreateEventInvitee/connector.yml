@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: Action
+id: create-event-invitee
+serviceId: calendly
+active: true
+metadata:
+  name: Create Event Invitee
+  description: Schedule an event by creating a new invitee in Calendly
+  quickHelp: readme.md
+configuration:
+  - title: Event Details
+    items:
+      - label: Event Type URI
+        helpText: The unique identifier for the event type being scheduled (e.g., https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA)
+        variable: eventTypeUri
+        required: true
+        type: text
+        placeholder: https://api.calendly.com/event_types/...
+      - label: Start Time
+        helpText: The start time of the scheduled event in UTC (ISO 8601 format, e.g., 2023-08-07T06:05:04Z)
+        variable: startTime
+        required: true
+        type: text
+        placeholder: 2023-08-07T06:05:04Z
+  - title: Invitee Information
+    items:
+      - label: Name
+        helpText: The full name of the invitee
+        variable: inviteeName
+        required: true
+        type: text
+        placeholder: John Smith
+      - label: Email
+        helpText: The email address of the invitee
+        variable: inviteeEmail
+        required: true
+        type: text
+        placeholder: john@example.com
+      - label: Timezone
+        helpText: The timezone of the invitee (e.g., America/New_York)
+        variable: inviteeTimezone
+        required: true
+        type: text
+        placeholder: America/New_York
+      - label: Text Reminder Number
+        helpText: Phone number for SMS reminders (e.g., +14155551234)
+        variable: textReminderNumber
+        required: false
+        type: text
+        placeholder: +14155551234
+  - title: Location (Optional)
+    collapsed: true
+    items:
+      - label: Location Type
+        helpText: The type of location for the meeting
+        variable: locationType
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Physical Location
+              value: physical
+      - label: Location Details
+        helpText: The specific physical location details
+        variable: locationDetails
+        required: false
+        type: text
+        placeholder: 123 Main St, Suite 100, New York, NY
+  - title: Guest Information (Optional)
+    collapsed: true
+    items:
+      - label: Guest Emails
+        helpText: Comma-separated list of guest email addresses (max 10)
+        variable: guestEmails
+        required: false
+        type: text
+        placeholder: guest1@example.com, guest2@example.com
+  - title: Output
+    items:
+      - label: Output Variable Name
+        helpText: Variable name to store the created invitee information
+        variable: outputVariable
+        required: true
+        type: outputVariableName
