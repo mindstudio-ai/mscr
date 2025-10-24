@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Action
+id: create-pop-analysis
+serviceId: eyepop
+active: true
+metadata:
+  name: Analyze Visual Content
+  description: Analyze images or videos using EyePop.ai's visual intelligence platform
+  quickHelp: readme.md
+configuration:
+  - title: Content Settings
+    items:
+      - label: Content URL
+        helpText: URL to the image or video you want to analyze
+        variable: contentUrl
+        required: true
+        type: text
+        placeholder: https://example.com/image.jpg
+      - label: Content Type
+        helpText: The type of content you are analyzing
+        variable: contentType
+        required: true
+        type: select
+        defaultValue: image
+        selectOptions:
+          options:
+            - label: Image
+              value: image
+            - label: Video
+              value: video
+      - label: Pop ID
+        helpText: The ID of your EyePop endpoint (Pop)
+        variable: popId
+        required: true
+        type: text
+        placeholder: your-pop-id
+  - title: Output Settings
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the analysis results
+        variable: outputVariable
+        required: true
+        type: outputVariableName
