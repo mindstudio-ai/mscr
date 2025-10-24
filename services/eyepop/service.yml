@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: eyepop
+metadata:
+  name: EyePop
+  description: EyePop is a visual intelligence platform that analyzes images and videos to provide insights and recommendations.
+  icon: https://files.mindstudio-cdn.com/images/7273b6f8-7635-4e37-a821-12d3fa142e0b_1761338128244.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your EyePop API key. To learn about creating an API key, visit: https://docs.eyepop.ai/developer-documentation/api-key'
+    placeholder: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
