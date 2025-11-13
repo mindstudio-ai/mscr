@@ -4,7 +4,7 @@ kind: ServiceDefinition
 id: calendly
 metadata:
   name: Calendly
-  description: Automated schedulling platform
+  description: Automated scheduling platform
   icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1756484411167.png
 configuration:
   - id: token
