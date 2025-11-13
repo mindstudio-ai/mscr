@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: upload-media
+serviceId: blotato
+active: true
+metadata:
+  name: Upload Media
+  description: Upload media to Blotato by providing a URL, returning a processed media URL for use in posts
+  quickHelp: readme.md
+configuration:
+  - title: Media Upload
+    items:
+      - label: Media URL
+        helpText: URL of the media to upload (publicly accessible URL or base64 encoded image data). Limited to 200MB file size.
+        variable: mediaUrl
+        required: true
+        type: text
+        placeholder: https://example.com/image.jpg
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the resulting media URL
+        variable: outputVariable
+        type: outputVariableName

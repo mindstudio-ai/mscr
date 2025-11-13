@@ -1,0 +1,188 @@
+apiVersion: v1
+kind: Action
+id: create-video
+serviceId: blotato
+active: true
+metadata:
+  name: Create Video
+  description: Creates a video using Blotato's AI video generation platform
+  quickHelp: readme.md
+configuration:
+  - title: Video Settings
+    items:
+      - label: Template Type
+        required: true
+        helpText: Select the type of video template to use
+        variable: templateId
+        type: select
+        defaultValue: base/pov/wakeup
+        selectOptions:
+          options:
+            - label: POV Wakeup
+              value: base/pov/wakeup
+            - label: Quote Card Slideshow
+              value: base/slides/quotecard
+            - label: Empty/Custom
+              value: empty
+      - label: Script
+        required: true
+        helpText: "Script for the video. For 'Quote Card Slideshow' template, just enter '1'."
+        variable: script
+        type: text
+        textOptions:
+          type: multiline
+      - label: Style
+        required: true
+        helpText: Visual style for the video
+        variable: style
+        type: select
+        defaultValue: cinematic
+        selectOptions:
+          options:
+            - label: Cinematic
+              value: cinematic
+            - label: Apocalyptic
+              value: apocalyptic
+            - label: Baroque
+              value: baroque
+            - label: Comic Book
+              value: comicbook
+            - label: Cyberpunk
+              value: cyberpunk
+            - label: Dystopian
+              value: dystopian
+            - label: Fantasy
+              value: fantasy
+            - label: Futuristic
+              value: futuristic
+            - label: Gothic
+              value: gothic
+            - label: Grunge
+              value: grunge
+            - label: Horror
+              value: horror
+            - label: Kawaii
+              value: kawaii
+            - label: Mystical
+              value: mystical
+            - label: Noir
+              value: noir
+            - label: Painterly
+              value: painterly
+            - label: Realistic
+              value: realistic
+            - label: Retro
+              value: retro
+            - label: Surreal
+              value: surreal
+            - label: Whimsical
+              value: whimsical
+      - label: Caption Position
+        required: false
+        helpText: Where to position the captions in the video
+        variable: captionPosition
+        type: select
+        defaultValue: bottom
+        selectOptions:
+          options:
+            - label: Top
+              value: top
+            - label: Middle
+              value: middle
+            - label: Bottom
+              value: bottom
+            - label: None
+              value: null
+  - title: Animation Options
+    items:
+      - label: Animate First Image
+        required: false
+        helpText: If enabled, the first image will be animated. Requires sufficient credits.
+        variable: animateFirstImage
+        type: select
+        defaultValue: false
+        selectOptions:
+          options:
+            - label: Yes
+              value: true
+            - label: No
+              value: false
+      - label: Animate All Images
+        required: false
+        helpText: If enabled, all images will be animated. Requires sufficient credits. Overrides 'Animate First Image' setting.
+        variable: animateAll
+        type: select
+        defaultValue: false
+        selectOptions:
+          options:
+            - label: Yes
+              value: true
+            - label: No
+              value: false
+  - title: Quote Card Settings
+    items:
+      - label: Quote Prompts
+        required: false
+        helpText: Enter one prompt per line. Each prompt will generate a quote card slide. Only used with Quote Card Slideshow template.
+        variable: quotePrompts
+        type: text
+        textOptions:
+          type: multiline
+  - title: Advanced Options
+    collapsed: true
+    items:
+      - label: Text to Image Model
+        required: false
+        helpText: Model used to generate images from text
+        variable: textToImageModel
+        type: select
+        selectOptions:
+          options:
+            - label: Flux Schnell
+              value: replicate/black-forest-labs/flux-schnell
+            - label: Flux Dev
+              value: replicate/black-forest-labs/flux-dev
+            - label: Flux 1.1 Pro
+              value: replicate/black-forest-labs/flux-1.1-pro
+            - label: Flux 1.1 Pro Ultra
+              value: replicate/black-forest-labs/flux-1.1-pro-ultra
+            - label: Recraft V3
+              value: replicate/recraft-ai/recraft-v3
+            - label: Ideogram V2
+              value: replicate/ideogram-ai/ideogram-v2
+            - label: Luma Photon
+              value: replicate/luma/photon
+            - label: GPT Image 1
+              value: openai/gpt-image-1
+      - label: Image to Video Model
+        required: false
+        helpText: Model used to generate videos from images
+        variable: imageToVideoModel
+        type: select
+        selectOptions:
+          options:
+            - label: Framepack
+              value: fal-ai/framepack
+            - label: Runway Gen3 Turbo
+              value: fal-ai/runway-gen3/turbo/image-to-video
+            - label: Luma Dream Machine
+              value: fal-ai/luma-dream-machine/image-to-video
+            - label: Kling Video 1.5 Pro
+              value: fal-ai/kling-video/v1.5/pro/image-to-video
+            - label: Kling Video 1.6 Pro
+              value: fal-ai/kling-video/v1.6/pro/image-to-video
+            - label: Minimax Video
+              value: fal-ai/minimax-video/image-to-video
+            - label: Minimax Video Director
+              value: fal-ai/minimax/video-01-director/image-to-video
+            - label: Hunyuan Video
+              value: fal-ai/hunyuan-video-image-to-video
+            - label: Veo2
+              value: fal-ai/veo2/image-to-video
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created video ID
+        variable: outputVariable
+        type: outputVariableName

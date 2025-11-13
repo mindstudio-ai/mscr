@@ -1,0 +1,140 @@
+apiVersion: v1
+kind: Action
+id: publish-post
+serviceId: blotato
+active: true
+metadata:
+  name: Publish Post
+  description: Create and publish a post to various social media platforms using Blotato
+  quickHelp: readme.md
+configuration:
+  - title: Post Content
+    items:
+      - label: Text Content
+        helpText: The main text content of your post
+        variable: postText
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+      - label: Platform
+        helpText: Select the social media platform for this post
+        variable: platform
+        required: true
+        type: select
+        selectOptions:
+          options:
+            - label: Twitter
+              value: twitter
+            - label: LinkedIn
+              value: linkedin
+            - label: Facebook
+              value: facebook
+            - label: Instagram
+              value: instagram
+            - label: Pinterest
+              value: pinterest
+            - label: TikTok
+              value: tiktok
+            - label: Threads
+              value: threads
+            - label: Bluesky
+              value: bluesky
+            - label: YouTube
+              value: youtube
+      - label: Account ID
+        helpText: The ID of your connected Blotato account for this platform
+        variable: accountId
+        required: true
+        type: text
+      - label: Media URLs
+        helpText: Comma-separated list of media URLs to attach to the post (must be from blotato.com domain)
+        variable: mediaUrls
+        required: false
+        type: text
+  - title: Scheduling
+    items:
+      - label: Schedule Type
+        helpText: When to publish this post
+        variable: scheduleType
+        required: true
+        type: select
+        defaultValue: immediate
+        selectOptions:
+          options:
+            - label: Post immediately
+              value: immediate
+            - label: Schedule for specific time
+              value: scheduled
+            - label: Use next available slot
+              value: nextSlot
+      - label: Scheduled Time
+        helpText: ISO 8601 timestamp for when to publish the post (e.g., 2023-12-31T12:00:00Z)
+        variable: scheduledTime
+        required: false
+        type: text
+  - title: Platform-Specific Settings
+    collapsed: true
+    items:
+      - label: Facebook Page ID
+        helpText: Required when posting to Facebook
+        variable: facebookPageId
+        required: false
+        type: text
+      - label: LinkedIn Page ID
+        helpText: Optional - leave blank to post to your personal profile
+        variable: linkedinPageId
+        required: false
+        type: text
+      - label: Pinterest Board ID
+        helpText: Required when posting to Pinterest
+        variable: pinterestBoardId
+        required: false
+        type: text
+      - label: Pinterest Pin Title
+        helpText: Title for your Pinterest pin
+        variable: pinterestTitle
+        required: false
+        type: text
+      - label: TikTok Privacy Level
+        helpText: Privacy setting for your TikTok post
+        variable: tiktokPrivacyLevel
+        required: false
+        type: select
+        defaultValue: PUBLIC_TO_EVERYONE
+        selectOptions:
+          options:
+            - label: Public
+              value: PUBLIC_TO_EVERYONE
+            - label: Followers Only
+              value: FOLLOWER_OF_CREATOR
+            - label: Friends Only
+              value: MUTUAL_FOLLOW_FRIENDS
+            - label: Private
+              value: SELF_ONLY
+      - label: YouTube Video Title
+        helpText: Title for your YouTube video
+        variable: youtubeTitle
+        required: false
+        type: text
+      - label: YouTube Privacy Status
+        helpText: Privacy setting for your YouTube video
+        variable: youtubePrivacyStatus
+        required: false
+        type: select
+        defaultValue: public
+        selectOptions:
+          options:
+            - label: Public
+              value: public
+            - label: Unlisted
+              value: unlisted
+            - label: Private
+              value: private
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable to store the post submission ID
+        variable: outputVariable
+        required: true
+        type: outputVariableName

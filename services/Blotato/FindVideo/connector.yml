@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Action
+id: find-video
+serviceId: blotato
+active: true
+metadata:
+  name: Find Video
+  description: Retrieve the status and details of a video created through Blotato's API
+  quickHelp: readme.md
+configuration:
+  - title: Video Details
+    items:
+      - label: Video ID
+        helpText: The ID of the video to retrieve status information for
+        variable: videoId
+        required: true
+        type: text
+        placeholder: Enter your video ID...
+      - label: Output Variable
+        helpText: Variable name to store the video details
+        variable: outputVariable
+        required: true
+        type: outputVariableName
