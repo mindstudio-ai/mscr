@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: search-sheets
+serviceId: smartsheet
+active: false
+metadata:
+  name: Search Sheets
+  description: Searches for content across all sheets accessible to the user or within a specific sheet
+  quickHelp: readme.md
+configuration:
+  - title: Search Parameters
+    items:
+      - label: Search Query
+        required: true
+        helpText: The text to search for across sheets or within a specific sheet
+        variable: searchQuery
+        type: text
+        placeholder: Enter search term...
+      - label: Sheet ID
+        required: false
+        helpText: Optional - Search within a specific sheet only. Leave empty to search all sheets.
+        variable: sheetId
+        type: text
+        placeholder: Leave empty to search all sheets
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the search results
+        variable: outputVariable
+        type: outputVariableName

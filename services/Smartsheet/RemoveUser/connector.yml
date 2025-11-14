@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Connector
+id: removeUser
+active: false
+metadata:
+  name: Remove User
+  description: Removes a user from the organization
+inputs:
+  - id: userId
+    type: string
+    required: true
+    description: The ID of the user to remove
+  - id: transferTo
+    type: string
+    required: false
+    description: User ID to transfer ownership of sheets to
+  - id: removeFromSharing
+    type: boolean
+    required: false
+    description: Whether to remove the user from all shares
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the removal result
+outputs:
+  - id: result
+    type: object
+    description: The removal result
+    sample: |
+      {
+        "message": "SUCCESS",
+        "resultCode": 0
+      }

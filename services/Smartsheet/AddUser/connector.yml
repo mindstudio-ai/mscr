@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Connector
+id: addUser
+active: false
+metadata:
+  name: Add User
+  description: Adds a new user to the organization
+inputs:
+  - id: email
+    type: string
+    required: true
+    description: Email address of the user to add
+  - id: firstName
+    type: string
+    required: false
+    description: First name of the user
+  - id: lastName
+    type: string
+    required: false
+    description: Last name of the user
+  - id: admin
+    type: boolean
+    required: false
+    description: Whether the user should be an admin
+  - id: licensedSheetCreator
+    type: boolean
+    required: false
+    description: Whether the user should be a licensed sheet creator
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the created user
+outputs:
+  - id: result
+    type: object
+    description: The created user
+    sample: |
+      {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 123456789,
+          "email": "newuser@example.com",
+          "firstName": "John",
+          "lastName": "Doe"
+        }
+      }

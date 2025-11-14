@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Connector
+id: listUsers
+active: false
+metadata:
+  name: List Users
+  description: Lists all users in the organization
+inputs:
+  - id: email
+    type: string
+    required: false
+    description: Email address to filter users by
+  - id: includeAll
+    type: boolean
+    required: false
+    description: Include all user information
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the list of users
+outputs:
+  - id: result
+    type: object
+    description: The list of users
+    sample: |
+      {
+        "pageNumber": 1,
+        "pageSize": 100,
+        "totalPages": 1,
+        "totalCount": 5,
+        "data": [
+          {
+            "id": 123456789,
+            "email": "user@example.com",
+            "firstName": "John",
+            "lastName": "Doe",
+            "status": "ACTIVE"
+          }
+        ]
+      }

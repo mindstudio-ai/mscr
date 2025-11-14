@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: make-email-primary
+serviceId: smartsheet
+active: false
+metadata:
+  name: Make Email Primary
+  description: Makes an alternate email the primary email for a user
+  quickHelp: readme.md
+configuration:
+  - title: Email Information
+    items:
+      - label: User ID
+        required: true
+        helpText: The ID of the user
+        variable: userId
+        type: text
+        placeholder: Enter user ID...
+      - label: Alternate Email ID
+        required: true
+        helpText: The ID of the alternate email to make primary
+        variable: alternateEmailId
+        type: text
+        placeholder: Enter alternate email ID...
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the updated email info
+        variable: outputVariable
+        type: outputVariableName

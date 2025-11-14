@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Connector
+id: updateUser
+active: false
+metadata:
+  name: Update User
+  description: Updates an existing user's information
+inputs:
+  - id: userId
+    type: string
+    required: true
+    description: The ID of the user to update
+  - id: admin
+    type: boolean
+    required: false
+    description: Whether the user should be an admin
+  - id: licensedSheetCreator
+    type: boolean
+    required: false
+    description: Whether the user should be a licensed sheet creator
+  - id: firstName
+    type: string
+    required: false
+    description: First name of the user
+  - id: lastName
+    type: string
+    required: false
+    description: Last name of the user
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the updated user
+outputs:
+  - id: result
+    type: object
+    description: The updated user
+    sample: |
+      {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 123456789,
+          "email": "user@example.com",
+          "admin": true
+        }
+      }

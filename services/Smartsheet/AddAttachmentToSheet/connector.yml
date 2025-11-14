@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Action
+id: add-attachment-to-sheet
+serviceId: smartsheet
+active: false
+metadata:
+  name: Add Attachment to Sheet
+  description: Attaches a file or URL to a sheet
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Information
+    items:
+      - label: Sheet ID
+        required: true
+        helpText: The ID of the sheet
+        variable: sheetId
+        type: text
+      - label: Attachment Type
+        required: true
+        helpText: Type of attachment
+        variable: attachmentType
+        type: select
+        defaultValue: FILE
+        selectOptions:
+          options:
+            - label: File
+              value: FILE
+            - label: URL/Link
+              value: LINK
+      - label: File Path
+        required: false
+        helpText: Path to file (for FILE type)
+        variable: filePath
+        type: text
+      - label: URL
+        required: false
+        helpText: URL to attach (for LINK type)
+        variable: url
+        type: text
+      - label: Attachment Name
+        required: false
+        helpText: Name for the attachment
+        variable: name
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store attachment info
+        variable: outputVariable
+        type: outputVariableName

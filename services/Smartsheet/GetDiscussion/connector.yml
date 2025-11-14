@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: get-discussion
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Discussion
+  description: Gets a specific discussion
+  quickHelp: readme.md
+configuration:
+  - title: Discussion Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Discussion ID
+        required: true
+        variable: discussionId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

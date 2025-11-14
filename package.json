@@ -51,6 +51,7 @@
     "@notionhq/client": "^4.0.2",
     "@woocommerce/woocommerce-rest-api": "^1.0.2",
     "md5": "^2.3.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "smartsheet": "^4.7.0"
   }
 }

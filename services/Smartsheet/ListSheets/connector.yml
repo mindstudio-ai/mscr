@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Action
+id: list-sheets
+serviceId: smartsheet
+active: false
+metadata:
+  name: List Sheets
+  description: Retrieves a list of all sheets owned by or shared with the user
+  quickHelp: readme.md
+configuration:
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include Ownership Info
+        required: false
+        helpText: Include sheet ownership information in the response
+        variable: includeOwnerInfo
+        type: checkbox
+        defaultValue: false
+      - label: Modified Since
+        required: false
+        helpText: Only return sheets modified since this date (ISO 8601 format, e.g., 2024-01-01T00:00:00Z)
+        variable: modifiedSince
+        type: text
+        placeholder: 2024-01-01T00:00:00Z
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of sheets
+        variable: outputVariable
+        type: outputVariableName

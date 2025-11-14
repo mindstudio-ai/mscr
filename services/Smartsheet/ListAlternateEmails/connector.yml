@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: list-alternate-emails
+serviceId: smartsheet
+active: false
+metadata:
+  name: List Alternate Emails
+  description: Lists all alternate email addresses for a specified user
+  quickHelp: readme.md
+configuration:
+  - title: User Information
+    items:
+      - label: User ID
+        required: true
+        helpText: The ID of the user whose alternate emails to retrieve
+        variable: userId
+        type: text
+        placeholder: Enter user ID...
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of alternate emails
+        variable: outputVariable
+        type: outputVariableName

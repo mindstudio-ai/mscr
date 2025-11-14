@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Action
+id: add-row-attachment
+serviceId: smartsheet
+active: false
+metadata:
+  name: Add Row Attachment
+  description: Attaches a file or URL to a row
+  quickHelp: readme.md
+configuration:
+  - title: Row Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Row ID
+        required: true
+        variable: rowId
+        type: text
+      - label: Attachment Type
+        required: true
+        variable: attachmentType
+        type: select
+        defaultValue: FILE
+        selectOptions:
+          options:
+            - label: File
+              value: FILE
+            - label: URL/Link
+              value: LINK
+      - label: File Path
+        required: false
+        variable: filePath
+        type: text
+      - label: URL
+        required: false
+        variable: url
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

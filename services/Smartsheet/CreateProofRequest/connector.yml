@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: create-proof-request
+serviceId: smartsheet
+active: false
+metadata:
+  name: Create Proof Request
+  description: Creates a new proof request for an attachment
+  quickHelp: readme.md
+configuration:
+  - title: Proof Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Row ID
+        required: true
+        variable: rowId
+        type: text
+      - label: Attachment ID
+        required: true
+        variable: attachmentId
+        type: text
+      - label: Approver Emails (comma-separated)
+        required: true
+        variable: approverEmails
+        type: text
+      - label: Message
+        required: false
+        variable: message
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

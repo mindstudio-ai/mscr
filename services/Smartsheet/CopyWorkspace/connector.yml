@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Connector
+id: copyWorkspace
+active: false
+metadata:
+  name: Copy Workspace
+  description: Creates a copy of a workspace
+inputs:
+  - id: workspaceId
+    type: string
+    required: true
+    description: The ID of the workspace to copy
+  - id: newName
+    type: string
+    required: true
+    description: Name for the copied workspace
+  - id: includes
+    type: array
+    required: false
+    description: 'Array of items to include (e.g., ["data", "attachments"])'
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the copied workspace
+outputs:
+  - id: result
+    type: object
+    description: The copied workspace
+    sample: |
+      {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 987654321,
+          "name": "Copy of My Workspace",
+          "accessLevel": "OWNER"
+        }
+      }

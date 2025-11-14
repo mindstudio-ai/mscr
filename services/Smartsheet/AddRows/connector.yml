@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Action
+id: add-rows
+serviceId: smartsheet
+active: false
+metadata:
+  name: Add Rows
+  description: Adds one or more rows to a sheet with specified cell values
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Information
+    items:
+      - label: Sheet ID
+        required: true
+        helpText: The ID of the sheet where rows will be added
+        variable: sheetId
+        type: text
+        placeholder: Enter sheet ID...
+  - title: Row Data
+    items:
+      - label: Rows Data
+        required: true
+        helpText: Array of row objects with cells. Each cell needs columnId and value
+        variable: rowsData
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"toBottom":true,"cells":[{"columnId":123456,"value":"Task 1"},{"columnId":789012,"value":"In Progress"}]}]'
+  - title: Position Options
+    collapsed: true
+    items:
+      - label: Position Type
+        required: false
+        helpText: Where to add the rows (applies to first row if not specified per row)
+        variable: positionType
+        type: select
+        defaultValue: toBottom
+        selectOptions:
+          options:
+            - label: To Bottom
+              value: toBottom
+            - label: To Top
+              value: toTop
+            - label: Above Row
+              value: above
+            - label: Below Row
+              value: below
+      - label: Sibling Row ID
+        required: false
+        helpText: Required if position is "Above Row" or "Below Row"
+        variable: siblingId
+        type: text
+        placeholder: Enter row ID...
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the added rows information
+        variable: outputVariable
+        type: outputVariableName

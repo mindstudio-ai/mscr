@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: Action
+id: add-column
+serviceId: smartsheet
+active: false
+metadata:
+  name: Add Column
+  description: Adds a new column to a sheet with specified properties
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Information
+    items:
+      - label: Sheet ID
+        required: true
+        helpText: The ID of the sheet where the column will be added
+        variable: sheetId
+        type: text
+        placeholder: Enter sheet ID...
+  - title: Column Details
+    items:
+      - label: Column Title
+        required: true
+        helpText: The title/name for the new column
+        variable: columnTitle
+        type: text
+        placeholder: Enter column name...
+      - label: Column Type
+        required: true
+        helpText: The type of data this column will contain
+        variable: columnType
+        type: select
+        defaultValue: TEXT_NUMBER
+        selectOptions:
+          options:
+            - label: Text/Number
+              value: TEXT_NUMBER
+            - label: Picklist (Dropdown)
+              value: PICKLIST
+            - label: Date
+              value: DATE
+            - label: Contact List
+              value: CONTACT_LIST
+            - label: Checkbox
+              value: CHECKBOX
+            - label: Duration
+              value: DURATION
+      - label: Picklist Options
+        required: false
+        helpText: For PICKLIST type - comma-separated options or JSON array
+        variable: picklistOptions
+        type: text
+        placeholder: 'Option 1,Option 2,Option 3 or ["Option 1","Option 2"]'
+  - title: Position
+    collapsed: true
+    items:
+      - label: Insert Position
+        required: false
+        helpText: Where to insert the column relative to existing columns
+        variable: insertPosition
+        type: select
+        defaultValue: end
+        selectOptions:
+          options:
+            - label: At End
+              value: end
+            - label: At Beginning
+              value: beginning
+            - label: Before Column
+              value: before
+            - label: After Column
+              value: after
+      - label: Sibling Column Index
+        required: false
+        helpText: Column index for "Before" or "After" positioning (0-based)
+        variable: siblingColumnIndex
+        type: text
+        placeholder: '0'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created column information
+        variable: outputVariable
+        type: outputVariableName
