@@ -3,7 +3,7 @@ import runConnector from '../../../src/utils/testHarness';
 
 test('adds rows to a Smartsheet', async () => {
   // Mock environment variables
-  process.env.accessToken = process.env.SMARTSHEET_ACCESS_TOKEN;
+  process.env.accessToken = process.env.accessToken;
 
   const { handler } = await import('./handler.ts');
 

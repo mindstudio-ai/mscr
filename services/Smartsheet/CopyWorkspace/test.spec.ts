@@ -8,7 +8,7 @@ describe('CopyWorkspace', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env.SMARTSHEET_ACCESS_TOKEN = 'test-token';
+    process.env.accessToken = 'test-token';
   });
 
   it('should copy workspace successfully', async () => {

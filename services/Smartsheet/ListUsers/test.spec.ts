@@ -8,7 +8,7 @@ describe('ListUsers', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env.SMARTSHEET_ACCESS_TOKEN = 'test-token';
+    process.env.accessToken = 'test-token';
   });
 
   it('should list users successfully', async () => {
@@ -31,7 +31,7 @@ describe('ListUsers', () => {
   });
 
   it('should throw error when access token is missing', async () => {
-    delete process.env.SMARTSHEET_ACCESS_TOKEN;
+    delete process.env.accessToken;
 
     const inputs = {
       outputVariable: 'usersList',

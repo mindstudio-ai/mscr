@@ -21,4 +21,3 @@ Returns a paginated list of users with their details including ID, email, name, 
   "outputVariable": "usersList"
 }
 ```
-

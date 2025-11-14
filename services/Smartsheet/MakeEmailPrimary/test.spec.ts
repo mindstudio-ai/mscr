@@ -2,7 +2,7 @@ import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
 test('makes alternate email primary', async () => {
-  process.env.accessToken = process.env.SMARTSHEET_ACCESS_TOKEN;
+  process.env.accessToken = process.env.accessToken;
 
   const { handler } = await import('./handler.ts');
 
