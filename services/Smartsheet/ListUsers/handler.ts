@@ -1,16 +1,27 @@
 import smartsheet from 'smartsheet';
+import { ListUsersQueryParameters } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: Record<string, any>;
+  inputs: ListUsersQueryParameters & { outputVariable: string };
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { email, includeAll, outputVariable } = inputs;
+  const {
+    email,
+    includeAll,
+    numericDates,
+    planId,
+    seatType,
+    page,
+    pageSize,
+    include,
+    outputVariable,
+  } = inputs;
 
   const accessToken = process.env.accessToken;
   if (!accessToken) {
@@ -22,18 +33,35 @@ export const handler = async ({
   try {
     log('Listing users in organization...');
 
-    const options: any = {};
+    const options: Partial<ListUsersQueryParameters> = {};
     if (email) {
-      options.queryParameters = { email };
+      options.email = email;
     }
     if (includeAll) {
-      options.queryParameters = {
-        ...options.queryParameters,
-        includeAll: true,
-      };
+      options.includeAll = true;
+    }
+    if (numericDates) {
+      options.numericDates = true;
+    }
+    if (planId) {
+      options.planId = planId;
+    }
+    if (seatType) {
+      options.seatType = seatType;
+    }
+    if (page) {
+      options.page = page;
+    }
+    if (pageSize) {
+      options.pageSize = pageSize;
+    }
+    if (include) {
+      options.include = include;
     }
 
-    const result = await client.users.listUsers(options);
+    log(`Listing users with options: ${JSON.stringify(options)}`);
+
+    const result = await client.users.listAllUsers(options);
 
     log(`Successfully retrieved ${result.totalCount} users`);
     setOutput(outputVariable, result);

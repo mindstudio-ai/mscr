@@ -10,10 +10,39 @@ inputs:
     type: string
     required: false
     description: Email address to filter users by
+  - id: include
+    type: string
+    required: false
+    description: Comma-separated list of additional fields to include in the response
   - id: includeAll
     type: boolean
     required: false
     description: Include all user information
+  - id: numericDates
+    type: boolean
+    required: false
+    description: Return dates as numeric values instead of ISO 8601 strings
+  - id: planId
+    type: number
+    required: false
+    description: Filter users by plan ID
+  - id: seatType
+    type: string
+    required: false
+    description: Filter users by seat type
+    enum:
+      - MEMBER
+      - PROVISIONAL_MEMBER
+      - GUEST
+      - VIEWER
+  - id: page
+    type: number
+    required: false
+    description: Page number for pagination (default: 1)
+  - id: pageSize
+    type: number
+    required: false
+    description: Number of results per page (default: 100)
   - id: outputVariable
     type: string
     required: true
@@ -27,14 +56,20 @@ outputs:
         "pageNumber": 1,
         "pageSize": 100,
         "totalPages": 1,
-        "totalCount": 5,
+        "totalCount": 2,
         "data": [
           {
-            "id": 123456789,
-            "email": "user@example.com",
-            "firstName": "John",
-            "lastName": "Doe",
-            "status": "ACTIVE"
-          }
+            "email": "example@example.com",
+            "name": "Example User",
+            "firstName": "Example",
+            "lastName": "User",
+            "admin": false,
+            "licensedSheetCreator": false,
+            "groupAdmin": false,
+            "resourceViewer": false,
+            "id": 1234567890,
+            "status": "ACTIVE",
+            "sheetCount": 0
+          },
         ]
       }
