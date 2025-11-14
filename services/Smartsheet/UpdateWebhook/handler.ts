@@ -17,7 +17,7 @@ export const handler = async ({
     throw new Error('Webhook ID is required');
   }
 
-  const accessToken = process.env.SMARTSHEET_ACCESS_TOKEN;
+  const accessToken = process.env.accessToken;
   if (!accessToken) {
     throw new Error('Smartsheet access token is not configured');
   }

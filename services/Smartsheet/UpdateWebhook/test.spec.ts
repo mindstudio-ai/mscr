@@ -8,7 +8,7 @@ describe('UpdateWebhook', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env.SMARTSHEET_ACCESS_TOKEN = 'test-token';
+    process.env.accessToken = 'test-token';
   });
 
   it('should update webhook successfully', async () => {
