@@ -6,7 +6,7 @@ active: false
 metadata:
   name: Smartsheet
   description: Work management and collaboration platform
-  icon: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Smartsheet_Logo.svg/200px-Smartsheet_Logo.svg.png
+  icon: https://images.mindstudio-cdn.com/images/a47f3f3a-a1fa-41ca-8de3-e415452b4611_1763138381553.png
 configuration:
   - id: accessToken
     type: bearerToken
