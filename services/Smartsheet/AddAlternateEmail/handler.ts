@@ -32,7 +32,7 @@ export const handler = async ({
   try {
     const response = await client.users.addAlternateEmail({
       userId,
-      email,
+      body: { email: [email] },
     });
 
     log(`Successfully added alternate email with ID: ${response.result.id}`);
