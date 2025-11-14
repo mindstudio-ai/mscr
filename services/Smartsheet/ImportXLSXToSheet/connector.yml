@@ -22,7 +22,7 @@ configuration:
         type: text
       - label: Header Row Index (0-based)
         required: false
-        helpText: Zero-based index of the header row (default: 0)
+        helpText: Zero-based index of the header row (default is 0)
         variable: headerRowIndex
         type: text
   - title: Output
