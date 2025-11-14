@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: create-folder
+serviceId: smartsheet
+active: false
+metadata:
+  name: Create Folder
+  description: Creates a new folder in a workspace or folder
+  quickHelp: readme.md
+configuration:
+  - title: Folder Information
+    items:
+      - label: Parent Type
+        required: true
+        helpText: workspace or folder
+        variable: parentType
+        type: text
+      - label: Parent ID
+        required: true
+        variable: parentId
+        type: text
+      - label: Folder Name
+        required: true
+        variable: name
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

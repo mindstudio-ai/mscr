@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Action
+id: delete-folder
+serviceId: smartsheet
+active: false
+metadata:
+  name: Delete Folder
+  description: Deletes a folder and its contents
+  quickHelp: readme.md
+configuration:
+  - title: Folder Information
+    items:
+      - label: Folder ID
+        required: true
+        variable: folderId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

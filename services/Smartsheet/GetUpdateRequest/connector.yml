@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: get-update-request
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Update Request
+  description: Gets details of a specific update request
+  quickHelp: readme.md
+configuration:
+  - title: Update Request Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Update Request ID
+        required: true
+        variable: updateRequestId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Connector
+id: getUserAlternateEmail
+active: false
+metadata:
+  name: Get User Alternate Email
+  description: Gets details about a specific alternate email
+inputs:
+  - id: userId
+    type: string
+    required: true
+    description: The ID of the user
+  - id: alternateEmailId
+    type: string
+    required: true
+    description: The ID of the alternate email
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the alternate email details
+outputs:
+  - id: result
+    type: object
+    description: The alternate email details
+    sample: |
+      {
+        "id": 987654321,
+        "email": "alternate@example.com",
+        "confirmed": true
+      }

@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: smartsheet
+active: false
+metadata:
+  name: Smartsheet
+  description: Work management and collaboration platform
+  icon: https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Smartsheet_Logo.svg/200px-Smartsheet_Logo.svg.png
+configuration:
+  - id: accessToken
+    type: bearerToken
+    managed: true
+    name: Access Token
+    description: Smartsheet API access token

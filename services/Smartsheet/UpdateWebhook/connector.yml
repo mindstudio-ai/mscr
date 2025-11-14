@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Connector
+id: updateWebhook
+active: false
+metadata:
+  name: Update Webhook
+  description: Updates an existing webhook
+inputs:
+  - id: webhookId
+    type: string
+    required: true
+    description: The ID of the webhook to update
+  - id: name
+    type: string
+    required: false
+    description: New name for the webhook
+  - id: enabled
+    type: boolean
+    required: false
+    description: Whether the webhook should be enabled
+  - id: events
+    type: array
+    required: false
+    description: New array of event types to monitor
+  - id: callbackUrl
+    type: string
+    required: false
+    description: New callback URL
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the updated webhook
+outputs:
+  - id: result
+    type: object
+    description: The updated webhook
+    sample: |
+      {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 123456789,
+          "name": "Updated Webhook",
+          "enabled": true,
+          "status": "ENABLED"
+        }
+      }

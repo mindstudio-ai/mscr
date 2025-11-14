@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Action
+id: get-row
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Row
+  description: Retrieves the details of a specific row from a sheet
+  quickHelp: readme.md
+configuration:
+  - title: Row Information
+    items:
+      - label: Sheet ID
+        required: true
+        helpText: The ID of the sheet containing the row
+        variable: sheetId
+        type: text
+        placeholder: Enter sheet ID...
+      - label: Row ID
+        required: true
+        helpText: The ID of the row to retrieve
+        variable: rowId
+        type: text
+        placeholder: Enter row ID...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include Discussions
+        required: false
+        helpText: Include discussion threads for this row
+        variable: includeDiscussions
+        type: checkbox
+        defaultValue: false
+      - label: Include Attachments
+        required: false
+        helpText: Include attachments for this row
+        variable: includeAttachments
+        type: checkbox
+        defaultValue: false
+      - label: Include Columns
+        required: false
+        helpText: Include column information
+        variable: includeColumns
+        type: checkbox
+        defaultValue: false
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the row details
+        variable: outputVariable
+        type: outputVariableName

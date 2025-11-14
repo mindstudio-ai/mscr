@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Action
+id: update-sheet-summary-fields
+serviceId: smartsheet
+active: false
+metadata:
+  name: Update Sheet Summary Fields
+  description: Updates one or more summary fields
+  quickHelp: readme.md
+configuration:
+  - title: Field Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Fields JSON
+        required: true
+        helpText: Array of field objects with id and value/formula
+        variable: fieldsJson
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

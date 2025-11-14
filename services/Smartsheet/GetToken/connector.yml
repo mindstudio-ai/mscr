@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Action
+id: get-token
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Token
+  description: Gets details of the current access token
+  quickHelp: readme.md
+configuration:
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

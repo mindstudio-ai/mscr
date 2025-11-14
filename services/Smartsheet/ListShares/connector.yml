@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Action
+id: list-shares
+serviceId: smartsheet
+active: false
+metadata:
+  name: List Shares
+  description: Lists all shares for a sheet
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

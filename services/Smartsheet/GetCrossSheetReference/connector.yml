@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: get-cross-sheet-reference
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Cross-sheet Reference
+  description: Gets a specific cross-sheet reference
+  quickHelp: readme.md
+configuration:
+  - title: Reference Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Cross-sheet Reference ID
+        required: true
+        variable: crossSheetReferenceId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: delete-sheet-summary-fields
+serviceId: smartsheet
+active: false
+metadata:
+  name: Delete Sheet Summary Fields
+  description: Deletes one or more summary fields
+  quickHelp: readme.md
+configuration:
+  - title: Field Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Field IDs (comma-separated)
+        required: true
+        variable: fieldIds
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

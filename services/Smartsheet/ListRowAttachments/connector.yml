@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: list-row-attachments
+serviceId: smartsheet
+active: false
+metadata:
+  name: List Row Attachments
+  description: Lists attachments on a row
+  quickHelp: readme.md
+configuration:
+  - title: Row Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Row ID
+        required: true
+        variable: rowId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

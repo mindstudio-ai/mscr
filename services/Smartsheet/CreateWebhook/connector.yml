@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Connector
+id: createWebhook
+active: false
+metadata:
+  name: Create Webhook
+  description: Creates a new webhook
+inputs:
+  - id: name
+    type: string
+    required: true
+    description: Name of the webhook
+  - id: callbackUrl
+    type: string
+    required: true
+    description: URL to send webhook events to
+  - id: scope
+    type: string
+    required: true
+    description: 'Scope of the webhook (e.g., "sheet")'
+  - id: scopeObjectId
+    type: string
+    required: true
+    description: ID of the object to monitor
+  - id: events
+    type: array
+    required: true
+    description: 'Array of event types to monitor (e.g., ["*.*"])'
+  - id: version
+    type: number
+    required: false
+    description: Webhook version (default is 1)
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the created webhook
+outputs:
+  - id: result
+    type: object
+    description: The created webhook
+    sample: |
+      {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 123456789,
+          "name": "My Webhook",
+          "scopeObjectId": 987654321,
+          "events": ["*.*"],
+          "callbackUrl": "https://example.com/webhook",
+          "enabled": true,
+          "status": "NEW_NOT_VERIFIED"
+        }
+      }

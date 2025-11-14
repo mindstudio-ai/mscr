@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: get-sheet
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Sheet
+  description: Retrieves the complete details of a specific sheet including rows, columns, and cells
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Information
+    items:
+      - label: Sheet ID
+        required: true
+        helpText: The ID of the sheet to retrieve
+        variable: sheetId
+        type: text
+        placeholder: Enter sheet ID...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include Attachments
+        required: false
+        helpText: Include attachments in the response
+        variable: includeAttachments
+        type: checkbox
+        defaultValue: false
+      - label: Include Discussions
+        required: false
+        helpText: Include discussions in the response
+        variable: includeDiscussions
+        type: checkbox
+        defaultValue: false
+      - label: Include Row Permalink
+        required: false
+        helpText: Include row permalinks in the response
+        variable: includeRowPermalink
+        type: checkbox
+        defaultValue: false
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the sheet details
+        variable: outputVariable
+        type: outputVariableName

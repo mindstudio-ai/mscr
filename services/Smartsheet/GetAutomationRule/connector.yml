@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: get-automation-rule
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Automation Rule
+  description: Gets details of a specific automation rule
+  quickHelp: readme.md
+configuration:
+  - title: Rule Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Automation Rule ID
+        required: true
+        variable: automationRuleId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

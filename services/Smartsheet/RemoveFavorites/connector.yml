@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Action
+id: remove-favorites
+serviceId: smartsheet
+active: false
+metadata:
+  name: Remove Favorites (Bulk)
+  description: Removes multiple items from favorites at once
+  quickHelp: readme.md
+configuration:
+  - title: Favorite Information
+    items:
+      - label: Object Type
+        required: true
+        helpText: sheet, workspace, folder, report, sight, template
+        variable: objectType
+        type: text
+      - label: Object IDs (comma-separated)
+        required: true
+        variable: objectIds
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: update-share
+serviceId: smartsheet
+active: false
+metadata:
+  name: Update Share
+  description: Updates a share's access level
+  quickHelp: readme.md
+configuration:
+  - title: Share Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Share ID
+        required: true
+        variable: shareId
+        type: text
+      - label: New Access Level
+        required: true
+        helpText: VIEWER, EDITOR, EDITOR_SHARE, ADMIN
+        variable: accessLevel
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

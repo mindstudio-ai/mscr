@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Action
+id: list-events
+serviceId: smartsheet
+active: false
+metadata:
+  name: List Events
+  description: Lists events for monitoring changes
+  quickHelp: readme.md
+configuration:
+  - title: Event Information
+    items:
+      - label: Since (timestamp)
+        required: false
+        helpText: ISO 8601 timestamp to filter events
+        variable: since
+        type: text
+      - label: Stream Position
+        required: false
+        helpText: Position for paging through events
+        variable: streamPosition
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

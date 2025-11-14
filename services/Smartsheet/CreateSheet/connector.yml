@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Action
+id: create-sheet
+serviceId: smartsheet
+active: false
+metadata:
+  name: Create Sheet
+  description: Creates a new sheet in Smartsheet with specified columns
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Details
+    items:
+      - label: Sheet Name
+        required: true
+        helpText: The name for the new sheet
+        variable: sheetName
+        type: text
+        placeholder: My New Sheet
+      - label: Columns Definition
+        required: true
+        helpText: Define columns as JSON array. Each column needs title, type, and optionally primary=true for the first column
+        variable: columns
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '[{"title":"Task Name","type":"TEXT_NUMBER","primary":true},{"title":"Status","type":"PICKLIST","options":["Not Started","In Progress","Complete"]}]'
+  - title: Location
+    collapsed: true
+    items:
+      - label: Folder ID
+        required: false
+        helpText: Optional folder ID where the sheet should be created
+        variable: folderId
+        type: text
+        placeholder: Leave empty to create in home
+      - label: Workspace ID
+        required: false
+        helpText: Optional workspace ID where the sheet should be created (takes precedence over folder)
+        variable: workspaceId
+        type: text
+        placeholder: Leave empty to create in home
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created sheet information
+        variable: outputVariable
+        type: outputVariableName

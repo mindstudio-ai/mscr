@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Connector
+id: moveWorkspace
+active: false
+metadata:
+  name: Move Workspace
+  description: Moves a workspace to another location
+inputs:
+  - id: workspaceId
+    type: string
+    required: true
+    description: The ID of the workspace to move
+  - id: destinationId
+    type: string
+    required: true
+    description: ID of the destination (folder or workspace)
+  - id: destinationType
+    type: string
+    required: true
+    description: 'Type of destination ("folder" or "workspace")'
+  - id: outputVariable
+    type: string
+    required: true
+    description: Variable to store the result
+outputs:
+  - id: result
+    type: object
+    description: The move result
+    sample: |
+      {
+        "message": "SUCCESS",
+        "resultCode": 0,
+        "result": {
+          "id": 123456789,
+          "name": "My Workspace"
+        }
+      }

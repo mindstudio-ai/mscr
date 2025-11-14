@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Action
+id: update-sheet
+serviceId: smartsheet
+active: false
+metadata:
+  name: Update Sheet
+  description: Updates properties of an existing sheet such as name and user settings
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Identification
+    items:
+      - label: Sheet ID
+        required: true
+        helpText: The ID of the sheet to update
+        variable: sheetId
+        type: text
+        placeholder: Enter sheet ID...
+  - title: Sheet Properties
+    items:
+      - label: New Sheet Name
+        required: false
+        helpText: New name for the sheet (leave empty to keep current name)
+        variable: sheetName
+        type: text
+        placeholder: Updated Sheet Name
+  - title: User Settings
+    collapsed: true
+    items:
+      - label: Critical Path Enabled
+        required: false
+        helpText: Enable or disable critical path calculation
+        variable: criticalPathEnabled
+        type: select
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+      - label: Dependencies Enabled
+        required: false
+        helpText: Enable or disable dependencies
+        variable: dependenciesEnabled
+        type: select
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the updated sheet information
+        variable: outputVariable
+        type: outputVariableName

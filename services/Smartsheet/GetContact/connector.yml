@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Action
+id: get-contact
+serviceId: smartsheet
+active: false
+metadata:
+  name: Get Contact
+  description: Gets a specific contact by ID
+  quickHelp: readme.md
+configuration:
+  - title: Contact Information
+    items:
+      - label: Contact ID
+        required: true
+        variable: contactId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

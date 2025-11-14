@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: share-sight
+serviceId: smartsheet
+active: false
+metadata:
+  name: Share Sight (Dashboard)
+  description: Shares a dashboard with users
+  quickHelp: readme.md
+configuration:
+  - title: Sight Information
+    items:
+      - label: Sight ID
+        required: true
+        variable: sightId
+        type: text
+      - label: Email Address
+        required: true
+        variable: email
+        type: text
+      - label: Access Level
+        required: true
+        helpText: VIEWER, EDITOR, EDITOR_SHARE, ADMIN
+        variable: accessLevel
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

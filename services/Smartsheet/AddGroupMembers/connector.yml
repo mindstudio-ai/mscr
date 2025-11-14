@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Action
+id: add-group-members
+serviceId: smartsheet
+active: false
+metadata:
+  name: Add Group Members
+  description: Adds members to a group
+  quickHelp: readme.md
+configuration:
+  - title: Group Information
+    items:
+      - label: Group ID
+        required: true
+        variable: groupId
+        type: text
+      - label: Member Emails (comma-separated)
+        required: true
+        variable: memberEmails
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName
