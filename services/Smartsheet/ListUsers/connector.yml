@@ -38,11 +38,11 @@ inputs:
   - id: page
     type: number
     required: false
-    description: Page number for pagination (default: 1)
+    description: Page number for pagination (default is 1)
   - id: pageSize
     type: number
     required: false
-    description: Number of results per page (default: 100)
+    description: Number of results per page (default is 100)
   - id: outputVariable
     type: string
     required: true
