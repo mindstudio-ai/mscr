@@ -12,15 +12,18 @@ configuration:
     items:
       - label: Group ID
         required: true
+        helpText: The ID of the group
         variable: groupId
         type: text
       - label: Member Emails (comma-separated)
         required: true
+        helpText: Comma-separated list of email addresses to add as members
         variable: memberEmails
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the result
         variable: outputVariable
         type: outputVariableName

@@ -12,19 +12,23 @@ configuration:
     items:
       - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
       - label: Discussion ID
         required: true
+        helpText: The ID of the discussion
         variable: discussionId
         type: text
       - label: Comment Text
         required: true
+        helpText: The text content of the comment
         variable: text
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created comment
         variable: outputVariable
         type: outputVariableName

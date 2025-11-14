@@ -12,15 +12,18 @@ configuration:
     items:
       - label: Sight ID
         required: true
+        helpText: The ID of the sight (dashboard)
         variable: sightId
         type: text
       - label: New Name
         required: false
+        helpText: New name for the sight
         variable: name
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the updated sight
         variable: outputVariable
         type: outputVariableName

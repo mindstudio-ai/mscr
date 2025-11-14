@@ -1,25 +1,24 @@
 apiVersion: v1
-kind: Connector
+kind: Action
 id: deleteWebhook
+serviceId: smartsheet
 active: false
 metadata:
   name: Delete Webhook
   description: Deletes a webhook
-inputs:
-  - id: webhookId
-    type: string
-    required: true
-    description: The ID of the webhook to delete
-  - id: outputVariable
-    type: string
-    required: true
-    description: Variable to store the deletion result
-outputs:
-  - id: result
-    type: object
-    description: The deletion result
-    sample: |
-      {
-        "message": "SUCCESS",
-        "resultCode": 0
-      }
+  quickHelp: readme.md
+configuration:
+  - title: Webhook Information
+    items:
+      - label: Webhook ID
+        required: true
+        helpText: The ID of the webhook to delete
+        variable: webhookId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the deletion result
+        variable: outputVariable
+        type: outputVariableName

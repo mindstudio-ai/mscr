@@ -12,5 +12,6 @@ configuration:
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the list of contacts
         variable: outputVariable
         type: outputVariableName

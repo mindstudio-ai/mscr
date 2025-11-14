@@ -1,75 +1,77 @@
 apiVersion: v1
-kind: Connector
+kind: Action
 id: listUsers
+serviceId: smartsheet
 active: false
 metadata:
   name: List Users
   description: Lists all users in the organization
-inputs:
-  - id: email
-    type: string
-    required: false
-    description: Email address to filter users by
-  - id: include
-    type: string
-    required: false
-    description: Comma-separated list of additional fields to include in the response
-  - id: includeAll
-    type: boolean
-    required: false
-    description: Include all user information
-  - id: numericDates
-    type: boolean
-    required: false
-    description: Return dates as numeric values instead of ISO 8601 strings
-  - id: planId
-    type: number
-    required: false
-    description: Filter users by plan ID
-  - id: seatType
-    type: string
-    required: false
-    description: Filter users by seat type
-    enum:
-      - MEMBER
-      - PROVISIONAL_MEMBER
-      - GUEST
-      - VIEWER
-  - id: page
-    type: number
-    required: false
-    description: Page number for pagination (default is 1)
-  - id: pageSize
-    type: number
-    required: false
-    description: Number of results per page (default is 100)
-  - id: outputVariable
-    type: string
-    required: true
-    description: Variable to store the list of users
-outputs:
-  - id: result
-    type: object
-    description: The list of users
-    sample: |
-      {
-        "pageNumber": 1,
-        "pageSize": 100,
-        "totalPages": 1,
-        "totalCount": 2,
-        "data": [
-          {
-            "email": "example@example.com",
-            "name": "Example User",
-            "firstName": "Example",
-            "lastName": "User",
-            "admin": false,
-            "licensedSheetCreator": false,
-            "groupAdmin": false,
-            "resourceViewer": false,
-            "id": 1234567890,
-            "status": "ACTIVE",
-            "sheetCount": 0
-          },
-        ]
-      }
+  quickHelp: readme.md
+configuration:
+  - title: Filter Options
+    collapsed: true
+    items:
+      - label: Email
+        required: false
+        helpText: Email address to filter users by
+        variable: email
+        type: text
+      - label: Include
+        required: false
+        helpText: Comma-separated list of additional fields to include in the response
+        variable: include
+        type: text
+      - label: Plan ID
+        required: false
+        helpText: Filter users by plan ID
+        variable: planId
+        type: number
+      - label: Seat Type
+        required: false
+        helpText: Filter users by seat type
+        variable: seatType
+        type: select
+        selectOptions:
+          options:
+            - label: Member
+              value: MEMBER
+            - label: Provisional Member
+              value: PROVISIONAL_MEMBER
+            - label: Guest
+              value: GUEST
+            - label: Viewer
+              value: VIEWER
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include All
+        required: false
+        helpText: Include all user information
+        variable: includeAll
+        type: checkbox
+        defaultValue: false
+      - label: Numeric Dates
+        required: false
+        helpText: Return dates as numeric values instead of ISO 8601 strings
+        variable: numericDates
+        type: checkbox
+        defaultValue: false
+      - label: Page
+        required: false
+        helpText: Page number for pagination (default is 1)
+        variable: page
+        type: number
+        defaultValue: 1
+      - label: Page Size
+        required: false
+        helpText: Number of results per page (default is 100)
+        variable: pageSize
+        type: number
+        defaultValue: 100
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the list of users
+        variable: outputVariable
+        type: outputVariableName

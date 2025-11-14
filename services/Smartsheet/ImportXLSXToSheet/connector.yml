@@ -12,19 +12,23 @@ configuration:
     items:
       - label: File URL or Path
         required: true
+        helpText: URL or path to the XLSX file to import
         variable: fileUrl
         type: text
       - label: Sheet Name
         required: true
+        helpText: Name for the new sheet
         variable: sheetName
         type: text
       - label: Header Row Index (0-based)
         required: false
+        helpText: Zero-based index of the header row (default: 0)
         variable: headerRowIndex
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the import result
         variable: outputVariable
         type: outputVariableName
