@@ -12,15 +12,18 @@ configuration:
     items:
       - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
       - label: Update Request ID
         required: true
+        helpText: The ID of the update request
         variable: updateRequestId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the result
         variable: outputVariable
         type: outputVariableName

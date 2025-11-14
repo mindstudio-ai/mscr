@@ -12,11 +12,13 @@ configuration:
     items:
       - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the list of shares
         variable: outputVariable
         type: outputVariableName

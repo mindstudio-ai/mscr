@@ -12,11 +12,13 @@ configuration:
     items:
       - label: Folder ID
         required: true
+        helpText: The ID of the folder
         variable: folderId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the folder details
         variable: outputVariable
         type: outputVariableName

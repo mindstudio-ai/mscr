@@ -1,31 +1,24 @@
 apiVersion: v1
-kind: Connector
+kind: Action
 id: createWorkspace
+serviceId: smartsheet
 active: false
 metadata:
   name: Create Workspace
   description: Creates a new workspace
-inputs:
-  - id: name
-    type: string
-    required: true
-    description: Name of the workspace
-  - id: outputVariable
-    type: string
-    required: true
-    description: Variable to store the created workspace
-outputs:
-  - id: result
-    type: object
-    description: The created workspace
-    sample: |
-      {
-        "message": "SUCCESS",
-        "resultCode": 0,
-        "result": {
-          "id": 123456789,
-          "name": "New Workspace",
-          "accessLevel": "OWNER",
-          "permalink": "https://app.smartsheet.com/workspaces/..."
-        }
-      }
+  quickHelp: readme.md
+configuration:
+  - title: Workspace Information
+    items:
+      - label: Name
+        required: true
+        helpText: Name of the workspace
+        variable: name
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the created workspace
+        variable: outputVariable
+        type: outputVariableName

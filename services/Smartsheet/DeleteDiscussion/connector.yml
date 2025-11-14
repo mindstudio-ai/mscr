@@ -12,15 +12,18 @@ configuration:
     items:
       - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
       - label: Discussion ID
         required: true
+        helpText: The ID of the discussion
         variable: discussionId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

@@ -12,11 +12,13 @@ configuration:
     items:
       - label: Workspace ID
         required: true
+        helpText: The ID of the workspace
         variable: workspaceId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the list of folders
         variable: outputVariable
         type: outputVariableName

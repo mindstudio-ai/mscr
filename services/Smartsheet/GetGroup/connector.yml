@@ -12,11 +12,13 @@ configuration:
     items:
       - label: Group ID
         required: true
+        helpText: The ID of the group
         variable: groupId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the group details
         variable: outputVariable
         type: outputVariableName

@@ -12,27 +12,33 @@ configuration:
     items:
       - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
       - label: Row ID
         required: true
+        helpText: The ID of the row
         variable: rowId
         type: text
       - label: Attachment ID
         required: true
+        helpText: The ID of the attachment
         variable: attachmentId
         type: text
       - label: Approver Emails (comma-separated)
         required: true
+        helpText: Comma-separated list of email addresses for approvers
         variable: approverEmails
         type: text
       - label: Message
         required: false
+        helpText: Optional message for the proof request
         variable: message
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created proof request
         variable: outputVariable
         type: outputVariableName

@@ -1,34 +1,29 @@
 apiVersion: v1
-kind: Connector
+kind: Action
 id: addUserAlternateEmail
+serviceId: smartsheet
 active: false
 metadata:
   name: Add User Alternate Email
   description: Adds an alternate email address to a user's account
-inputs:
-  - id: userId
-    type: string
-    required: true
-    description: The ID of the user
-  - id: email
-    type: string
-    required: true
-    description: The alternate email address to add
-  - id: outputVariable
-    type: string
-    required: true
-    description: Variable to store the result
-outputs:
-  - id: result
-    type: object
-    description: The created alternate email
-    sample: |
-      {
-        "message": "SUCCESS",
-        "resultCode": 0,
-        "result": {
-          "id": 987654321,
-          "email": "alternate@example.com",
-          "confirmed": false
-        }
-      }
+  quickHelp: readme.md
+configuration:
+  - title: User Information
+    items:
+      - label: User ID
+        required: true
+        helpText: The ID of the user
+        variable: userId
+        type: text
+      - label: Email
+        required: true
+        helpText: The alternate email address to add
+        variable: email
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the result
+        variable: outputVariable
+        type: outputVariableName

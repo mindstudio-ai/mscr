@@ -12,19 +12,23 @@ configuration:
     items:
       - label: Group Name
         required: true
+        helpText: Name for the new group
         variable: name
         type: text
       - label: Description
         required: false
+        helpText: Optional description for the group
         variable: description
         type: text
       - label: Member Emails (comma-separated)
         required: false
+        helpText: Comma-separated list of email addresses to add as members
         variable: memberEmails
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created group
         variable: outputVariable
         type: outputVariableName

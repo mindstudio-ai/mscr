@@ -12,15 +12,18 @@ configuration:
     items:
       - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
       - label: Automation Rule ID
         required: true
+        helpText: The ID of the automation rule
         variable: automationRuleId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the automation rule details
         variable: outputVariable
         type: outputVariableName

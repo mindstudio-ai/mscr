@@ -12,15 +12,18 @@ configuration:
     items:
       - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
       - label: Attachment ID
         required: true
+        helpText: The ID of the attachment
         variable: attachmentId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the list of attachment versions
         variable: outputVariable
         type: outputVariableName

@@ -12,11 +12,13 @@ configuration:
     items:
       - label: Event ID
         required: true
+        helpText: The ID of the event
         variable: eventId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the event details
         variable: outputVariable
         type: outputVariableName
