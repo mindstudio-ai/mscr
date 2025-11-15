@@ -26,8 +26,11 @@ export const handler = async ({
   log(`Listing folders in workspace ${workspaceId}`);
 
   try {
-    const response = await client.workspaces.getWorkspace({ workspaceId });
-    const folders = response.folders || [];
+    const response = await client.workspaces.getWorkspaceChildren({
+      workspaceId,
+    });
+    const folders =
+      response?.data?.filter?.((item) => item.resourceType === 'folder') || [];
     log(`Found ${folders.length} folder(s)`);
     setOutput(outputVariable, {
       totalCount: folders.length,
