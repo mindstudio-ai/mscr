@@ -29,7 +29,10 @@ export const handler = async ({
   log(`Listing attachments for row ${rowId}`);
 
   try {
-    const response = await client.rows.listAttachments({ sheetId, rowId });
+    const response = await client.sheets.rows.getRowAttachments({
+      sheetId,
+      rowId,
+    });
     log(`Found ${response.data?.length || 0} attachment(s)`);
     setOutput(outputVariable, {
       totalCount: response.totalCount,
