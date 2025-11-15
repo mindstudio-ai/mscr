@@ -19,14 +19,14 @@ export type ConnectorContext = {
   logs: string[];
 };
 
-export default async function runConnector(
+export default async function runConnector<T extends Record<string, unknown>>(
   handler: (ctx: {
-    inputs: Record<string, any>;
+    inputs: T;
     setOutput: (variable: string, value: any) => void;
     log: (message: string) => void;
     uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
   }) => unknown | Promise<unknown>,
-  inputs: Record<string, unknown>,
+  inputs: T,
 ): Promise<ConnectorContext> {
   const outputs: Record<string, unknown> = {};
   const logs: string[] = [];

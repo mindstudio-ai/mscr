@@ -29,7 +29,7 @@ export const handler = async ({
   log(`Listing attachments for row ${rowId}`);
 
   try {
-    const response = await client.sheets.rows.getRowAttachments({
+    const response = await client.sheets.getRowAttachments({
       sheetId,
       rowId,
     });
