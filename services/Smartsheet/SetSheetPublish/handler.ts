@@ -7,7 +7,7 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SetSheetPublishInputs>) => {
-  const { sheetId, publishSettings, outputVariable } = inputs;
+  const { sheetId, outputVariable, ...publishSettings } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');

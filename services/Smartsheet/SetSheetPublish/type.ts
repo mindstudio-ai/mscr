@@ -9,8 +9,7 @@ export interface PublishSettings {
   readWriteEnabled?: BooleanValue;
 }
 
-export interface SetSheetPublishInputs {
+export interface SetSheetPublishInputs extends PublishSettings {
   sheetId: string;
-  publishSettings: PublishSettings;
   outputVariable: string;
 }
