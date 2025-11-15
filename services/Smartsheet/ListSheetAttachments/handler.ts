@@ -1,11 +1,12 @@
 import smartsheet from 'smartsheet';
+import { ListSheetAttachmentsInputs } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: Record<string, any>;
+  inputs: ListSheetAttachmentsInputs;
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;

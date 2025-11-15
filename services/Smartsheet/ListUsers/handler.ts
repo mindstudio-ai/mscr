@@ -1,12 +1,12 @@
 import smartsheet from 'smartsheet';
-import { ListUsersQueryParameters } from './type';
+import { ListUsersInputs, ListUsersQueryParameters } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: ListUsersQueryParameters & { outputVariable: string };
+  inputs: ListUsersInputs;
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;

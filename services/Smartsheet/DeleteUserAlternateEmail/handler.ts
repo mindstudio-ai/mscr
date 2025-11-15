@@ -1,11 +1,12 @@
 import smartsheet from 'smartsheet';
+import { DeleteUserAlternateEmailInputs } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: Record<string, any>;
+  inputs: DeleteUserAlternateEmailInputs;
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;

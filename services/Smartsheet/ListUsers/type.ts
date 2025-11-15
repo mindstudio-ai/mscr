@@ -5,6 +5,18 @@ export enum SeatTypes {
   VIEWER = 'VIEWER',
 }
 
+export interface ListUsersInputs {
+  email?: string;
+  include?: string;
+  includeAll?: boolean;
+  numericDates?: boolean;
+  planId?: number;
+  seatType?: SeatTypes;
+  page?: number;
+  pageSize?: number;
+  outputVariable: string;
+}
+
 export interface ListUsersQueryParameters {
   email?: string;
   include?: string;

@@ -1,11 +1,12 @@
 import smartsheet from 'smartsheet';
+import { AddCommentAttachmentInputs } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: Record<string, any>;
+  inputs: AddCommentAttachmentInputs;
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
@@ -31,7 +32,7 @@ export const handler = async ({
   log(`Adding attachment to comment ${commentId}`);
 
   try {
-    const response = await client.comments.addAttachment({
+    const response = await client.sheets.attachFileToComment({
       sheetId,
       commentId,
       file: filePath,
