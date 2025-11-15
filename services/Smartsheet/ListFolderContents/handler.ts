@@ -26,22 +26,11 @@ export const handler = async ({
   log(`Listing contents of folder ${folderId}`);
 
   try {
-    const response = await client.folders.getFolder({ folderId });
-    const sheets = response.sheets || [];
-    const folders = response.folders || [];
-    const reports = response.reports || [];
-    const sights = response.sights || [];
+    const response = await client.folders.getFolderChildren({ folderId });
 
-    log(
-      `Found ${sheets.length} sheet(s), ${folders.length} folder(s), ${reports.length} report(s), ${sights.length} sight(s)`,
-    );
     setOutput(outputVariable, {
-      sheets,
-      folders,
-      reports,
-      sights,
-      totalCount:
-        sheets.length + folders.length + reports.length + sights.length,
+      totalCount: response.data?.length || 0,
+      contents: response.data,
     });
   } catch (error: any) {
     throw new Error(`Failed to list folder contents: ${error.message}`);
