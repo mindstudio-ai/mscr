@@ -32,10 +32,19 @@ export const handler = async ({
       options.queryParameters = { loadAll: true };
     }
 
-    const result = await client.workspaces.getWorkspace(options);
+    const [workspaceMetadata, workspaceChildren] = await Promise.all([
+      client.workspaces.getWorkspaceMetadata(options),
+      client.workspaces.getWorkspaceChildren(options),
+    ]);
 
-    log(`Successfully retrieved workspace: ${result.name}`);
-    setOutput(outputVariable, result);
+    const output = {
+      metadata: workspaceMetadata,
+      children: workspaceChildren,
+    };
+
+    log(`Successfully retrieved workspace: ${output.metadata.name}`);
+
+    setOutput(outputVariable, output);
   } catch (error: any) {
     log(`Error getting workspace: ${error.message}`);
     throw error;
