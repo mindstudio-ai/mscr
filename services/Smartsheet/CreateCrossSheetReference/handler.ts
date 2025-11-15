@@ -1,11 +1,12 @@
 import smartsheet from 'smartsheet';
+import { CreateCrossSheetReferenceInputs } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: Record<string, any>;
+  inputs: CreateCrossSheetReferenceInputs;
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;

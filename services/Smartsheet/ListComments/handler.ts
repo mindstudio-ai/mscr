@@ -1,11 +1,12 @@
 import smartsheet from 'smartsheet';
+import { ListCommentsInputs } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: Record<string, any>;
+  inputs: ListCommentsInputs;
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;

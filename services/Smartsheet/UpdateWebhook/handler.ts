@@ -1,11 +1,12 @@
 import smartsheet from 'smartsheet';
+import { UpdateWebhookInputs } from './type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: {
-  inputs: Record<string, any>;
+  inputs: UpdateWebhookInputs;
   setOutput: (variable: string, value: any) => void;
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
