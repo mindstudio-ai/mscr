@@ -32,6 +32,7 @@ describe('GetWorkspace', () => {
 
   it('should throw error when workspaceId is missing', async () => {
     const inputs = {
+      workspaceId: '',
       outputVariable: 'workspaceDetails',
     };
 

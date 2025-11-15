@@ -33,6 +33,7 @@ describe('ListUserAlternateEmails', () => {
 
   it('should throw error when userId is missing', async () => {
     const inputs = {
+      userId: '',
       outputVariable: 'alternateEmails',
     };
 
