@@ -14,14 +14,102 @@ configuration:
         required: true
         variable: sheetId
         type: text
-      - label: Read Only Lite Enabled
+  - title: Publish Status
+    items:
+      - label: iCal Enabled
         required: false
-        variable: readOnlyLiteEnabled
+        variable: icalEnabled
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+      - label: Read Only Full Accessible By
+        required: false
+        variable: readOnlyFullAccessibleBy
+        type: text
+      - label: Read Only Full Default View
+        required: false
+        variable: readOnlyFullDefaultView
         type: text
       - label: Read Only Full Enabled
         required: false
         variable: readOnlyFullEnabled
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+      - label: Read Only Full Show Toolbar
+        required: false
+        variable: readOnlyFullShowToolbar
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+      - label: Read Only Lite Enabled
+        required: false
+        variable: readOnlyLiteEnabled
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+      - label: Read Write Accessible By
+        required: false
+        variable: readWriteAccessibleBy
         type: text
+      - label: Read Write Default View
+        required: false
+        variable: readWriteDefaultView
+        type: text
+      - label: Read Write Enabled
+        required: false
+        variable: readWriteEnabled
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+      - label: Read Write Show Toolbar
+        required: false
+        variable: readWriteShowToolbar
+        type: select
+        defaultValue: ''
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
   - title: Output
     items:
       - label: Output Variable
