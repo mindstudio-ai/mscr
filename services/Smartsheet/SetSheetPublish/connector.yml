@@ -20,96 +20,98 @@ configuration:
         required: false
         variable: icalEnabled
         type: select
-        defaultValue: ''
+        defaultValue: true
         selectOptions:
           options:
-            - label: No Change
-              value: ''
             - label: Enable
-              value: 'true'
+              value: true
             - label: Disable
-              value: 'false'
+              value: false
       - label: Read Only Full Accessible By
         required: false
         variable: readOnlyFullAccessibleBy
-        type: text
+        type: select
+        defaultValue: ALL
+        selectOptions:
+          options:
+            - label: ALL
+              value: ALL
+            - label: ORG
+              value: ORG
+            - label: SHARED
+              value: SHARED
       - label: Read Only Full Default View
         required: false
         variable: readOnlyFullDefaultView
-        type: text
+        type: select
+        defaultValue: CALENDAR
+        selectOptions:
+          options:
+            - label: CALENDAR
+              value: CALENDAR
+            - label: Card
+              value: CARD
+            - label: Grid
+              value: GRID
       - label: Read Only Full Enabled
         required: false
         variable: readOnlyFullEnabled
         type: select
-        defaultValue: ''
+        defaultValue: true
         selectOptions:
           options:
-            - label: No Change
-              value: ''
             - label: Enable
-              value: 'true'
+              value: true
             - label: Disable
-              value: 'false'
-      - label: Read Only Full Show Toolbar
-        required: false
-        variable: readOnlyFullShowToolbar
-        type: select
-        defaultValue: ''
-        selectOptions:
-          options:
-            - label: No Change
-              value: ''
-            - label: Enable
-              value: 'true'
-            - label: Disable
-              value: 'false'
+              value: false
       - label: Read Only Lite Enabled
         required: false
         variable: readOnlyLiteEnabled
         type: select
-        defaultValue: ''
+        defaultValue: true
         selectOptions:
           options:
-            - label: No Change
-              value: ''
             - label: Enable
-              value: 'true'
+              value: true
             - label: Disable
-              value: 'false'
+              value: false
       - label: Read Write Accessible By
         required: false
         variable: readWriteAccessibleBy
-        type: text
+        type: select
+        defaultValue: ALL
+        selectOptions:
+          options:
+            - label: ALL
+              value: ALL
+            - label: ORG
+              value: ORG
+            - label: SHARED
+              value: SHARED
       - label: Read Write Default View
         required: false
         variable: readWriteDefaultView
-        type: text
+        type: select
+        defaultValue: CALENDAR
+        selectOptions:
+          options:
+            - label: Calendar
+              value: CALENDAR
+            - label: Card
+              value: CARD
+            - label: Grid
+              value: GRID
       - label: Read Write Enabled
         required: false
         variable: readWriteEnabled
         type: select
-        defaultValue: ''
+        defaultValue: true
         selectOptions:
           options:
-            - label: No Change
-              value: ''
             - label: Enable
-              value: 'true'
+              value: true
             - label: Disable
-              value: 'false'
-      - label: Read Write Show Toolbar
-        required: false
-        variable: readWriteShowToolbar
-        type: select
-        defaultValue: ''
-        selectOptions:
-          options:
-            - label: No Change
-              value: ''
-            - label: Enable
-              value: 'true'
-            - label: Disable
-              value: 'false'
+              value: false
   - title: Output
     items:
       - label: Output Variable

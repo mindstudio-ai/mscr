@@ -1,12 +1,16 @@
-export type BooleanValue = boolean | '';
+type AccessibleBy = 'ALL' | 'ORG' | 'SHARED';
+
+type DefaultView = 'CALENDAR' | 'CARD' | 'GRID';
 
 export interface PublishSettings {
-  icalEnabled?: BooleanValue;
-  readOnlyFullAccessibleBy?: string;
-  readOnlyFullEnabled?: BooleanValue;
-  readOnlyLiteEnabled?: BooleanValue;
-  readOnlyLiteAccessibleBy?: string;
-  readWriteEnabled?: BooleanValue;
+  icalEnabled: boolean;
+  readOnlyFullAccessibleBy: AccessibleBy;
+  readOnlyFullDefaultView: DefaultView;
+  readOnlyFullEnabled: boolean;
+  readOnlyLiteEnabled: boolean;
+  readWriteAccessibleBy: AccessibleBy;
+  readWriteDefaultView: DefaultView;
+  readWriteEnabled: boolean;
 }
 
 export interface SetSheetPublishInputs extends PublishSettings {
