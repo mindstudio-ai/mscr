@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import { ListProofsInputs } from './type';
 import { BASE_URL } from '../constants';
 import { IHandlerContext } from '../type';
@@ -40,9 +42,9 @@ export const handler = async ({
         );
       }
     }
-    log(`Found ${result.length} proof request(s)`);
+    log(`Fetched proofs successfully`);
     setOutput(outputVariable, result);
   } catch (error: any) {
-    throw new Error(`Failed to list proofs: ${error.message}`);
+    throw new Error(`Failed to fetch proofs: ${error.message}`);
   }
 };

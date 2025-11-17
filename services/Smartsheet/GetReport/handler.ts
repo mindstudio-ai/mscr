@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import { GetReportInputs } from './type';
 import { IHandlerContext } from '../type';
 import { BASE_URL } from '../constants';

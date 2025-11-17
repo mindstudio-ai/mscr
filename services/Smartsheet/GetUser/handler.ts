@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import { GetUserInputs } from './type';
 import { BASE_URL } from '../constants';
 import { IHandlerContext } from '../type';
@@ -39,10 +41,6 @@ export const handler = async ({
           'Authentication failed. Please check your API Key and Account URL.',
         );
       }
-
-      const errorMessage =
-        result.message || `Request failed with status ${response.status}`;
-      throw new Error(errorMessage);
     }
 
     log(`Successfully retrieved user: ${JSON.stringify(result, null, 2)}`);

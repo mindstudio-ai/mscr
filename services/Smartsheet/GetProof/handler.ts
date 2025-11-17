@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import { BASE_URL } from '../constants';
 import { GetProofInputs } from './type';
 import { IHandlerContext } from '../type';

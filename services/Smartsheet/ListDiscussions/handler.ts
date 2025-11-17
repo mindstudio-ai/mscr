@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import { ListDiscussionsInputs } from './type';
 import { IHandlerContext } from '../type';
 import { BASE_URL } from '../constants';
@@ -40,9 +42,9 @@ export const handler = async ({
         );
       }
     }
-    log(`Found ${result.length} discussion(s)`);
+    log(`Fetched discussions successfully`);
     setOutput(outputVariable, result);
   } catch (error: any) {
-    throw new Error(`Failed to list discussions: ${error.message}`);
+    throw new Error(`Failed to fetch discussions: ${error.message}`);
   }
 };

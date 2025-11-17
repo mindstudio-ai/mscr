@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import { GetSheetSummaryInputs } from './type';
 import { BASE_URL } from '../constants';
 import { IHandlerContext } from '../type';

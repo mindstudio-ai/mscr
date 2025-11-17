@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 import { GetFolderInputs } from './type';
 import { IHandlerContext } from '../type';
 import { BASE_URL } from '../constants';
