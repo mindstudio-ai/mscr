@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { handler } from './handler';
+import runConnector from '../../../src/utils/testHarness';
 
 describe('GetUser', () => {
   const mockSetOutput = vi.fn();
@@ -17,20 +18,13 @@ describe('GetUser', () => {
       outputVariable: 'userDetails',
     };
 
-    await expect(
-      handler({
-        inputs,
-        setOutput: mockSetOutput,
-        log: mockLog,
-        uploadFile: mockUploadFile,
-      }),
-    ).resolves.not.toThrow();
-
-    expect(mockLog).toHaveBeenCalledWith('Retrieving user 123456789...');
+    const ctx = await runConnector(handler, inputs);
+    expect(ctx.outputs['userDetails']).toBeTruthy();
   });
 
   it('should throw error when userId is missing', async () => {
     const inputs = {
+      userId: '',
       outputVariable: 'userDetails',
     };
 
