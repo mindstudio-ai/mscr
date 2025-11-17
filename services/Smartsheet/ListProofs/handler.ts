@@ -1,16 +1,12 @@
-import smartsheet from 'smartsheet';
 import { ListProofsInputs } from './type';
+import { BASE_URL } from '../constants';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: ListProofsInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<ListProofsInputs>) => {
   const { sheetId, outputVariable } = inputs;
 
   if (!sheetId) {
@@ -22,17 +18,30 @@ export const handler = async ({
     throw new Error('Smartsheet access token is missing');
   }
 
-  const client = smartsheet.createClient({ accessToken });
+  const url = `${BASE_URL}/sheets/${sheetId}/proofs`;
   log(`Listing proofs for sheet ${sheetId}`);
 
   try {
-    const response = await client.sheets.listProofRequests({ sheetId });
-    const proofs = response.data || [];
-    log(`Found ${proofs.length} proof request(s)`);
-    setOutput(outputVariable, {
-      totalCount: proofs.length,
-      proofs,
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
     });
+    const result = await response.json();
+
+    // Check for errors
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw new Error(
+          'Authentication failed. Please check your API Key and Account URL.',
+        );
+      }
+    }
+    log(`Found ${result.length} proof request(s)`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
     throw new Error(`Failed to list proofs: ${error.message}`);
   }

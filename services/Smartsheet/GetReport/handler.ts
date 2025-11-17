@@ -1,16 +1,12 @@
-import smartsheet from 'smartsheet';
 import { GetReportInputs } from './type';
+import { IHandlerContext } from '../type';
+import { BASE_URL } from '../constants';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: GetReportInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<GetReportInputs>) => {
   const { reportId, outputVariable } = inputs;
 
   if (!reportId) {
@@ -22,13 +18,30 @@ export const handler = async ({
     throw new Error('Smartsheet access token is missing');
   }
 
-  const client = smartsheet.createClient({ accessToken });
+  const url = `${BASE_URL}/reports/${reportId}`;
   log(`Getting report ${reportId}`);
 
   try {
-    const response = await client.reports.getReport({ reportId });
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+    const result = await response.json();
+
+    // Check for errors
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw new Error(
+          'Authentication failed. Please check your API Key and Account URL.',
+        );
+      }
+    }
     log('Retrieved report successfully');
-    setOutput(outputVariable, response);
+    setOutput(outputVariable, result);
   } catch (error: any) {
     throw new Error(`Failed to get report: ${error.message}`);
   }
