@@ -23,6 +23,7 @@ export const handler = async ({
   log(`Getting folder ${folderId}`);
   const url = `${BASE_URL}/folders/${folderId}`;
   try {
+    log(`Fetching folder ${url}`);
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -31,6 +32,7 @@ export const handler = async ({
         Accept: 'application/json',
       },
     });
+    log(`Response: ${JSON.stringify(response)}`);
     const result = await response.json();
 
     // Check for errors
