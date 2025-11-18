@@ -2,13 +2,13 @@ import fetch from 'node-fetch';
 
 import { GetFolderInputs } from './type';
 import { IHandlerContext } from '../type';
-import { BASE_URL } from '../constants';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: IHandlerContext<GetFolderInputs>) => {
+  const BASE_URL = 'https://api.smartsheet.com/2.0';
   const { folderId, outputVariable } = inputs;
 
   if (!folderId) {
