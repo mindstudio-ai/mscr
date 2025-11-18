@@ -15,15 +15,10 @@ configuration:
         helpText: The ID of the sheet
         variable: sheetId
         type: text
-      - label: Row ID
+      - label: Proof Id
         required: true
-        helpText: The ID of the row
-        variable: rowId
-        type: text
-      - label: Attachment ID
-        required: true
-        helpText: The ID of the attachment
-        variable: attachmentId
+        helpText: (Required) Proof Id of the original proof
+        variable: proofId
         type: text
       - label: Approver Emails (comma-separated)
         required: true
@@ -35,10 +30,22 @@ configuration:
         helpText: Optional message for the proof request
         variable: message
         type: text
-      - label: Proof Id
-        required: true
-        helpText: (Required) Proof Id of the original proof
-        variable: proofId
+      - label: CC Me
+        required: false
+        helpText: Whether to CC the sender
+        variable: ccMe
+        type: checkbox
+        defaultValue: false
+      - label: Is Downloadable
+        required: false
+        helpText: Whether the proof is downloadable
+        variable: isDownloadable
+        type: checkbox
+        defaultValue: false
+      - label: Subject
+        required: false
+        helpText: Subject line for the proof request email
+        variable: subject
         type: text
   - title: Output
     items:

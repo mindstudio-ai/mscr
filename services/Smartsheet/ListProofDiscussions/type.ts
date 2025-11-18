@@ -7,10 +7,3 @@ export interface ListProofDiscussionsInputs {
   includeall?: boolean;
   outputVariable: string;
 }
-
-export interface ListProofDiscussionsQueryParameters {
-  include?: string;
-  page?: number;
-  pagesize?: number;
-  includeall?: boolean;
-}

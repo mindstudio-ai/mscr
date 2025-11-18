@@ -4,7 +4,3 @@ export interface DeleteShareInputs {
   accessApiLevel?: number;
   outputVariable: string;
 }
-
-export interface DeleteShareQueryParameters {
-  accessApiLevel?: number;
-}

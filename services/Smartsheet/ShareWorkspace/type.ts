@@ -1,24 +1,8 @@
 export interface ShareWorkspaceInputs {
   workspaceId: string;
+  shares: string;
   sendEmail?: boolean;
+  message?: string;
   accessApiLevel?: number;
-  id?: any;
-  groupId?: any;
-  userId?: any;
-  type?: any;
-  accessLevel?: any;
-  ccMe?: any;
-  createdAt?: any;
-  email?: any;
-  message?: any;
-  modifiedAt?: any;
-  name?: any;
-  scope?: any;
-  subject?: any;
   outputVariable: string;
-}
-
-export interface ShareWorkspaceQueryParameters {
-  sendEmail?: boolean;
-  accessApiLevel?: number;
 }

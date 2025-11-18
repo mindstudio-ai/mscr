@@ -2,12 +2,7 @@ export interface CopyRowsToAnotherSheetInputs {
   sheetId: string;
   include?: string;
   ignorerowsnotfound?: boolean;
-  rowids?: string[];
+  rowids?: string;
   toSheetid?: string;
   outputVariable: string;
-}
-
-export interface CopyRowsToAnotherSheetQueryParameters {
-  include?: string;
-  ignorerowsnotfound?: boolean;
 }

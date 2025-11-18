@@ -1,11 +1,7 @@
 export interface UpdateShareInputs {
   sheetId: string;
   shareId: string;
+  accessLevel: string;
   accessApiLevel?: number;
-  accessLevel?: string;
   outputVariable: string;
-}
-
-export interface UpdateShareQueryParameters {
-  accessApiLevel?: number;
 }

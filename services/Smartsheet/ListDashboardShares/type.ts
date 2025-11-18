@@ -7,11 +7,3 @@ export interface ListDashboardSharesInputs {
   accessapilevel?: number;
   outputVariable: string;
 }
-
-export interface ListDashboardSharesQueryParameters {
-  sharinginclude?: string;
-  includeall?: boolean;
-  page?: number;
-  pagesize?: number;
-  accessapilevel?: number;
-}

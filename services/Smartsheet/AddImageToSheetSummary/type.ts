@@ -7,8 +7,3 @@ export interface AddImageToSheetSummaryInputs {
   fileName?: string;
   outputVariable: string;
 }
-
-export interface AddImageToSheetSummaryQueryParameters {
-  alttext?: string;
-  overridevalidation?: boolean;
-}

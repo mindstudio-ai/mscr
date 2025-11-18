@@ -1,7 +1,6 @@
 export interface CopySightInputs {
   sightId: string;
-  destinationId?: any;
-  destinationType?: any;
-  newName?: any;
+  newName: string;
+  destinationFolderId?: string;
   outputVariable: string;
 }

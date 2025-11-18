@@ -1,10 +1,8 @@
 export interface UpdateUserInputs {
   userId: string;
-  admin?: any;
-  licensedSheetCreator?: any;
-  firstName?: any;
-  lastName?: any;
-  groupAdmin?: any;
-  resourceViewer?: any;
+  firstName?: string;
+  lastName?: string;
+  admin?: boolean;
+  licensedSheetCreator?: boolean;
   outputVariable: string;
 }

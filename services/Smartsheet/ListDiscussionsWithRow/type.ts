@@ -7,10 +7,3 @@ export interface ListDiscussionsWithRowInputs {
   includeall?: boolean;
   outputVariable: string;
 }
-
-export interface ListDiscussionsWithRowQueryParameters {
-  include?: string;
-  page?: number;
-  pagesize?: number;
-  includeall?: boolean;
-}

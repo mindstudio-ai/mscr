@@ -6,9 +6,3 @@ export interface ListSheetVersionsInputs {
   includeAll?: boolean;
   outputVariable: string;
 }
-
-export interface ListSheetVersionsQueryParameters {
-  page?: number;
-  pageSize?: number;
-  includeAll?: boolean;
-}

@@ -4,7 +4,3 @@ export interface GetReportShareInputs {
   accessapilevel?: number;
   outputVariable: string;
 }
-
-export interface GetReportShareQueryParameters {
-  accessapilevel?: number;
-}

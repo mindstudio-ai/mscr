@@ -5,9 +5,3 @@ export interface ListCrossSheetReferencesInputs {
   pageSize?: number;
   outputVariable: string;
 }
-
-export interface ListCrossSheetReferencesQueryParameters {
-  includeAll?: boolean;
-  page?: number;
-  pageSize?: number;
-}

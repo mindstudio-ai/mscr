@@ -5,9 +5,3 @@ export interface ListSentUpdateRequestsInputs {
   pagesize?: number;
   outputVariable: string;
 }
-
-export interface ListSentUpdateRequestsQueryParameters {
-  includeall?: boolean;
-  page?: number;
-  pagesize?: number;
-}

@@ -1,5 +1,5 @@
 export interface AddFavoriteInputs {
-  objectId?: string;
-  type?: string;
+  objectType: string;
+  objectId: string;
   outputVariable: string;
 }

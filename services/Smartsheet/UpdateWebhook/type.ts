@@ -1,9 +1,8 @@
 export interface UpdateWebhookInputs {
   webhookId: string;
-  callbackUrl?: any;
-  events?: any;
-  name?: any;
-  version?: any;
-  enabled?: any;
+  name?: string;
+  callbackUrl?: string;
+  events?: string;
+  enabled?: boolean;
   outputVariable: string;
 }

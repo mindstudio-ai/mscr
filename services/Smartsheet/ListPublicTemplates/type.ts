@@ -6,11 +6,3 @@ export interface ListPublicTemplatesInputs {
   pagesize?: number;
   outputVariable: string;
 }
-
-export interface ListPublicTemplatesQueryParameters {
-  accessapilevel?: number;
-  includeall?: boolean;
-  level?: number;
-  page?: number;
-  pagesize?: number;
-}

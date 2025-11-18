@@ -1,10 +1,6 @@
 export interface UpdateSightInputs {
   sightId: string;
+  name?: string;
   numericDates?: boolean;
-  name?: any;
   outputVariable: string;
-}
-
-export interface UpdateSightQueryParameters {
-  numericDates?: boolean;
 }

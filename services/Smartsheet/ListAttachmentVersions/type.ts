@@ -6,9 +6,3 @@ export interface ListAttachmentVersionsInputs {
   includeAll?: boolean;
   outputVariable: string;
 }
-
-export interface ListAttachmentVersionsQueryParameters {
-  page?: number;
-  pageSize?: number;
-  includeAll?: boolean;
-}

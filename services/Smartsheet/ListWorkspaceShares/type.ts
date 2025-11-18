@@ -6,10 +6,3 @@ export interface ListWorkspaceSharesInputs {
   accessapilevel?: number;
   outputVariable: string;
 }
-
-export interface ListWorkspaceSharesQueryParameters {
-  page?: number;
-  pagesize?: number;
-  includeall?: boolean;
-  accessapilevel?: number;
-}

@@ -4,7 +4,3 @@ export interface GetDashboardShareInputs {
   accessapilevel?: number;
   outputVariable: string;
 }
-
-export interface GetDashboardShareQueryParameters {
-  accessapilevel?: number;
-}

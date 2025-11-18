@@ -1,8 +1,10 @@
 export interface CreateCrossSheetReferenceInputs {
   sheetId: string;
-  sourceSheetId?: any;
-  name?: any;
-  endColumnId?: any;
-  startColumnId?: any;
+  name: string;
+  sourceSheetId: string;
+  startRowId: string;
+  endRowId: string;
+  startColumnId: string;
+  endColumnId: string;
   outputVariable: string;
 }

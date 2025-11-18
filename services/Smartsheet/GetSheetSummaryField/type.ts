@@ -8,11 +8,3 @@ export interface GetSheetSummaryFieldInputs {
   exclude?: string;
   outputVariable: string;
 }
-
-export interface GetSheetSummaryFieldQueryParameters {
-  includeAll?: boolean;
-  page?: number;
-  pageSize?: number;
-  include?: string;
-  exclude?: string;
-}

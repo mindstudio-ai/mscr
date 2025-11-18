@@ -6,9 +6,3 @@ export interface ListProofRequestActionsInputs {
   includeall?: boolean;
   outputVariable: string;
 }
-
-export interface ListProofRequestActionsQueryParameters {
-  page?: number;
-  pagesize?: number;
-  includeall?: boolean;
-}

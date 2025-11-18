@@ -1,13 +1,7 @@
 export interface GetWorkspaceInputs {
   workspaceId: string;
+  loadAll?: boolean;
   accessApiLevel?: number;
   include?: string;
-  loadAll?: boolean;
   outputVariable: string;
-}
-
-export interface GetWorkspaceQueryParameters {
-  accessApiLevel?: number;
-  include?: string;
-  loadAll?: boolean;
 }

@@ -4,9 +4,3 @@ export interface ListFoldersInHomeInputs {
   pagesize?: number;
   outputVariable: string;
 }
-
-export interface ListFoldersInHomeQueryParameters {
-  includeall?: boolean;
-  page?: number;
-  pagesize?: number;
-}

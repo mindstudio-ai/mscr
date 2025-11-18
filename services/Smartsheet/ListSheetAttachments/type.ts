@@ -5,9 +5,3 @@ export interface ListSheetAttachmentsInputs {
   includeAll?: boolean;
   outputVariable: string;
 }
-
-export interface ListSheetAttachmentsQueryParameters {
-  page?: number;
-  pageSize?: number;
-  includeAll?: boolean;
-}

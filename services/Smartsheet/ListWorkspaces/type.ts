@@ -6,11 +6,3 @@ export interface ListWorkspacesInputs {
   accessApiLevel?: number;
   outputVariable: string;
 }
-
-export interface ListWorkspacesQueryParameters {
-  includeAll?: boolean;
-  lastKey?: string;
-  page?: number;
-  pageSize?: number;
-  accessApiLevel?: number;
-}
