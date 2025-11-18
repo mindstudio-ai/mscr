@@ -5,20 +5,22 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Search Everything
-  description: Searches all sheets that the user can access, for the specified text. If you have not used the public API in a while, we will need to provision your data. This could take up to 24 hours so please check back later!
+  description: |
+    Searches all sheets that the user can access, for the specified text. If you have not used the public API in a while, we will need to provision your data. This could take up to 24 hours so please check back later!
   quickHelp: readme.md
 configuration:
   - title: Parameters
     items:
       - label: query
         required: true
-        helpText: "(Required) Text with which to perform the search. Enclose in double-quotes for an exact search."
+        helpText: |
+          (Required) Text with which to perform the search. Enclose in double-quotes for an exact search.
         variable: query
         type: text
       - label: location
         required: false
-        helpText: **Deprecated** When specified with a value of **personalWorkspace**, limits the response to only those items in the user's workspaces.
-
+        helpText: |
+          **Deprecated** When specified with a value of **personalWorkspace**, limits the response to only those items in the user's workspaces.
         variable: location
         type: text
       - label: modifiedsince
@@ -28,18 +30,20 @@ configuration:
         type: text
       - label: include
         required: false
-        helpText: "When specified with a value of **favoriteFlag**, response indicates which returned items are favorites.  favorite -- dashboards, folders, reports, sheets, templates, and workspaces will have the property favorite: true parentObjectFavorite -- attachments, discussions, summary fields, and rows will have the property parentObjectFavorite: true
-"
+        helpText: |
+          When specified with a value of **favoriteFlag**, response indicates which returned items are favorites.  favorite -- dashboards, folders, reports, sheets, templates, and workspaces will have the property favorite: true parentObjectFavorite -- attachments, discussions, summary fields, and rows will have the property parentObjectFavorite: true
         variable: include
         type: text
       - label: scopes
         required: false
-        helpText: "If search fails, try using an array for each type of this comma-separated list of search filters."
+        helpText: |
+          If search fails, try using an array for each type of this comma-separated list of search filters.
         variable: scopes
         type: text
       - label: scopes Value
         required: false
-        helpText: "If search fails, try using an array for each type of this comma-separated list of search filters."
+        helpText: |
+          If search fails, try using an array for each type of this comma-separated list of search filters.
         variable: scopesValue
         type: text
   - title: Output

@@ -1,16 +1,12 @@
 import { DeleteWorkspaceInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: DeleteWorkspaceInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<DeleteWorkspaceInputs>) => {
   const { workspaceId, outputVariable } = inputs;
 
   if (!workspaceId) {

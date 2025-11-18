@@ -5,8 +5,9 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Report Shares
-  description: Gets a list of all users and groups to whom the specified Report is shared, and their access level.
-This operation supports query string parameters for pagination of results.
+  description: |
+    Gets a list of all users and groups to whom the specified Report is shared, and their access level.
+    This operation supports query string parameters for pagination of results.
   quickHelp: readme.md
 configuration:
   - title: Parameters
@@ -18,7 +19,8 @@ configuration:
         type: text
       - label: sharinginclude
         required: false
-        helpText: "When applicable for the specific object this parameter defines the scope of the share. Possible values are ITEM or WORKSPACE. ITEM is an item-level share (that is, the specific object to which the share applies is shared with the user or group). WORKSPACE is a workspace-level share (that is, the workspace that contains the object to which the share applies is shared with the user or group)."
+        helpText: |
+          When applicable for the specific object this parameter defines the scope of the share. Possible values are ITEM or WORKSPACE. ITEM is an item-level share (that is, the specific object to which the share applies is shared with the user or group). WORKSPACE is a workspace-level share (that is, the workspace that contains the object to which the share applies is shared with the user or group).
         variable: sharinginclude
         type: text
       - label: includeall

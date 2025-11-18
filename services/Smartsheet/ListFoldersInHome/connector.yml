@@ -5,9 +5,10 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Folders In Home
-  description: "> **IMPORTANT:** The `GET /home/folders` method is deprecated and will be removed. To adapt to this change, please see [Migrate from `GET /home/folders`](/#section/Updating-Code/migrate-from-get-home-folders)
+  description: |
+    > **IMPORTANT:** The `GET /home/folders` method is deprecated and will be removed. To adapt to this change, please see [Migrate from `GET /home/folders`](/#section/Updating-Code/migrate-from-get-home-folders)
 
-Lists the folders in your **Sheets** folder. The list contains an abbreviated Folder object for each folder."
+    Lists the folders in your **Sheets** folder. The list contains an abbreviated Folder object for each folder.
   quickHelp: readme.md
 configuration:
   - title: Parameters

@@ -1,16 +1,12 @@
 import { GetAutomationRuleInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: GetAutomationRuleInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<GetAutomationRuleInputs>) => {
   const { sheetId, automationRuleId, outputVariable } = inputs;
 
   if (!sheetId) {

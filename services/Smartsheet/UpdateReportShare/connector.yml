@@ -22,8 +22,8 @@ configuration:
         type: text
       - label: accessapilevel
         required: false
-        helpText: "Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
-"
+        helpText: |
+          Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
         variable: accessapilevel
         type: number
       - label: accesslevel

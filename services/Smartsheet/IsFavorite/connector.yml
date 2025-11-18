@@ -22,8 +22,8 @@ configuration:
         type: text
       - label: include
         required: false
-        helpText: "A comma-separated list of optional elements to include in the response.
-"
+        helpText: |
+          A comma-separated list of optional elements to include in the response.
         variable: include
         type: text
   - title: Output

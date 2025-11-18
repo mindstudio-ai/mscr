@@ -17,8 +17,8 @@ configuration:
         type: text
       - label: include Exclude
         required: false
-        helpText: "(Optional) Any of the relevant parameters or query parameters listed for [Get Sheet](../../tag/sheets#operation/getSheet).
-"
+        helpText: |
+          (Optional) Any of the relevant parameters or query parameters listed for [Get Sheet](../../tag/sheets#operation/getSheet).
         variable: includeExclude
         type: text
       - label: sortcriteria

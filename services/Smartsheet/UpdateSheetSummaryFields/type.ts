@@ -26,6 +26,7 @@ export interface UpdateSheetSummaryFieldsInputs {
   type?: any;
   validation?: any;
   outputVariable: string;
+  fieldsJson: string;
 }
 
 export interface UpdateSheetSummaryFieldsQueryParameters {

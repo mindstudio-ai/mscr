@@ -5,15 +5,15 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List User Created Templates
-  description: "Gets a list of user-created templates that the user has access to."
+  description: 'Gets a list of user-created templates that the user has access to.'
   quickHelp: readme.md
 configuration:
   - title: Parameters
     items:
       - label: accessapilevel
         required: false
-        helpText: "Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
-"
+        helpText: |
+          Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
         variable: accessapilevel
         type: number
       - label: includeall

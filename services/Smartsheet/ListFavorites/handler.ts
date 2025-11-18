@@ -1,16 +1,12 @@
 import { ListFavoritesInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: ListFavoritesInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<ListFavoritesInputs>) => {
   const { includeAll, page, pageSize, include, outputVariable } = inputs;
 
   log('Listing favorites');

@@ -5,8 +5,9 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Discussions With Row
-  description: Gets a list of all discussions associated with the specified row. Remember that discussions are containers
-for the conversation thread. To see the entire thread, use the include=comments parameter.
+  description: |
+    Gets a list of all discussions associated with the specified row. Remember that discussions are containers
+    for the conversation thread. To see the entire thread, use the include=comments parameter.
   quickHelp: readme.md
 configuration:
   - title: Parameters
@@ -23,10 +24,10 @@ configuration:
         type: text
       - label: include
         required: false
-        helpText: "A comma-separated list of optional elements to include in the response:
-  * **attachments** - effective only if comments is present, otherwise ignored
-  * **comments** - include all comments in threads
-"
+        helpText: |
+          A comma-separated list of optional elements to include in the response:
+            * **attachments** - effective only if comments is present, otherwise ignored
+            * **comments** - include all comments in threads
         variable: include
         type: text
       - label: page

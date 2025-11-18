@@ -1,16 +1,12 @@
 import { MakeEmailPrimaryInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: MakeEmailPrimaryInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<MakeEmailPrimaryInputs>) => {
   const { userId, alternateEmailId, outputVariable } = inputs;
 
   if (!userId) {

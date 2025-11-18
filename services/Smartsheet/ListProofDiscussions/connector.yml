@@ -22,10 +22,10 @@ configuration:
         type: text
       - label: include
         required: false
-        helpText: "A comma-separated list of optional elements to include in the response:
-  * **attachments** - effective only if comments is present, otherwise ignored
-  * **comments** - include all comments in threads
-"
+        helpText: |
+          A comma-separated list of optional elements to include in the response:
+            * **attachments** - effective only if comments is present, otherwise ignored
+            * **comments** - include all comments in threads
         variable: include
         type: text
       - label: page

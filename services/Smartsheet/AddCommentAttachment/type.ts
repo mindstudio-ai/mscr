@@ -6,5 +6,6 @@ export interface AddCommentAttachmentInputs {
   description?: any;
   name?: any;
   url?: any;
+  filePath?: string;
   outputVariable: string;
 }

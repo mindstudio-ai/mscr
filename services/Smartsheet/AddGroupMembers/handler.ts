@@ -1,16 +1,12 @@
 import { AddGroupMembersInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: AddGroupMembersInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<AddGroupMembersInputs>) => {
   const { groupId, memberEmails, outputVariable } = inputs;
 
   if (!groupId) {

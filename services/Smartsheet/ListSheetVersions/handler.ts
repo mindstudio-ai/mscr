@@ -1,16 +1,12 @@
 import { ListSheetVersionsInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: ListSheetVersionsInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<ListSheetVersionsInputs>) => {
   const { sheetId, attachmentId, page, pageSize, includeAll, outputVariable } =
     inputs;
 
