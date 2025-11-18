@@ -26,7 +26,8 @@ configuration:
         type: text
       - label: Page
         required: false
-        helpText: "(Deprecated as of February 1, 2025, and will be removed. Use 'lastKey' and 'pageSize' for paginated results.) Which page to return. Defaults to 1 if not specified. If you specify a value greater than "
+        helpText: |
+          (Deprecated as of February 1, 2025, and will be removed. Use 'lastKey' and 'pageSize' for paginated results.) Which page to return. Defaults to 1 if not specified. If you specify a value greater than
         variable: page
         type: number
         defaultValue: 1

@@ -28,15 +28,15 @@ configuration:
         type: text
       - label: headerrowindex
         required: false
-        helpText: "A zero-based integer indicating the row number to use for column names. Rows before this are omitted.
-If not specified, the default values are Column1, Column2, etc.
-"
+        helpText: |
+          A zero-based integer indicating the row number to use for column names. Rows before this are omitted.
+          If not specified, the default values are Column1, Column2, etc.
         variable: headerrowindex
         type: number
       - label: primarycolumnindex
         required: false
-        helpText: "A zero-based integer indicating the column to designate as primary.
-"
+        helpText: |
+          A zero-based integer indicating the column to designate as primary.
         variable: primarycolumnindex
         type: number
       - label: file Path

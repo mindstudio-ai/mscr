@@ -1,16 +1,12 @@
 import { UpdateShareInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: UpdateShareInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<UpdateShareInputs>) => {
   const { sheetId, shareId, accessLevel, accessApiLevel, outputVariable } =
     inputs;
 

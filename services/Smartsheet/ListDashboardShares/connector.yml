@@ -17,7 +17,8 @@ configuration:
         type: text
       - label: sharinginclude
         required: false
-        helpText: "When applicable for the specific object this parameter defines the scope of the share. Possible values are ITEM or WORKSPACE. ITEM is an item-level share (that is, the specific object to which the share applies is shared with the user or group). WORKSPACE is a workspace-level share (that is, the workspace that contains the object to which the share applies is shared with the user or group)."
+        helpText: |
+          When applicable for the specific object this parameter defines the scope of the share. Possible values are ITEM or WORKSPACE. ITEM is an item-level share (that is, the specific object to which the share applies is shared with the user or group). WORKSPACE is a workspace-level share (that is, the workspace that contains the object to which the share applies is shared with the user or group).
         variable: sharinginclude
         type: text
       - label: includeall
@@ -37,8 +38,8 @@ configuration:
         type: number
       - label: accessapilevel
         required: false
-        helpText: "Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
-"
+        helpText: |
+          Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
         variable: accessapilevel
         type: number
   - title: Output

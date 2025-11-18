@@ -9,6 +9,8 @@ export interface UpdateSheetInputs {
   userSettings?: any;
   criticalPathEnabled?: any;
   displaySummaryTasks?: any;
+  dependenciesEnabled?: any;
+  sheetName?: string;
   outputVariable: string;
 }
 

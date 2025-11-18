@@ -1,16 +1,12 @@
 import { AddFavoriteInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: AddFavoriteInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<AddFavoriteInputs>) => {
   const { objectType, objectId, outputVariable } = inputs;
 
   if (!objectType) {

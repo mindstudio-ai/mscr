@@ -1,16 +1,12 @@
 import { AddRowAttachmentInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: AddRowAttachmentInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<AddRowAttachmentInputs>) => {
   const { sheetId, rowId, attachmentType, filePath, url, outputVariable } =
     inputs;
 

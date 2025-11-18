@@ -12,7 +12,8 @@ configuration:
     items:
       - label: query
         required: true
-        helpText: "(Required) Text with which to perform the search. Enclose in double-quotes for an exact search."
+        helpText: |
+          (Required) Text with which to perform the search. Enclose in double-quotes for an exact search.
         variable: query
         type: text
       - label: location
@@ -28,18 +29,20 @@ configuration:
         type: text
       - label: include
         required: false
-        helpText: "When specified with a value of **favoriteFlag**, response indicates which returned items are favorites.  favorite -- dashboards, folders, reports, sheets, templates, and workspaces will have the property favorite: true parentObjectFavorite -- attachments, discussions, summary fields, and rows will have the property parentObjectFavorite: true
-"
+        helpText: |
+          When specified with a value of **favoriteFlag**, response indicates which returned items are favorites.  favorite -- dashboards, folders, reports, sheets, templates, and workspaces will have the property favorite: true parentObjectFavorite -- attachments, discussions, summary fields, and rows will have the property parentObjectFavorite: true
         variable: include
         type: text
       - label: scopes
         required: false
-        helpText: "If search fails, try using an array for each type of this comma-separated list of search filters."
+        helpText: |
+          If search fails, try using an array for each type of this comma-separated list of search filters.
         variable: scopes
         type: text
       - label: scopes Value
         required: false
-        helpText: "If search fails, try using an array for each type of this comma-separated list of search filters."
+        helpText: |
+          If search fails, try using an array for each type of this comma-separated list of search filters.
         variable: scopesValue
         type: text
   - title: Output

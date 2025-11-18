@@ -17,14 +17,14 @@ configuration:
         type: text
       - label: include
         required: false
-        helpText: "A comma-separate list of row elements to move in addition to the cell data.
-"
+        helpText: |
+          A comma-separate list of row elements to move in addition to the cell data.
         variable: include
         type: text
       - label: ignorerowsnotfound
         required: false
-        helpText: "**true** or **false**: default is **false**. If set to **true**, specifying row Ids that do not exist within the source sheet does not cause an error response. If omitted or set to **false**, specifying row Ids that do not exist within the source sheet causes an error response (and no rows are moved).
-"
+        helpText: |
+          **true** or **false**: default is **false**. If set to **true**, specifying row Ids that do not exist within the source sheet does not cause an error response. If omitted or set to **false**, specifying row Ids that do not exist within the source sheet causes an error response (and no rows are moved).
         variable: ignorerowsnotfound
         type: checkbox
       - label: rowids

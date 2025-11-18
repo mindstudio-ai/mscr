@@ -5,6 +5,7 @@ export interface AddCellImageInputs {
   altText?: string;
   overrideValidation?: boolean;
   outputVariable: string;
+  imageId?: string;
 }
 
 export interface AddCellImageQueryParameters {

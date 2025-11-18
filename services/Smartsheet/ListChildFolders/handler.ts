@@ -1,16 +1,12 @@
 import { ListChildFoldersInputs } from './type';
 import { smartsheetApiRequest } from '../api-client';
+import { IHandlerContext } from '../type';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: ListChildFoldersInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<ListChildFoldersInputs>) => {
   const { folderId, includeAll, page, pageSize, outputVariable } = inputs;
 
   if (!folderId) {

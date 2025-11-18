@@ -20,7 +20,8 @@ configuration:
         type: text
       - label: Include
         required: false
-        helpText: "If the API request is submitted by a system administrator and when specified with a value of 'lastLogin', response includes a lastLogin attribute for each user that indicates the Last login date/time "
+        helpText: |
+          If the API request is submitted by a system administrator and when specified with a value of 'lastLogin', response includes a lastLogin attribute for each user that indicates the Last login date/time
         variable: include
         type: text
         placeholder: '2024-01-01T00:00:00Z'
