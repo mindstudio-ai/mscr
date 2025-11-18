@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteAttachmentInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,16 +20,13 @@ export const handler = async ({
     throw new Error('Attachment ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Deleting attachment ${attachmentId} from sheet ${sheetId}`);
 
   try {
-    await client.sheets.deleteAttachment({ sheetId, attachmentId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${sheetId}/attachments/${attachmentId}`,
+    });
     log('Successfully deleted attachment');
     setOutput(outputVariable, {
       success: true,

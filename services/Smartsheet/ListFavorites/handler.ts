@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListFavoritesInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,22 +11,40 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { outputVariable } = inputs;
+  const { includeAll, page, pageSize, include, outputVariable } = inputs;
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Listing favorites');
 
   try {
-    const response = await client.favorites.listFavorites();
-    log(`Found ${response.totalCount || 0} favorite(s)`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (include) {
+      queryParams.include = include;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: '/favorites',
+      queryParams,
+    });
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} favorite(s)`);
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      favorites: response.data,
+      totalCount,
+      favorites: data,
     });
   } catch (error: any) {
     throw new Error(`Failed to list favorites: ${error.message}`);

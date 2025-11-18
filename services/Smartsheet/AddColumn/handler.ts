@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddColumnInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -33,15 +33,6 @@ export const handler = async ({
   if (!columnType) {
     throw new Error('Column type is required');
   }
-
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
 
   log(`Adding column "${columnTitle}" to sheet ${sheetId}`);
 
@@ -97,27 +88,34 @@ export const handler = async ({
     }
 
     // Add column to sheet
-    const response = await client.sheets.addColumn({
-      sheetId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/columns`,
       body: columnSpec,
     });
 
-    log(`Successfully added column with ID: ${response.result.id}`);
+    log(`Successfully added column with ID: ${(response as any).id}`);
 
     // Set output variable
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error(
         `Sheet not found: ${sheetId}. Please check the ID and your access permissions.`,
       );
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
       throw new Error(
         `Permission denied. You must have editor or admin access to add columns to this sheet.`,
       );
-    } else if (error.statusCode === 400) {
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
       throw new Error(
         `Invalid column configuration: ${errorMessage}. Check your column type and options.`,
       );

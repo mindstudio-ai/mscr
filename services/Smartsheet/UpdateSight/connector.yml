@@ -20,6 +20,15 @@ configuration:
         helpText: New name for the sight
         variable: name
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Numeric Dates
+        required: false
+        helpText: You can optionally choose to receive and send dates/times in numeric format, as milliseconds since the UNIX epoch (midnight on January 1, 1970 in UTC time), using the query string parameter numericDat
+        variable: numericDates
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

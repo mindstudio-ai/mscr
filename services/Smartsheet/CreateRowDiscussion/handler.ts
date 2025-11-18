@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateRowDiscussionInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -26,25 +26,19 @@ export const handler = async ({
     throw new Error('Comment text is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Creating discussion on row ${rowId}: ${title}`);
 
   try {
-    const response = await client.sheets.createRowDiscussion({
-      sheetId,
-      rowId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/rows/${rowId}/discussions`,
       body: {
         title,
         comment: { text: commentText },
       },
     });
     log('Row discussion created successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to create row discussion: ${error.message}`);
   }

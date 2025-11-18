@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateSheetInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,15 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetName, columns, folderId, workspaceId, outputVariable } = inputs;
+  const {
+    sheetName,
+    columns,
+    folderId,
+    workspaceId,
+    include,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
 
   // Validate required inputs
   if (!sheetName) {
@@ -22,18 +30,18 @@ export const handler = async ({
     throw new Error('Columns definition is required');
   }
 
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
-
   log(`Creating new sheet: ${sheetName}`);
 
   try {
+    // Build query parameters
+    const queryParams: Record<string, string | number> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
     // Parse columns
     const columnArray =
       typeof columns === 'string' ? JSON.parse(columns) : columns;
@@ -48,44 +56,49 @@ export const handler = async ({
       columns: columnArray,
     };
 
-    let response;
+    let path: string;
 
     // Create sheet in appropriate location
     if (workspaceId) {
       log(`Creating sheet in workspace: ${workspaceId}`);
-      response = await client.sheets.createSheetInWorkspace({
-        workspaceId,
-        body: sheetSpec,
-      });
+      path = `/workspaces/${workspaceId}/sheets`;
     } else if (folderId) {
       log(`Creating sheet in folder: ${folderId}`);
-      response = await client.sheets.createSheetInFolder({
-        folderId,
-        body: sheetSpec,
-      });
+      path = `/folders/${folderId}/sheets`;
     } else {
       log('Creating sheet in home');
-      response = await client.sheets.createSheet({
-        body: sheetSpec,
-      });
+      path = '/sheets';
     }
 
-    log(`Successfully created sheet with ID: ${response.result.id}`);
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path,
+      queryParams,
+      body: sheetSpec,
+    });
+
+    log(`Successfully created sheet with ID: ${(response as any).id}`);
 
     // Set output variable
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 400) {
+    if (errorMessage.includes('400') || errorMessage.includes('Invalid')) {
       throw new Error(
         `Invalid sheet configuration: ${errorMessage}. Check your columns definition.`,
       );
-    } else if (error.statusCode === 404) {
+    } else if (
+      errorMessage.includes('404') ||
+      errorMessage.includes('Not Found')
+    ) {
       throw new Error(
         `Location not found (folder or workspace). Please check the ID.`,
       );
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
       throw new Error(
         `Permission denied. You may not have permission to create sheets in this location.`,
       );

@@ -1,15 +1,17 @@
 export interface UpdateSheetInputs {
   sheetId: string;
-  sheetName?: string;
-  criticalPathEnabled?: boolean | string;
-  dependenciesEnabled?: boolean | string;
+  accessApiLevel?: number;
+  name?: any;
+  projectSettings?: any;
+  lengthOfDay?: any;
+  nonWorkingDays?: any;
+  workingDays?: any;
+  userSettings?: any;
+  criticalPathEnabled?: any;
+  displaySummaryTasks?: any;
   outputVariable: string;
 }
 
-export interface UpdateSheetBody {
-  name?: string;
-  userSettings?: {
-    criticalPathEnabled?: boolean;
-    dependenciesEnabled?: boolean;
-  };
+export interface UpdateSheetQueryParameters {
+  accessApiLevel?: number;
 }

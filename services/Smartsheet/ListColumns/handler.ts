@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListColumnsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,26 +11,44 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, outputVariable } = inputs;
+  const { sheetId, level, page, pageSize, includeAll, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Listing columns for sheet: ${sheetId}`);
 
   try {
-    const response = await client.sheets.getColumns({ sheetId });
-    log(`Found ${response.data?.length || 0} column(s)`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: `/sheets/${sheetId}/columns`,
+      queryParams,
+    });
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${Array.isArray(data) ? data.length : 0} column(s)`);
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      columns: response.data,
+      totalCount,
+      columns: data,
     });
   } catch (error: any) {
     throw new Error(`Failed to list columns: ${error.message}`);

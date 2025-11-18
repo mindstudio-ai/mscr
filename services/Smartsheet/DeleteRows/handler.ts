@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteRowsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,34 +11,36 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, rowIds, outputVariable } = inputs;
+  const { sheetId, ids, ignoreRowsNotFound, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
   }
-  if (!rowIds) {
+  if (!ids) {
     throw new Error('Row IDs are required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Deleting rows');
 
   try {
-    const ids = rowIds.split(',').map((id: string) => id.trim());
-    await client.sheets.deleteRows({
-      sheetId,
-      queryParameters: { ids: ids.join(',') },
+    const idArray = ids.split(',').map((id: string) => id.trim());
+    const queryParams: Record<string, string | boolean> = {
+      ids: idArray.join(','),
+    };
+    if (ignoreRowsNotFound !== undefined) {
+      queryParams.ignoreRowsNotFound = ignoreRowsNotFound;
+    }
+
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${sheetId}/rows`,
+      queryParams,
     });
-    log(`Deleted ${ids.length} row(s) successfully`);
+    log(`Deleted ${idArray.length} row(s) successfully`);
     setOutput(outputVariable, {
       success: true,
-      deletedCount: ids.length,
-      deletedRowIds: ids,
+      deletedCount: idArray.length,
+      deletedRowIds: idArray,
     });
   } catch (error: any) {
     throw new Error(`Failed to delete rows: ${error.message}`);

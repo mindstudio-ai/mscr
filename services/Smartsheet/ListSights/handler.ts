@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListSightsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,22 +11,54 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { outputVariable } = inputs;
+  const {
+    accessApiLevel,
+    includeAll,
+    modifiedSince,
+    numericDates,
+    page,
+    pageSize,
+    outputVariable,
+  } = inputs;
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Listing all dashboards (sights)');
 
   try {
-    const response = await client.sights.listSights();
-    log(`Found ${response.totalCount || 0} dashboard(s)`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
+    }
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: '/sights',
+      queryParams,
+    });
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} dashboard(s)`);
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      sights: response.data,
+      totalCount,
+      sights: data,
     });
   } catch (error: any) {
     throw new Error(`Failed to list dashboards: ${error.message}`);

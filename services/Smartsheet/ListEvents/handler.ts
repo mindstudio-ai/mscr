@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListEventsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,33 +11,54 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { since, streamPosition, outputVariable } = inputs;
+  const {
+    since,
+    to,
+    streamPosition,
+    maxCount,
+    numericDates,
+    managedPlanId,
+    outputVariable,
+  } = inputs;
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Listing events');
 
   try {
-    const queryParams: any = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (since) {
       queryParams.since = since;
+    }
+    if (to) {
+      queryParams.to = to;
     }
     if (streamPosition) {
       queryParams.streamPosition = streamPosition;
     }
+    if (maxCount !== undefined) {
+      queryParams.maxCount = maxCount;
+    }
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+    if (managedPlanId !== undefined) {
+      queryParams.managedPlanId = managedPlanId;
+    }
 
-    const response = await client.events.listEvents({
-      queryParameters: queryParams,
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      moreAvailable?: boolean;
+      nextStreamPosition?: number;
+    }>({
+      method: 'GET',
+      path: '/events',
+      queryParams,
     });
-    log(`Found ${response.data?.length || 0} event(s)`);
+    const data = (response as any).data || response;
+    log(`Found ${Array.isArray(data) ? data.length : 0} event(s)`);
     setOutput(outputVariable, {
-      moreAvailable: response.moreAvailable,
-      nextStreamPosition: response.nextStreamPosition,
-      events: response.data,
+      moreAvailable: (response as any).moreAvailable,
+      nextStreamPosition: (response as any).nextStreamPosition,
+      events: data,
     });
   } catch (error: any) {
     throw new Error(`Failed to list events: ${error.message}`);

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateFolderInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,41 +11,39 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { parentType, parentId, name, outputVariable } = inputs;
+  const { folderId, name, include, exclude, skipRemap, outputVariable } =
+    inputs;
 
-  if (!parentType) {
-    throw new Error('Parent type is required');
-  }
-  if (!parentId) {
-    throw new Error('Parent ID is required');
+  if (!folderId) {
+    throw new Error('Folder ID (parent folder) is required');
   }
   if (!name) {
     throw new Error('Folder name is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-  log(`Creating folder ${name} in ${parentType} ${parentId}`);
+  log(`Creating folder ${name} in folder ${folderId}`);
 
   try {
-    let response;
-    if (parentType.toLowerCase() === 'workspace') {
-      response = await client.workspaces.createFolder({
-        workspaceId: parentId,
-        body: { name },
-      });
-    } else {
-      response = await client.folders.createFolder({
-        folderId: parentId,
-        body: { name },
-      });
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
     }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
+    if (skipRemap) {
+      queryParams.skipRemap = skipRemap;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/folders/${folderId}/folders`,
+      queryParams,
+      body: { name },
+    });
+
     log('Folder created successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to create folder: ${error.message}`);
   }

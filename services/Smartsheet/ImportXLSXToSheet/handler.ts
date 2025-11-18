@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ImportXLSXToSheetInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,13 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { fileUrl, sheetName, headerRowIndex, outputVariable } = inputs;
+  const {
+    fileUrl,
+    sheetName,
+    headerRowIndex,
+    primaryColumnIndex,
+    outputVariable,
+  } = inputs;
 
   if (!fileUrl) {
     throw new Error('File URL is required');
@@ -20,27 +26,32 @@ export const handler = async ({
     throw new Error('Sheet name is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Importing XLSX file: ${fileUrl}`);
 
   try {
-    const importOptions: any = {
-      type: 'xlsx',
-      file: fileUrl,
+    const queryParams: Record<string, string | number> = {
       sheetName,
     };
     if (headerRowIndex !== undefined) {
-      importOptions.headerRowIndex = parseInt(headerRowIndex, 10);
+      queryParams.headerRowIndex = headerRowIndex;
+    }
+    if (primaryColumnIndex !== undefined) {
+      queryParams.primaryColumnIndex = primaryColumnIndex;
     }
 
-    const response = await client.sheets.importSheet(importOptions);
+    const importBody: any = {
+      type: 'xlsx',
+      file: fileUrl,
+    };
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: '/sheets/import',
+      queryParams,
+      body: importBody,
+    });
     log('XLSX imported successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to import XLSX: ${error.message}`);
   }

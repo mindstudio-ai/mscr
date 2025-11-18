@@ -1,0 +1,13 @@
+export interface MoveRowsToAnotherSheetInputs {
+  sheetId: string;
+  include?: string;
+  ignorerowsnotfound?: boolean;
+  rowids?: string[];
+  toSheetid?: string;
+  outputVariable: string;
+}
+
+export interface MoveRowsToAnotherSheetQueryParameters {
+  include?: string;
+  ignorerowsnotfound?: boolean;
+}

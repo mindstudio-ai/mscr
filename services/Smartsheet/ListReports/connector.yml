@@ -8,6 +8,17 @@ metadata:
   description: Lists all reports accessible to the user
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Modified Since
+        required: false
+        helpText: When specified with a date and time value, response only includes the objects that are modified on or after the date and time specified. If you need to keep track of frequent changes, it may be more u
+        variable: modifiedSince
+        type: text
+        placeholder: '2024-01-01T00:00:00Z'
   - title: Output
     items:
       - label: Output Variable

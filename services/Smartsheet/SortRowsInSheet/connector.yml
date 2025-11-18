@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Action
+id: sort-rows-in-sheet
+serviceId: smartsheet
+active: false
+metadata:
+  name: Sort Rows In Sheet
+  description: Sorts the rows of a sheet, either in ascending or descending order.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: sheet Id
+        required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
+        variable: sheetId
+        type: text
+      - label: include Exclude
+        required: false
+        helpText: "(Optional) Any of the relevant parameters or query parameters listed for [Get Sheet](../../tag/sheets#operation/getSheet).
+"
+        variable: includeExclude
+        type: text
+      - label: sortcriteria
+        required: false
+        variable: sortcriteria
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetAttachmentInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,24 +20,18 @@ export const handler = async ({
     throw new Error('Attachment ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting attachment ${attachmentId} from sheet ${sheetId}`);
 
   try {
-    const response = await client.sheets.getAttachment({
-      sheetId,
-      attachmentId,
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/attachments/${attachmentId}`,
     });
-    log(`Successfully retrieved attachment: ${response.name}`);
+    log(`Successfully retrieved attachment: ${(response as any).name}`);
     setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error('Sheet or attachment not found');
     }
     throw new Error(`Failed to get attachment: ${errorMessage}`);

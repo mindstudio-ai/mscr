@@ -20,10 +20,22 @@ configuration:
     items:
       - label: Load All
         required: false
-        helpText: Load all workspace information including contents
+        helpText: (Deprecated as of February 1, 2025, and will be removed) If set to `true`, the workspace's entire hierarchy of items and folders is returned.
         variable: loadAll
         type: checkbox
         defaultValue: false
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of optional elements to include in the response:   * **source** - Adds the Source object indicating which object the folder was created from, if any   * (Deprecated as of Februa'
+        variable: include
+        type: text
+        placeholder: (Deprecated) distributionLink
   - title: Output
     items:
       - label: Output Variable

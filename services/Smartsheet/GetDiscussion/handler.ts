@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetDiscussionInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,18 +20,12 @@ export const handler = async ({
     throw new Error('Discussion ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting discussion ${discussionId}`);
 
   try {
-    const response = await client.sheets.getDiscussion({
-      sheetId,
-      discussionId,
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/discussions/${discussionId}`,
     });
     log('Retrieved discussion successfully');
     setOutput(outputVariable, response);

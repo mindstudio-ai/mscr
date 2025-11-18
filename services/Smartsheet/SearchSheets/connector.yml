@@ -22,6 +22,14 @@ configuration:
         variable: sheetId
         type: text
         placeholder: Leave empty to search all sheets
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Query
+        required: true
+        helpText: (Required) Text with which to perform the search. Enclose in double-quotes for an exact search.
+        variable: query
+        type: text
   - title: Output
     items:
       - label: Output Variable

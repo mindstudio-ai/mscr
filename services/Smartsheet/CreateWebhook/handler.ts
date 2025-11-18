@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateWebhookInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -41,13 +41,6 @@ export const handler = async ({
     throw new Error('Events array is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Creating webhook ${name}...`);
 
@@ -60,7 +53,11 @@ export const handler = async ({
       version: version || 1,
     };
 
-    const result = await client.webhooks.createWebhook({ body: webhookSpec });
+    const result = await smartsheetApiRequest({
+      method: 'POST',
+      path: '/webhooks',
+      body: webhookSpec,
+    });
 
     log(`Successfully created webhook: ${name}`);
     setOutput(outputVariable, result);

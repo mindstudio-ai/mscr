@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetShareInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,7 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, shareId, outputVariable } = inputs;
+  const { sheetId, shareId, accessApiLevel, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -20,16 +20,19 @@ export const handler = async ({
     throw new Error('Share ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting share ${shareId}`);
 
   try {
-    const response = await client.sheets.getShare({ sheetId, shareId });
+    const queryParams: Record<string, number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/shares/${shareId}`,
+      queryParams,
+    });
     log('Retrieved share successfully');
     setOutput(outputVariable, response);
   } catch (error: any) {

@@ -39,6 +39,21 @@ configuration:
         variable: workspaceId
         type: text
         placeholder: Leave empty to create in home
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'Additional parameter to create a sheet from template. A comma-separated list of elements to copy from the template. '
+        variable: include
+        type: text
+        placeholder: discussions
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

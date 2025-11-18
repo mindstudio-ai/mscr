@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetUserAlternateEmailInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -21,22 +21,15 @@ export const handler = async ({
     throw new Error('Alternate email ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Retrieving alternate email ${alternateEmailId} for user ${userId}...`);
 
-    const result = await client.users.getAlternateEmail({
-      userId,
-      alternateEmailId,
+    const result = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/users/${userId}/alternateemails/${alternateEmailId}`,
     });
 
-    log(`Successfully retrieved alternate email: ${result.email}`);
+    log(`Successfully retrieved alternate email: ${(result as any).email}`);
     setOutput(outputVariable, result);
   } catch (error: any) {
     log(`Error getting alternate email: ${error.message}`);

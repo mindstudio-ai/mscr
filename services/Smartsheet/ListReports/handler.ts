@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListReportsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,22 +11,31 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { outputVariable } = inputs;
+  const { modifiedSince, outputVariable } = inputs;
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Listing all reports');
 
   try {
-    const response = await client.reports.listReports();
-    log(`Found ${response.totalCount || 0} report(s)`);
+    const queryParams: Record<string, string> = {};
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: '/reports',
+      queryParams,
+    });
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} report(s)`);
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      reports: response.data,
+      totalCount,
+      reports: data,
     });
   } catch (error: any) {
     throw new Error(`Failed to list reports: ${error.message}`);

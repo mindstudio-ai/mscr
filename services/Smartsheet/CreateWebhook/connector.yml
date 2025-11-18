@@ -22,7 +22,7 @@ configuration:
         type: text
       - label: Scope
         required: true
-        helpText: 'Scope of the webhook (e.g., "sheet")'
+        helpText: Scope of the webhook (e.g., "sheet")
         variable: scope
         type: text
       - label: Scope Object ID
@@ -32,7 +32,7 @@ configuration:
         type: text
       - label: Events
         required: true
-        helpText: 'Array of event types to monitor as JSON array (e.g., ["*.*"])'
+        helpText: Array of event types to monitor as JSON array (e.g., ["*.*"])
         variable: events
         type: text
         textOptions:

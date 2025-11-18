@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddUserInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,6 +17,7 @@ export const handler = async ({
     lastName,
     admin,
     licensedSheetCreator,
+    sendEmail,
     outputVariable,
   } = inputs;
 
@@ -24,15 +25,13 @@ export const handler = async ({
     throw new Error('Email is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Adding user ${email}...`);
+
+    const queryParams: Record<string, boolean> = {};
+    if (sendEmail !== undefined) {
+      queryParams.sendEmail = sendEmail;
+    }
 
     const userSpec: any = {
       email,
@@ -51,7 +50,12 @@ export const handler = async ({
       userSpec.licensedSheetCreator = licensedSheetCreator;
     }
 
-    const result = await client.users.addUser({ body: userSpec });
+    const result = await smartsheetApiRequest({
+      method: 'POST',
+      path: '/users',
+      queryParams,
+      body: userSpec,
+    });
 
     log(`Successfully added user: ${email}`);
     setOutput(outputVariable, result);

@@ -14,6 +14,32 @@ configuration:
         required: true
         variable: sheetId
         type: text
+      - label: Attachment Id
+        required: true
+        helpText: (Required) ID of the attachment
+        variable: attachmentId
+        type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Page
+        required: false
+        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
+        variable: page
+        type: number
+        defaultValue: 1
+      - label: Page Size
+        required: false
+        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Include All
+        required: false
+        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
+        variable: includeAll
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

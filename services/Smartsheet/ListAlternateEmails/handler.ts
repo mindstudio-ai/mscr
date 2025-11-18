@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListAlternateEmailsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,32 +17,36 @@ export const handler = async ({
     throw new Error('User ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   log(`Retrieving alternate emails for user: ${userId}`);
 
   try {
-    const response = await client.users.listAlternateEmails({ userId });
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: `/users/${userId}/alternateemails`,
+    });
 
-    log(
-      `Successfully retrieved ${response.data?.length || 0} alternate email(s)`,
-    );
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+
+    log(`Successfully retrieved ${totalCount} alternate email(s)`);
 
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      alternateEmails: response.data,
+      totalCount,
+      alternateEmails: data,
     });
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error(`User not found: ${userId}`);
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission denied')
+    ) {
       throw new Error(
         'Permission denied. You must be a system administrator to view alternate emails.',
       );

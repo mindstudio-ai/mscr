@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddCommentAttachmentInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -23,22 +23,17 @@ export const handler = async ({
     throw new Error('File path is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Adding attachment to comment ${commentId}`);
 
   try {
-    const response = await client.sheets.attachFileToComment({
-      sheetId,
-      commentId,
-      file: filePath,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/comments/${commentId}/attachments`,
+      multipart: true,
+      filePath,
     });
-    log(`Successfully added attachment with ID: ${response.result.id}`);
-    setOutput(outputVariable, response.result);
+    log(`Successfully added attachment with ID: ${(response as any).id}`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to add comment attachment: ${error.message}`);
   }

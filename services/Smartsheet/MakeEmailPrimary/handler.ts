@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { MakeEmailPrimaryInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -21,34 +21,33 @@ export const handler = async ({
     throw new Error('Alternate Email ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   log(`Making alternate email ${alternateEmailId} primary for user: ${userId}`);
 
   try {
-    const response = await client.users.promoteAlternateEmail({
-      userId,
-      alternateEmailId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/users/${userId}/alternateemails/${alternateEmailId}/makeprimary`,
     });
 
-    log(`Successfully made email primary: ${response.result.email}`);
+    log(`Successfully made email primary: ${(response as any).email}`);
 
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error('User or alternate email not found');
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
       throw new Error(
         'Permission denied. System administrator access required.',
       );
-    } else if (error.statusCode === 400) {
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
       throw new Error('Email must be confirmed before it can be made primary');
     } else {
       throw new Error(`Failed to make email primary: ${errorMessage}`);

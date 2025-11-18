@@ -14,6 +14,15 @@ configuration:
         required: true
         variable: folderId
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of optional elements to include in the response:   * **source** - adds the Source object indicating which object the folder was created from, if any   * **distributionLink**   *'
+        variable: include
+        type: text
+        placeholder: sheetVersion
   - title: Output
     items:
       - label: Output Variable

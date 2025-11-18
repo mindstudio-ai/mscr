@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { RemoveUserInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,31 +17,25 @@ export const handler = async ({
     throw new Error('User ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Removing user ${userId}...`);
 
-    const options: any = { userId };
+    const queryParams: Record<string, string | boolean> = {};
     if (transferTo) {
-      options.queryParameters = { transferTo };
+      queryParams.transferTo = transferTo;
     }
     if (removeFromSharing !== undefined) {
-      options.queryParameters = {
-        ...options.queryParameters,
-        removeFromSharing,
-      };
+      queryParams.removeFromSharing = removeFromSharing;
     }
 
-    const result = await client.users.removeUser(options);
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/users/${userId}`,
+      queryParams,
+    });
 
     log(`Successfully removed user: ${userId}`);
-    setOutput(outputVariable, result);
+    setOutput(outputVariable, { success: true, removedUserId: userId });
   } catch (error: any) {
     log(`Error removing user: ${error.message}`);
     throw error;

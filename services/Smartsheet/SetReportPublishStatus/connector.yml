@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Action
+id: set-report-publish-status
+serviceId: smartsheet
+active: false
+metadata:
+  name: Set Report Publish Status
+  description: Sets the publish status of the report and returns the new status, including the URL of any enabled publishing.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: report Id
+        required: true
+        helpText: (Required) reportID of the report being accessed.
+        variable: reportId
+        type: text
+      - label: readonlyfullaccessibleby
+        required: false
+        variable: readonlyfullaccessibleby
+        type: text
+      - label: readonlyfulldefaultview
+        required: false
+        variable: readonlyfulldefaultview
+        type: text
+      - label: readonlyfullenabled
+        required: false
+        variable: readonlyfullenabled
+        type: text
+      - label: readonlyfullshowtoolbar
+        required: false
+        variable: readonlyfullshowtoolbar
+        type: text
+      - label: readonlyfullurl
+        required: false
+        variable: readonlyfullurl
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

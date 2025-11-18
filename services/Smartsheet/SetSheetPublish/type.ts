@@ -1,19 +1,14 @@
-type AccessibleBy = 'ALL' | 'ORG' | 'SHARED';
-
-type DefaultView = 'CALENDAR' | 'CARD' | 'GRID';
-
-export interface PublishSettings {
-  icalEnabled: boolean;
-  readOnlyFullAccessibleBy: AccessibleBy;
-  readOnlyFullDefaultView: DefaultView;
-  readOnlyFullEnabled: boolean;
-  readOnlyLiteEnabled: boolean;
-  readWriteAccessibleBy: AccessibleBy;
-  readWriteDefaultView: DefaultView;
-  readWriteEnabled: boolean;
-}
-
-export interface SetSheetPublishInputs extends PublishSettings {
+export interface SetSheetPublishInputs {
   sheetId: string;
+  icalEnabled?: string;
+  readOnlyFullAccessibleBy?: string;
+  readOnlyFullDefaultView?: string;
+  readOnlyFullEnabled?: string;
+  readOnlyFullShowToolbar?: string;
+  readOnlyLiteEnabled?: string;
+  readWriteAccessibleBy?: string;
+  readWriteDefaultView?: string;
+  readWriteEnabled?: string;
+  readWriteShowToolbar?: string;
   outputVariable: string;
 }

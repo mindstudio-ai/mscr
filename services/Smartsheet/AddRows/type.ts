@@ -1,24 +1,96 @@
-export interface Cell {
-  columnId: number;
-  value: any;
-  displayValue?: string;
-  formula?: string;
-}
-
-export interface Row {
-  cells: Cell[];
-  toTop?: boolean;
-  toBottom?: boolean;
-  parentId?: number;
-  siblingId?: number;
-  above?: boolean;
-  [key: string]: any;
-}
-
 export interface AddRowsInputs {
   sheetId: string;
-  rowsData: string | Row[];
-  positionType?: 'toTop' | 'toBottom' | 'above' | 'below';
-  siblingId?: string;
+  accessApiLevel?: number;
+  allowPartialSuccess?: boolean;
+  overrideValidation?: boolean;
+  id?: any;
+  siblingId?: any;
+  accessLevel?: any;
+  attachments?: any;
+  parentId?: any;
+  attachmentType?: any;
+  attachmentSubType?: any;
+  mimeType?: any;
+  parentType?: any;
+  createdAt?: any;
+  createdBy?: any;
+  email?: any;
+  name?: any;
+  sizeInKb?: any;
+  url?: any;
+  urlExpiresInMillis?: any;
+  cells?: any;
+  columnId?: any;
+  columnType?: any;
+  conditionalFormat?: any;
+  displayValue?: any;
+  format?: any;
+  formula?: any;
+  hyperlink?: any;
+  reportId?: any;
+  sightId?: any;
+  image?: any;
+  altText?: any;
+  height?: any;
+  width?: any;
+  linkInFromCell?: any;
+  rowId?: any;
+  sheetName?: any;
+  status?: any;
+  linksOutToCells?: any;
+  objectValue?: any;
+  objectType?: any;
+  value?: any;
+  strict?: any;
+  columns?: any;
+  autoNumberFormat?: any;
+  fill?: any;
+  prefix?: any;
+  startingNumber?: any;
+  suffix?: any;
+  contactOptions?: any;
+  description?: any;
+  hidden?: any;
+  index?: any;
+  locked?: any;
+  lockedForUser?: any;
+  options?: any;
+  primary?: any;
+  symbol?: any;
+  systemColumnType?: any;
+  tags?: any;
+  title?: any;
+  type?: any;
+  validation?: any;
+  version?: any;
+  discussions?: any;
+  comments?: any;
+  discussionId?: any;
+  modifiedAt?: any;
+  text?: any;
+  commentAttachments?: any;
+  commentCount?: any;
+  lastCommentedAt?: any;
+  lastCommentedUser?: any;
+  readOnly?: any;
+  proof?: any;
+  originalId?: any;
+  proofType?: any;
+  proofRequestUrl?: any;
+  lastUpdatedAt?: any;
+  lastUpdatedBy?: any;
+  isCompleted?: any;
+  expanded?: any;
+  filteredOut?: any;
+  inCriticalPath?: any;
+  modifiedBy?: any;
+  permaLink?: any;
+  rowNumber?: any;
   outputVariable: string;
+}
+
+export interface AddRowsQueryParameters {
+  accessApiLevel?: number;
+  allowPartialSuccess?: boolean;
+  overrideValidation?: boolean;
 }

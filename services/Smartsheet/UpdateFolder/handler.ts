@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateFolderInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,21 +20,16 @@ export const handler = async ({
     throw new Error('New name is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Updating folder ${folderId}`);
 
   try {
-    const response = await client.folders.updateFolder({
-      folderId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/folders/${folderId}`,
       body: { name },
     });
     log('Folder updated successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to update folder: ${error.message}`);
   }

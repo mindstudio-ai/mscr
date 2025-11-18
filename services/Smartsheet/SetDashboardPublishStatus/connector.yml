@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: set-dashboard-publish-status
+serviceId: smartsheet
+active: false
+metadata:
+  name: Set Dashboard Publish Status
+  description: Publishes or unpublishes a dashboard.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: sight Id
+        required: true
+        helpText: (Required) SightID of the sight being accessed.
+        variable: sightId
+        type: text
+      - label: readonlyfullenabled
+        required: false
+        variable: readonlyfullenabled
+        type: text
+      - label: readonlyfullaccessibleby
+        required: false
+        variable: readonlyfullaccessibleby
+        type: text
+      - label: readonlyfullurl
+        required: false
+        variable: readonlyfullurl
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

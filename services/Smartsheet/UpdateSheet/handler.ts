@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateSheetInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -23,15 +23,6 @@ export const handler = async ({
   if (!sheetId) {
     throw new Error('Sheet ID is required');
   }
-
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
 
   log(`Updating sheet with ID: ${sheetId}`);
 
@@ -72,28 +63,42 @@ export const handler = async ({
       throw new Error('No update properties provided');
     }
 
+    // Build query parameters
+    const queryParams: Record<string, number> = {};
+    if (inputs.accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = inputs.accessApiLevel;
+    }
+
     // Update sheet
-    const response = await client.sheets.updateSheet({
-      sheetId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sheets/${sheetId}`,
+      queryParams,
       body: updateBody,
     });
 
     log('Successfully updated sheet');
 
     // Set output variable
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error(
         `Sheet not found: ${sheetId}. Please check the ID and your access permissions.`,
       );
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
       throw new Error(
         `Permission denied. You must be an owner or admin to update this sheet.`,
       );
-    } else if (error.statusCode === 400) {
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
       throw new Error(`Invalid update parameters: ${errorMessage}`);
     } else {
       throw new Error(`Failed to update sheet: ${errorMessage}`);

@@ -1,48 +1,55 @@
-import fetch from 'node-fetch';
-
 import { GetReportInputs } from './type';
 import { IHandlerContext } from '../type';
-
-const BASE_URL = 'https://api.smartsheet.com/2.0';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: IHandlerContext<GetReportInputs>) => {
-  const { reportId, outputVariable } = inputs;
+  const {
+    reportId,
+    include,
+    exclude,
+    pageSize,
+    page,
+    level,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
 
   if (!reportId) {
     throw new Error('Report ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const url = `${BASE_URL}/reports/${reportId}`;
   log(`Getting report ${reportId}`);
 
   try {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: accessToken,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    });
-    const result = await response.json();
-
-    // Check for errors
-    if (!response.ok) {
-      if (response.status === 403) {
-        throw new Error(
-          'Authentication failed. Please check your API Key and Account URL.',
-        );
-      }
+    const queryParams: Record<string, string | number> = {};
+    if (include) {
+      queryParams.include = include;
     }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    const result = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/reports/${reportId}`,
+      queryParams,
+    });
     log('Retrieved report successfully');
     setOutput(outputVariable, result);
   } catch (error: any) {

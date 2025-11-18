@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateProofRequestInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -33,12 +33,6 @@ export const handler = async ({
     throw new Error('Approver emails are required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Creating proof request');
 
   try {
@@ -53,13 +47,13 @@ export const handler = async ({
       proofBody.message = message;
     }
 
-    const response = await client.sheets.createProofRequest({
-      sheetId,
-      rowId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/rows/${rowId}/proofrequests`,
       body: proofBody,
     });
     log('Proof request created successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to create proof request: ${error.message}`);
   }

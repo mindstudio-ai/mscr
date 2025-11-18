@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { RemoveFavoriteInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,18 +20,12 @@ export const handler = async ({
     throw new Error('Object ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Removing ${objectType} ${objectId} from favorites`);
 
   try {
-    await client.favorites.removeFavorite({
-      objectType: objectType.toLowerCase(),
-      objectId,
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/favorites/${objectType.toLowerCase()}/${objectId}`,
     });
     log('Favorite removed successfully');
     setOutput(outputVariable, {

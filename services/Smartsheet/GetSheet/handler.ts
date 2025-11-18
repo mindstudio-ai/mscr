@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetSheetInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -13,9 +13,19 @@ export const handler = async ({
 }) => {
   const {
     sheetId,
-    includeAttachments,
-    includeDiscussions,
-    includeRowPermalink,
+    accessApiLevel,
+    include,
+    exclude,
+    columnIds,
+    filterId,
+    ifVersionAfter,
+    level,
+    pageSize,
+    page,
+    paperSize,
+    rowIds,
+    rowNumbers,
+    rowsModifiedSince,
     outputVariable,
   } = inputs;
 
@@ -24,48 +34,62 @@ export const handler = async ({
     throw new Error('Sheet ID is required');
   }
 
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
-
   log(`Retrieving sheet with ID: ${sheetId}`);
 
   try {
-    // Build include parameter
-    const includeParams: string[] = [];
+    // Build query parameters
+    const queryParams: Record<string, string | number> = {};
 
-    if (includeAttachments) {
-      includeParams.push('attachments');
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
     }
-    if (includeDiscussions) {
-      includeParams.push('discussions');
+    if (include) {
+      queryParams.include = include;
     }
-    if (includeRowPermalink) {
-      includeParams.push('rowPermalink');
+    if (exclude) {
+      queryParams.exclude = exclude;
     }
-
-    // Prepare options
-    const options: any = {
-      id: sheetId,
-    };
-
-    if (includeParams.length > 0) {
-      options.queryParameters = {
-        include: includeParams.join(','),
-      };
+    if (columnIds) {
+      queryParams.columnIds = columnIds;
+    }
+    if (filterId) {
+      queryParams.filterId = filterId;
+    }
+    if (ifVersionAfter !== undefined) {
+      queryParams.ifVersionAfter = ifVersionAfter;
+    }
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (paperSize) {
+      queryParams.paperSize = paperSize;
+    }
+    if (rowIds) {
+      queryParams.rowIds = rowIds;
+    }
+    if (rowNumbers) {
+      queryParams.rowNumbers = rowNumbers;
+    }
+    if (rowsModifiedSince) {
+      queryParams.rowsModifiedSince = rowsModifiedSince;
     }
 
     // Get sheet
-    const response = await client.sheets.getSheet(options);
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}`,
+      queryParams,
+    });
 
-    log(`Successfully retrieved sheet: ${response.name}`);
+    log(`Successfully retrieved sheet: ${(response as any).name}`);
     log(
-      `Sheet contains ${response.rows?.length || 0} rows and ${response.columns?.length || 0} columns`,
+      `Sheet contains ${(response as any).rows?.length || 0} rows and ${(response as any).columns?.length || 0} columns`,
     );
 
     // Set output variable
@@ -73,11 +97,14 @@ export const handler = async ({
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error(
         `Sheet not found: ${sheetId}. Please check the ID and your access permissions.`,
       );
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Access denied')
+    ) {
       throw new Error(
         `Access denied to sheet: ${sheetId}. You may not have permission to view this sheet.`,
       );

@@ -19,6 +19,15 @@ configuration:
         helpText: Array of field objects with title and type
         variable: fieldsJson
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Rename If Conflict
+        required: false
+        helpText: Set to true if you want to override the requirement for unique summary field names. Repeated names will be adjusted by appending "(1)" or similar after the field name.
+        variable: renameIfConflict
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

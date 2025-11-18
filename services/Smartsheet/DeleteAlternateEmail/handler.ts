@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteAlternateEmailInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -21,19 +21,12 @@ export const handler = async ({
     throw new Error('Alternate Email ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   log(`Deleting alternate email ${alternateEmailId} for user: ${userId}`);
 
   try {
-    await client.users.deleteAlternateEmail({
-      userId,
-      alternateEmailId,
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/users/${userId}/alternateemails/${alternateEmailId}`,
     });
 
     log('Successfully deleted alternate email');
@@ -46,9 +39,12 @@ export const handler = async ({
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error('User or alternate email not found');
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
       throw new Error(
         'Permission denied. System administrator access required.',
       );

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ShareReportInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,7 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { reportId, email, accessLevel, outputVariable } = inputs;
+  const { reportId, email, accessLevel, sendEmail, outputVariable } = inputs;
 
   if (!reportId) {
     throw new Error('Report ID is required');
@@ -23,24 +23,25 @@ export const handler = async ({
     throw new Error('Access level is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Sharing report ${reportId} with ${email}`);
 
   try {
-    const response = await client.reports.share({
-      reportId,
+    const queryParams: Record<string, boolean> = {};
+    if (sendEmail !== undefined) {
+      queryParams.sendEmail = sendEmail;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/reports/${reportId}/shares`,
+      queryParams,
       body: {
         email,
         accessLevel: accessLevel.toUpperCase(),
       },
     });
     log('Report shared successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to share report: ${error.message}`);
   }

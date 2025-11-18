@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Action
+id: create-proof
+serviceId: smartsheet
+active: false
+metadata:
+  name: Create Proof
+  description: Creates a proof on a row.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: sheet Id
+        required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
+        variable: sheetId
+        type: text
+      - label: row Id
+        required: true
+        helpText: (Required) Row Id in the sheet being accessed.
+        variable: rowId
+        type: text
+      - label: file Path
+        required: true
+        helpText: Local path to the file to upload
+        variable: filePath
+        type: text
+      - label: file Name
+        required: false
+        helpText: Optional name to use for the uploaded file
+        variable: fileName
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

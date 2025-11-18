@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteWorkspaceInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,20 +17,19 @@ export const handler = async ({
     throw new Error('Workspace ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Deleting workspace ${workspaceId}...`);
 
-    const result = await client.workspaces.deleteWorkspace({ workspaceId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/workspaces/${workspaceId}`,
+    });
 
     log(`Successfully deleted workspace: ${workspaceId}`);
-    setOutput(outputVariable, result);
+    setOutput(outputVariable, {
+      success: true,
+      deletedWorkspaceId: workspaceId,
+    });
   } catch (error: any) {
     log(`Error deleting workspace: ${error.message}`);
     throw error;

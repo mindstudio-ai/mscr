@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateUpdateRequestInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -37,12 +37,6 @@ export const handler = async ({
     throw new Error('Subject is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Creating update request');
 
   try {
@@ -63,12 +57,13 @@ export const handler = async ({
       requestBody.message = message;
     }
 
-    const response = await client.sheets.createUpdateRequest({
-      sheetId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/updaterequests`,
       body: requestBody,
     });
     log('Update request created successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to create update request: ${error.message}`);
   }

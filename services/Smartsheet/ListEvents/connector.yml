@@ -20,6 +20,43 @@ configuration:
         helpText: Position for paging through events
         variable: streamPosition
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Since
+        required: false
+        helpText: The earliest time from which events are included in the response. Events before this time are excluded. This parameter is intended for use when backfilling data at client startup or recovery--don't us
+        variable: since
+        type: text
+        placeholder: '2024-01-01T00:00:00Z'
+      - label: To
+        required: false
+        helpText: 'The latest time up to which events are included in the response. Events after this time are excluded. The `to` parameter requires using the `since` query parameter (above). This parameter is intended '
+        variable: to
+        type: text
+        placeholder: '2024-01-01T00:00:00Z'
+      - label: Stream Position
+        required: false
+        helpText: Indicates next set of events to return. Use value of `nextStreamPosition` returned from the previous call. You must pass in a value for either `since` or `streamPosition` and never both.
+        variable: streamPosition
+        type: text
+      - label: Max Count
+        required: false
+        helpText: Maximum number of events to return as response to this call. Must be between 1 through 10,000 (inclusive). Defaults to 1,000 if not specified.
+        variable: maxCount
+        type: number
+        defaultValue: 1000
+      - label: Numeric Dates
+        required: false
+        helpText: If true, dates are accepted and returned in Unix epoch time (milliseconds since midnight on January 1, 1970 in UTC time). Default is false, which means ISO-8601 format.
+        variable: numericDates
+        type: checkbox
+        defaultValue: false
+      - label: Managed Plan Id
+        required: false
+        helpText: The target managed plan for which to list events. Authorized if the caller is a system administrator on either the target managed plan or the main plan in EPM hierarchy.
+        variable: managedPlanId
+        type: number
   - title: Output
     items:
       - label: Output Variable

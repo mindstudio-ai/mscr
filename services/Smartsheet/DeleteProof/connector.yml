@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: delete-proof
+serviceId: smartsheet
+active: false
+metadata:
+  name: Delete Proof
+  description: Deletes the proof including all versions. The proofId must be for the original version.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: sheet Id
+        required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
+        variable: sheetId
+        type: text
+      - label: proof Id
+        required: true
+        helpText: (Required) Proof Id of the original proof
+        variable: proofId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

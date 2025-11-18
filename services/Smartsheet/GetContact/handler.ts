@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetContactInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,22 +11,25 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { contactId, outputVariable } = inputs;
+  const { contactId, include, outputVariable } = inputs;
 
   if (!contactId) {
     throw new Error('Contact ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting contact ${contactId}`);
 
   try {
-    const response = await client.contacts.getContact({ contactId });
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/contacts/${contactId}`,
+      queryParams,
+    });
     log('Retrieved contact successfully');
     setOutput(outputVariable, response);
   } catch (error: any) {

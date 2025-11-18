@@ -25,12 +25,24 @@ configuration:
     items:
       - label: Includes
         required: false
-        helpText: 'Array of items to include as JSON array (e.g., ["data", "attachments"])'
+        helpText: Array of items to include as JSON array (e.g., ["data", "attachments"])
         variable: includes
         type: text
         textOptions:
           type: multiline
         placeholder: '["data", "attachments"]'
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of elements to include:   * **all**   * **attachments**   * **brand**   * **cellLinks** - includes cross-sheet references   * **data** - includes formatting   * **discussions** '
+        variable: include
+        type: text
+        placeholder: filters
+      - label: Skip Remap
+        required: false
+        helpText: A comma-separated list of references to NOT re-map for the newly created folder.
+        variable: skipRemap
+        type: text
+        placeholder: reports
   - title: Output
     items:
       - label: Output Variable

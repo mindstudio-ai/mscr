@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListSheetsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,43 +11,75 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { includeOwnerInfo, modifiedSince, outputVariable } = inputs;
-
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
+  const {
+    include,
+    includeAll,
+    modifiedSince,
+    numericDates,
+    page,
+    pageSize,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
 
   log('Retrieving list of sheets from Smartsheet');
 
   try {
     // Build query parameters
-    const options: any = {};
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    if (includeOwnerInfo) {
-      options.queryParameters = { include: 'ownerInfo' };
+    if (include) {
+      queryParams.include = include;
+    }
+
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
     }
 
     if (modifiedSince) {
-      if (!options.queryParameters) {
-        options.queryParameters = {};
-      }
-      options.queryParameters.modifiedSince = modifiedSince;
+      queryParams.modifiedSince = modifiedSince;
+    }
+
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
     }
 
     // Get list of sheets
-    const response = await client.sheets.listSheets(options);
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+      pageNumber?: number;
+      pageSize?: number;
+      totalPages?: number;
+    }>({
+      method: 'GET',
+      path: '/sheets',
+      queryParams,
+    });
 
-    log(`Successfully retrieved ${response.data.length} sheets`);
+    const data = (response as any).data || response;
+    const totalCount = (response as any).totalCount || data.length;
+
+    log(
+      `Successfully retrieved ${Array.isArray(data) ? data.length : 0} sheets`,
+    );
 
     // Set output variable
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      sheets: response.data,
+      totalCount,
+      sheets: data,
     });
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';

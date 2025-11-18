@@ -8,19 +8,22 @@ metadata:
   description: Lists all users in the organization
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
   - title: Filter Options
     collapsed: true
     items:
       - label: Email
         required: false
-        helpText: Email address to filter users by
+        helpText: Comma-separated list of email addresses on which to filter the results.
         variable: email
         type: text
       - label: Include
         required: false
-        helpText: Comma-separated list of additional fields to include in the response
+        helpText: "If the API request is submitted by a system administrator and when specified with a value of 'lastLogin', response includes a lastLogin attribute for each user that indicates the Last login date/time "
         variable: include
         type: text
+        placeholder: '2024-01-01T00:00:00Z'
       - label: Plan ID
         required: false
         helpText: Filter users by plan ID
@@ -41,6 +44,36 @@ configuration:
               value: GUEST
             - label: Viewer
               value: VIEWER
+      - label: Include All
+        required: false
+        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
+        variable: includeAll
+        type: checkbox
+        defaultValue: false
+      - label: Modified Since
+        required: false
+        helpText: When specified with a date and time value, response only includes the objects that are modified on or after the date and time specified. If you need to keep track of frequent changes, it may be more u
+        variable: modifiedSince
+        type: text
+        placeholder: '2024-01-01T00:00:00Z'
+      - label: Numeric Dates
+        required: false
+        helpText: You can optionally choose to receive and send dates/times in numeric format, as milliseconds since the UNIX epoch (midnight on January 1, 1970 in UTC time), using the query string parameter numericDat
+        variable: numericDates
+        type: checkbox
+        defaultValue: false
+      - label: Page
+        required: false
+        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
+        variable: page
+        type: number
+        defaultValue: 1
+      - label: Page Size
+        required: false
+        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
+        variable: pageSize
+        type: number
+        defaultValue: 100
   - title: Query Options
     collapsed: true
     items:

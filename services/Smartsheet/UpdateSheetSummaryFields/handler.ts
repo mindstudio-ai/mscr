@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateSheetSummaryFieldsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,7 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, fieldsJson, outputVariable } = inputs;
+  const { sheetId, fieldsJson, renameIfConflict, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -20,22 +20,24 @@ export const handler = async ({
     throw new Error('Fields JSON is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Updating sheet summary fields');
 
   try {
+    const queryParams: Record<string, boolean> = {};
+    if (renameIfConflict !== undefined) {
+      queryParams.renameIfConflict = renameIfConflict;
+    }
+
     const fields = JSON.parse(fieldsJson);
-    const response = await client.sheets.updateSheetSummaryFields({
-      sheetId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sheets/${sheetId}/summaryfields`,
+      queryParams,
       body: { fields },
     });
-    log(`Updated ${fields.length} field(s) successfully`);
-    setOutput(outputVariable, response.result);
+    const result = Array.isArray(response) ? response : [response];
+    log(`Updated ${result.length} field(s) successfully`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
     throw new Error(`Failed to update sheet summary fields: ${error.message}`);
   }

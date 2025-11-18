@@ -1,6 +1,7 @@
 export interface MoveSightInputs {
   sightId: string;
-  destinationType: string;
-  destinationId: string;
+  destinationId?: any;
+  destinationType?: any;
+  newName?: any;
   outputVariable: string;
 }

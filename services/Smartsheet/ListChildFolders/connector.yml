@@ -14,6 +14,27 @@ configuration:
         required: true
         variable: folderId
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include All
+        required: false
+        helpText: (Deprecated as of February 1, 2025, and will be removed. A replacement is coming soon.) If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are igno
+        variable: includeAll
+        type: checkbox
+        defaultValue: false
+      - label: Page
+        required: false
+        helpText: (Deprecated as of February 1, 2025, and will be removed. A replacement is coming soon.) Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pa
+        variable: page
+        type: number
+        defaultValue: 1
+      - label: Page Size
+        required: false
+        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
+        variable: pageSize
+        type: number
+        defaultValue: 100
   - title: Output
     items:
       - label: Output Variable

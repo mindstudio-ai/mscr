@@ -1,5 +1,5 @@
 export interface DeleteProofRequestInputs {
   sheetId: string;
-  proofRequestId: string;
+  proofId: string;
   outputVariable: string;
 }

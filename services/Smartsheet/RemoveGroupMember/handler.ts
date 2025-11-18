@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { RemoveGroupMemberInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,16 +20,13 @@ export const handler = async ({
     throw new Error('User ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Removing user ${userId} from group ${groupId}`);
 
   try {
-    await client.groups.removeGroupMember({ groupId, userId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/groups/${groupId}/members/${userId}`,
+    });
     log('Member removed successfully');
     setOutput(outputVariable, {
       success: true,

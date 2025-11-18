@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: revoke-access-token
+serviceId: smartsheet
+active: false
+metadata:
+  name: Revoke Access Token
+  description: Revokes the access token used to make this request. The access token is no longer valid, and subsequent API calls made using the token fail.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: deleteallforapiclient
+        required: false
+        helpText: The client Id and user Id is fetched based on the token that is used to make this API call. A value of true deletes all tokens associated to the given client Id and user Id.
+        variable: deleteallforapiclient
+        type: checkbox
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateColumnInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,12 +20,6 @@ export const handler = async ({
     throw new Error('Column ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Updating column ${columnId}`);
 
   try {
@@ -37,13 +31,13 @@ export const handler = async ({
       updateBody.index = parseInt(index, 10);
     }
 
-    const response = await client.sheets.updateColumn({
-      sheetId,
-      columnId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sheets/${sheetId}/columns/${columnId}`,
       body: updateBody,
     });
     log('Successfully updated column');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to update column: ${error.message}`);
   }

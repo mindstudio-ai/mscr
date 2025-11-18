@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListCrossSheetReferencesInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,26 +11,41 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, outputVariable } = inputs;
+  const { sheetId, includeAll, page, pageSize, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Listing cross-sheet references for sheet ${sheetId}`);
 
   try {
-    const response = await client.sheets.listCrossSheetReferences({ sheetId });
-    log(`Found ${response.totalCount || 0} cross-sheet reference(s)`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: `/sheets/${sheetId}/crosssheetreferences`,
+      queryParams,
+    });
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} cross-sheet reference(s)`);
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      references: response.data,
+      totalCount,
+      references: data,
     });
   } catch (error: any) {
     throw new Error(`Failed to list cross-sheet references: ${error.message}`);

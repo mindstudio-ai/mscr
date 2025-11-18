@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetWorkspaceInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,30 +11,38 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { workspaceId, loadAll, outputVariable } = inputs;
+  const { workspaceId, accessApiLevel, include, loadAll, outputVariable } =
+    inputs;
 
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Retrieving workspace ${workspaceId}...`);
 
-    const options: any = { workspaceId };
-    if (loadAll) {
-      options.queryParameters = { loadAll: true };
+    const queryParams: Record<string, boolean | string | number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+    if (include) {
+      queryParams.include = include;
+    }
+    if (loadAll !== undefined) {
+      queryParams.loadAll = loadAll;
     }
 
     const [workspaceMetadata, workspaceChildren] = await Promise.all([
-      client.workspaces.getWorkspaceMetadata(options),
-      client.workspaces.getWorkspaceChildren(options),
+      smartsheetApiRequest({
+        method: 'GET',
+        path: `/workspaces/${workspaceId}`,
+        queryParams,
+      }),
+      smartsheetApiRequest({
+        method: 'GET',
+        path: `/workspaces/${workspaceId}/folders`,
+        queryParams,
+      }),
     ]);
 
     const output = {
@@ -42,7 +50,7 @@ export const handler = async ({
       children: workspaceChildren,
     };
 
-    log(`Successfully retrieved workspace: ${output.metadata.name}`);
+    log(`Successfully retrieved workspace: ${(output.metadata as any).name}`);
 
     setOutput(outputVariable, output);
   } catch (error: any) {

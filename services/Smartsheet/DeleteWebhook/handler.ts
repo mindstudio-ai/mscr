@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteWebhookInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,20 +17,16 @@ export const handler = async ({
     throw new Error('Webhook ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Deleting webhook ${webhookId}...`);
 
-    const result = await client.webhooks.deleteWebhook({ webhookId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/webhooks/${webhookId}`,
+    });
 
     log(`Successfully deleted webhook: ${webhookId}`);
-    setOutput(outputVariable, result);
+    setOutput(outputVariable, { success: true, deletedWebhookId: webhookId });
   } catch (error: any) {
     log(`Error deleting webhook: ${error.message}`);
     throw error;

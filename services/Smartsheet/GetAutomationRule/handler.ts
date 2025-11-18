@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetAutomationRuleInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,20 +20,14 @@ export const handler = async ({
     throw new Error('Automation Rule ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting automation rule ${automationRuleId}`);
 
   try {
-    const response = await client.sheets.getAutomationRule({
-      sheetId,
-      automationRuleId,
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/automationrules/${automationRuleId}`,
     });
-    log(`Retrieved rule: ${response.name}`);
+    log(`Retrieved rule: ${(response as any).name}`);
     setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to get automation rule: ${error.message}`);

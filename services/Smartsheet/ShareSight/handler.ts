@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ShareSightInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,14 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sightId, email, accessLevel, outputVariable } = inputs;
+  const {
+    sightId,
+    email,
+    accessLevel,
+    sendEmail,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
 
   if (!sightId) {
     throw new Error('Sight ID is required');
@@ -23,24 +30,28 @@ export const handler = async ({
     throw new Error('Access level is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Sharing dashboard ${sightId} with ${email}`);
 
   try {
-    const response = await client.sights.share({
-      sightId,
+    const queryParams: Record<string, boolean | number> = {};
+    if (sendEmail !== undefined) {
+      queryParams.sendEmail = sendEmail;
+    }
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sights/${sightId}/shares`,
+      queryParams,
       body: {
         email,
         accessLevel: accessLevel.toUpperCase(),
       },
     });
     log('Dashboard shared successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to share dashboard: ${error.message}`);
   }

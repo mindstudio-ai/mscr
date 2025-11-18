@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateProofRequestInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,12 +20,6 @@ export const handler = async ({
     throw new Error('Proof request ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Updating proof request ${proofRequestId}`);
 
   try {
@@ -34,13 +28,13 @@ export const handler = async ({
       updateBody.message = message;
     }
 
-    const response = await client.sheets.updateProofRequest({
-      sheetId,
-      proofRequestId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sheets/${sheetId}/proofrequests/${proofRequestId}`,
       body: updateBody,
     });
     log('Proof request updated successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to update proof request: ${error.message}`);
   }

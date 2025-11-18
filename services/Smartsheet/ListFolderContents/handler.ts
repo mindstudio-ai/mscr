@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListFolderContentsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,26 +11,34 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { folderId, outputVariable } = inputs;
+  const { folderId, include, outputVariable } = inputs;
 
   if (!folderId) {
     throw new Error('Folder ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Listing contents of folder ${folderId}`);
 
   try {
-    const response = await client.folders.getFolderChildren({ folderId });
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: any[];
+    }>({
+      method: 'GET',
+      path: `/folders/${folderId}/contents`,
+      queryParams,
+    });
+
+    const data = (response as any).data || response;
+    const contents = Array.isArray(data) ? data : [];
 
     setOutput(outputVariable, {
-      totalCount: response.data?.length || 0,
-      contents: response.data,
+      totalCount: contents.length,
+      contents,
     });
   } catch (error: any) {
     throw new Error(`Failed to list folder contents: ${error.message}`);
