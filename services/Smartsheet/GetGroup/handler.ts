@@ -1,7 +1,6 @@
 import { GetGroupInputs } from './type';
 import { IHandlerContext } from '../type';
-
-const BASE_URL = 'https://api.smartsheet.com/2.0';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -14,32 +13,13 @@ export const handler = async ({
     throw new Error('Group ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
   log(`Getting group ${groupId}`);
 
   try {
-    const url = `${BASE_URL}/groups/${groupId}`;
-    const response = await fetch(url, {
+    const result = await smartsheetApiRequest({
       method: 'GET',
-      headers: {
-        Authorization: accessToken,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+      path: `/groups/${groupId}`,
     });
-    const result = await response.json();
-    // Check for errors
-    if (!response.ok) {
-      if (response.status === 403) {
-        throw new Error(
-          'Authentication failed. Please check your API Key and Account URL.',
-        );
-      }
-    }
     log(`Retrieved group ${groupId} successfully`);
     setOutput(outputVariable, result);
   } catch (error: any) {

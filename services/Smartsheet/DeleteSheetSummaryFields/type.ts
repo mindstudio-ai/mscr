@@ -1,5 +1,11 @@
 export interface DeleteSheetSummaryFieldsInputs {
   sheetId: string;
-  fieldIds: string;
+  ids: string;
+  ignoreSummaryFieldsNotFound?: boolean;
   outputVariable: string;
+}
+
+export interface DeleteSheetSummaryFieldsQueryParameters {
+  ids: string;
+  ignoreSummaryFieldsNotFound?: boolean;
 }

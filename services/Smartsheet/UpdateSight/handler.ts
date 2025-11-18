@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateSightInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,32 +11,33 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sightId, name, outputVariable } = inputs;
+  const { sightId, name, numericDates, outputVariable } = inputs;
 
   if (!sightId) {
     throw new Error('Sight ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Updating dashboard ${sightId}`);
 
   try {
+    const queryParams: Record<string, boolean> = {};
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+
     const updateBody: any = {};
     if (name) {
       updateBody.name = name;
     }
 
-    const response = await client.sights.updateSight({
-      sightId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sights/${sightId}`,
+      queryParams,
       body: updateBody,
     });
     log('Dashboard updated successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to update dashboard: ${error.message}`);
   }

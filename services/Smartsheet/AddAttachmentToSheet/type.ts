@@ -1,8 +1,9 @@
 export interface AddAttachmentToSheetInputs {
   sheetId: string;
-  attachmentType: 'FILE' | 'LINK';
-  filePath?: string;
-  url?: string;
-  name?: string;
+  attachmentSubType?: any;
+  attachmentType?: any;
+  description?: any;
+  name?: any;
+  url?: any;
   outputVariable: string;
 }

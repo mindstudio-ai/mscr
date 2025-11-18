@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddFavoritesInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,21 +17,18 @@ export const handler = async ({
     throw new Error('Favorites JSON is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Adding multiple favorites');
 
   try {
     const favorites = JSON.parse(favoritesJson);
-    const response = await client.favorites.addFavorites({
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: '/favorites',
       body: favorites,
     });
-    log(`Added ${favorites.length} favorite(s)`);
-    setOutput(outputVariable, response.result);
+    const result = Array.isArray(response) ? response : [response];
+    log(`Added ${result.length} favorite(s)`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
     throw new Error(`Failed to add favorites: ${error.message}`);
   }

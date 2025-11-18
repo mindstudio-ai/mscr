@@ -8,6 +8,8 @@ metadata:
   description: Gets information about the Smartsheet server
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
   - title: Output
     items:
       - label: Output Variable

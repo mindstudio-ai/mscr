@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListUserAlternateEmailsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,19 +17,20 @@ export const handler = async ({
     throw new Error('User ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Listing alternate emails for user ${userId}...`);
 
-    const result = await client.users.listAlternateEmails({ userId });
+    const result = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: `/users/${userId}/alternateemails`,
+    });
 
-    log(`Successfully retrieved ${result.totalCount} alternate emails`);
+    const totalCount =
+      (result as any).totalCount || (result as any).data?.length || 0;
+    log(`Successfully retrieved ${totalCount} alternate emails`);
     setOutput(outputVariable, result);
   } catch (error: any) {
     log(`Error listing alternate emails: ${error.message}`);

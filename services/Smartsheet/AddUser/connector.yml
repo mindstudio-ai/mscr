@@ -40,6 +40,15 @@ configuration:
         variable: licensedSheetCreator
         type: checkbox
         defaultValue: false
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Send Email
+        required: false
+        helpText: Either true or false to indicate whether to notify the user by email. Default is false. If true, limit is 1000 emails.
+        variable: sendEmail
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

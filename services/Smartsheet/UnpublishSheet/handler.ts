@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UnpublishSheetInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,17 +17,12 @@ export const handler = async ({
     throw new Error('Sheet ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Unpublishing sheet ${sheetId}`);
 
   try {
-    const response = await client.sheets.setPublishStatus({
-      sheetId,
+    await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/publish`,
       body: { readOnlyLiteEnabled: false, readOnlyFullEnabled: false },
     });
     log('Sheet unpublished successfully');

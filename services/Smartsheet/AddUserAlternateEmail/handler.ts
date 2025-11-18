@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddUserAlternateEmailInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -21,18 +21,12 @@ export const handler = async ({
     throw new Error('Email is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Adding alternate email ${email} for user ${userId}...`);
 
-    const result = await client.users.addAlternateEmail({
-      userId,
+    const result = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/users/${userId}/alternateemails`,
       body: [{ email }],
     });
 

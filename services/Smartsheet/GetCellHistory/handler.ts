@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetCellHistoryInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,16 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, rowId, columnId, outputVariable } = inputs;
+  const {
+    sheetId,
+    rowId,
+    columnId,
+    include,
+    pageSize,
+    page,
+    level,
+    outputVariable,
+  } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -23,24 +32,38 @@ export const handler = async ({
     throw new Error('Column ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting cell history for cell in row ${rowId}, column ${columnId}`);
 
   try {
-    const response = await client.sheets.getCellHistory({
-      sheetId,
-      rowId,
-      columnId,
+    const queryParams: Record<string, string | number> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: `/sheets/${sheetId}/rows/${rowId}/columns/${columnId}/history`,
+      queryParams,
     });
-    log(`Retrieved ${response.data?.length || 0} history item(s)`);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Retrieved ${Array.isArray(data) ? data.length : 0} history item(s)`);
     setOutput(outputVariable, {
-      totalCount: response.totalCount,
-      history: response.data,
+      totalCount,
+      history: data,
     });
   } catch (error: any) {
     throw new Error(`Failed to get cell history: ${error.message}`);

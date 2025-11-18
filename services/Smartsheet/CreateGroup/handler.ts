@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateGroupInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,12 +17,6 @@ export const handler = async ({
     throw new Error('Group name is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Creating group: ${name}`);
 
   try {
@@ -35,9 +29,13 @@ export const handler = async ({
       groupBody.members = emails.map((email: string) => ({ email }));
     }
 
-    const response = await client.groups.createGroup({ body: groupBody });
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: '/groups',
+      body: groupBody,
+    });
     log('Group created successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to create group: ${error.message}`);
   }

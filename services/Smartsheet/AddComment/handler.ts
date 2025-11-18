@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddCommentInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -23,22 +23,16 @@ export const handler = async ({
     throw new Error('Comment text is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Adding comment to discussion ${discussionId}`);
 
   try {
-    const response = await client.sheets.addComment({
-      sheetId,
-      discussionId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/discussions/${discussionId}/comments`,
       body: { text },
     });
     log('Comment added successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to add comment: ${error.message}`);
   }

@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Action
+id: send-report
+serviceId: smartsheet
+active: false
+metadata:
+  name: Send Report
+  description: Sends the report as a PDF attachment via email to the designated recipients
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: report Id
+        required: true
+        helpText: (Required) reportID of the report being accessed.
+        variable: reportId
+        type: text
+      - label: format
+        required: false
+        variable: format
+        type: text
+      - label: formatdetails
+        required: false
+        variable: formatdetails
+        type: text
+      - label: ccme
+        required: false
+        variable: ccme
+        type: text
+      - label: message
+        required: false
+        variable: message
+        type: text
+      - label: sendto
+        required: false
+        variable: sendto
+        type: text
+      - label: email
+        required: false
+        variable: email
+        type: text
+      - label: email Value
+        required: false
+        variable: emailValue
+        type: text
+      - label: subject
+        required: false
+        variable: subject
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateShareInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,8 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, shareId, accessLevel, outputVariable } = inputs;
+  const { sheetId, shareId, accessLevel, accessApiLevel, outputVariable } =
+    inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -23,22 +24,22 @@ export const handler = async ({
     throw new Error('Access level is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Updating share ${shareId}`);
 
   try {
-    const response = await client.sheets.updateShare({
-      sheetId,
-      shareId,
+    const queryParams: Record<string, number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sheets/${sheetId}/shares/${shareId}`,
+      queryParams,
       body: { accessLevel: accessLevel.toUpperCase() },
     });
     log('Share updated successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to update share: ${error.message}`);
   }

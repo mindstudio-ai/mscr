@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateAutomationRuleInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,12 +20,6 @@ export const handler = async ({
     throw new Error('Automation Rule ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Updating automation rule ${automationRuleId}`);
 
   try {
@@ -34,13 +28,13 @@ export const handler = async ({
       updateBody.enabled = enabled;
     }
 
-    const response = await client.sheets.updateAutomationRule({
-      sheetId,
-      automationRuleId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sheets/${sheetId}/automationrules/${automationRuleId}`,
       body: updateBody,
     });
     log('Successfully updated automation rule');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to update automation rule: ${error.message}`);
   }

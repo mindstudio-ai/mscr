@@ -15,6 +15,15 @@ configuration:
         helpText: The ID of the folder
         variable: folderId
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of optional elements to include in the response:   * **source** - Adds the Source object indicating which object the folder was created from, if any   * (Deprecated as of Februa'
+        variable: include
+        type: text
+        placeholder: (Deprecated) distributionLink
   - title: Output
     items:
       - label: Output Variable

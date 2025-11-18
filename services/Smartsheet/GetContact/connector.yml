@@ -14,6 +14,15 @@ configuration:
         required: true
         variable: contactId
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of optional elements to include in the response:   * **profileImage** '
+        variable: include
+        type: text
+        placeholder: profileImage
   - title: Output
     items:
       - label: Output Variable

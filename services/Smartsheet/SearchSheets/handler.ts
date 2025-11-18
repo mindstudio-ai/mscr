@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { SearchSheetsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,26 +11,17 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { searchQuery, sheetId, outputVariable } = inputs;
+  const { sheetId, query, outputVariable } = inputs;
 
   // Validate required inputs
-  if (!searchQuery) {
+  if (!query) {
     throw new Error('Search query is required');
   }
 
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
-
   if (sheetId) {
-    log(`Searching for "${searchQuery}" in sheet ${sheetId}`);
+    log(`Searching for "${query}" in sheet ${sheetId}`);
   } else {
-    log(`Searching for "${searchQuery}" across all sheets`);
+    log(`Searching for "${query}" across all sheets`);
   }
 
   try {
@@ -38,42 +29,51 @@ export const handler = async ({
 
     if (sheetId) {
       // Search within a specific sheet
-      response = await client.search.searchSheet({
-        sheetId,
-        queryParameters: {
-          query: searchQuery,
+      response = await smartsheetApiRequest({
+        method: 'GET',
+        path: `/search/sheets/${sheetId}`,
+        queryParams: {
+          query,
         },
       });
     } else {
       // Search across all sheets
-      response = await client.search.searchAll({
-        queryParameters: {
-          query: searchQuery,
+      response = await smartsheetApiRequest({
+        method: 'GET',
+        path: '/search/sheets',
+        queryParams: {
+          query,
         },
       });
     }
 
-    const totalResults = response.totalCount || 0;
+    const totalResults = (response as any).totalCount || 0;
     log(`Found ${totalResults} result(s)`);
 
     // Set output variable
     setOutput(outputVariable, {
-      query: searchQuery,
+      query,
       totalCount: totalResults,
-      results: response.results || [],
+      results: (response as any).results || [],
     });
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error(
         `Sheet not found: ${sheetId}. Please check the sheet ID.`,
       );
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Access denied')
+    ) {
       throw new Error(
         `Access denied. You may not have permission to search this content.`,
       );
-    } else if (error.statusCode === 400) {
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
       throw new Error(
         `Invalid search query: ${errorMessage}. Check your search parameters.`,
       );

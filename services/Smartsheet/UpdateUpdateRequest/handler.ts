@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateUpdateRequestInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,12 +20,6 @@ export const handler = async ({
     throw new Error('Update Request ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Updating update request ${updateRequestId}`);
 
   try {
@@ -37,13 +31,13 @@ export const handler = async ({
       updateBody.message = message;
     }
 
-    const response = await client.sheets.updateUpdateRequest({
-      sheetId,
-      updateRequestId,
+    const response = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/sheets/${sheetId}/updaterequests/${updateRequestId}`,
       body: updateBody,
     });
     log('Update request updated successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to update update request: ${error.message}`);
   }

@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Action
+id: create-proof-version
+serviceId: smartsheet
+active: false
+metadata:
+  name: Create Proof Version
+  description: Creates a proof version. Proof Id must be for the original proof.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: sheet Id
+        required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
+        variable: sheetId
+        type: text
+      - label: proof Id
+        required: true
+        helpText: (Required) Proof Id of the original proof
+        variable: proofId
+        type: text
+      - label: attachmentsubtype
+        required: false
+        variable: attachmentsubtype
+        type: text
+      - label: attachmenttype
+        required: false
+        variable: attachmenttype
+        type: text
+      - label: description
+        required: false
+        variable: description
+        type: text
+      - label: name
+        required: false
+        variable: name
+        type: text
+      - label: url
+        required: false
+        variable: url
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

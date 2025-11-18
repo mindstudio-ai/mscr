@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ShareWorkspaceInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -21,32 +21,30 @@ export const handler = async ({
     throw new Error('Shares array is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Sharing workspace ${workspaceId}...`);
 
-    const options: any = {
-      workspaceId,
-      body: shares,
-    };
+    const body = shares.map((share: any) => {
+      if (message) {
+        return { ...share, message };
+      }
+      return share;
+    });
 
+    const queryParams: Record<string, boolean | number> = {};
     if (sendEmail !== undefined) {
-      options.queryParameters = { sendEmail };
+      queryParams.sendEmail = sendEmail;
+    }
+    if (inputs.accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = inputs.accessApiLevel;
     }
 
-    if (message) {
-      options.body.forEach((share: any) => {
-        share.message = message;
-      });
-    }
-
-    const result = await client.workspaces.share(options);
+    const result = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/workspaces/${workspaceId}/shares`,
+      body,
+      queryParams,
+    });
 
     log(`Successfully shared workspace with ${shares.length} users/groups`);
     setOutput(outputVariable, result);

@@ -15,6 +15,27 @@ configuration:
         helpText: Name of the workspace
         variable: name
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of elements to include:   * **all**   * **attachments**   * **brand**   * **cellLinks** - includes cross-sheet references   * **data** - includes formatting   * **discussions** '
+        variable: include
+        type: text
+        placeholder: filters
+      - label: Skip Remap
+        required: false
+        helpText: A comma-separated list of references to NOT re-map for the newly created folder.
+        variable: skipRemap
+        type: text
+        placeholder: reports
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

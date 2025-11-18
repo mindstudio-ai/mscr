@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Action
+id: list-image-urls
+serviceId: smartsheet
+active: false
+metadata:
+  name: List Image Urls
+  description: Posts an array of Image Url objects that can be used to retrieve the specified cell images.
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: imageid
+        required: false
+        variable: imageid
+        type: text
+      - label: error
+        required: false
+        variable: error
+        type: text
+      - label: refid
+        required: false
+        variable: refid
+        type: text
+      - label: errorcode
+        required: false
+        variable: errorcode
+        type: text
+      - label: message
+        required: false
+        variable: message
+        type: text
+      - label: height
+        required: false
+        variable: height
+        type: text
+      - label: url
+        required: false
+        variable: url
+        type: text
+      - label: width
+        required: false
+        variable: width
+        type: text
+      - label: imageid Value
+        required: false
+        variable: imageidValue
+        type: text
+      - label: error Value
+        required: false
+        variable: errorValue
+        type: text
+      - label: refid Value
+        required: false
+        variable: refidValue
+        type: text
+      - label: errorcode Value
+        required: false
+        variable: errorcodeValue
+        type: text
+      - label: message Value
+        required: false
+        variable: messageValue
+        type: text
+      - label: height Value
+        required: false
+        variable: heightValue
+        type: text
+      - label: url Value
+        required: false
+        variable: urlValue
+        type: text
+      - label: width Value
+        required: false
+        variable: widthValue
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

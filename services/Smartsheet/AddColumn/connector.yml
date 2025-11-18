@@ -49,7 +49,7 @@ configuration:
         helpText: For PICKLIST type - comma-separated options or JSON array
         variable: picklistOptions
         type: text
-        placeholder: 'Option 1,Option 2,Option 3 or ["Option 1","Option 2"]'
+        placeholder: Option 1,Option 2,Option 3 or ["Option 1","Option 2"]
   - title: Position
     collapsed: true
     items:

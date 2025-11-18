@@ -18,6 +18,20 @@ configuration:
         required: true
         variable: fieldIds
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Ids
+        required: true
+        helpText: '(Required) A comma-separated list of Sheet Summary Field Ids. '
+        variable: ids
+        type: text
+      - label: Ignore Summary Fields Not Found
+        required: false
+        helpText: If **true**, the operation will succeed even if some fieldIds are not found.
+        variable: ignoreSummaryFieldsNotFound
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

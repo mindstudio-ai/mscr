@@ -8,6 +8,17 @@ metadata:
   description: Gets information about the currently authenticated user
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: When specified with a value of 'groups', response includes an array of groups (groupId, name, and description only) that the user is a member of.
+        variable: include
+        type: text
+        placeholder: groups
   - title: Output
     items:
       - label: Output Variable

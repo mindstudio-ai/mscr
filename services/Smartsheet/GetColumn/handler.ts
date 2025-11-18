@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetColumnInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,7 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, columnId, outputVariable } = inputs;
+  const { sheetId, columnId, level, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -20,17 +20,20 @@ export const handler = async ({
     throw new Error('Column ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting column ${columnId} from sheet ${sheetId}`);
 
   try {
-    const response = await client.sheets.getColumn({ sheetId, columnId });
-    log(`Retrieved column: ${response.title}`);
+    const queryParams: Record<string, number> = {};
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/columns/${columnId}`,
+      queryParams,
+    });
+    log(`Retrieved column: ${(response as any).title}`);
     setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to get column: ${error.message}`);

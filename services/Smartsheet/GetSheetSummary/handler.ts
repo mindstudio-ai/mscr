@@ -1,52 +1,45 @@
-import fetch from 'node-fetch';
-
 import { GetSheetSummaryInputs } from './type';
 import { IHandlerContext } from '../type';
-
-const BASE_URL = 'https://api.smartsheet.com/2.0';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: IHandlerContext<GetSheetSummaryInputs>) => {
-  const { sheetId, outputVariable } = inputs;
+  const { sheetId, include, exclude, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-  const url = `${BASE_URL}/sheets/${sheetId}/summary`;
   log(`Getting sheet summary for sheet ${sheetId}`);
 
   try {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: accessToken,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    });
-
-    const result = await response.json();
-
-    // Check for errors
-    if (!response.ok) {
-      if (response.status === 403) {
-        throw new Error(
-          'Authentication failed. Please check your API Key and Account URL.',
-        );
-      }
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
     }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
+
+    const result = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/summary`,
+      queryParams,
+    });
 
     log('Retrieved sheet summary successfully');
     setOutput(outputVariable, result);
   } catch (error: any) {
-    throw new Error(`Failed to get sheet summary: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    if (errorMessage.includes('403') || errorMessage.includes('Permission')) {
+      throw new Error(
+        'Permission denied. You may not have access to this sheet.',
+      );
+    } else {
+      throw new Error(`Failed to get sheet summary: ${errorMessage}`);
+    }
   }
 };

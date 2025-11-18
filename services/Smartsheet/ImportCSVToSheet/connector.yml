@@ -22,6 +22,25 @@ configuration:
         required: false
         variable: headerRowIndex
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Sheet Name
+        required: true
+        helpText: (Required) Desired name of the sheet.
+        variable: sheetName
+        type: text
+      - label: Header Row Index
+        required: false
+        helpText: 'A zero-based integer indicating the row number to use for column names. Rows before this are omitted. If not specified, the default values are Column1, Column2, etc. '
+        variable: headerRowIndex
+        type: number
+      - label: Primary Column Index
+        required: false
+        helpText: 'A zero-based integer indicating the column to designate as primary. '
+        variable: primaryColumnIndex
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

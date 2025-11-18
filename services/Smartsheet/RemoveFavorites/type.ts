@@ -1,5 +1,5 @@
 export interface RemoveFavoritesInputs {
-  objectType: string;
+  favoriteType: string;
   objectIds: string;
   outputVariable: string;
 }

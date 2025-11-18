@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateWorkspaceInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,23 +11,30 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { name, outputVariable } = inputs;
+  const { name, include, skipRemap, accessApiLevel, outputVariable } = inputs;
 
   if (!name) {
     throw new Error('Workspace name is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Creating workspace ${name}...`);
 
-    const result = await client.workspaces.createWorkspace({
+    const queryParams: Record<string, string | number> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+    if (skipRemap) {
+      queryParams.skipRemap = skipRemap;
+    }
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    const result = await smartsheetApiRequest({
+      method: 'POST',
+      path: '/workspaces',
+      queryParams,
       body: { name },
     });
 

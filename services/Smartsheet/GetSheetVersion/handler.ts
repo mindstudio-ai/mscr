@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetSheetVersionInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,17 +17,14 @@ export const handler = async ({
     throw new Error('Sheet ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting version for sheet ${sheetId}`);
 
   try {
-    const response = await client.sheets.getSheetVersion({ sheetId });
-    log(`Sheet version: ${response.version}`);
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/version`,
+    });
+    log(`Sheet version: ${(response as any).version}`);
     setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to get sheet version: ${error.message}`);

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddRowAttachmentInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -27,31 +27,26 @@ export const handler = async ({
     throw new Error('File path is required for FILE attachments');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Adding ${attachmentType} attachment to row ${rowId}`);
 
   try {
     let response;
     if (attachmentType === 'LINK') {
-      response = await client.rows.addAttachment({
-        sheetId,
-        rowId,
+      response = await smartsheetApiRequest({
+        method: 'POST',
+        path: `/sheets/${sheetId}/rows/${rowId}/attachments`,
         body: { attachmentType: 'LINK', url },
       });
     } else {
-      response = await client.rows.attachFile({
-        sheetId,
-        rowId,
-        file: filePath,
+      response = await smartsheetApiRequest({
+        method: 'POST',
+        path: `/sheets/${sheetId}/rows/${rowId}/attachments`,
+        multipart: true,
+        filePath,
       });
     }
-    log(`Successfully added attachment with ID: ${response.result.id}`);
-    setOutput(outputVariable, response.result);
+    log(`Successfully added attachment with ID: ${(response as any).id}`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to add row attachment: ${error.message}`);
   }

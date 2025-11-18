@@ -1,50 +1,30 @@
-import fetch from 'node-fetch';
-
 import { GetFolderInputs } from './type';
 import { IHandlerContext } from '../type';
-
-const BASE_URL = 'https://api.smartsheet.com/2.0';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: IHandlerContext<GetFolderInputs>) => {
-  const { folderId, outputVariable } = inputs;
+  const { folderId, include, outputVariable } = inputs;
 
   if (!folderId) {
     throw new Error('Folder ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  const url = `${BASE_URL}/folders/${folderId}`;
-
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
   log(`Getting folder ${folderId}`);
   try {
-    log(`Fetching folder ${url}`);
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: accessToken,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-    });
-    log(`Response: ${JSON.stringify(response)}`);
-    const result = await response.json();
-
-    // Check for errors
-    if (!response.ok) {
-      if (response.status === 403) {
-        throw new Error(
-          'Authentication failed. Please check your API Key and Account URL.',
-        );
-      }
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
     }
+
+    const result = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/folders/${folderId}`,
+      queryParams,
+    });
     log('Retrieved folder successfully');
     setOutput(outputVariable, result);
   } catch (error: any) {

@@ -20,6 +20,11 @@ configuration:
         helpText: The ID of the proof request
         variable: proofRequestId
         type: text
+      - label: Proof Id
+        required: true
+        helpText: (Required) Proof Id of the original proof
+        variable: proofId
+        type: text
   - title: Output
     items:
       - label: Output Variable

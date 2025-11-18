@@ -18,6 +18,15 @@ configuration:
         required: true
         variable: columnId
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Level
+        required: false
+        helpText: Specifies whether object data types, such as multi-contact data are returned in a backwards-compatible, text format in text/number columns.<br>  - Set `level=0` (default) to use text/number columns fo
+        variable: level
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

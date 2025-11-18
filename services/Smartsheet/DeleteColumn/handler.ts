@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteColumnInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,16 +20,13 @@ export const handler = async ({
     throw new Error('Column ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Deleting column ${columnId} from sheet ${sheetId}`);
 
   try {
-    await client.sheets.deleteColumn({ sheetId, columnId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${sheetId}/columns/${columnId}`,
+    });
     log('Successfully deleted column');
     setOutput(outputVariable, {
       success: true,

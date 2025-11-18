@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteUpdateRequestInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,16 +20,13 @@ export const handler = async ({
     throw new Error('Update Request ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Deleting update request ${updateRequestId}`);
 
   try {
-    await client.sheets.deleteUpdateRequest({ sheetId, updateRequestId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${sheetId}/updaterequests/${updateRequestId}`,
+    });
     log('Update request deleted successfully');
     setOutput(outputVariable, {
       success: true,

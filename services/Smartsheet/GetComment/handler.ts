@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetCommentInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,16 +20,13 @@ export const handler = async ({
     throw new Error('Comment ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting comment ${commentId}`);
 
   try {
-    const response = await client.sheets.getComment({ sheetId, commentId });
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/comments/${commentId}`,
+    });
     log('Retrieved comment successfully');
     setOutput(outputVariable, response);
   } catch (error: any) {

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListFoldersInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,26 +11,37 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { workspaceId, outputVariable } = inputs;
+  const { folderId, includeAll, page, pageSize, outputVariable } = inputs;
 
-  if (!workspaceId) {
-    throw new Error('Workspace ID is required');
+  if (!folderId) {
+    throw new Error('Folder ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-  log(`Listing folders in workspace ${workspaceId}`);
+  log(`Listing folders in folder ${folderId}`);
 
   try {
-    const response = await client.workspaces.getWorkspaceChildren({
-      workspaceId,
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+
+    const response = await smartsheetApiRequest<{
+      data: Array<{ resourceType: string }>;
+    }>({
+      method: 'GET',
+      path: `/folders/${folderId}/folders`,
+      queryParams,
     });
-    const folders =
-      response?.data?.filter?.((item) => item.resourceType === 'folder') || [];
+    const data = (response as any).data || response;
+    const folders = Array.isArray(data)
+      ? data.filter((item: any) => item.resourceType === 'folder')
+      : [];
     log(`Found ${folders.length} folder(s)`);
     setOutput(outputVariable, {
       totalCount: folders.length,

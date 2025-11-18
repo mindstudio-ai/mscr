@@ -14,6 +14,21 @@ configuration:
         required: true
         variable: sheetId
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of elements to include in the response. * **format**: includes format info for cells, rows, and summary fields * **writerInfo**: includes createdBy and modifiedBy attributes for'
+        variable: include
+        type: text
+        placeholder: format
+      - label: Exclude
+        required: false
+        helpText: 'A comma-separated list of elements to not include in the response. * **displayValue**: excludes displayValue info for cells, rows, and summary fields * **image**: excludes image attributes for cells a'
+        variable: exclude
+        type: text
+        placeholder: displayValue
   - title: Output
     items:
       - label: Output Variable

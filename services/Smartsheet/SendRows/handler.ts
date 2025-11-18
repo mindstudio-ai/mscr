@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { SendRowsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -27,12 +27,6 @@ export const handler = async ({
     throw new Error('Subject is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Sending rows via email');
 
   try {
@@ -51,12 +45,13 @@ export const handler = async ({
       sendBody.message = message;
     }
 
-    const response = await client.sheets.sendRows({
-      sheetId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/rows/emails`,
       body: sendBody,
     });
     log('Rows sent successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to send rows: ${error.message}`);
   }

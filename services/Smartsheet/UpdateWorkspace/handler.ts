@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateWorkspaceInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -21,18 +21,18 @@ export const handler = async ({
     throw new Error('Workspace name is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Updating workspace ${workspaceId}...`);
 
-    const result = await client.workspaces.updateWorkspace({
-      workspaceId,
+    const queryParams: Record<string, number> = {};
+    if (inputs.accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = inputs.accessApiLevel;
+    }
+
+    const result = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/workspaces/${workspaceId}`,
+      queryParams,
       body: { name },
     });
 

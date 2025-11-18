@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
-import { ListUsersInputs, ListUsersQueryParameters } from './type';
+import { ListUsersInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -15,55 +15,53 @@ export const handler = async ({
     email,
     includeAll,
     numericDates,
-    planId,
-    seatType,
     page,
     pageSize,
     include,
+    modifiedSince,
     outputVariable,
   } = inputs;
-
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
 
   try {
     log('Listing users in organization...');
 
-    const options: Partial<ListUsersQueryParameters> = {};
+    const queryParams: Record<string, string | number | boolean> = {};
     if (email) {
-      options.email = email;
+      queryParams.email = email;
     }
-    if (includeAll) {
-      options.includeAll = true;
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
     }
-    if (numericDates) {
-      options.numericDates = true;
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
     }
-    if (planId) {
-      options.planId = planId;
+    if (page !== undefined) {
+      queryParams.page = page;
     }
-    if (seatType) {
-      options.seatType = seatType;
-    }
-    if (page) {
-      options.page = page;
-    }
-    if (pageSize) {
-      options.pageSize = pageSize;
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
     }
     if (include) {
-      options.include = include;
+      queryParams.include = include;
+    }
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
     }
 
-    log(`Listing users with options: ${JSON.stringify(options)}`);
+    log(`Listing users with options: ${JSON.stringify(queryParams)}`);
 
-    const result = await client.users.listAllUsers(options);
+    const result = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
+      method: 'GET',
+      path: '/users',
+      queryParams,
+    });
 
-    log(`Successfully retrieved ${result.totalCount} users`);
+    const totalCount =
+      (result as any).totalCount || (result as any).data?.length || 0;
+    log(`Successfully retrieved ${totalCount} users`);
     setOutput(outputVariable, result);
   } catch (error: any) {
     log(`Error listing users: ${error.message}`);

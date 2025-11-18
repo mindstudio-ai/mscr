@@ -26,6 +26,27 @@ configuration:
         textOptions:
           type: multiline
         placeholder: '[{"id":1234567890,"cells":[{"columnId":123456,"value":"Updated Value"}]}]'
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
+      - label: Allow Partial Success
+        required: false
+        helpText: When specified with a value of true, enables partial success for this bulk operation. See [Partial Success](https://smartsheet.redoc.ly/#section/Work-at-Scale/Bulk-Operations) for more information.
+        variable: allowPartialSuccess
+        type: checkbox
+        defaultValue: false
+      - label: Override Validation
+        required: false
+        helpText: 'You may use the query string parameter **overrideValidation** with a value of **true** to allow a cell value outside of the validation limits. You must specify **strict** with a value of **false** to '
+        variable: overrideValidation
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

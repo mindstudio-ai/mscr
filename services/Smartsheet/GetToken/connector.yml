@@ -8,6 +8,47 @@ metadata:
   description: Gets details of the current access token
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Client_id
+        required: true
+        helpText: (Required) The client Id you obtained when you registered your app.
+        variable: client_id
+        type: text
+      - label: Client_secret
+        required: false
+        helpText: (Optional) Must use either this value or hash. Plain text method for sending this value. For example, client_secret={app_secret}. Encryption occurs at the HTTPS level.
+        variable: client_secret
+        type: text
+      - label: Code
+        required: false
+        helpText: Authorization code acquired after user selects "Allow" in the Web login UI.
+        variable: code
+        type: text
+      - label: Grant_type
+        required: true
+        helpText: (Required) Must be set to "authorization_code".
+        variable: grant_type
+        type: text
+        placeholder: authorization_code
+      - label: Hash
+        required: false
+        helpText: (Optional) Must use either this value or client_secret. SHA-256 hash of your app secret concatenated with a pipe and the authorization code. For example, hash={SHA_256(app_secret|code)}.
+        variable: hash
+        type: text
+      - label: Refresh_token
+        required: false
+        helpText: refresh_token value that came with the access token.
+        variable: refresh_token
+        type: text
+      - label: Redirect_url
+        required: false
+        helpText: Deprecated. If supplied, must match the redirect URI you registered for your app.
+        variable: redirect_url
+        type: text
   - title: Output
     items:
       - label: Output Variable

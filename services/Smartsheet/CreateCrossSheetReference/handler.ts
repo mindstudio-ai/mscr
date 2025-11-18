@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CreateCrossSheetReferenceInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -44,17 +44,12 @@ export const handler = async ({
     throw new Error('End Column ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Creating cross-sheet reference: ${name}`);
 
   try {
-    const response = await client.sheets.createCrossSheetReference({
-      sheetId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/crosssheetreferences`,
       body: {
         name,
         sourceSheetId: parseInt(sourceSheetId, 10),
@@ -65,7 +60,7 @@ export const handler = async ({
       },
     });
     log('Cross-sheet reference created successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to create cross-sheet reference: ${error.message}`);
   }

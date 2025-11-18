@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: delete-workspace-share
+serviceId: smartsheet
+active: false
+metadata:
+  name: Delete Workspace Share
+  description: Deletes the share specified in the URL.
+
+**_This operation is only available to system administrators._**
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: workspace Id
+        required: true
+        helpText: (Required) WorkspaceID of the worksheet being accessed.
+        variable: workspaceId
+        type: text
+      - label: share Id
+        required: true
+        helpText: (Required) Share Id.
+        variable: shareId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

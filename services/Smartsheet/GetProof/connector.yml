@@ -18,6 +18,20 @@ configuration:
         required: true
         variable: proofRequestId
         type: text
+      - label: Proof Id
+        required: true
+        helpText: (Required) Proof Id of the original proof
+        variable: proofId
+        type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'A comma-separated list of optional elements to include in the response. '
+        variable: include
+        type: text
+        placeholder: attachments
   - title: Output
     items:
       - label: Output Variable

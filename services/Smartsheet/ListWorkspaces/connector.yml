@@ -8,15 +8,40 @@ metadata:
   description: Lists all workspaces
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
   - title: Options
     collapsed: true
     items:
       - label: Include All
         required: false
-        helpText: Include all workspace information
+        helpText: (Deprecated as of February 1, 2025, and will be removed. Use 'lastKey' and 'pageSize' for paginated results.) If true, include all results, that is, do not paginate. Mutually exclusive with page and p
         variable: includeAll
         type: checkbox
         defaultValue: false
+      - label: Last Key
+        required: false
+        helpText: If present with the value returned from a previous request, the client retrieves the next page of results using this token.
+        variable: lastKey
+        type: text
+      - label: Page
+        required: false
+        helpText: "(Deprecated as of February 1, 2025, and will be removed. Use 'lastKey' and 'pageSize' for paginated results.) Which page to return. Defaults to 1 if not specified. If you specify a value greater than "
+        variable: page
+        type: number
+        defaultValue: 1
+      - label: Page Size
+        required: false
+        helpText: The maximum number of results to return per page. The server may return fewer results. This value must be a positive integer, a multiple of 100, and between 100 and 1000 (inclusive). Defaults to 100 i
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

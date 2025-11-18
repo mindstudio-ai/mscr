@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteUserAlternateEmailInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -21,23 +21,20 @@ export const handler = async ({
     throw new Error('Alternate email ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Deleting alternate email ${alternateEmailId} for user ${userId}...`);
 
-    const result = await client.users.deleteAlternateEmail({
-      userId,
-      alternateEmailId,
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/users/${userId}/alternateemails/${alternateEmailId}`,
     });
 
     log(`Successfully deleted alternate email: ${alternateEmailId}`);
-    setOutput(outputVariable, result);
+    setOutput(outputVariable, {
+      success: true,
+      deletedAlternateEmailId: alternateEmailId,
+      userId,
+    });
   } catch (error: any) {
     log(`Error deleting alternate email: ${error.message}`);
     throw error;

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteAutomationRuleInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,16 +20,13 @@ export const handler = async ({
     throw new Error('Automation Rule ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Deleting automation rule ${automationRuleId}`);
 
   try {
-    await client.sheets.deleteAutomationRule({ sheetId, automationRuleId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${sheetId}/automationrules/${automationRuleId}`,
+    });
     log('Successfully deleted automation rule');
     setOutput(outputVariable, {
       success: true,

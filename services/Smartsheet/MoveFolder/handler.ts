@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { MoveFolderInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -20,12 +20,6 @@ export const handler = async ({
     throw new Error('Destination type is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Moving folder ${folderId} to ${destinationType}`);
 
   try {
@@ -36,12 +30,13 @@ export const handler = async ({
       moveBody.destinationId = parseInt(destinationId, 10);
     }
 
-    const response = await client.folders.moveFolder({
-      folderId,
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/folders/${folderId}/move`,
       body: moveBody,
     });
     log('Folder moved successfully');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to move folder: ${error.message}`);
   }

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: deactivate-user
+serviceId: smartsheet
+active: false
+metadata:
+  name: Deactivate User
+  description: "Deactivates a user in an organization account. User will no longer be able to access Smartsheet in any way. User's assets will continue to be owned by this user until they are transferred to another user.
+
+**This operation is only available to system administrators of Enterprise organizations.**
+**Additionally, if organizations have Enterprise Plan Manager (EPM) enabled, a system administrator of the main plan can provide a userId for a user belonging to a managed plan within the EPM hierarchy.**
+
+**NOTES:**
+* Currently unavailable for Smartsheet GOV (aka the Gov environment).
+* This operation does not apply to users with an ISP based domain account (outlook.com, gmail.com, hotmail.com, live.com, yahoo.com, aol.com, verizon.net, rocketmail.com, comcast.net, icloud.com, charter.net, web.de, mail.com, email.com, usa.com, duck.com, mail.ru)."
+  quickHelp: readme.md
+configuration:
+  - title: Parameters
+    items:
+      - label: user Id
+        required: true
+        helpText: (Required) User Id
+        variable: userId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable to store the API response
+        variable: outputVariable
+        type: outputVariableName

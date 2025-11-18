@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetRowInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -14,9 +14,10 @@ export const handler = async ({
   const {
     sheetId,
     rowId,
-    includeDiscussions,
-    includeAttachments,
-    includeColumns,
+    accessApiLevel,
+    include,
+    exclude,
+    level,
     outputVariable,
   } = inputs;
 
@@ -29,59 +30,47 @@ export const handler = async ({
     throw new Error('Row ID is required');
   }
 
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
-
   log(`Retrieving row ${rowId} from sheet ${sheetId}`);
 
   try {
-    // Build include parameter
-    const includeParams: string[] = [];
-
-    if (includeDiscussions) {
-      includeParams.push('discussions');
+    // Build query parameters
+    const queryParams: Record<string, string | number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
     }
-    if (includeAttachments) {
-      includeParams.push('attachments');
+    if (include) {
+      queryParams.include = include;
     }
-    if (includeColumns) {
-      includeParams.push('columns');
+    if (exclude) {
+      queryParams.exclude = exclude;
     }
-
-    // Prepare options
-    const options: any = {
-      sheetId,
-      rowId,
-    };
-
-    if (includeParams.length > 0) {
-      options.queryParameters = {
-        include: includeParams.join(','),
-      };
+    if (level !== undefined) {
+      queryParams.level = level;
     }
 
     // Get row
-    const response = await client.sheets.getRow(options);
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/rows/${rowId}`,
+      queryParams,
+    });
 
     log(`Successfully retrieved row ${rowId}`);
-    log(`Row contains ${response.cells?.length || 0} cells`);
+    log(`Row contains ${(response as any).cells?.length || 0} cells`);
 
     // Set output variable
     setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error(
         `Sheet or row not found. Please check the sheet ID (${sheetId}) and row ID (${rowId}).`,
       );
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Access denied')
+    ) {
       throw new Error(
         `Access denied to sheet or row. You may not have permission to view this content.`,
       );

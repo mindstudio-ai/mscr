@@ -27,6 +27,20 @@ configuration:
         helpText: ID from Upload Cell Image
         variable: imageId
         type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Alt Text
+        required: false
+        helpText: Url-encoded alternate text for the image
+        variable: altText
+        type: text
+      - label: Override Validation
+        required: false
+        helpText: 'You may use the query string parameter **overrideValidation** with a value of **true** to allow a cell value outside of the validation limits. You must specify **strict** with a value of **false** to '
+        variable: overrideValidation
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteFolderInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -17,16 +17,13 @@ export const handler = async ({
     throw new Error('Folder ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Deleting folder ${folderId}`);
 
   try {
-    await client.folders.deleteFolder({ folderId });
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/folders/${folderId}`,
+    });
     log('Folder deleted successfully');
     setOutput(outputVariable, {
       success: true,

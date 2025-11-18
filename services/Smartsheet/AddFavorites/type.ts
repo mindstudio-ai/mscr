@@ -1,9 +1,5 @@
-export interface FavoriteItem {
-  type: string;
-  objectId: number;
-}
-
 export interface AddFavoritesInputs {
-  favoritesJson: string | FavoriteItem[];
+  objectId?: string;
+  type?: string;
   outputVariable: string;
 }

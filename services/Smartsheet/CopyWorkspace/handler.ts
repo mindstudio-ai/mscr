@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { CopyWorkspaceInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,7 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { workspaceId, newName, includes, outputVariable } = inputs;
+  const { workspaceId, newName, include, skipRemap, outputVariable } = inputs;
 
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
@@ -21,26 +21,25 @@ export const handler = async ({
     throw new Error('New name is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Copying workspace ${workspaceId}...`);
+
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+    if (skipRemap) {
+      queryParams.skipRemap = skipRemap;
+    }
 
     const copySpec: any = {
       newName,
     };
 
-    if (includes && Array.isArray(includes) && includes.length > 0) {
-      copySpec.includes = includes.join(',');
-    }
-
-    const result = await client.workspaces.copyWorkspace({
-      workspaceId,
+    const result = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/workspaces/${workspaceId}/copy`,
+      queryParams,
       body: copySpec,
     });
 

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateUserInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -24,13 +24,6 @@ export const handler = async ({
     throw new Error('User ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is not configured');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
-
   try {
     log(`Updating user ${userId}...`);
 
@@ -49,8 +42,9 @@ export const handler = async ({
       userSpec.lastName = lastName;
     }
 
-    const result = await client.users.updateUser({
-      userId,
+    const result = await smartsheetApiRequest({
+      method: 'PUT',
+      path: `/users/${userId}`,
       body: userSpec,
     });
 

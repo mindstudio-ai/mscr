@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { GetSheetSummaryFieldInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,16 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, fieldId, outputVariable } = inputs;
+  const {
+    sheetId,
+    fieldId,
+    includeAll,
+    page,
+    pageSize,
+    include,
+    exclude,
+    outputVariable,
+  } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -20,18 +29,30 @@ export const handler = async ({
     throw new Error('Field ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting summary field ${fieldId}`);
 
   try {
-    const response = await client.sheets.getSheetSummaryField({
-      sheetId,
-      fieldId,
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (include) {
+      queryParams.include = include;
+    }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${sheetId}/summaryfields/${fieldId}`,
+      queryParams,
     });
     log('Retrieved field successfully');
     setOutput(outputVariable, response);

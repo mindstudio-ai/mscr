@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { UpdateRowsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,14 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, rowsData, outputVariable } = inputs;
+  const {
+    sheetId,
+    rowsData,
+    accessApiLevel,
+    allowPartialSuccess,
+    overrideValidation,
+    outputVariable,
+  } = inputs;
 
   // Validate required inputs
   if (!sheetId) {
@@ -22,18 +29,21 @@ export const handler = async ({
     throw new Error('Rows data is required');
   }
 
-  // Get access token from environment
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  // Initialize Smartsheet client
-  const client = smartsheet.createClient({ accessToken });
-
   log(`Updating rows in sheet: ${sheetId}`);
 
   try {
+    // Build query parameters
+    const queryParams: Record<string, number | boolean> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+    if (allowPartialSuccess !== undefined) {
+      queryParams.allowPartialSuccess = allowPartialSuccess;
+    }
+    if (overrideValidation !== undefined) {
+      queryParams.overrideValidation = overrideValidation;
+    }
+
     // Parse rows data
     let rowsArray =
       typeof rowsData === 'string' ? JSON.parse(rowsData) : rowsData;
@@ -53,30 +63,39 @@ export const handler = async ({
     log(`Updating ${rowsArray.length} row(s)`);
 
     // Update rows in sheet
-    const response = await client.sheets.updateRow({
-      sheetId,
+    const response = await smartsheetApiRequest<{ id: number }[]>({
+      method: 'PUT',
+      path: `/sheets/${sheetId}/rows`,
+      queryParams,
       body: rowsArray,
     });
 
-    log(`Successfully updated ${response.result.length} row(s)`);
+    const resultArray = Array.isArray(response) ? response : [response];
+    log(`Successfully updated ${resultArray.length} row(s)`);
 
     // Set output variable
     setOutput(outputVariable, {
-      updatedRows: response.result,
-      count: response.result.length,
+      updatedRows: resultArray,
+      count: resultArray.length,
     });
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
 
-    if (error.statusCode === 404) {
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
       throw new Error(
         `Sheet or row not found. Please check the sheet ID and row IDs.`,
       );
-    } else if (error.statusCode === 403) {
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
       throw new Error(
         `Permission denied. You must have editor access to update rows in this sheet.`,
       );
-    } else if (error.statusCode === 400) {
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
       throw new Error(
         `Invalid row data: ${errorMessage}. Check your row IDs, column IDs, and values.`,
       );

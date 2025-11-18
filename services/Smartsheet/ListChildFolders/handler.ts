@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { ListChildFoldersInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,23 +11,32 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { folderId, outputVariable } = inputs;
+  const { folderId, includeAll, page, pageSize, outputVariable } = inputs;
 
   if (!folderId) {
     throw new Error('Folder ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Listing child folders of folder ${folderId}`);
 
   try {
-    const response = await client.folders.getFolder({ folderId });
-    const folders = response.folders || [];
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/folders/${folderId}`,
+      queryParams,
+    });
+    const folders = (response as any).folders || [];
     log(`Found ${folders.length} child folder(s)`);
     setOutput(outputVariable, {
       totalCount: folders.length,

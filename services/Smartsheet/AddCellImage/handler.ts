@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { AddCellImageInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,7 +11,15 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, rowId, columnId, imageId, outputVariable } = inputs;
+  const {
+    sheetId,
+    rowId,
+    columnId,
+    imageId,
+    altText,
+    overrideValidation,
+    outputVariable,
+  } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -26,23 +34,25 @@ export const handler = async ({
     throw new Error('Image ID is required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log(`Adding image ${imageId} to cell`);
 
   try {
-    const response = await client.sheets.addImageToCell({
-      sheetId,
-      rowId,
-      columnId,
+    const queryParams: Record<string, string | boolean> = {};
+    if (altText) {
+      queryParams.altText = altText;
+    }
+    if (overrideValidation !== undefined) {
+      queryParams.overrideValidation = overrideValidation;
+    }
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${sheetId}/rows/${rowId}/columns/${columnId}/images`,
+      queryParams,
       body: { imageId },
     });
     log('Successfully added image to cell');
-    setOutput(outputVariable, response.result);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to add cell image: ${error.message}`);
   }

@@ -1,5 +1,5 @@
-import smartsheet from 'smartsheet';
 import { DeleteSheetSummaryFieldsInputs } from './type';
+import { smartsheetApiRequest } from '../api-client';
 
 export const handler = async ({
   inputs,
@@ -11,34 +11,36 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { sheetId, fieldIds, outputVariable } = inputs;
+  const { sheetId, ids, ignoreSummaryFieldsNotFound, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
   }
-  if (!fieldIds) {
+  if (!ids) {
     throw new Error('Field IDs are required');
   }
 
-  const accessToken = process.env.accessToken;
-  if (!accessToken) {
-    throw new Error('Smartsheet access token is missing');
-  }
-
-  const client = smartsheet.createClient({ accessToken });
   log('Deleting sheet summary fields');
 
   try {
-    const ids = fieldIds.split(',').map((id: string) => id.trim());
-    await client.sheets.deleteSheetSummaryFields({
-      sheetId,
-      queryParameters: { ids: ids.join(',') },
+    const idArray = ids.split(',').map((id: string) => id.trim());
+    const queryParams: Record<string, string | boolean> = {
+      ids: idArray.join(','),
+    };
+    if (ignoreSummaryFieldsNotFound !== undefined) {
+      queryParams.ignoreSummaryFieldsNotFound = ignoreSummaryFieldsNotFound;
+    }
+
+    await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${sheetId}/summaryfields`,
+      queryParams,
     });
-    log(`Deleted ${ids.length} field(s) successfully`);
+    log(`Deleted ${idArray.length} field(s) successfully`);
     setOutput(outputVariable, {
       success: true,
-      deletedCount: ids.length,
-      deletedFieldIds: ids,
+      deletedCount: idArray.length,
+      deletedFieldIds: idArray,
     });
   } catch (error: any) {
     throw new Error(`Failed to delete sheet summary fields: ${error.message}`);
