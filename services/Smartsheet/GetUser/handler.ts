@@ -44,7 +44,7 @@ export const handler = async ({
       }
     }
 
-    log(`Successfully retrieved user: ${JSON.stringify(result, null, 2)}`);
+    log(`Successfully retrieved user ${userId}`);
     setOutput(outputVariable, result);
   } catch (error: any) {
     log(`Error getting user: ${error.message}`);

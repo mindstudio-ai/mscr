@@ -1,16 +1,13 @@
-import smartsheet from 'smartsheet';
 import { GetGroupInputs } from './type';
+import { IHandlerContext } from '../type';
+
+const BASE_URL = 'https://api.smartsheet.com/2.0';
 
 export const handler = async ({
   inputs,
   setOutput,
   log,
-}: {
-  inputs: GetGroupInputs;
-  setOutput: (variable: string, value: any) => void;
-  log: (message: string) => void;
-  uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
-}) => {
+}: IHandlerContext<GetGroupInputs>) => {
   const { groupId, outputVariable } = inputs;
 
   if (!groupId) {
@@ -22,13 +19,29 @@ export const handler = async ({
     throw new Error('Smartsheet access token is missing');
   }
 
-  const client = smartsheet.createClient({ accessToken });
   log(`Getting group ${groupId}`);
 
   try {
-    const response = await client.groups.getGroup({ groupId });
-    log('Retrieved group successfully');
-    setOutput(outputVariable, response);
+    const url = `${BASE_URL}/groups/${groupId}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+    const result = await response.json();
+    // Check for errors
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw new Error(
+          'Authentication failed. Please check your API Key and Account URL.',
+        );
+      }
+    }
+    log(`Retrieved group ${groupId} successfully`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
     throw new Error(`Failed to get group: ${error.message}`);
   }
