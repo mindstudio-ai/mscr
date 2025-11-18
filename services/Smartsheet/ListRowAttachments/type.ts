@@ -6,9 +6,3 @@ export interface ListRowAttachmentsInputs {
   includeAll?: boolean;
   outputVariable: string;
 }
-
-export interface ListRowAttachmentsQueryParameters {
-  page?: number;
-  pageSize?: number;
-  includeAll?: boolean;
-}

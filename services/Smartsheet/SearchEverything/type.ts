@@ -7,12 +7,3 @@ export interface SearchEverythingInputs {
   scopesValue?: string;
   outputVariable: string;
 }
-
-export interface SearchEverythingQueryParameters {
-  query: string;
-  location?: string;
-  modifiedsince?: string;
-  include?: string;
-  scopes?: string;
-  scopesValue?: string;
-}

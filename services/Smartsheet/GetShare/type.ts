@@ -4,7 +4,3 @@ export interface GetShareInputs {
   accessApiLevel?: number;
   outputVariable: string;
 }
-
-export interface GetShareQueryParameters {
-  accessApiLevel?: number;
-}

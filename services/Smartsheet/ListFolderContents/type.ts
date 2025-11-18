@@ -3,7 +3,3 @@ export interface ListFolderContentsInputs {
   include?: string;
   outputVariable: string;
 }
-
-export interface ListFolderContentsQueryParameters {
-  include?: string;
-}

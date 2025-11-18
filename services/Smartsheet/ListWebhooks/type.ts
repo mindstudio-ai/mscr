@@ -4,9 +4,3 @@ export interface ListWebhooksInputs {
   pageSize?: number;
   outputVariable: string;
 }
-
-export interface ListWebhooksQueryParameters {
-  includeAll?: boolean;
-  page?: number;
-  pageSize?: number;
-}

@@ -5,9 +5,3 @@ export interface ListChildFoldersInputs {
   pageSize?: number;
   outputVariable: string;
 }
-
-export interface ListChildFoldersQueryParameters {
-  includeAll?: boolean;
-  page?: number;
-  pageSize?: number;
-}

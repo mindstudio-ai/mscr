@@ -5,9 +5,3 @@ export interface ListProofsInputs {
   includeAll?: boolean;
   outputVariable: string;
 }
-
-export interface ListProofsQueryParameters {
-  page?: number;
-  pageSize?: number;
-  includeAll?: boolean;
-}

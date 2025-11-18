@@ -4,7 +4,3 @@ export interface GetColumnInputs {
   level?: number;
   outputVariable: string;
 }
-
-export interface GetColumnQueryParameters {
-  level?: number;
-}

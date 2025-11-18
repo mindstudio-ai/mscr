@@ -15,11 +15,6 @@ configuration:
         helpText: The ID of the sheet
         variable: sheetId
         type: text
-      - label: Proof Request ID
-        required: true
-        helpText: The ID of the proof request
-        variable: proofRequestId
-        type: text
       - label: Proof Id
         required: true
         helpText: (Required) Proof Id of the original proof

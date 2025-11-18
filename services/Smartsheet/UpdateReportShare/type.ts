@@ -5,7 +5,3 @@ export interface UpdateReportShareInputs {
   accesslevel?: string;
   outputVariable: string;
 }
-
-export interface UpdateReportShareQueryParameters {
-  accessapilevel?: number;
-}

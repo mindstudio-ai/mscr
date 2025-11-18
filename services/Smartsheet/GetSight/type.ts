@@ -6,10 +6,3 @@ export interface GetSightInputs {
   numericDates?: boolean;
   outputVariable: string;
 }
-
-export interface GetSightQueryParameters {
-  accessApiLevel?: number;
-  include?: string;
-  level?: number;
-  numericDates?: boolean;
-}

@@ -8,10 +8,3 @@ export interface GetCellHistoryInputs {
   level?: number;
   outputVariable: string;
 }
-
-export interface GetCellHistoryQueryParameters {
-  include?: string;
-  pageSize?: number;
-  page?: number;
-  level?: number;
-}

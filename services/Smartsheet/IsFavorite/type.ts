@@ -4,7 +4,3 @@ export interface IsFavoriteInputs {
   include?: string;
   outputVariable: string;
 }
-
-export interface IsFavoriteQueryParameters {
-  include?: string;
-}

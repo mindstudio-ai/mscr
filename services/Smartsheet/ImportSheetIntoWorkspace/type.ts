@@ -7,9 +7,3 @@ export interface ImportSheetIntoWorkspaceInputs {
   fileName?: string;
   outputVariable: string;
 }
-
-export interface ImportSheetIntoWorkspaceQueryParameters {
-  sheetname: string;
-  headerrowindex?: number;
-  primarycolumnindex?: number;
-}

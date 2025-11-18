@@ -23,6 +23,12 @@ configuration:
         helpText: User ID to transfer ownership of sheets to
         variable: transferTo
         type: text
+      - label: Transfer Sheets
+        required: false
+        helpText: User ID to transfer sheets to (if transferSheets is true)
+        variable: transferSheets
+        type: checkbox
+        defaultValue: false
       - label: Remove From Sharing
         required: false
         helpText: Whether to remove the user from all shares

@@ -6,9 +6,3 @@ export interface ListProofAttachmentsInputs {
   includeall?: boolean;
   outputVariable: string;
 }
-
-export interface ListProofAttachmentsQueryParameters {
-  page?: number;
-  pagesize?: number;
-  includeall?: boolean;
-}

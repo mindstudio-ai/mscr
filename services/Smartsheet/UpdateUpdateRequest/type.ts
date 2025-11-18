@@ -1,7 +1,7 @@
 export interface UpdateUpdateRequestInputs {
   sheetId: string;
-  subject: string;
-  message: string;
   updateRequestId: string;
+  subject?: string;
+  message?: string;
   outputVariable: string;
 }

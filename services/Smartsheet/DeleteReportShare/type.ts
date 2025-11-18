@@ -4,7 +4,3 @@ export interface DeleteReportShareInputs {
   accessapilevel?: number;
   outputVariable: string;
 }
-
-export interface DeleteReportShareQueryParameters {
-  accessapilevel?: number;
-}

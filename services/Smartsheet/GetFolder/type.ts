@@ -3,7 +3,3 @@ export interface GetFolderInputs {
   include?: string;
   outputVariable: string;
 }
-
-export interface GetFolderQueryParameters {
-  include?: string;
-}

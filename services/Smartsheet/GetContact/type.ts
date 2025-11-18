@@ -3,7 +3,3 @@ export interface GetContactInputs {
   include?: string;
   outputVariable: string;
 }
-
-export interface GetContactQueryParameters {
-  include?: string;
-}

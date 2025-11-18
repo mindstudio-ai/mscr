@@ -4,8 +4,3 @@ export interface GetSheetSummaryInputs {
   exclude?: string;
   outputVariable: string;
 }
-
-export interface GetSheetSummaryQueryParameters {
-  include?: string;
-  exclude?: string;
-}

@@ -5,9 +5,3 @@ export interface ListWorkspaceFoldersInputs {
   pagesize?: number;
   outputVariable: string;
 }
-
-export interface ListWorkspaceFoldersQueryParameters {
-  includeall?: boolean;
-  page?: number;
-  pagesize?: number;
-}

@@ -7,9 +7,3 @@ export interface ImportSheetIntoFolderInputs {
   fileName?: string;
   outputVariable: string;
 }
-
-export interface ImportSheetIntoFolderQueryParameters {
-  sheetname: string;
-  headerrowindex?: number;
-  primarycolumnindex?: number;
-}

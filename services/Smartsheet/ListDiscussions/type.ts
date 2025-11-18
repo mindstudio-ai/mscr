@@ -6,10 +6,3 @@ export interface ListDiscussionsInputs {
   includeAll?: boolean;
   outputVariable: string;
 }
-
-export interface ListDiscussionsQueryParameters {
-  include?: string;
-  page?: number;
-  pageSize?: number;
-  includeAll?: boolean;
-}

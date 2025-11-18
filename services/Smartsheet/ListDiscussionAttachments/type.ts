@@ -6,9 +6,3 @@ export interface ListDiscussionAttachmentsInputs {
   includeall?: boolean;
   outputVariable: string;
 }
-
-export interface ListDiscussionAttachmentsQueryParameters {
-  page?: number;
-  pagesize?: number;
-  includeall?: boolean;
-}

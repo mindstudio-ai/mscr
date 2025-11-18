@@ -1,8 +1,7 @@
 export interface UpdateProofRequestInputs {
   sheetId: string;
-  proofId: string;
-  isCompleted?: string;
+  proofRequestId: string;
   message?: string;
-  proofRequestId?: string;
+  proofId: string;
   outputVariable: string;
 }

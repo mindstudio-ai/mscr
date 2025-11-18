@@ -1,9 +1,6 @@
 export interface SearchSheetsInputs {
+  searchQuery: string;
   sheetId?: string;
   query: string;
   outputVariable: string;
-}
-
-export interface SearchSheetsQueryParameters {
-  query: string;
 }

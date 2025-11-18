@@ -5,10 +5,3 @@ export interface ListUserCreatedTemplatesInputs {
   pagesize?: number;
   outputVariable: string;
 }
-
-export interface ListUserCreatedTemplatesQueryParameters {
-  accessapilevel?: number;
-  includeall?: boolean;
-  page?: number;
-  pagesize?: number;
-}

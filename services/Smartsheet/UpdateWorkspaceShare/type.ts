@@ -5,7 +5,3 @@ export interface UpdateWorkspaceShareInputs {
   accesslevel?: string;
   outputVariable: string;
 }
-
-export interface UpdateWorkspaceShareQueryParameters {
-  accessapilevel?: number;
-}

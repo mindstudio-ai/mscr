@@ -1,29 +1,9 @@
 export interface CreateUpdateRequestInputs {
   sheetId: string;
-  rowIds?: any;
-  columnIds?: any;
-  includeAttachments?: any;
-  includeDiscussions?: any;
-  layout?: any;
-  ccMe?: any;
-  message?: any;
-  sendTo?: any;
-  email?: any;
-  subject?: any;
-  id?: any;
-  createdAt?: any;
-  modifiedAt?: any;
-  schedule?: any;
-  type?: any;
-  dayDescriptors?: any;
-  dayOfMonth?: any;
-  dayOrdinal?: any;
-  repeatEvery?: any;
-  endAt?: any;
-  lastSentAt?: any;
-  nextSendAt?: any;
-  startAt?: any;
-  sentBy?: any;
-  name?: any;
+  rowIds: string;
+  columnIds: string;
+  recipientEmails: string;
+  subject: string;
+  message?: string;
   outputVariable: string;
 }

@@ -1,7 +1,6 @@
 export interface MoveFolderInputs {
   folderId: string;
-  destinationId?: any;
-  destinationType?: any;
-  newName?: any;
+  destinationType: string;
+  destinationId?: string;
   outputVariable: string;
 }
