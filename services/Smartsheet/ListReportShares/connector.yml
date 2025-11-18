@@ -5,8 +5,9 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Report Shares
-  description: Gets a list of all users and groups to whom the specified Report is shared, and their access level.
-This operation supports query string parameters for pagination of results.
+  description: |
+    Gets a list of all users and groups to whom the specified Report is shared, and their access level.
+    This operation supports query string parameters for pagination of results.
   quickHelp: readme.md
 configuration:
   - title: Parameters

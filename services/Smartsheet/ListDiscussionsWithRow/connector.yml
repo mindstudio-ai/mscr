@@ -5,8 +5,9 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Discussions With Row
-  description: Gets a list of all discussions associated with the specified row. Remember that discussions are containers
-for the conversation thread. To see the entire thread, use the include=comments parameter.
+  description: |
+    Gets a list of all discussions associated with the specified row. Remember that discussions are containers
+    for the conversation thread. To see the entire thread, use the include=comments parameter.
   quickHelp: readme.md
 configuration:
   - title: Parameters

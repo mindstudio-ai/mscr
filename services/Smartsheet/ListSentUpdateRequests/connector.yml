@@ -5,16 +5,17 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Sent Update Requests
-  description: "Gets a summarized list of all sent update requests on the sheet.
-Only the following fields are returned in the response:
-  * **id**
-  * **message**
-  * **sendTo**
-  * **sentAt**
-  * **sentBy**
-  * **status**
-  * **subject**
-  * **updateRequestId**"
+  description: |
+    Gets a summarized list of all sent update requests on the sheet.
+    Only the following fields are returned in the response:
+      * **id**
+      * **message**
+      * **sendTo**
+      * **sentAt**
+      * **sentBy**
+      * **status**
+      * **subject**
+      * **updateRequestId**
   quickHelp: readme.md
 configuration:
   - title: Parameters

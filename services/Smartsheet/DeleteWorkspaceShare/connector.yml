@@ -5,9 +5,10 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Workspace Share
-  description: Deletes the share specified in the URL.
+  description: |
+    Deletes the share specified in the URL.
 
-**_This operation is only available to system administrators._**
+    **_This operation is only available to system administrators._**
   quickHelp: readme.md
 configuration:
   - title: Parameters

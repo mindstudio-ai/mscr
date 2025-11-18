@@ -5,7 +5,8 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Search Everything
-  description: Searches all sheets that the user can access, for the specified text. If you have not used the public API in a while, we will need to provision your data. This could take up to 24 hours so please check back later!
+  description: |
+    Searches all sheets that the user can access, for the specified text. If you have not used the public API in a while, we will need to provision your data. This could take up to 24 hours so please check back later!
   quickHelp: readme.md
 configuration:
   - title: Parameters
@@ -18,8 +19,8 @@ configuration:
         type: text
       - label: location
         required: false
-        helpText: **Deprecated** When specified with a value of **personalWorkspace**, limits the response to only those items in the user's workspaces.
-
+        helpText: |
+          **Deprecated** When specified with a value of **personalWorkspace**, limits the response to only those items in the user's workspaces.
         variable: location
         type: text
       - label: modifiedsince

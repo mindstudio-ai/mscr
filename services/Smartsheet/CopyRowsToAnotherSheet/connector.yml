@@ -22,7 +22,7 @@ configuration:
           * **all** - specify a value of **all** to include everything (attachments, children, and discussions).
           * **attachments**
           * **children** - if specified, any child rows of the rows specified in the request are also copied to the destination sheet, and parent-child relationships amongst rows are preserved within the destination sheet; if not specified, only the rows specified in the request are copied.
-          * **discussions**
+          * **discussions** - include all discussions in threads
         variable: include
         type: text
       - label: ignorerowsnotfound
