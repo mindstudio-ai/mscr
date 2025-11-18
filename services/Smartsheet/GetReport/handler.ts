@@ -2,7 +2,8 @@ import fetch from 'node-fetch';
 
 import { GetReportInputs } from './type';
 import { IHandlerContext } from '../type';
-import { BASE_URL } from '../constants';
+
+const BASE_URL = 'https://api.smartsheet.com/2.0';
 
 export const handler = async ({
   inputs,

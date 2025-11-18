@@ -3,12 +3,13 @@ import fetch from 'node-fetch';
 import { GetFolderInputs } from './type';
 import { IHandlerContext } from '../type';
 
+const BASE_URL = 'https://api.smartsheet.com/2.0';
+
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: IHandlerContext<GetFolderInputs>) => {
-  const BASE_URL = 'https://api.smartsheet.com/2.0';
   const { folderId, outputVariable } = inputs;
 
   if (!folderId) {
@@ -16,12 +17,13 @@ export const handler = async ({
   }
 
   const accessToken = process.env.accessToken;
+  const url = `${BASE_URL}/folders/${folderId}`;
+
   if (!accessToken) {
     throw new Error('Smartsheet access token is missing');
   }
 
   log(`Getting folder ${folderId}`);
-  const url = `${BASE_URL}/folders/${folderId}`;
   try {
     log(`Fetching folder ${url}`);
     const response = await fetch(url, {
