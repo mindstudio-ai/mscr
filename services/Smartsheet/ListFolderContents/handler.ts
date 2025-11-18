@@ -118,21 +118,13 @@ export const handler = async ({
       queryParams.include = include;
     }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/folders/${folderId}/contents`,
+      path: `/folders/${folderId}`,
       queryParams,
     });
 
-    const data = (response as any).data || response;
-    const contents = Array.isArray(data) ? data : [];
-
-    setOutput(outputVariable, {
-      totalCount: contents.length,
-      contents,
-    });
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to list folder contents: ${error.message}`);
   }
