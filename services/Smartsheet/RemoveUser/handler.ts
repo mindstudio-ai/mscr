@@ -104,8 +104,13 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<RemoveUserInputs>) => {
-  const { userId, transferTo, transferSheets, removeFromSharing, outputVariable } =
-    inputs;
+  const {
+    userId,
+    transferTo,
+    transferSheets,
+    removeFromSharing,
+    outputVariable,
+  } = inputs;
 
   if (!userId) {
     throw new Error('User ID is required');

@@ -104,14 +104,8 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CopyWorkspaceInputs>) => {
-  const {
-    workspaceId,
-    newName,
-    include,
-    includes,
-    skipRemap,
-    outputVariable,
-  } = inputs;
+  const { workspaceId, newName, include, includes, skipRemap, outputVariable } =
+    inputs;
 
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
