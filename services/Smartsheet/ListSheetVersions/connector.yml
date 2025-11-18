@@ -14,11 +14,6 @@ configuration:
         required: true
         variable: sheetId
         type: text
-      - label: Attachment Id
-        required: true
-        helpText: (Required) ID of the attachment
-        variable: attachmentId
-        type: text
   - title: Query Options
     collapsed: true
     items:

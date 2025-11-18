@@ -104,8 +104,7 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListSheetVersionsInputs>) => {
-  const { sheetId, attachmentId, page, pageSize, includeAll, outputVariable } =
-    inputs;
+  const { sheetId, page, pageSize, includeAll, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -125,21 +124,13 @@ export const handler = async ({
       queryParams.includeAll = includeAll;
     }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${sheetId}/versions`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    const versions = Array.isArray(data) ? data : [];
-    log(`Found ${versions.length} version(s)`);
-    setOutput(outputVariable, {
-      totalCount: versions.length,
-      versions,
-    });
+    log(`Successfully listed versions for sheet ${sheetId}`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to list sheet versions: ${error.message}`);
   }
