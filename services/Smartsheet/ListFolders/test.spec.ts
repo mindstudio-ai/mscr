@@ -5,8 +5,8 @@ test('lists folders', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    workspaceId: 'test-workspace-id',
-    outputVariable: 'folders',
+    folderId: 'test-folder-id',
+    outputVariable: 'output',
   });
-  expect(ctx.outputs['folders'].folders).toBeDefined();
+  expect(ctx.outputs['output']).toBeDefined();
 });

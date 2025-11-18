@@ -104,21 +104,12 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListFoldersInputs>) => {
-  const { workspaceId, folderId, includeAll, page, pageSize, outputVariable } =
-    inputs;
+  const { folderId, includeAll, page, pageSize, outputVariable } = inputs;
 
-  if (!folderId && !workspaceId) {
-    throw new Error('Either a folder ID or workspace ID is required');
+  if (!folderId) {
+    throw new Error('Folder ID is required');
   }
-
-  const targetPath = workspaceId
-    ? `/workspaces/${workspaceId}/folders`
-    : `/folders/${folderId}/folders`;
-  const targetDescription = workspaceId
-    ? `workspace ${workspaceId}`
-    : `folder ${folderId}`;
-
-  log(`Listing folders in ${targetDescription}`);
+  log(`Listing folders in folder ${folderId}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
@@ -132,22 +123,12 @@ export const handler = async ({
       queryParams.pageSize = pageSize;
     }
 
-    const response = await smartsheetApiRequest<{
-      data: Array<{ resourceType: string }>;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: targetPath,
+      path: `/folders/${folderId}/folders`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    const folders = Array.isArray(data)
-      ? data.filter((item: any) => item.resourceType === 'folder')
-      : [];
-    log(`Found ${folders.length} folder(s)`);
-    setOutput(outputVariable, {
-      totalCount: folders.length,
-      folders,
-    });
+    setOutput(outputVariable, response);
   } catch (error: any) {
     throw new Error(`Failed to list folders: ${error.message}`);
   }

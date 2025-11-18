@@ -1,5 +1,4 @@
 export interface ListFoldersInputs {
-  workspaceId: string;
   folderId: string;
   includeAll?: boolean;
   page?: number;

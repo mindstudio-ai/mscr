@@ -10,14 +10,9 @@ metadata:
 configuration:
   - title: Folder Information
     items:
-      - label: Workspace ID
-        required: true
-        helpText: The ID of the workspace
-        variable: workspaceId
-        type: text
       - label: Folder Id
         required: true
-        helpText: (Required) Folder Id where you can create sheets, sights, reports, templates, and other folders.
+        helpText: The ID of the folder
         variable: folderId
         type: text
   - title: Query Options
