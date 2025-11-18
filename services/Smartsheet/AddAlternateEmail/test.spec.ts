@@ -2,12 +2,12 @@ import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
 test('adds alternate email for a user', async () => {
-  process.env.accessToken = 'Bearer hM56NiTZB4jgfKXoN7F1ZIr06ndbkNMiI1Qmk';
+  process.env.accessToken = process.env.accessToken;
 
   const { handler } = await import('./handler.ts');
 
   const ctx = await runConnector(handler, {
-    userId: '8378305381459844',
+    userId: 'test-user-id',
     email: 'test@example.com',
     outputVariable: 'newEmail',
   });
