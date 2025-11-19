@@ -104,7 +104,7 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetProofInputs>) => {
-  const { sheetId, proofRequestId, proofId, include, outputVariable } = inputs;
+  const { sheetId, proofId, include, outputVariable } = inputs;
 
   if (!sheetId) {
     throw new Error('Sheet ID is required');
@@ -113,11 +113,7 @@ export const handler = async ({
     throw new Error('Proof ID is required');
   }
 
-  log(
-    `Getting proof ${proofId}${
-      proofRequestId ? ` for request ${proofRequestId}` : ''
-    }`,
-  );
+  log(`Getting proof ${proofId}`);
 
   try {
     const queryParams: Record<string, string> = {};
