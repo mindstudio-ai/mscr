@@ -5,20 +5,42 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Group
-  description: Gets details of a specific group
+  description: 'Gets information about an array of Group Members for the group specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Group Information
+  - title: Resource Information
     items:
-      - label: Group ID
+      - label: Group Id
         required: true
-        helpText: The ID of the group
         variable: groupId
         type: text
+        placeholder: Enter Group Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the group details
         variable: outputVariable
         type: outputVariableName

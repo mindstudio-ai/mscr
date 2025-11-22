@@ -5,35 +5,36 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Attach File To Proof
-  description: Attaches a file to the proof.
+  description: 'Attaches a file to the proof.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: sheet Id
+      - label: Sheet Id
         required: true
-        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-      - label: proof Id
+        placeholder: Enter Sheet Id...
+      - label: Proof Id
         required: true
-        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
-      - label: file Path
+        placeholder: Enter Proof Id...
+  - title: File Upload
+    items:
+      - label: File Path
         required: true
-        helpText: Local path to the file to upload
         variable: filePath
         type: text
-      - label: file Name
+        placeholder: /path/to/file
+      - label: File Name
         required: false
-        helpText: Optional name to use for the uploaded file
         variable: fileName
         type: text
+        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

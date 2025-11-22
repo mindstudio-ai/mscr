@@ -5,52 +5,39 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Sheet Summary Field
-  description: Gets a specific summary field
+  description: 'Returns object containing array of summary fields. Allows for pagination of results.'
   quickHelp: readme.md
 configuration:
-  - title: Field Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Field ID
-        required: true
-        variable: fieldId
-        type: text
+        placeholder: Enter Sheet Id...
   - title: Query Options
     collapsed: true
     items:
-      - label: Include All
+      - label: Include
         required: false
-        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
-        variable: includeAll
-        type: checkbox
-        defaultValue: false
-      - label: Page
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
         required: false
-        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
       - label: Page Size
         required: false
-        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
         variable: pageSize
         type: number
         defaultValue: 100
-      - label: Include
+      - label: Page
         required: false
-        helpText: 'A comma-separated list of elements to include in the response. * **format**: includes format info for cells, rows, and summary fields * **writerInfo**: includes createdBy and modifiedBy attributes for'
-        variable: include
-        type: text
-        placeholder: format
-      - label: Exclude
-        required: false
-        helpText: 'A comma-separated list of elements to not include in the response. * **displayValue**: excludes displayValue info for cells, rows, and summary fields * **image**: excludes image attributes for cells a'
-        variable: exclude
-        type: text
-        placeholder: displayValue
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

@@ -104,44 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListProofDiscussionsInputs>) => {
-  const {
-    sheetId,
-    proofId,
-    include,
-    page,
-    pagesize,
-    includeall,
-    outputVariable,
-  } = inputs;
-  if (!sheetId) {
-    throw new Error('sheetId is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!proofId) {
-    throw new Error('proofId is required');
-  }
-  const path = `/sheets/${sheetId}/proofs/${proofId}/discussions`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (include !== undefined && include !== null) {
-    queryParams['include'] = include;
-  }
-  if (page !== undefined && page !== null) {
-    queryParams['page'] = page;
-  }
-  if (pagesize !== undefined && pagesize !== null) {
-    queryParams['pageSize'] = pagesize;
-  }
-  if (includeall !== undefined && includeall !== null) {
-    queryParams['includeAll'] = includeall;
+  if (!inputs.proofId) {
+    throw new Error('Proof Id is required');
   }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'GET',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
+  log(`List Proof Discussions`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/discussions`,
+      queryParams,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list proof discussions: ${errorMessage}`);
+  }
 };

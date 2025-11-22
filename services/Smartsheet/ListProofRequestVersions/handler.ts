@@ -104,63 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListProofRequestVersionsInputs>) => {
-  const {
-    sheetId,
-    proofRequestId,
-    proofId,
-    page,
-    pageSize,
-    includeAll,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!proofId) {
-    throw new Error('Proof ID is required');
+  if (!inputs.proofId) {
+    throw new Error('Proof Id is required');
   }
 
-  log(`Listing versions for proof ${proofId}`);
+  log(`List Proof Versions`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/proofs/${proofId}/versions`,
+      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/versions`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    const versions = Array.isArray(data) ? data : [];
-    const filteredVersions = proofRequestId
-      ? versions.filter((version: any) => {
-          const id = version?.proofRequestId ?? version?.id;
-          return String(id) === String(proofRequestId);
-        })
-      : versions;
-    log(
-      `Found ${filteredVersions.length} version(s)${
-        proofRequestId ? ` for request ${proofRequestId}` : ''
-      }`,
-    );
-    setOutput(outputVariable, {
-      totalCount: filteredVersions.length,
-      versions: filteredVersions,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to list proof versions: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list proof versions: ${errorMessage}`);
   }
 };

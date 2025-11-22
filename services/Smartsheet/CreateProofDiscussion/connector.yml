@@ -5,33 +5,31 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Proof Discussion
-  description: Creates a discussion on a proof.
+  description: 'Creates a discussion on a proof.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: sheet Id
+      - label: Sheet Id
         required: true
-        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-      - label: proof Id
+        placeholder: Enter Sheet Id...
+      - label: Proof Id
         required: true
-        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
-      - label: comment
+        placeholder: Enter Proof Id...
+  - title: Request Data
+    items:
+      - label: Comment
         required: false
         variable: comment
         type: text
-      - label: text
-        required: false
-        variable: text
-        type: text
+        placeholder: Enter Comment...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -5,23 +5,23 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Discussion
-  description: Creates a new discussion on a sheet
+  description: 'Creates a new discussion on a sheet. To create a discussion with an attachment please use "multipart/form-data" content type.'
   quickHelp: readme.md
 configuration:
-  - title: Discussion Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Title
-        required: true
-        variable: title
+        placeholder: Enter Sheet Id...
+  - title: Request Data
+    items:
+      - label: Comment
+        required: false
+        variable: comment
         type: text
-      - label: Comment Text
-        required: true
-        variable: commentText
-        type: text
+        placeholder: Enter Comment...
   - title: Output
     items:
       - label: Output Variable

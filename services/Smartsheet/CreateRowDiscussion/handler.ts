@@ -104,35 +104,32 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateRowDiscussionInputs>) => {
-  const { sheetId, rowId, title, commentText, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!rowId) {
-    throw new Error('Row ID is required');
-  }
-  if (!title) {
-    throw new Error('Discussion title is required');
-  }
-  if (!commentText) {
-    throw new Error('Comment text is required');
+  if (!inputs.rowId) {
+    throw new Error('Row Id is required');
   }
 
-  log(`Creating discussion on row ${rowId}: ${title}`);
+  log(`Create a Discussion on a Row`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.comment !== undefined) {
+      requestBody.comment = inputs.comment;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/rows/${rowId}/discussions`,
-      body: {
-        title,
-        comment: { text: commentText },
-      },
+      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/discussions`,
+      body: requestBody,
     });
-    log('Row discussion created successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to create row discussion: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create a discussion on a row: ${errorMessage}`);
   }
 };

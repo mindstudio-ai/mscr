@@ -1,0 +1,185 @@
+import { useState, useEffect } from 'react';
+import ConnectorList from './components/ConnectorList';
+import ConnectorForm from './components/ConnectorForm';
+import { initDB, getAllConnectorStatuses } from './utils/indexedDB';
+
+function App() {
+  const [connectors, setConnectors] = useState([]);
+  const [selectedConnector, setSelectedConnector] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [connectorStatuses, setConnectorStatuses] = useState({});
+
+  useEffect(() => {
+    loadConnectors();
+    loadStatuses();
+  }, []);
+
+  const loadStatuses = async () => {
+    try {
+      await initDB();
+      const statuses = await getAllConnectorStatuses();
+      setConnectorStatuses(statuses);
+    } catch (error) {
+      console.error('Failed to load connector statuses:', error);
+    }
+  };
+
+  const updateConnectorStatus = (connectorId, status, comment) => {
+    setConnectorStatuses((prev) => ({
+      ...prev,
+      [connectorId]: {
+        connectorId,
+        status,
+        comment,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
+  };
+
+  const loadConnectors = async () => {
+    try {
+      const response = await fetch('/api/connectors');
+      const data = await response.json();
+      setConnectors(data);
+      if (data.length > 0) {
+        setSelectedConnector(data[0]);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Failed to load connectors:', error);
+      setLoading(false);
+    }
+  };
+
+  const filteredConnectors = connectors.filter(
+    (connector) =>
+      connector?.directory?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      connector?.id?.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  const doneCount = Object.values(connectorStatuses).filter(
+    (s) => s?.status === 'done',
+  ).length;
+  const stats = {
+    total: connectors.length,
+    done: doneCount,
+    pending: connectors.length - doneCount,
+  };
+
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="loading">Loading connectors...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container">
+      <div className="header">
+        <h1>🔌 Smartsheet Connector Tester</h1>
+        <p>Test and verify all Smartsheet connectors</p>
+      </div>
+
+      <div className="main-content">
+        <div className="sidebar">
+          <h2>Connectors ({connectors.length})</h2>
+          <div
+            style={{
+              marginBottom: '15px',
+              padding: '10px',
+              background: '#f8f9fa',
+              borderRadius: '4px',
+              fontSize: '12px',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: '5px',
+              }}
+            >
+              <span>✓ Done:</span>
+              <strong style={{ color: '#28a745' }}>{stats.done}</strong>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: '5px',
+              }}
+            >
+              <span>⏳ Pending:</span>
+              <strong style={{ color: '#ffc107' }}>{stats.pending}</strong>
+            </div>
+            <div
+              style={{
+                marginTop: '8px',
+                paddingTop: '8px',
+                borderTop: '1px solid #dee2e6',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Progress:</span>
+                <strong>
+                  {stats.total > 0
+                    ? Math.round((stats.done / stats.total) * 100)
+                    : 0}
+                  %
+                </strong>
+              </div>
+              <div
+                style={{
+                  marginTop: '5px',
+                  height: '6px',
+                  background: '#e9ecef',
+                  borderRadius: '3px',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    height: '100%',
+                    background: '#28a745',
+                    width: `${stats.total > 0 ? (stats.done / stats.total) * 100 : 0}%`,
+                    transition: 'width 0.3s',
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search connectors..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <ConnectorList
+            connectors={filteredConnectors}
+            selectedConnector={selectedConnector}
+            onSelect={setSelectedConnector}
+            connectorStatuses={connectorStatuses}
+          />
+        </div>
+
+        <div className="content-area">
+          {selectedConnector ? (
+            <ConnectorForm
+              connector={selectedConnector}
+              connectorStatus={connectorStatuses[selectedConnector.id]}
+              onStatusUpdate={updateConnectorStatus}
+            />
+          ) : (
+            <div>Select a connector to test</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;

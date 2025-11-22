@@ -1,6 +1,9 @@
 export interface GetColumnInputs {
   sheetId: string;
   columnId: string;
-  level?: number;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
+  page?: number;
   outputVariable: string;
 }

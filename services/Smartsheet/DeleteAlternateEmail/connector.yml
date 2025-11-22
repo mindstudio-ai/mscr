@@ -5,27 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Alternate Email
-  description: Deletes an alternate email address for a user
+  description: 'Deletes the specified alternate email address for the specified user.'
   quickHelp: readme.md
 configuration:
-  - title: Email Information
+  - title: Resource Information
     items:
-      - label: User ID
+      - label: User Id
         required: true
-        helpText: The ID of the user
         variable: userId
         type: text
-        placeholder: Enter user ID...
-      - label: Alternate Email ID
+        placeholder: Enter User Id...
+      - label: Alternate Email Id
         required: true
-        helpText: The ID of the alternate email to delete
         variable: alternateEmailId
         type: text
-        placeholder: Enter alternate email ID...
+        placeholder: Enter Alternate Email Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

@@ -1,52 +1,39 @@
 apiVersion: v1
 kind: Action
-id: listWorkspaces
+id: list-workspaces
 serviceId: smartsheet
 active: false
 metadata:
   name: List Workspaces
-  description: Lists all workspaces
+  description: 'Gets a list of workspaces that the user has access to. The list contains an abbreviated Workspace object for each workspace.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
-    items: []
-  - title: Options
+  - title: Query Options
     collapsed: true
     items:
-      - label: Include All
+      - label: Include
         required: false
-        helpText: (Deprecated as of February 1, 2025, and will be removed. Use 'lastKey' and 'pageSize' for paginated results.) If true, include all results, that is, do not paginate. Mutually exclusive with page and p
-        variable: includeAll
-        type: checkbox
-        defaultValue: false
-      - label: Last Key
-        required: false
-        helpText: If present with the value returned from a previous request, the client retrieves the next page of results using this token.
-        variable: lastKey
+        variable: include
         type: text
-      - label: Page
+        placeholder: writerInfo
+      - label: Exclude
         required: false
-        helpText: |
-          (Deprecated as of February 1, 2025, and will be removed. Use 'lastKey' and 'pageSize' for paginated results.) Which page to return. Defaults to 1 if not specified. If you specify a value greater than
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
       - label: Page Size
         required: false
-        helpText: The maximum number of results to return per page. The server may return fewer results. This value must be a positive integer, a multiple of 100, and between 100 and 1000 (inclusive). Defaults to 100 i
         variable: pageSize
         type: number
         defaultValue: 100
-      - label: Access Api Level
+      - label: Page
         required: false
-        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
-        variable: accessApiLevel
+        variable: page
         type: number
-        defaultValue: 0
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the list of workspaces
         variable: outputVariable
         type: outputVariableName

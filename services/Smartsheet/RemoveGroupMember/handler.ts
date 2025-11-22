@@ -104,29 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<RemoveGroupMemberInputs>) => {
-  const { groupId, userId, outputVariable } = inputs;
-
-  if (!groupId) {
-    throw new Error('Group ID is required');
+  if (!inputs.groupId) {
+    throw new Error('Group Id is required');
   }
-  if (!userId) {
-    throw new Error('User ID is required');
+  if (!inputs.userId) {
+    throw new Error('User Id is required');
   }
 
-  log(`Removing user ${userId} from group ${groupId}`);
+  log(`Delete Group Members`);
 
   try {
-    await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/groups/${groupId}/members/${userId}`,
+      path: `/groups/${inputs.groupId}/members/${inputs.userId}`,
     });
-    log('Member removed successfully');
-    setOutput(outputVariable, {
-      success: true,
-      removedUserId: userId,
-      groupId,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to remove group member: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete group members: ${errorMessage}`);
   }
 };

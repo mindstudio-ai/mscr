@@ -1,14 +1,13 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('adds attachment version', async () => {
+test('attach new version', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheet-id',
-    attachmentId: 'test-attachment-id',
-    filePath: '/path/to/file.pdf',
-    outputVariable: 'newVersion',
+    sheetId: 'test-sheetId',
+    attachmentId: 'test-attachmentId',
+    outputVariable: 'result',
   });
-  expect(ctx.outputs['newVersion']).toBeTruthy();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

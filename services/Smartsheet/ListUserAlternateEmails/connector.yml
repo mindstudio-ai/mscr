@@ -5,7 +5,7 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List User Alternate Emails
-  description: Lists all alternate email addresses for a user
+  description: 'Lists all alternate email addresses for a user'
   quickHelp: readme.md
 configuration:
   - title: User Information

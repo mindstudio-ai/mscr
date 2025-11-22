@@ -5,25 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Dashboard Share
-  description: Deletes the share specified in the URL.
+  description: 'Deletes the share specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: sight Id
+      - label: Sight Id
         required: true
-        helpText: (Required) SightID of the sight being accessed.
         variable: sightId
         type: text
-      - label: share Id
+        placeholder: Enter Sight Id...
+      - label: Share Id
         required: true
-        helpText: (Required) Share Id.
         variable: shareId
         type: text
+        placeholder: Enter Share Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -104,48 +104,29 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddAlternateEmailInputs>) => {
-  const { userId, email, outputVariable } = inputs;
-
-  if (!userId) {
-    throw new Error('User ID is required');
+  if (!inputs.userId) {
+    throw new Error('User Id is required');
   }
 
-  if (!email) {
-    throw new Error('Email address is required');
-  }
-
-  log(`Adding alternate email ${email} for user: ${userId}`);
+  log(`Add Alternate Emails`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.email !== undefined) {
+      requestBody.email = inputs.email;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/users/${userId}/alternateemails`,
-      body: [{ email }],
+      path: `/users/${inputs.userId}/alternateemails`,
+      body: requestBody,
     });
 
-    const result = Array.isArray(response) ? response[0] : response;
-    log(`Successfully added alternate email with ID: ${(result as any).id}`);
-
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error(`User not found: ${userId}`);
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Permission')
-    ) {
-      throw new Error(
-        'Permission denied. You must be a system administrator to add alternate emails.',
-      );
-    } else if (
-      errorMessage.includes('400') ||
-      errorMessage.includes('Invalid')
-    ) {
-      throw new Error(`Invalid email address: ${errorMessage}`);
-    } else {
-      throw new Error(`Failed to add alternate email: ${errorMessage}`);
-    }
+    throw new Error(`Failed to add alternate emails: ${errorMessage}`);
   }
 };

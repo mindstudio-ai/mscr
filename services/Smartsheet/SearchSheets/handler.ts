@@ -104,75 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SearchSheetsInputs>) => {
-  const { sheetId, query, searchQuery, outputVariable } = inputs;
-  const effectiveQuery = query || searchQuery;
-
-  // Validate required inputs
-  if (!effectiveQuery) {
-    throw new Error('Search query is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  if (sheetId) {
-    log(`Searching for "${effectiveQuery}" in sheet ${sheetId}`);
-  } else {
-    log(`Searching for "${effectiveQuery}" across all sheets`);
-  }
+  log(`Search Sheet`);
 
   try {
-    let response;
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    if (sheetId) {
-      // Search within a specific sheet
-      response = await smartsheetApiRequest({
-        method: 'GET',
-        path: `/search/sheets/${sheetId}`,
-        queryParams: {
-          query: effectiveQuery,
-        },
-      });
-    } else {
-      // Search across all sheets
-      response = await smartsheetApiRequest({
-        method: 'GET',
-        path: '/search/sheets',
-        queryParams: {
-          query: effectiveQuery,
-        },
-      });
-    }
-
-    const totalResults = (response as any).totalCount || 0;
-    log(`Found ${totalResults} result(s)`);
-
-    // Set output variable
-    setOutput(outputVariable, {
-      query: effectiveQuery,
-      totalCount: totalResults,
-      results: (response as any).results || [],
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/search/sheets/${inputs.sheetId}`,
+      queryParams,
     });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error(
-        `Sheet not found: ${sheetId}. Please check the sheet ID.`,
-      );
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Access denied')
-    ) {
-      throw new Error(
-        `Access denied. You may not have permission to search this content.`,
-      );
-    } else if (
-      errorMessage.includes('400') ||
-      errorMessage.includes('Invalid')
-    ) {
-      throw new Error(
-        `Invalid search query: ${errorMessage}. Check your search parameters.`,
-      );
-    } else {
-      throw new Error(`Search failed: ${errorMessage}`);
-    }
+    throw new Error(`Failed to search sheet: ${errorMessage}`);
   }
 };

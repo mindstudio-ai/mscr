@@ -5,24 +5,39 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Contact
-  description: Gets a specific contact by ID
+  description: 'Gets the specified contact.'
   quickHelp: readme.md
 configuration:
-  - title: Contact Information
+  - title: Resource Information
     items:
-      - label: Contact ID
+      - label: Contact Id
         required: true
         variable: contactId
         type: text
+        placeholder: Enter Contact Id...
   - title: Query Options
     collapsed: true
     items:
       - label: Include
         required: false
-        helpText: 'A comma-separated list of optional elements to include in the response:   * **profileImage** '
         variable: include
         type: text
-        placeholder: profileImage
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

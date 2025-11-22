@@ -4,20 +4,45 @@ id: get-cross-sheet-reference
 serviceId: smartsheet
 active: false
 metadata:
-  name: Get Cross-sheet Reference
-  description: Gets a specific cross-sheet reference
+  name: Get Cross Sheet Reference
+  description: 'Gets the cross-sheet reference specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Reference Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Cross-sheet Reference ID
+        placeholder: Enter Sheet Id...
+      - label: Cross Sheet Reference Id
         required: true
         variable: crossSheetReferenceId
         type: text
+        placeholder: Enter Cross Sheet Reference Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

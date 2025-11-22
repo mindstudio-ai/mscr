@@ -104,61 +104,31 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetCellHistoryInputs>) => {
-  const {
-    sheetId,
-    rowId,
-    columnId,
-    include,
-    pageSize,
-    page,
-    level,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!rowId) {
-    throw new Error('Row ID is required');
+  if (!inputs.rowId) {
+    throw new Error('Row Id is required');
   }
-  if (!columnId) {
-    throw new Error('Column ID is required');
+  if (!inputs.columnId) {
+    throw new Error('Column Id is required');
   }
 
-  log(`Getting cell history for cell in row ${rowId}, column ${columnId}`);
+  log(`List Cell History`);
 
   try {
-    const queryParams: Record<string, string | number> = {};
-    if (include) {
-      queryParams.include = include;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (level !== undefined) {
-      queryParams.level = level;
-    }
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/rows/${rowId}/columns/${columnId}/history`,
+      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/columns/${inputs.columnId}/history`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    const totalCount =
-      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
-    log(`Retrieved ${Array.isArray(data) ? data.length : 0} history item(s)`);
-    setOutput(outputVariable, {
-      totalCount,
-      history: data,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to get cell history: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list cell history: ${errorMessage}`);
   }
 };

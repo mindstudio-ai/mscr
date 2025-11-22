@@ -5,27 +5,27 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Add Alternate Email
-  description: Adds an alternate email address for a specified user
+  description: 'Adds one or more alternate email addresses for the specified user. This operation is only available to system administrators.'
+
   quickHelp: readme.md
 configuration:
-  - title: User Information
+  - title: Resource Information
     items:
-      - label: User ID
+      - label: User Id
         required: true
-        helpText: The ID of the user to add alternate email for
         variable: userId
         type: text
-        placeholder: Enter user ID...
-      - label: Email Address
+        placeholder: Enter User Id...
+  - title: Request Data
+    items:
+      - label: Email
         required: true
-        helpText: The alternate email address to add
         variable: email
         type: text
-        placeholder: user@example.com
+        placeholder: Enter Email...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the created alternate email info
         variable: outputVariable
         type: outputVariableName

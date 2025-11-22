@@ -1,52 +1,40 @@
 apiVersion: v1
 kind: Action
-id: copyWorkspace
+id: copy-workspace
 serviceId: smartsheet
 active: false
 metadata:
   name: Copy Workspace
-  description: Creates a copy of a workspace
+  description: 'Copies a workspace.'
   quickHelp: readme.md
 configuration:
-  - title: Workspace Information
+  - title: Resource Information
     items:
-      - label: Workspace ID
+      - label: Workspace Id
         required: true
-        helpText: The ID of the workspace to copy
         variable: workspaceId
         type: text
+        placeholder: Enter Workspace Id...
+  - title: Request Data
+    items:
+      - label: Destination Id
+        required: false
+        variable: destinationId
+        type: text
+        placeholder: Enter Destination Id...
+      - label: Destination Type
+        required: false
+        variable: destinationType
+        type: text
+        placeholder: Enter Destination Type...
       - label: New Name
-        required: true
-        helpText: Name for the copied workspace
+        required: false
         variable: newName
         type: text
-  - title: Options
-    collapsed: true
-    items:
-      - label: Includes
-        required: false
-        helpText: Array of items to include as JSON array (e.g., ["data", "attachments"])
-        variable: includes
-        type: text
-        textOptions:
-          type: multiline
-        placeholder: '["data", "attachments"]'
-      - label: Include
-        required: false
-        helpText: 'A comma-separated list of elements to include:   * **all**   * **attachments**   * **brand**   * **cellLinks** - includes cross-sheet references   * **data** - includes formatting   * **discussions** '
-        variable: include
-        type: text
-        placeholder: filters
-      - label: Skip Remap
-        required: false
-        helpText: A comma-separated list of references to NOT re-map for the newly created folder.
-        variable: skipRemap
-        type: text
-        placeholder: reports
+        placeholder: Enter New Name...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the copied workspace
         variable: outputVariable
         type: outputVariableName

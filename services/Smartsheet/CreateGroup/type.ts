@@ -1,6 +1,6 @@
 export interface CreateGroupInputs {
-  name: string;
-  description?: string;
-  memberEmails?: string;
+  name?: any;
+  description?: any;
+  members?: string;
   outputVariable: string;
 }

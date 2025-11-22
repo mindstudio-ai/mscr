@@ -5,42 +5,26 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Add Cell Image
-  description: Adds an uploaded image to a cell
+  description: 'Uploads an image to the specified cell within a sheet.'
   quickHelp: readme.md
 configuration:
-  - title: Cell Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Row ID
+        placeholder: Enter Sheet Id...
+      - label: Row Id
         required: true
         variable: rowId
         type: text
-      - label: Column ID
+        placeholder: Enter Row Id...
+      - label: Column Id
         required: true
         variable: columnId
         type: text
-      - label: Image ID
-        required: true
-        helpText: ID from Upload Cell Image
-        variable: imageId
-        type: text
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Alt Text
-        required: false
-        helpText: Url-encoded alternate text for the image
-        variable: altText
-        type: text
-      - label: Override Validation
-        required: false
-        helpText: 'You may use the query string parameter **overrideValidation** with a value of **true** to allow a cell value outside of the validation limits. You must specify **strict** with a value of **false** to '
-        variable: overrideValidation
-        type: checkbox
-        defaultValue: false
+        placeholder: Enter Column Id...
   - title: Output
     items:
       - label: Output Variable

@@ -5,19 +5,33 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Attachment
-  description: Deletes an attachment from a sheet
+  description: 'Deletes the attachment specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Attachment Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Attachment ID
+        placeholder: Enter Sheet Id...
+      - label: Attachment Id
         required: true
         variable: attachmentId
         type: text
+        placeholder: Enter Attachment Id...
+  - title: File Upload
+    items:
+      - label: File Path
+        required: true
+        variable: filePath
+        type: text
+        placeholder: /path/to/file
+      - label: File Name
+        required: false
+        variable: fileName
+        type: text
+        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable

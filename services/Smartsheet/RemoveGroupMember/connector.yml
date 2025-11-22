@@ -5,19 +5,22 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Remove Group Member
-  description: Removes a member from a group
+  description: 'Removes a member from a group. This operation is only available to group administrators and system administrators.'
+
   quickHelp: readme.md
 configuration:
-  - title: Group Information
+  - title: Resource Information
     items:
-      - label: Group ID
+      - label: Group Id
         required: true
         variable: groupId
         type: text
-      - label: User ID
+        placeholder: Enter Group Id...
+      - label: User Id
         required: true
         variable: userId
         type: text
+        placeholder: Enter User Id...
   - title: Output
     items:
       - label: Output Variable

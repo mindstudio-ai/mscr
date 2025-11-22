@@ -104,42 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListAutomationRulesInputs>) => {
-  const { sheetId, includeAll, page, pageSize, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log(`Listing automation rules for sheet: ${sheetId}`);
+  log(`List All Automation Rules`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/automationrules`,
+      path: `/sheets/${inputs.sheetId}/automationrules`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    log(`Found ${Array.isArray(data) ? data.length : 0} automation rule(s)`);
-    setOutput(outputVariable, {
-      totalCount:
-        (response as any).totalCount || (Array.isArray(data) ? data.length : 0),
-      automationRules: data,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to list automation rules: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list all automation rules: ${errorMessage}`);
   }
 };

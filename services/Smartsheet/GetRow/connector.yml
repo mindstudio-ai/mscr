@@ -5,72 +5,47 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Row
-  description: Retrieves the details of a specific row from a sheet
+  description: 'Gets the row specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Row Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet containing the row
         variable: sheetId
         type: text
-        placeholder: Enter sheet ID...
-      - label: Row ID
+        placeholder: Enter Sheet Id...
+      - label: Row Id
         required: true
-        helpText: The ID of the row to retrieve
         variable: rowId
         type: text
-        placeholder: Enter row ID...
+        placeholder: Enter Row Id...
   - title: Query Options
     collapsed: true
     items:
-      - label: Include Discussions
-        required: false
-        helpText: Include discussion threads for this row
-        variable: includeDiscussions
-        type: checkbox
-        defaultValue: false
-      - label: Include Attachments
-        required: false
-        helpText: Include attachments for this row
-        variable: includeAttachments
-        type: checkbox
-        defaultValue: false
-      - label: Include Columns
-        required: false
-        helpText: Include column information
-        variable: includeColumns
-        type: checkbox
-        defaultValue: false
-      - label: Access Api Level
-        required: false
-        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
-        variable: accessApiLevel
-        type: number
-        defaultValue: 0
       - label: Include
         required: false
-        helpText: A comma-separated list of elements to include in the response.  See [Row Include Flags](../../tag/rowsRelated#section/Row-Include-Flags).  Also supports the **columns** include flag, which adds a colu
         variable: include
         type: text
-        placeholder: columns
+        placeholder: writerInfo
       - label: Exclude
         required: false
-        helpText: 'A comma-separated list of element types to exclude from the response:   * **filteredOutRows** - excludes filtered-out rows from response payload if a sheet filter is applied; includes total number of '
         variable: exclude
         type: text
         placeholder: filteredOutRows
-      - label: Level
+      - label: Page Size
         required: false
-        helpText: Specifies whether object data types, such as multi-contact data are returned in a backwards-compatible, text format in text/number columns.<br>  - Set `level=0` (default) to use text/number columns fo
-        variable: level
+        variable: pageSize
         type: number
-        defaultValue: 0
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the row details
         variable: outputVariable
         type: outputVariableName

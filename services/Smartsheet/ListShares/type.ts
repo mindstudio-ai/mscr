@@ -1,9 +1,8 @@
 export interface ListSharesInputs {
   sheetId: string;
-  sharingInclude?: string;
-  includeAll?: boolean;
-  page?: number;
+  include?: string;
+  exclude?: string;
   pageSize?: number;
-  accessApiLevel?: number;
+  page?: number;
   outputVariable: string;
 }

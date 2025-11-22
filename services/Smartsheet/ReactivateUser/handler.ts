@@ -104,17 +104,26 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ReactivateUserInputs>) => {
-  const { userId, outputVariable } = inputs;
-  if (!userId) {
-    throw new Error('userId is required');
+  if (!inputs.userId) {
+    throw new Error('User Id is required');
   }
-  const path = `/users/${userId}/reactivate`;
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'POST',
-    path,
-  };
+  log(`Reactivate User`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/users/${inputs.userId}/reactivate`,
+      body: requestBody,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to reactivate user: ${errorMessage}`);
+  }
 };

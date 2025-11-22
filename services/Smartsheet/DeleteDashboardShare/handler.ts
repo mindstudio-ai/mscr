@@ -104,20 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteDashboardShareInputs>) => {
-  const { sightId, shareId, outputVariable } = inputs;
-  if (!sightId) {
-    throw new Error('sightId is required');
+  if (!inputs.sightId) {
+    throw new Error('Sight Id is required');
   }
-  if (!shareId) {
-    throw new Error('shareId is required');
+  if (!inputs.shareId) {
+    throw new Error('Share Id is required');
   }
-  const path = `/sights/${sightId}/shares/${shareId}`;
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'DELETE',
-    path,
-  };
+  log(`Delete Dashboard Share`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sights/${inputs.sightId}/shares/${inputs.shareId}`,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete dashboard share: ${errorMessage}`);
+  }
 };

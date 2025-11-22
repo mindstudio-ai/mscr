@@ -5,33 +5,28 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Share
-  description: Updates a share's access level
+  description: 'Updates the access level of a user or group for the specified sheet.'
   quickHelp: readme.md
 configuration:
-  - title: Share Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Share ID
+        placeholder: Enter Sheet Id...
+      - label: Share Id
         required: true
         variable: shareId
         type: text
-      - label: New Access Level
-        required: true
-        helpText: VIEWER, EDITOR, EDITOR_SHARE, ADMIN
+        placeholder: Enter Share Id...
+  - title: Request Data
+    items:
+      - label: Access Level
+        required: false
         variable: accessLevel
         type: text
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Access Api Level
-        required: false
-        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
-        variable: accessApiLevel
-        type: number
-        defaultValue: 0
+        placeholder: Enter Access Level...
   - title: Output
     items:
       - label: Output Variable

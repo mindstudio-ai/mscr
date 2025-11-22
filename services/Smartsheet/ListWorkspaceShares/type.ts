@@ -1,8 +1,8 @@
 export interface ListWorkspaceSharesInputs {
   workspaceId: string;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
   page?: number;
-  pagesize?: number;
-  includeall?: boolean;
-  accessapilevel?: number;
   outputVariable: string;
 }

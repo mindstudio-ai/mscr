@@ -104,116 +104,77 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddColumnInputs>) => {
-  const {
-    sheetId,
-    columnTitle,
-    columnType,
-    picklistOptions,
-    insertPosition,
-    siblingColumnIndex,
-    outputVariable,
-  } = inputs;
-
-  // Validate required inputs
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  if (!columnTitle) {
-    throw new Error('Column title is required');
-  }
-
-  if (!columnType) {
-    throw new Error('Column type is required');
-  }
-
-  log(`Adding column "${columnTitle}" to sheet ${sheetId}`);
+  log(`Add Columns`);
 
   try {
-    // Build column object
-    const columnSpec: any = {
-      title: columnTitle,
-      type: columnType,
-    };
-
-    // Add picklist options if type is PICKLIST
-    if (columnType === 'PICKLIST' && picklistOptions) {
-      let optionsArray: string[];
-
-      if (typeof picklistOptions === 'string') {
-        // Try to parse as JSON first
-        try {
-          optionsArray = JSON.parse(picklistOptions);
-        } catch {
-          // If not JSON, split by comma
-          optionsArray = picklistOptions
-            .split(',')
-            .map((opt: string) => opt.trim())
-            .filter((opt: string) => opt.length > 0);
-        }
-      } else if (Array.isArray(picklistOptions)) {
-        optionsArray = picklistOptions;
-      } else {
-        throw new Error(
-          'Picklist options must be a comma-separated string or array',
-        );
-      }
-
-      columnSpec.options = optionsArray;
-      log(`Added ${optionsArray.length} picklist options`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.title !== undefined) {
+      requestBody.title = inputs.title;
+    }
+    if (inputs.type !== undefined) {
+      requestBody.type = inputs.type;
+    }
+    if (inputs.formula !== undefined) {
+      requestBody.formula = inputs.formula;
+    }
+    if (inputs.hidden !== undefined) {
+      requestBody.hidden = inputs.hidden;
+    }
+    if (inputs.index !== undefined) {
+      requestBody.index = inputs.index;
+    }
+    if (inputs.autoNumberFormat !== undefined) {
+      requestBody.autoNumberFormat = inputs.autoNumberFormat;
+    }
+    if (inputs.contactOptions !== undefined) {
+      requestBody.contactOptions = inputs.contactOptions;
+    }
+    if (inputs.description !== undefined) {
+      requestBody.description = inputs.description;
+    }
+    if (inputs.format !== undefined) {
+      requestBody.format = inputs.format;
+    }
+    if (inputs.locked !== undefined) {
+      requestBody.locked = inputs.locked;
+    }
+    if (inputs.lockedForUser !== undefined) {
+      requestBody.lockedForUser = inputs.lockedForUser;
+    }
+    if (inputs.options !== undefined) {
+      requestBody.options = inputs.options;
+    }
+    if (inputs.symbol !== undefined) {
+      requestBody.symbol = inputs.symbol;
+    }
+    if (inputs.systemColumnType !== undefined) {
+      requestBody.systemColumnType = inputs.systemColumnType;
+    }
+    if (inputs.validation !== undefined) {
+      requestBody.validation = inputs.validation;
+    }
+    if (inputs.version !== undefined) {
+      requestBody.version = inputs.version;
+    }
+    if (inputs.width !== undefined) {
+      requestBody.width = inputs.width;
     }
 
-    // Add position if specified
-    if (insertPosition && insertPosition !== 'end') {
-      if (insertPosition === 'beginning') {
-        columnSpec.index = 0;
-      } else if (
-        (insertPosition === 'before' || insertPosition === 'after') &&
-        siblingColumnIndex !== undefined &&
-        siblingColumnIndex !== ''
-      ) {
-        const index = parseInt(siblingColumnIndex, 10);
-        if (isNaN(index)) {
-          throw new Error('Sibling column index must be a valid number');
-        }
-        columnSpec.index = insertPosition === 'before' ? index : index + 1;
-      }
-    }
-
-    // Add column to sheet
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/columns`,
-      body: columnSpec,
+      path: `/sheets/${inputs.sheetId}/columns`,
+      body: requestBody,
     });
 
-    log(`Successfully added column with ID: ${(response as any).id}`);
-
-    // Set output variable
-    setOutput(outputVariable, response);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error(
-        `Sheet not found: ${sheetId}. Please check the ID and your access permissions.`,
-      );
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Permission')
-    ) {
-      throw new Error(
-        `Permission denied. You must have editor or admin access to add columns to this sheet.`,
-      );
-    } else if (
-      errorMessage.includes('400') ||
-      errorMessage.includes('Invalid')
-    ) {
-      throw new Error(
-        `Invalid column configuration: ${errorMessage}. Check your column type and options.`,
-      );
-    } else {
-      throw new Error(`Failed to add column: ${errorMessage}`);
-    }
+    throw new Error(`Failed to add columns: ${errorMessage}`);
   }
 };

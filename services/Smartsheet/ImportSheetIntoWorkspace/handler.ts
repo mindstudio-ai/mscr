@@ -104,46 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ImportSheetIntoWorkspaceInputs>) => {
-  const {
-    workspaceId,
-    sheetname,
-    headerrowindex,
-    primarycolumnindex,
-    filePath,
-    fileName,
-    outputVariable,
-  } = inputs;
-  if (!workspaceId) {
-    throw new Error('workspaceId is required');
-  }
-  if (!filePath) {
-    throw new Error('filePath is required');
-  }
-  const path = `/workspaces/${workspaceId}/sheets/import`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (sheetname !== undefined && sheetname !== null) {
-    queryParams['sheetName'] = sheetname;
-  }
-  if (headerrowindex !== undefined && headerrowindex !== null) {
-    queryParams['headerRowIndex'] = headerrowindex;
-  }
-  if (primarycolumnindex !== undefined && primarycolumnindex !== null) {
-    queryParams['primaryColumnIndex'] = primarycolumnindex;
+  if (!inputs.workspaceId) {
+    throw new Error('Workspace Id is required');
   }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'POST',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
-  requestOptions.multipart = true;
-  requestOptions.filePath = filePath;
-  if (fileName) {
-    requestOptions.fileName = fileName;
-  }
+  log(`Import Sheet into Workspace`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/workspaces/${inputs.workspaceId}/sheets/import`,
+      queryParams,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to import sheet into workspace: ${errorMessage}`);
+  }
 };

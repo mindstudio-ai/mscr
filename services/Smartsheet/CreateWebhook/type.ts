@@ -1,9 +1,9 @@
 export interface CreateWebhookInputs {
-  name: string;
-  callbackUrl: string;
-  scope: string;
-  scopeObjectId: string;
-  events: string;
-  version?: number;
+  callbackUrl?: any;
+  events?: string;
+  name?: any;
+  version?: any;
+  scope?: string;
+  scopeObjectId?: string;
   outputVariable: string;
 }

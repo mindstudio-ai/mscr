@@ -104,29 +104,32 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddCommentInputs>) => {
-  const { sheetId, discussionId, text, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!discussionId) {
-    throw new Error('Discussion ID is required');
-  }
-  if (!text) {
-    throw new Error('Comment text is required');
+  if (!inputs.discussionId) {
+    throw new Error('Discussion Id is required');
   }
 
-  log(`Adding comment to discussion ${discussionId}`);
+  log(`Create a comment`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.text !== undefined) {
+      requestBody.text = inputs.text;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/discussions/${discussionId}/comments`,
-      body: { text },
+      path: `/sheets/${inputs.sheetId}/discussions/${inputs.discussionId}/comments`,
+      body: requestBody,
     });
-    log('Comment added successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to add comment: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create a comment: ${errorMessage}`);
   }
 };

@@ -104,60 +104,56 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SetSheetPublishInputs>) => {
-  const {
-    sheetId,
-    icalEnabled,
-    readOnlyFullAccessibleBy,
-    readOnlyFullDefaultView,
-    readOnlyFullEnabled,
-    readOnlyLiteEnabled,
-    readWriteAccessibleBy,
-    readWriteDefaultView,
-    readWriteEnabled,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  const publishSettings: Record<string, unknown> = {};
-  if (icalEnabled !== undefined) {
-    publishSettings.icalEnabled = icalEnabled;
-  }
-  if (readOnlyFullAccessibleBy !== undefined) {
-    publishSettings.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
-  }
-  if (readOnlyFullDefaultView !== undefined) {
-    publishSettings.readOnlyFullDefaultView = readOnlyFullDefaultView;
-  }
-  if (readOnlyFullEnabled !== undefined) {
-    publishSettings.readOnlyFullEnabled = readOnlyFullEnabled;
-  }
-  if (readOnlyLiteEnabled !== undefined) {
-    publishSettings.readOnlyLiteEnabled = readOnlyLiteEnabled;
-  }
-  if (readWriteAccessibleBy !== undefined) {
-    publishSettings.readWriteAccessibleBy = readWriteAccessibleBy;
-  }
-  if (readWriteDefaultView !== undefined) {
-    publishSettings.readWriteDefaultView = readWriteDefaultView;
-  }
-  if (readWriteEnabled !== undefined) {
-    publishSettings.readWriteEnabled = readWriteEnabled;
-  }
-
-  log(`Setting publish status for sheet ${sheetId}`);
+  log(`Set Sheet Publish Status`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.icalEnabled !== undefined) {
+      requestBody.icalEnabled = inputs.icalEnabled;
+    }
+    if (inputs.readOnlyFullAccessibleBy !== undefined) {
+      requestBody.readOnlyFullAccessibleBy = inputs.readOnlyFullAccessibleBy;
+    }
+    if (inputs.readOnlyFullDefaultView !== undefined) {
+      requestBody.readOnlyFullDefaultView = inputs.readOnlyFullDefaultView;
+    }
+    if (inputs.readOnlyFullEnabled !== undefined) {
+      requestBody.readOnlyFullEnabled = inputs.readOnlyFullEnabled;
+    }
+    if (inputs.readOnlyFullShowToolbar !== undefined) {
+      requestBody.readOnlyFullShowToolbar = inputs.readOnlyFullShowToolbar;
+    }
+    if (inputs.readOnlyLiteEnabled !== undefined) {
+      requestBody.readOnlyLiteEnabled = inputs.readOnlyLiteEnabled;
+    }
+    if (inputs.readWriteAccessibleBy !== undefined) {
+      requestBody.readWriteAccessibleBy = inputs.readWriteAccessibleBy;
+    }
+    if (inputs.readWriteDefaultView !== undefined) {
+      requestBody.readWriteDefaultView = inputs.readWriteDefaultView;
+    }
+    if (inputs.readWriteEnabled !== undefined) {
+      requestBody.readWriteEnabled = inputs.readWriteEnabled;
+    }
+    if (inputs.readWriteShowToolbar !== undefined) {
+      requestBody.readWriteShowToolbar = inputs.readWriteShowToolbar;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sheets/${sheetId}/publish`,
-      body: publishSettings,
+      path: `/sheets/${inputs.sheetId}/publish`,
+      body: requestBody,
     });
-    log('Publish status set successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to set publish status: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to set sheet publish status: ${errorMessage}`);
   }
 };

@@ -104,34 +104,29 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateUpdateRequestInputs>) => {
-  const { sheetId, updateRequestId, subject, message, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!updateRequestId) {
-    throw new Error('Update Request ID is required');
+  if (!inputs.updateRequestId) {
+    throw new Error('Update Request Id is required');
   }
 
-  log(`Updating update request ${updateRequestId}`);
+  log(`Update an Update Request`);
 
   try {
-    const updateBody: any = {};
-    if (subject) {
-      updateBody.subject = subject;
-    }
-    if (message) {
-      updateBody.message = message;
-    }
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sheets/${sheetId}/updaterequests/${updateRequestId}`,
-      body: updateBody,
+      path: `/sheets/${inputs.sheetId}/updaterequests/${inputs.updateRequestId}`,
+      body: requestBody,
     });
-    log('Update request updated successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to update update request: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to update an update request: ${errorMessage}`);
   }
 };

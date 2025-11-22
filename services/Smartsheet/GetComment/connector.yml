@@ -5,19 +5,44 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Comment
-  description: Gets a specific comment by ID
+  description: 'Gets the comment specified by commentId.'
   quickHelp: readme.md
 configuration:
-  - title: Comment Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Comment ID
+        placeholder: Enter Sheet Id...
+      - label: Comment Id
         required: true
         variable: commentId
         type: text
+        placeholder: Enter Comment Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

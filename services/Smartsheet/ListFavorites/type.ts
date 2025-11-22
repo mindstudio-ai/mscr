@@ -1,7 +1,7 @@
 export interface ListFavoritesInputs {
-  includeAll?: boolean;
-  page?: number;
-  pageSize?: number;
   include?: string;
+  exclude?: string;
+  pageSize?: number;
+  page?: number;
   outputVariable: string;
 }

@@ -5,15 +5,40 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Sheet Version
-  description: Gets the current version number of a sheet
+  description: 'Gets the sheet version without loading the entire sheet. The following actions increment sheet version: add/modify cell value add/modify discussion/comment add/modify row add/remove/update version attachment cell updated via cell link change formatting'
+
   quickHelp: readme.md
 configuration:
-  - title: Sheet Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
+        placeholder: Enter Sheet Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

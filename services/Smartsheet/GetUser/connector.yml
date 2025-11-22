@@ -1,24 +1,47 @@
 apiVersion: v1
 kind: Action
-id: getUser
+id: get-user
 serviceId: smartsheet
 active: false
 metadata:
   name: Get User
-  description: Gets details about a specific user
+  description: 'Gets the user specified in the URL. NOTE: For system administrators, the following UserProfile attributes are included in the response): admin customWelcomeScreenViewed (only returned when an Enterprise user has viewed the Custom Welcome Screen) groupAdmin lastLogin (only returned if the user has logged in) licensedSheetCreator resourceViewer sheetCount (only returned if the status attribute is ACTIVE) * status'
+
   quickHelp: readme.md
 configuration:
-  - title: User Information
+  - title: Resource Information
     items:
-      - label: User ID
+      - label: User Id
         required: true
-        helpText: The ID of the user to retrieve
         variable: userId
         type: text
+        placeholder: Enter User Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the user details
         variable: outputVariable
         type: outputVariableName

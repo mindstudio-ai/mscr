@@ -4,35 +4,27 @@ id: update-sight
 serviceId: smartsheet
 active: false
 metadata:
-  name: Update Sight (Dashboard)
-  description: Updates a dashboard's properties
+  name: Update Sight
+  description: 'Updates (renames) the specified dashboard.'
   quickHelp: readme.md
 configuration:
-  - title: Sight Information
+  - title: Resource Information
     items:
-      - label: Sight ID
+      - label: Sight Id
         required: true
-        helpText: The ID of the sight (dashboard)
         variable: sightId
         type: text
-      - label: New Name
-        required: false
-        helpText: New name for the sight
+        placeholder: Enter Sight Id...
+  - title: Request Data
+    items:
+      - label: Name
+        required: true
         variable: name
         type: text
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Numeric Dates
-        required: false
-        helpText: You can optionally choose to receive and send dates/times in numeric format, as milliseconds since the UNIX epoch (midnight on January 1, 1970 in UTC time), using the query string parameter numericDat
-        variable: numericDates
-        type: checkbox
-        defaultValue: false
+        placeholder: Enter Name...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the updated sight
         variable: outputVariable
         type: outputVariableName

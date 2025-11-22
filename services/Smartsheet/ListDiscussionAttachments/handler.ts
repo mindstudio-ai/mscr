@@ -104,34 +104,31 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListDiscussionAttachmentsInputs>) => {
-  const { sheetId, discussionId, page, pagesize, includeall, outputVariable } =
-    inputs;
-  if (!sheetId) {
-    throw new Error('sheetId is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!discussionId) {
-    throw new Error('discussionId is required');
-  }
-  const path = `/sheets/${sheetId}/discussions/${discussionId}/attachments`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (page !== undefined && page !== null) {
-    queryParams['page'] = page;
-  }
-  if (pagesize !== undefined && pagesize !== null) {
-    queryParams['pageSize'] = pagesize;
-  }
-  if (includeall !== undefined && includeall !== null) {
-    queryParams['includeAll'] = includeall;
+  if (!inputs.discussionId) {
+    throw new Error('Discussion Id is required');
   }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'GET',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
+  log(`List Discussion Attachments`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sheets/${inputs.sheetId}/discussions/${inputs.discussionId}/attachments`,
+      queryParams,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list discussion attachments: ${errorMessage}`);
+  }
 };

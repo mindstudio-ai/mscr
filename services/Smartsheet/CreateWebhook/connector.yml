@@ -1,56 +1,49 @@
 apiVersion: v1
 kind: Action
-id: createWebhook
+id: create-webhook
 serviceId: smartsheet
 active: false
 metadata:
   name: Create Webhook
-  description: Creates a new webhook
+  description: 'Creates a new Webhook. A webhook is not enabled by default when it is created. Once you''ve created a webhook, you can enable it by using the Update Webhook operation to set enabled to true. When a row is deleted on a sheet, even if you are using a subscope to monitor columns only and the cell in that column for that row is empty, you will receive a "row.deleted" event.'
+
   quickHelp: readme.md
 configuration:
-  - title: Webhook Information
+  - title: Request Data
     items:
-      - label: Name
-        required: true
-        helpText: Name of the webhook
-        variable: name
-        type: text
-      - label: Callback URL
-        required: true
-        helpText: URL to send webhook events to
+      - label: Callback Url
+        required: false
         variable: callbackUrl
         type: text
-      - label: Scope
-        required: true
-        helpText: Scope of the webhook (e.g., "sheet")
-        variable: scope
-        type: text
-      - label: Scope Object ID
-        required: true
-        helpText: ID of the object to monitor
-        variable: scopeObjectId
-        type: text
+        placeholder: Enter Callback Url...
       - label: Events
-        required: true
-        helpText: Array of event types to monitor as JSON array (e.g., ["*.*"])
+        required: false
         variable: events
         type: text
-        textOptions:
-          type: multiline
-        placeholder: '["*.*"]'
-  - title: Options
-    collapsed: true
-    items:
+        placeholder: Enter Events...
+      - label: Name
+        required: true
+        variable: name
+        type: text
+        placeholder: Enter Name...
       - label: Version
         required: false
-        helpText: Webhook version (default is 1)
         variable: version
-        type: number
-        defaultValue: 1
+        type: text
+        placeholder: Enter Version...
+      - label: Scope
+        required: false
+        variable: scope
+        type: text
+        placeholder: Enter Scope...
+      - label: Scope Object Id
+        required: false
+        variable: scopeObjectId
+        type: text
+        placeholder: Enter Scope Object Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the created webhook
         variable: outputVariable
         type: outputVariableName

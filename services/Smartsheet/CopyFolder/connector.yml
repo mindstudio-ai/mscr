@@ -5,50 +5,33 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Copy Folder
-  description: Creates a copy of a folder
+  description: 'Copies a folder.'
   quickHelp: readme.md
 configuration:
-  - title: Folder Information
+  - title: Resource Information
     items:
-      - label: Folder ID
+      - label: Folder Id
         required: true
         variable: folderId
         type: text
-      - label: Destination Type
-        required: true
-        helpText: workspace, folder, or home
-        variable: destinationType
-        type: text
-      - label: Destination ID
+        placeholder: Enter Folder Id...
+  - title: Request Data
+    items:
+      - label: Destination Id
         required: false
-        helpText: Required for workspace/folder, not for home
         variable: destinationId
         type: text
+        placeholder: Enter Destination Id...
+      - label: Destination Type
+        required: false
+        variable: destinationType
+        type: text
+        placeholder: Enter Destination Type...
       - label: New Name
-        required: true
+        required: false
         variable: newName
         type: text
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
-        required: false
-        helpText: 'A comma-separated list of elements to copy:   * **attachments**   * **cellLinks** - includes cross-sheet references   * **data** - includes formatting   * **discussions** - includes comments   * **fil'
-        variable: include
-        type: text
-        placeholder: data
-      - label: Exclude
-        required: false
-        helpText: When specified with a value of **sheetHyperlinks**, excludes this category from the response
-        variable: exclude
-        type: text
-        placeholder: sheetHyperlinks
-      - label: Skip Remap
-        required: false
-        helpText: A comma-separated list of references to NOT re-map for the newly created folder.
-        variable: skipRemap
-        type: text
-        placeholder: reports
+        placeholder: Enter New Name...
   - title: Output
     items:
       - label: Output Variable

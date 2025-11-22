@@ -5,41 +5,43 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Automation Rules
-  description: Lists all automation rules for a sheet
+  description: 'Returns all automation rules associated with the specified sheet. Multistep workflows are not returned via the API. Instead, you''ll see an error 400 - 1266: This rule is not accessible through the API. Only single-action notifications, approval requests, or update requests qualify. For users of Smartsheet for Slack, note that Slack notifications are not returned.'
+
   quickHelp: readme.md
 configuration:
-  - title: Sheet Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet
         variable: sheetId
         type: text
+        placeholder: Enter Sheet Id...
   - title: Query Options
     collapsed: true
     items:
-      - label: Include All
+      - label: Include
         required: false
-        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
-        variable: includeAll
-        type: checkbox
-        defaultValue: false
-      - label: Page
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
         required: false
-        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
       - label: Page Size
         required: false
-        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
         variable: pageSize
         type: number
         defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the list of automation rules
         variable: outputVariable
         type: outputVariableName

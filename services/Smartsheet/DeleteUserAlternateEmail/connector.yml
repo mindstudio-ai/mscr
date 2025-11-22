@@ -5,7 +5,7 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete User Alternate Email
-  description: Deletes an alternate email address from a user's account
+  description: 'Deletes an alternate email address from a user''s account'
   quickHelp: readme.md
 configuration:
   - title: User Information

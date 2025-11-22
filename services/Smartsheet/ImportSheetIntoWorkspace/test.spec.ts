@@ -1,18 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('ImportSheetIntoWorkspace executes successfully', async () => {
+test('import sheet into workspace', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    workspaceId: 'workspaceId-sample',
-    sheetname: 'sheetname-value',
-    headerrowindex: 1,
-    primarycolumnindex: 1,
-    filePath: './path/to/file.txt',
+    workspaceId: 'test-workspaceId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

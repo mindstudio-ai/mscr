@@ -5,29 +5,25 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Sent Update Request
-  description: |
-    Deletes the specified sent update request.
+  description: 'Deletes the specified sent update request. Delete operation is supported only when the specified sent update request is in the pending status. Deleting a sent update request that was already completed by recipient is not allowed.'
 
-    **Delete operation is supported only when the specified sent update request is in the pending status.
-    Deleting a sent update request that was already completed by recipient is not allowed.**
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: sheet Id
+      - label: Sheet Id
         required: true
-        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-      - label: sent Update Request Id
+        placeholder: Enter Sheet Id...
+      - label: Sent Update Request Id
         required: true
-        helpText: (Required) ID of the sent update request
         variable: sentUpdateRequestId
         type: text
+        placeholder: Enter Sent Update Request Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

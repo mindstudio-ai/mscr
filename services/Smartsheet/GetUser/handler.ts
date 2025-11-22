@@ -104,23 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetUserInputs>) => {
-  const { userId, outputVariable } = inputs;
-
-  if (!userId) {
-    throw new Error('User ID is required');
+  if (!inputs.userId) {
+    throw new Error('User Id is required');
   }
 
+  log(`Get User`);
+
   try {
-    log(`Retrieving user ${userId}...`);
-    const result = await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/users/${userId}`,
+      path: `/users/${inputs.userId}`,
+      queryParams,
     });
 
-    log(`Successfully retrieved user ${userId}`);
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error getting user: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get user: ${errorMessage}`);
   }
 };

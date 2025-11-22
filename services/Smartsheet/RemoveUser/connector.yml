@@ -1,44 +1,24 @@
 apiVersion: v1
 kind: Action
-id: removeUser
+id: remove-user
 serviceId: smartsheet
 active: false
 metadata:
   name: Remove User
-  description: Removes a user from the organization
+  description: 'Removes a user from an organization account. User is transitioned to a free collaborator with read-only access to owned reports, sheets, Sights, workspaces, and any shared templates (unless those are optionally transferred to another user). This operation is only available to system administrators If the transferTo parameter is specified and the removed user owns groups, the user specified via the transferTo parameter must have group admin rights. * The transferTo and transferSheets parameters cannot be specified for a user who has not yet accepted an invitation to join the organization account (that is, if user status=PENDING).'
+
   quickHelp: readme.md
 configuration:
-  - title: User Information
+  - title: Resource Information
     items:
-      - label: User ID
+      - label: User Id
         required: true
-        helpText: The ID of the user to remove
         variable: userId
         type: text
-  - title: Options
-    collapsed: true
-    items:
-      - label: Transfer To
-        required: false
-        helpText: User ID to transfer ownership of sheets to
-        variable: transferTo
-        type: text
-      - label: Transfer Sheets
-        required: false
-        helpText: User ID to transfer sheets to (if transferSheets is true)
-        variable: transferSheets
-        type: checkbox
-        defaultValue: false
-      - label: Remove From Sharing
-        required: false
-        helpText: Whether to remove the user from all shares
-        variable: removeFromSharing
-        type: checkbox
-        defaultValue: false
+        placeholder: Enter User Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the removal result
         variable: outputVariable
         type: outputVariableName

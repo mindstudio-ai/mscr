@@ -104,37 +104,36 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateWorkspaceInputs>) => {
-  const { name, include, skipRemap, accessApiLevel, outputVariable } = inputs;
 
-  if (!name) {
-    throw new Error('Workspace name is required');
-  }
+  log(`Create Workspace`);
 
   try {
-    log(`Creating workspace ${name}...`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.id !== undefined) {
+      requestBody.id = inputs.id;
+    }
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
+    }
+    if (inputs.accessLevel !== undefined) {
+      requestBody.accessLevel = inputs.accessLevel;
+    }
+    if (inputs.permalink !== undefined) {
+      requestBody.permalink = inputs.permalink;
+    }
 
-    const queryParams: Record<string, string | number> = {};
-    if (include) {
-      queryParams.include = include;
-    }
-    if (skipRemap) {
-      queryParams.skipRemap = skipRemap;
-    }
-    if (accessApiLevel !== undefined) {
-      queryParams.accessApiLevel = accessApiLevel;
-    }
-
-    const result = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest({
       method: 'POST',
-      path: '/workspaces',
+      path: `/workspaces`,
       queryParams,
-      body: { name },
+      body: requestBody,
     });
 
-    log(`Successfully created workspace: ${name}`);
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error creating workspace: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create workspace: ${errorMessage}`);
   }
 };

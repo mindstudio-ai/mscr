@@ -104,28 +104,29 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateProofInputs>) => {
-  const { sheetId, rowId, filePath, fileName, outputVariable } = inputs;
-  if (!sheetId) {
-    throw new Error('sheetId is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!rowId) {
-    throw new Error('rowId is required');
-  }
-  if (!filePath) {
-    throw new Error('filePath is required');
-  }
-  const path = `/sheets/${sheetId}/rows/${rowId}/proofs`;
-
-  const requestOptions: ApiRequestOptions = {
-    method: 'POST',
-    path,
-  };
-  requestOptions.multipart = true;
-  requestOptions.filePath = filePath;
-  if (fileName) {
-    requestOptions.fileName = fileName;
+  if (!inputs.rowId) {
+    throw new Error('Row Id is required');
   }
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  log(`Create Proof`);
+
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/proofs`,
+      body: requestBody,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create proof: ${errorMessage}`);
+  }
 };

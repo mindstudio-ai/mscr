@@ -104,46 +104,31 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListRowAttachmentsInputs>) => {
-  const { sheetId, rowId, page, pageSize, includeAll, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!rowId) {
-    throw new Error('Row ID is required');
+  if (!inputs.rowId) {
+    throw new Error('Row Id is required');
   }
 
-  log(`Listing attachments for row ${rowId}`);
+  log(`List Row Attachments`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/rows/${rowId}/attachments`,
+      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/attachments`,
       queryParams,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
     });
-    const data = (response as any).data || response;
-    const totalCount =
-      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
-    log(`Found ${Array.isArray(data) ? data.length : 0} attachment(s)`);
-    setOutput(outputVariable, {
-      totalCount,
-      attachments: data,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to list row attachments: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list row attachments: ${errorMessage}`);
   }
 };

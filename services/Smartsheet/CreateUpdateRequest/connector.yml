@@ -5,35 +5,89 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Update Request
-  description: Creates a new update request
+  description: 'Creates an update request for the specified rows within the sheet. An email notification (containing a link to the update request) is sent to the specified recipients according to the specified schedule. The recipients of an update request must be specified by using email addresses only. Sending an update request to a group is not supported. The following attributes have the following values when not specified: ccMe: false message: Please update the following rows in my online sheet. subject: Update Request: {Sheet Name} When the Schedule object is not specified, the request is sent to the recipients immediately. If an error occurs because the request specified one or more alternate email addresses*, please retry using the primary email address.'
+
   quickHelp: readme.md
 configuration:
-  - title: Update Request Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Row IDs (comma-separated)
-        required: true
+        placeholder: Enter Sheet Id...
+  - title: Request Data
+    items:
+      - label: Row Ids
+        required: false
         variable: rowIds
         type: text
-      - label: Column IDs (comma-separated)
-        required: true
+        placeholder: Enter Row Ids...
+      - label: Column Ids
+        required: false
         variable: columnIds
         type: text
-      - label: Recipient Emails (comma-separated)
-        required: true
-        variable: recipientEmails
+        placeholder: Enter Column Ids...
+      - label: Include Attachments
+        required: false
+        variable: includeAttachments
         type: text
-      - label: Subject
-        required: true
-        variable: subject
+        placeholder: Enter Include Attachments...
+      - label: Include Discussions
+        required: false
+        variable: includeDiscussions
         type: text
-      - label: Message (optional)
+        placeholder: Enter Include Discussions...
+      - label: Layout
+        required: false
+        variable: layout
+        type: text
+        placeholder: Enter Layout...
+      - label: Cc Me
+        required: false
+        variable: ccMe
+        type: text
+        placeholder: Enter Cc Me...
+      - label: Message
         required: false
         variable: message
         type: text
+        placeholder: Enter Message...
+      - label: Send To
+        required: false
+        variable: sendTo
+        type: text
+        placeholder: Enter Send To...
+      - label: Subject
+        required: false
+        variable: subject
+        type: text
+        placeholder: Enter Subject...
+      - label: Id
+        required: false
+        variable: id
+        type: text
+        placeholder: Enter Id...
+      - label: Created At
+        required: false
+        variable: createdAt
+        type: text
+        placeholder: Enter Created At...
+      - label: Modified At
+        required: false
+        variable: modifiedAt
+        type: text
+        placeholder: Enter Modified At...
+      - label: Schedule
+        required: false
+        variable: schedule
+        type: text
+        placeholder: Enter Schedule...
+      - label: Sent By
+        required: false
+        variable: sentBy
+        type: text
+        placeholder: Enter Sent By...
   - title: Output
     items:
       - label: Output Variable

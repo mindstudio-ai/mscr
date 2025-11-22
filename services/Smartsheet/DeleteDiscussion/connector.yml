@@ -5,25 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Discussion
-  description: Deletes a discussion
+  description: 'Deletes the discussion specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Discussion Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet
         variable: sheetId
         type: text
-      - label: Discussion ID
+        placeholder: Enter Sheet Id...
+      - label: Discussion Id
         required: true
-        helpText: The ID of the discussion
         variable: discussionId
         type: text
+        placeholder: Enter Discussion Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

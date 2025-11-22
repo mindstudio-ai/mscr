@@ -5,28 +5,109 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Column
-  description: Updates a column's properties
+  description: 'Updates properties of the column, moves the column, or renames the column. NOTE: You cannot change the type of a Primary column. While dependencies are enabled on a sheet, you can''t change the type of any special calendar/Gantt columns. If the column type is changed, all cells in the column are converted to the new column type and column validation is cleared. Type is optional when moving or renaming, but required when changing type or dropdown values.'
+
   quickHelp: readme.md
 configuration:
-  - title: Column Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Column ID
+        placeholder: Enter Sheet Id...
+      - label: Column Id
         required: true
         variable: columnId
         type: text
-      - label: New Title
-        required: false
+        placeholder: Enter Column Id...
+  - title: Request Data
+    items:
+      - label: Title
+        required: true
         variable: title
         type: text
-      - label: Column Index
+        placeholder: Enter Title...
+      - label: Type
         required: false
-        helpText: Move to new position (0-based)
+        variable: type
+        type: text
+        placeholder: Enter Type...
+      - label: Formula
+        required: false
+        variable: formula
+        type: text
+        placeholder: Enter Formula...
+      - label: Hidden
+        required: false
+        variable: hidden
+        type: text
+        placeholder: Enter Hidden...
+      - label: Index
+        required: false
         variable: index
         type: text
+        placeholder: Enter Index...
+      - label: Auto Number Format
+        required: false
+        variable: autoNumberFormat
+        type: text
+        placeholder: Enter Auto Number Format...
+      - label: Contact Options
+        required: false
+        variable: contactOptions
+        type: text
+        placeholder: Enter Contact Options...
+      - label: Description
+        required: false
+        variable: description
+        type: text
+        placeholder: Enter Description...
+      - label: Format
+        required: false
+        variable: format
+        type: text
+        placeholder: Enter Format...
+      - label: Locked
+        required: false
+        variable: locked
+        type: text
+        placeholder: Enter Locked...
+      - label: Locked For User
+        required: false
+        variable: lockedForUser
+        type: text
+        placeholder: Enter Locked For User...
+      - label: Options
+        required: false
+        variable: options
+        type: text
+        placeholder: Enter Options...
+      - label: Symbol
+        required: false
+        variable: symbol
+        type: text
+        placeholder: Enter Symbol...
+      - label: System Column Type
+        required: false
+        variable: systemColumnType
+        type: text
+        placeholder: Enter System Column Type...
+      - label: Validation
+        required: false
+        variable: validation
+        type: text
+        placeholder: Enter Validation...
+      - label: Version
+        required: false
+        variable: version
+        type: text
+        placeholder: Enter Version...
+      - label: Width
+        required: false
+        variable: width
+        type: text
+        placeholder: Enter Width...
   - title: Output
     items:
       - label: Output Variable

@@ -104,30 +104,30 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddAttachmentVersionInputs>) => {
-  const { sheetId, attachmentId, filePath, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!attachmentId) {
-    throw new Error('Attachment ID is required');
-  }
-  if (!filePath) {
-    throw new Error('File path is required');
+  if (!inputs.attachmentId) {
+    throw new Error('Attachment Id is required');
   }
 
-  log(`Adding new version to attachment ${attachmentId}`);
+  log(`Attach New version`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/attachments/${attachmentId}/versions`,
+      path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}/versions`,
       multipart: true,
-      filePath,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
     });
-    log(`Successfully added new version with ID: ${(response as any).id}`);
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to add version: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to attach new version: ${errorMessage}`);
   }
 };

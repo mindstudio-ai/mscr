@@ -104,48 +104,53 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SendRowsInputs>) => {
-  const { sheetId, rowIds, recipientEmails, subject, message, outputVariable } =
-    inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
-  }
-  if (!rowIds) {
-    throw new Error('Row IDs are required');
-  }
-  if (!recipientEmails) {
-    throw new Error('Recipient emails are required');
-  }
-  if (!subject) {
-    throw new Error('Subject is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log('Sending rows via email');
+  log(`Send Rows via Email`);
 
   try {
-    const rowIdArray = rowIds
-      .split(',')
-      .map((id: string) => parseInt(id.trim(), 10));
-    const emails = recipientEmails.split(',').map((e: string) => e.trim());
-    const recipients = emails.map((email: string) => ({ email }));
-
-    const sendBody: any = {
-      rowIds: rowIdArray,
-      to: recipients,
-      subject,
-    };
-    if (message) {
-      sendBody.message = message;
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.rowIds !== undefined) {
+      requestBody.rowIds = inputs.rowIds;
+    }
+    if (inputs.columnIds !== undefined) {
+      requestBody.columnIds = inputs.columnIds;
+    }
+    if (inputs.includeAttachments !== undefined) {
+      requestBody.includeAttachments = inputs.includeAttachments;
+    }
+    if (inputs.includeDiscussions !== undefined) {
+      requestBody.includeDiscussions = inputs.includeDiscussions;
+    }
+    if (inputs.layout !== undefined) {
+      requestBody.layout = inputs.layout;
+    }
+    if (inputs.ccMe !== undefined) {
+      requestBody.ccMe = inputs.ccMe;
+    }
+    if (inputs.message !== undefined) {
+      requestBody.message = inputs.message;
+    }
+    if (inputs.sendTo !== undefined) {
+      requestBody.sendTo = inputs.sendTo;
+    }
+    if (inputs.subject !== undefined) {
+      requestBody.subject = inputs.subject;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/rows/emails`,
-      body: sendBody,
+      path: `/sheets/${inputs.sheetId}/rows/emails`,
+      body: requestBody,
     });
-    log('Rows sent successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to send rows: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to send rows via email: ${errorMessage}`);
   }
 };

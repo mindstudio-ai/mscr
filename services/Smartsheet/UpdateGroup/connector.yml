@@ -5,23 +5,34 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Group
-  description: Updates a group's properties
+  description: 'Updates the Group specified in the URL. This operation is only available to group administrators and system administrators.'
+
   quickHelp: readme.md
 configuration:
-  - title: Group Information
+  - title: Resource Information
     items:
-      - label: Group ID
+      - label: Group Id
         required: true
         variable: groupId
         type: text
-      - label: New Name
-        required: false
+        placeholder: Enter Group Id...
+  - title: Request Data
+    items:
+      - label: Name
+        required: true
         variable: name
         type: text
-      - label: New Description
+        placeholder: Enter Name...
+      - label: Description
         required: false
         variable: description
         type: text
+        placeholder: Enter Description...
+      - label: Owner Id
+        required: false
+        variable: ownerId
+        type: text
+        placeholder: Enter Owner Id...
   - title: Output
     items:
       - label: Output Variable

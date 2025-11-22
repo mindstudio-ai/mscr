@@ -1,14 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('ReactivateUser executes successfully', async () => {
+test('reactivate user', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    userId: 'userId-sample',
+    userId: 'test-userId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

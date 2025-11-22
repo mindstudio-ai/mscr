@@ -1,8 +1,11 @@
 export interface ListProofAttachmentsInputs {
   sheetId: string;
   proofId: string;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
   page?: number;
-  pagesize?: number;
-  includeall?: boolean;
+  filePath?: string;
+  fileName?: string;
   outputVariable: string;
 }

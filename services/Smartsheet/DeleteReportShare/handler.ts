@@ -104,27 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteReportShareInputs>) => {
-  const { reportId, shareId, accessapilevel, outputVariable } = inputs;
-  if (!reportId) {
-    throw new Error('reportId is required');
+  if (!inputs.reportId) {
+    throw new Error('Report Id is required');
   }
-  if (!shareId) {
-    throw new Error('shareId is required');
-  }
-  const path = `/reports/${reportId}/shares/${shareId}`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (accessapilevel !== undefined && accessapilevel !== null) {
-    queryParams['accessApiLevel'] = accessapilevel;
+  if (!inputs.shareId) {
+    throw new Error('Share Id is required');
   }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'DELETE',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
+  log(`Delete Report Share`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/reports/${inputs.reportId}/shares/${inputs.shareId}`,
+      queryParams,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete report share: ${errorMessage}`);
+  }
 };

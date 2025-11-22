@@ -104,25 +104,29 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddFavoritesInputs>) => {
-  const { favoritesJson, outputVariable } = inputs;
 
-  if (!favoritesJson) {
-    throw new Error('Favorites JSON is required');
-  }
-
-  log('Adding multiple favorites');
+  log(`Add Favorites`);
 
   try {
-    const favorites = JSON.parse(favoritesJson);
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.objectId !== undefined) {
+      requestBody.objectId = inputs.objectId;
+    }
+    if (inputs.type !== undefined) {
+      requestBody.type = inputs.type;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: '/favorites',
-      body: favorites,
+      path: `/favorites`,
+      body: requestBody,
     });
-    const result = Array.isArray(response) ? response : [response];
-    log(`Added ${result.length} favorite(s)`);
-    setOutput(outputVariable, result);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to add favorites: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to add favorites: ${errorMessage}`);
   }
 };

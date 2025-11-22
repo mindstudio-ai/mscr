@@ -104,33 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<RemoveFavoriteInputs>) => {
-  const { favoriteType, favoriteId, objectType, objectId, outputVariable } =
-    inputs;
-
-  const resolvedType = favoriteType || objectType;
-  const resolvedId = favoriteId || objectId;
-
-  if (!resolvedType) {
-    throw new Error('favoriteType is required');
+  if (!inputs.favoriteType) {
+    throw new Error('Favorite Type is required');
   }
-  if (!resolvedId) {
-    throw new Error('favoriteId is required');
+  if (!inputs.favoriteId) {
+    throw new Error('Favorite Id is required');
   }
 
-  log(`Removing ${resolvedType} ${resolvedId} from favorites`);
+  log(`Delete Favorite`);
 
   try {
-    await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/favorites/${resolvedType.toLowerCase()}/${resolvedId}`,
+      path: `/favorites/${inputs.favoriteType}/${inputs.favoriteId}`,
     });
-    log('Favorite removed successfully');
-    setOutput(outputVariable, {
-      success: true,
-      removedFavoriteId: resolvedId,
-      removedFavoriteType: resolvedType,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to remove favorite: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete favorite: ${errorMessage}`);
   }
 };

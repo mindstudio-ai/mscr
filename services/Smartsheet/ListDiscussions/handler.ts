@@ -104,41 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListDiscussionsInputs>) => {
-  const { sheetId, include, page, pageSize, includeAll, outputVariable } =
-    inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log(`Listing discussions for sheet ${sheetId}`);
+  log(`List Discussions`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (include) {
-      queryParams.include = include;
-    }
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
 
-    const result = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/discussions`,
+      path: `/sheets/${inputs.sheetId}/discussions`,
       queryParams,
     });
-    log(`Fetched discussions successfully`);
-    setOutput(outputVariable, result);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to fetch discussions: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list discussions: ${errorMessage}`);
   }
 };

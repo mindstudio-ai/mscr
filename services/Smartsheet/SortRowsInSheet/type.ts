@@ -1,6 +1,5 @@
 export interface SortRowsInSheetInputs {
   sheetId: string;
-  includeExclude?: string;
-  sortcriteria?: string;
+  sortCriteria?: string;
   outputVariable: string;
 }

@@ -104,14 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListContentInHomeInputs>) => {
-  const { outputVariable } = inputs;
-  log(`Listing content in home`);
-  const requestOptions: ApiRequestOptions = {
-    method: 'GET',
-    path: `/folders/personal`,
-  };
 
-  const response = await smartsheetApiRequest(requestOptions);
-  log(`Successfully listed content in home`);
-  setOutput(outputVariable, response);
+  log(`List Contents`);
+
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/folders/personal`,
+      queryParams,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list contents: ${errorMessage}`);
+  }
 };

@@ -5,30 +5,30 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Group
-  description: Creates a new group
+  description: 'Creates a new group. This operation is only available to group administrators and system administrators.'
+
   quickHelp: readme.md
 configuration:
-  - title: Group Information
+  - title: Request Data
     items:
-      - label: Group Name
+      - label: Name
         required: true
-        helpText: Name for the new group
         variable: name
         type: text
+        placeholder: Enter Name...
       - label: Description
         required: false
-        helpText: Optional description for the group
         variable: description
         type: text
-      - label: Member Emails (comma-separated)
+        placeholder: Enter Description...
+      - label: Members
         required: false
-        helpText: Comma-separated list of email addresses to add as members
-        variable: memberEmails
+        variable: members
         type: text
+        placeholder: Enter Members...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the created group
         variable: outputVariable
         type: outputVariableName

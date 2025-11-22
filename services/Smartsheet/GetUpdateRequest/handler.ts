@@ -104,25 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetUpdateRequestInputs>) => {
-  const { sheetId, updateRequestId, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!updateRequestId) {
-    throw new Error('Update Request ID is required');
+  if (!inputs.updateRequestId) {
+    throw new Error('Update Request Id is required');
   }
 
-  log(`Getting update request ${updateRequestId}`);
+  log(`Get an Update Request`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/updaterequests/${updateRequestId}`,
+      path: `/sheets/${inputs.sheetId}/updaterequests/${inputs.updateRequestId}`,
+      queryParams,
     });
-    log('Retrieved update request successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to get update request: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get an update request: ${errorMessage}`);
   }
 };

@@ -104,91 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetRowInputs>) => {
-  const {
-    sheetId,
-    rowId,
-    accessApiLevel,
-    include,
-    includeAttachments,
-    includeColumns,
-    includeDiscussions,
-    exclude,
-    level,
-    outputVariable,
-  } = inputs;
-
-  // Validate required inputs
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
+  }
+  if (!inputs.rowId) {
+    throw new Error('Row Id is required');
   }
 
-  if (!rowId) {
-    throw new Error('Row ID is required');
-  }
-
-  log(`Retrieving row ${rowId} from sheet ${sheetId}`);
+  log(`Get Row`);
 
   try {
-    // Build query parameters
-    const queryParams: Record<string, string | number> = {};
-    if (accessApiLevel !== undefined) {
-      queryParams.accessApiLevel = accessApiLevel;
-    }
-    const includeFlags = new Set<string>();
-    if (include) {
-      include
-        .split(',')
-        .map((item) => item.trim())
-        .filter(Boolean)
-        .forEach((flag) => includeFlags.add(flag));
-    }
-    if (includeAttachments) {
-      includeFlags.add('attachments');
-    }
-    if (includeColumns) {
-      includeFlags.add('columns');
-    }
-    if (includeDiscussions) {
-      includeFlags.add('discussions');
-    }
-    if (includeFlags.size) {
-      queryParams.include = Array.from(includeFlags).join(',');
-    }
-    if (exclude) {
-      queryParams.exclude = exclude;
-    }
-    if (level !== undefined) {
-      queryParams.level = level;
-    }
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    // Get row
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/rows/${rowId}`,
+      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}`,
       queryParams,
     });
 
-    log(`Successfully retrieved row ${rowId}`);
-    log(`Row contains ${(response as any).cells?.length || 0} cells`);
-
-    // Set output variable
-    setOutput(outputVariable, response);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error(
-        `Sheet or row not found. Please check the sheet ID (${sheetId}) and row ID (${rowId}).`,
-      );
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Access denied')
-    ) {
-      throw new Error(
-        `Access denied to sheet or row. You may not have permission to view this content.`,
-      );
-    } else {
-      throw new Error(`Failed to get row: ${errorMessage}`);
-    }
+    throw new Error(`Failed to get row: ${errorMessage}`);
   }
 };

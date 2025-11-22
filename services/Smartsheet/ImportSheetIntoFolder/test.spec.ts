@@ -1,18 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('ImportSheetIntoFolder executes successfully', async () => {
+test('import sheet into folder', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    folderId: 'folderId-sample',
-    sheetname: 'sheetname-value',
-    headerrowindex: 1,
-    primarycolumnindex: 1,
-    filePath: './path/to/file.txt',
+    folderId: 'test-folderId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

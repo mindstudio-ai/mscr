@@ -1,6 +1,5 @@
 export interface CreateDiscussionInputs {
   sheetId: string;
-  title: string;
-  commentText: string;
+  comment?: string;
   outputVariable: string;
 }

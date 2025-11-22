@@ -5,113 +5,68 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Set Sheet Publish
-  description: Sets the publish status for a sheet
+  description: 'Sets the publish status of the sheet and returns the new status, including the URLs of any enabled publishings.'
   quickHelp: readme.md
 configuration:
-  - title: Sheet Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-  - title: Publish Status
+        placeholder: Enter Sheet Id...
+  - title: Request Data
     items:
-      - label: iCal Enabled
+      - label: Ical Enabled
         required: false
         variable: icalEnabled
-        type: select
-        defaultValue: true
-        selectOptions:
-          options:
-            - label: Enable
-              value: true
-            - label: Disable
-              value: false
+        type: text
+        placeholder: Enter Ical Enabled...
       - label: Read Only Full Accessible By
         required: false
         variable: readOnlyFullAccessibleBy
-        type: select
-        defaultValue: ALL
-        selectOptions:
-          options:
-            - label: ALL
-              value: ALL
-            - label: ORG
-              value: ORG
-            - label: SHARED
-              value: SHARED
+        type: text
+        placeholder: Enter Read Only Full Accessible By...
       - label: Read Only Full Default View
         required: false
         variable: readOnlyFullDefaultView
-        type: select
-        defaultValue: CALENDAR
-        selectOptions:
-          options:
-            - label: CALENDAR
-              value: CALENDAR
-            - label: Card
-              value: CARD
-            - label: Grid
-              value: GRID
+        type: text
+        placeholder: Enter Read Only Full Default View...
       - label: Read Only Full Enabled
         required: false
         variable: readOnlyFullEnabled
-        type: select
-        defaultValue: true
-        selectOptions:
-          options:
-            - label: Enable
-              value: true
-            - label: Disable
-              value: false
+        type: text
+        placeholder: Enter Read Only Full Enabled...
+      - label: Read Only Full Show Toolbar
+        required: false
+        variable: readOnlyFullShowToolbar
+        type: text
+        placeholder: Enter Read Only Full Show Toolbar...
       - label: Read Only Lite Enabled
         required: false
         variable: readOnlyLiteEnabled
-        type: select
-        defaultValue: true
-        selectOptions:
-          options:
-            - label: Enable
-              value: true
-            - label: Disable
-              value: false
+        type: text
+        placeholder: Enter Read Only Lite Enabled...
       - label: Read Write Accessible By
         required: false
         variable: readWriteAccessibleBy
-        type: select
-        defaultValue: ALL
-        selectOptions:
-          options:
-            - label: ALL
-              value: ALL
-            - label: ORG
-              value: ORG
-            - label: SHARED
-              value: SHARED
+        type: text
+        placeholder: Enter Read Write Accessible By...
       - label: Read Write Default View
         required: false
         variable: readWriteDefaultView
-        type: select
-        defaultValue: CALENDAR
-        selectOptions:
-          options:
-            - label: Calendar
-              value: CALENDAR
-            - label: Card
-              value: CARD
-            - label: Grid
-              value: GRID
+        type: text
+        placeholder: Enter Read Write Default View...
       - label: Read Write Enabled
         required: false
         variable: readWriteEnabled
-        type: select
-        defaultValue: true
-        selectOptions:
-          options:
-            - label: Enable
-              value: true
-            - label: Disable
-              value: false
+        type: text
+        placeholder: Enter Read Write Enabled...
+      - label: Read Write Show Toolbar
+        required: false
+        variable: readWriteShowToolbar
+        type: text
+        placeholder: Enter Read Write Show Toolbar...
   - title: Output
     items:
       - label: Output Variable

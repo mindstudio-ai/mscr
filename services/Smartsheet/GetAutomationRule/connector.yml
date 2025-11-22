@@ -5,25 +5,47 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Automation Rule
-  description: Gets details of a specific automation rule
+  description: 'Returns the specified automation rule, including any action values.'
   quickHelp: readme.md
 configuration:
-  - title: Rule Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet
         variable: sheetId
         type: text
-      - label: Automation Rule ID
+        placeholder: Enter Sheet Id...
+      - label: Automation Rule Id
         required: true
-        helpText: The ID of the automation rule
         variable: automationRuleId
         type: text
+        placeholder: Enter Automation Rule Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the automation rule details
         variable: outputVariable
         type: outputVariableName

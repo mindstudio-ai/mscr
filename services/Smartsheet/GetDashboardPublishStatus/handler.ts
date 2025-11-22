@@ -104,17 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetDashboardPublishStatusInputs>) => {
-  const { sightId, outputVariable } = inputs;
-  if (!sightId) {
-    throw new Error('sightId is required');
+  if (!inputs.sightId) {
+    throw new Error('Sight Id is required');
   }
-  const path = `/sights/${sightId}/publish`;
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'GET',
-    path,
-  };
+  log(`Get Dashboard Publish Status`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sights/${inputs.sightId}/publish`,
+      queryParams,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get dashboard publish status: ${errorMessage}`);
+  }
 };

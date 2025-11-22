@@ -1,24 +1,24 @@
 apiVersion: v1
 kind: Action
-id: deleteWebhook
+id: delete-webhook
 serviceId: smartsheet
 active: false
 metadata:
   name: Delete Webhook
-  description: Deletes a webhook
+  description: 'Deletes the specified Webhook. Using this operation permanently deletes the specified webhook. To temporarily disable a webhook, use the Update Webhook operation to set enabled to false.'
+
   quickHelp: readme.md
 configuration:
-  - title: Webhook Information
+  - title: Resource Information
     items:
-      - label: Webhook ID
+      - label: Webhook Id
         required: true
-        helpText: The ID of the webhook to delete
         variable: webhookId
         type: text
+        placeholder: Enter Webhook Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

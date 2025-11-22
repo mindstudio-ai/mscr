@@ -5,28 +5,28 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Proof Request
-  description: Updates a proof request
+  description: 'Sets the proof status as either complete or incomplete.'
   quickHelp: readme.md
 configuration:
-  - title: Proof Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Proof Request ID
-        required: true
-        variable: proofRequestId
-        type: text
-      - label: New Message
-        required: false
-        variable: message
-        type: text
+        placeholder: Enter Sheet Id...
       - label: Proof Id
         required: true
-        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
+        placeholder: Enter Proof Id...
+  - title: Request Data
+    items:
+      - label: Is Completed
+        required: false
+        variable: isCompleted
+        type: text
+        placeholder: Enter Is Completed...
   - title: Output
     items:
       - label: Output Variable

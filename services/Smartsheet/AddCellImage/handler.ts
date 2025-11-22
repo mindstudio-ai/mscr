@@ -104,49 +104,33 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddCellImageInputs>) => {
-  const {
-    sheetId,
-    rowId,
-    columnId,
-    imageId,
-    altText,
-    overrideValidation,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!rowId) {
-    throw new Error('Row ID is required');
+  if (!inputs.rowId) {
+    throw new Error('Row Id is required');
   }
-  if (!columnId) {
-    throw new Error('Column ID is required');
-  }
-  if (!imageId) {
-    throw new Error('Image ID is required');
+  if (!inputs.columnId) {
+    throw new Error('Column Id is required');
   }
 
-  log(`Adding image ${imageId} to cell`);
+  log(`Add Image to Cell`);
 
   try {
-    const queryParams: Record<string, string | boolean> = {};
-    if (altText) {
-      queryParams.altText = altText;
-    }
-    if (overrideValidation !== undefined) {
-      queryParams.overrideValidation = overrideValidation;
-    }
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/rows/${rowId}/columns/${columnId}/cellimages`,
+      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/columns/${inputs.columnId}/cellimages`,
       queryParams,
-      body: { imageId },
+      body: requestBody,
     });
-    log('Successfully added image to cell');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to add cell image: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to add image to cell: ${errorMessage}`);
   }
 };

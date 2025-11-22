@@ -104,64 +104,44 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateProofRequestInputs>) => {
-  const {
-    sheetId,
-    proofId,
-    approverEmails,
-    message,
-    ccMe,
-    isDownloadable,
-    subject,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!proofId) {
-    throw new Error('Proof ID is required');
-  }
-  if (!approverEmails) {
-    throw new Error('Approver emails are required');
+  if (!inputs.proofId) {
+    throw new Error('Proof Id is required');
   }
 
-  log('Creating proof request');
+  log(`Create Proof Request`);
 
   try {
-    const emails = approverEmails.split(',').map((e: string) => e.trim());
-    const approvers = emails
-      .filter((email: string) => !!email)
-      .map((email: string) => ({ email }));
-
-    if (!approvers.length) {
-      throw new Error('At least one approver email must be provided');
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.isDownloadable !== undefined) {
+      requestBody.isDownloadable = inputs.isDownloadable;
     }
-
-    const proofBody: Record<string, unknown> = {
-      sendTo: approvers,
-    };
-
-    if (message) {
-      proofBody.message = message;
+    if (inputs.ccMe !== undefined) {
+      requestBody.ccMe = inputs.ccMe;
     }
-    if (ccMe !== undefined) {
-      proofBody.ccMe = ccMe;
+    if (inputs.message !== undefined) {
+      requestBody.message = inputs.message;
     }
-    if (isDownloadable !== undefined) {
-      proofBody.isDownloadable = isDownloadable;
+    if (inputs.sendTo !== undefined) {
+      requestBody.sendTo = inputs.sendTo;
     }
-    if (subject) {
-      proofBody.subject = subject;
+    if (inputs.subject !== undefined) {
+      requestBody.subject = inputs.subject;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/proofs/${proofId}/requests`,
-      body: proofBody,
+      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/requests`,
+      body: requestBody,
     });
-    log('Proof request created successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to create proof request: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create proof request: ${errorMessage}`);
   }
 };

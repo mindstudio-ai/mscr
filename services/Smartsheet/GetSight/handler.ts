@@ -104,44 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetSightInputs>) => {
-  const {
-    sightId,
-    accessApiLevel,
-    include,
-    level,
-    numericDates,
-    outputVariable,
-  } = inputs;
-
-  if (!sightId) {
-    throw new Error('Sight ID is required');
+  if (!inputs.sightId) {
+    throw new Error('Sight Id is required');
   }
 
-  log(`Getting dashboard ${sightId}`);
+  log(`Get Dashboard`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (accessApiLevel !== undefined) {
-      queryParams.accessApiLevel = accessApiLevel;
-    }
-    if (include) {
-      queryParams.include = include;
-    }
-    if (level !== undefined) {
-      queryParams.level = level;
-    }
-    if (numericDates !== undefined) {
-      queryParams.numericDates = numericDates;
-    }
 
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sights/${sightId}`,
+      path: `/sights/${inputs.sightId}`,
       queryParams,
     });
-    log('Retrieved dashboard successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to get dashboard: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get dashboard: ${errorMessage}`);
   }
 };

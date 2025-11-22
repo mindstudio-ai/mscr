@@ -5,30 +5,26 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Sort Rows In Sheet
-  description: Sorts the rows of a sheet, either in ascending or descending order.
+  description: 'Sorts the rows of a sheet, either in ascending or descending order.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: sheet Id
+      - label: Sheet Id
         required: true
-        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-      - label: include Exclude
+        placeholder: Enter Sheet Id...
+  - title: Request Data
+    items:
+      - label: Sort Criteria
         required: false
-        helpText: |
-          (Optional) Any of the relevant parameters or query parameters listed for [Get Sheet](../../tag/sheets#operation/getSheet).
-        variable: includeExclude
+        variable: sortCriteria
         type: text
-      - label: sortcriteria
-        required: false
-        variable: sortcriteria
-        type: text
+        placeholder: Enter Sort Criteria...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

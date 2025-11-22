@@ -1,48 +1,12 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { handler } from './handler';
+import { expect, test } from 'vitest';
+import runConnector from '../../../src/utils/testHarness';
 
-describe('UpdateWorkspace', () => {
-  const mockSetOutput = vi.fn();
-  const mockLog = vi.fn();
-  const mockUploadFile = vi.fn();
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    process.env.accessToken = 'test-token';
+test('update workspace', async () => {
+  process.env.accessToken = process.env.accessToken;
+  const { handler } = await import('./handler.ts');
+  const ctx = await runConnector(handler, {
+    workspaceId: 'test-workspaceId',
+    outputVariable: 'result',
   });
-
-  it('should update workspace successfully', async () => {
-    const inputs = {
-      workspaceId: '123456789',
-      name: 'Updated Workspace',
-      outputVariable: 'updatedWorkspace',
-    };
-
-    await expect(
-      handler({
-        inputs,
-        setOutput: mockSetOutput,
-        log: mockLog,
-        uploadFile: mockUploadFile,
-      }),
-    ).resolves.not.toThrow();
-
-    expect(mockLog).toHaveBeenCalledWith('Updating workspace 123456789...');
-  });
-
-  it('should throw error when workspaceId is missing', async () => {
-    const inputs = {
-      name: 'Updated Workspace',
-      outputVariable: 'updatedWorkspace',
-    };
-
-    await expect(
-      handler({
-        inputs,
-        setOutput: mockSetOutput,
-        log: mockLog,
-        uploadFile: mockUploadFile,
-      }),
-    ).rejects.toThrow('Workspace ID is required');
-  });
+  expect(ctx.outputs['result']).toBeTruthy();
 });

@@ -5,31 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Report Share
-  description: Deletes the share specified in the URL.
+  description: 'Deletes the share specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: report Id
+      - label: Report Id
         required: true
-        helpText: (Required) reportID of the report being accessed.
         variable: reportId
         type: text
-      - label: share Id
+        placeholder: Enter Report Id...
+      - label: Share Id
         required: true
-        helpText: (Required) Share Id.
         variable: shareId
         type: text
-      - label: accessapilevel
-        required: false
-        helpText: |
-          Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
-        variable: accessapilevel
-        type: number
+        placeholder: Enter Share Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -1,7 +1,8 @@
 export interface ListWorkspaceFoldersInputs {
   workspaceId: string;
-  includeall?: boolean;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
   page?: number;
-  pagesize?: number;
   outputVariable: string;
 }

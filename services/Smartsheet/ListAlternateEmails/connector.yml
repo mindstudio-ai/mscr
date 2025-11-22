@@ -5,21 +5,42 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Alternate Emails
-  description: Lists all alternate email addresses for a specified user
+  description: 'Gets a list of the alternate emails for the specified user.'
   quickHelp: readme.md
 configuration:
-  - title: User Information
+  - title: Resource Information
     items:
-      - label: User ID
+      - label: User Id
         required: true
-        helpText: The ID of the user whose alternate emails to retrieve
         variable: userId
         type: text
-        placeholder: Enter user ID...
+        placeholder: Enter User Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the list of alternate emails
         variable: outputVariable
         type: outputVariableName

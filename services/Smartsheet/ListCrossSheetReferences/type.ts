@@ -1,7 +1,8 @@
 export interface ListCrossSheetReferencesInputs {
   sheetId: string;
-  includeAll?: boolean;
-  page?: number;
+  include?: string;
+  exclude?: string;
   pageSize?: number;
+  page?: number;
   outputVariable: string;
 }

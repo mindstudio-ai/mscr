@@ -5,15 +5,17 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Group
-  description: Deletes a group
+  description: 'Deletes the group specified in the URL. This operation is only available to group administrators and system administrators.'
+
   quickHelp: readme.md
 configuration:
-  - title: Group Information
+  - title: Resource Information
     items:
-      - label: Group ID
+      - label: Group Id
         required: true
         variable: groupId
         type: text
+        placeholder: Enter Group Id...
   - title: Output
     items:
       - label: Output Variable

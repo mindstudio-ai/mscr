@@ -1,6 +1,7 @@
 export interface AddCommentAttachmentInputs {
   sheetId: string;
   commentId: string;
-  filePath: string;
+  filePath?: string;
+  fileName?: string;
   outputVariable: string;
 }

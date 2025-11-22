@@ -1,11 +1,7 @@
 export interface ListSheetsInputs {
-  includeOwnerInfo?: boolean;
-  modifiedSince?: string;
   include?: string;
-  includeAll?: boolean;
-  numericDates?: boolean;
-  page?: number;
+  exclude?: string;
   pageSize?: number;
-  accessApiLevel?: number;
+  page?: number;
   outputVariable: string;
 }

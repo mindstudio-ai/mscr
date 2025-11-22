@@ -104,18 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetServerInfoInputs>) => {
-  const { outputVariable } = inputs;
 
-  log('Getting server information');
+  log(`Gets application constants.`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: '/serverinfo',
+      path: `/serverinfo`,
+      queryParams,
     });
-    log('Retrieved server information successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to get server info: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to gets application constants.: ${errorMessage}`);
   }
 };

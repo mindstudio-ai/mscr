@@ -104,20 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteProofVersionInputs>) => {
-  const { sheetId, proofId, outputVariable } = inputs;
-  if (!sheetId) {
-    throw new Error('sheetId is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!proofId) {
-    throw new Error('proofId is required');
+  if (!inputs.proofId) {
+    throw new Error('Proof Id is required');
   }
-  const path = `/sheets/${sheetId}/proofs/${proofId}/versions`;
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'DELETE',
-    path,
-  };
+  log(`Delete Proof Version`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/versions`,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete proof version: ${errorMessage}`);
+  }
 };

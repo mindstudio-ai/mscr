@@ -104,37 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListWebhooksInputs>) => {
-  const { includeAll, page, pageSize, outputVariable } = inputs;
+
+  log(`List Webhooks`);
 
   try {
-    log('Listing webhooks...');
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    const queryParams: Record<string, boolean | number> = {};
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-
-    const result = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: '/webhooks',
+      path: `/webhooks`,
       queryParams,
     });
 
-    const totalCount =
-      (result as any).totalCount || (result as any).data?.length || 0;
-    log(`Successfully retrieved ${totalCount} webhooks`);
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error listing webhooks: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list webhooks: ${errorMessage}`);
   }
 };

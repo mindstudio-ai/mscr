@@ -104,46 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListColumnsInputs>) => {
-  const { sheetId, level, page, pageSize, includeAll, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log(`Listing columns for sheet: ${sheetId}`);
+  log(`List Columns`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (level !== undefined) {
-      queryParams.level = level;
-    }
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/columns`,
+      path: `/sheets/${inputs.sheetId}/columns`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    const totalCount =
-      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
-    log(`Found ${Array.isArray(data) ? data.length : 0} column(s)`);
-    setOutput(outputVariable, {
-      totalCount,
-      columns: data,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to list columns: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list columns: ${errorMessage}`);
   }
 };

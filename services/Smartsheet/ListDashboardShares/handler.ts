@@ -104,44 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListDashboardSharesInputs>) => {
-  const {
-    sightId,
-    sharinginclude,
-    includeall,
-    page,
-    pagesize,
-    accessapilevel,
-    outputVariable,
-  } = inputs;
-  if (!sightId) {
-    throw new Error('sightId is required');
-  }
-  const path = `/sights/${sightId}/shares`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (sharinginclude !== undefined && sharinginclude !== null) {
-    queryParams['sharingInclude'] = sharinginclude;
-  }
-  if (includeall !== undefined && includeall !== null) {
-    queryParams['includeAll'] = includeall;
-  }
-  if (page !== undefined && page !== null) {
-    queryParams['page'] = page;
-  }
-  if (pagesize !== undefined && pagesize !== null) {
-    queryParams['pageSize'] = pagesize;
-  }
-  if (accessapilevel !== undefined && accessapilevel !== null) {
-    queryParams['accessApiLevel'] = accessapilevel;
+  if (!inputs.sightId) {
+    throw new Error('Sight Id is required');
   }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'GET',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
+  log(`List Dashboard Shares`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/sights/${inputs.sightId}/shares`,
+      queryParams,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list dashboard shares: ${errorMessage}`);
+  }
 };

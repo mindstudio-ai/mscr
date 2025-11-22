@@ -1,6 +1,9 @@
 export interface GetReportShareInputs {
   reportId: string;
   shareId: string;
-  accessapilevel?: number;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
+  page?: number;
   outputVariable: string;
 }

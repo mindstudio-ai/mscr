@@ -1,8 +1,8 @@
 export interface ListDiscussionsInputs {
   sheetId: string;
   include?: string;
-  page?: number;
+  exclude?: string;
   pageSize?: number;
-  includeAll?: boolean;
+  page?: number;
   outputVariable: string;
 }

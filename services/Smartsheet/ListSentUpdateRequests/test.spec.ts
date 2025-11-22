@@ -1,17 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('ListSentUpdateRequests executes successfully', async () => {
+test('list sent update requests', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'sheetId-sample',
-    includeall: true,
-    page: 1,
-    pagesize: 1,
+    sheetId: 'test-sheetId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

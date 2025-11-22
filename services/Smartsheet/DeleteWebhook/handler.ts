@@ -104,24 +104,24 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteWebhookInputs>) => {
-  const { webhookId, outputVariable } = inputs;
-
-  if (!webhookId) {
-    throw new Error('Webhook ID is required');
+  if (!inputs.webhookId) {
+    throw new Error('Webhook Id is required');
   }
 
-  try {
-    log(`Deleting webhook ${webhookId}...`);
+  log(`Delete Webhook`);
 
-    await smartsheetApiRequest({
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/webhooks/${webhookId}`,
+      path: `/webhooks/${inputs.webhookId}`,
     });
 
-    log(`Successfully deleted webhook: ${webhookId}`);
-    setOutput(outputVariable, { success: true, deletedWebhookId: webhookId });
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error deleting webhook: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete webhook: ${errorMessage}`);
   }
 };

@@ -104,32 +104,32 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateGroupInputs>) => {
-  const { name, description, memberEmails, outputVariable } = inputs;
 
-  if (!name) {
-    throw new Error('Group name is required');
-  }
-
-  log(`Creating group: ${name}`);
+  log(`Add Group`);
 
   try {
-    const groupBody: any = { name };
-    if (description) {
-      groupBody.description = description;
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
     }
-    if (memberEmails) {
-      const emails = memberEmails.split(',').map((e: string) => e.trim());
-      groupBody.members = emails.map((email: string) => ({ email }));
+    if (inputs.description !== undefined) {
+      requestBody.description = inputs.description;
+    }
+    if (inputs.members !== undefined) {
+      requestBody.members = inputs.members;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: '/groups',
-      body: groupBody,
+      path: `/groups`,
+      body: requestBody,
     });
-    log('Group created successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to create group: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to add group: ${errorMessage}`);
   }
 };

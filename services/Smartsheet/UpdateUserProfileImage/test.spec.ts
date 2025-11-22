@@ -1,19 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('UpdateUserProfileImage executes successfully', async () => {
+test('update user profile image', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    userId: 'userId-sample',
-    attachmentsubtype: 'attachmentsubtype-value',
-    attachmenttype: 'attachmenttype-value',
-    description: 'description-value',
-    name: 'name-value',
-    url: 'url-value',
+    userId: 'test-userId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

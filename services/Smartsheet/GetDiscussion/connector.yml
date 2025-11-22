@@ -5,19 +5,44 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Discussion
-  description: Gets a specific discussion
+  description: 'Gets the discussion specified by discussionId.'
   quickHelp: readme.md
 configuration:
-  - title: Discussion Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Discussion ID
+        placeholder: Enter Sheet Id...
+      - label: Discussion Id
         required: true
         variable: discussionId
         type: text
+        placeholder: Enter Discussion Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

@@ -5,24 +5,79 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Automation Rule
-  description: Updates an automation rule
+  description: 'Updates an existing automation rule. When sending an AutomationRule, you must always specify action.type and it must match the existing rule type.'
+
   quickHelp: readme.md
 configuration:
-  - title: Rule Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Automation Rule ID
+        placeholder: Enter Sheet Id...
+      - label: Automation Rule Id
         required: true
         variable: automationRuleId
         type: text
+        placeholder: Enter Automation Rule Id...
+  - title: Request Data
+    items:
+      - label: Id
+        required: false
+        variable: id
+        type: text
+        placeholder: Enter Id...
+      - label: Action
+        required: false
+        variable: action
+        type: text
+        placeholder: Enter Action...
+      - label: Created At
+        required: false
+        variable: createdAt
+        type: text
+        placeholder: Enter Created At...
+      - label: Created By
+        required: false
+        variable: createdBy
+        type: text
+        placeholder: Enter Created By...
+      - label: Disabled Reason
+        required: false
+        variable: disabledReason
+        type: text
+        placeholder: Enter Disabled Reason...
+      - label: Disabled Reason Text
+        required: false
+        variable: disabledReasonText
+        type: text
+        placeholder: Enter Disabled Reason Text...
       - label: Enabled
         required: false
-        helpText: Enable or disable the rule
         variable: enabled
-        type: checkbox
+        type: text
+        placeholder: Enter Enabled...
+      - label: Modified At
+        required: false
+        variable: modifiedAt
+        type: text
+        placeholder: Enter Modified At...
+      - label: Modified By
+        required: false
+        variable: modifiedBy
+        type: text
+        placeholder: Enter Modified By...
+      - label: Name
+        required: true
+        variable: name
+        type: text
+        placeholder: Enter Name...
+      - label: User Can Modify
+        required: false
+        variable: userCanModify
+        type: text
+        placeholder: Enter User Can Modify...
   - title: Output
     items:
       - label: Output Variable

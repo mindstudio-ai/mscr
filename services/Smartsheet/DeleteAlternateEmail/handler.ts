@@ -104,45 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteAlternateEmailInputs>) => {
-  const { userId, alternateEmailId, outputVariable } = inputs;
-
-  if (!userId) {
-    throw new Error('User ID is required');
+  if (!inputs.userId) {
+    throw new Error('User Id is required');
+  }
+  if (!inputs.alternateEmailId) {
+    throw new Error('Alternate Email Id is required');
   }
 
-  if (!alternateEmailId) {
-    throw new Error('Alternate Email ID is required');
-  }
-
-  log(`Deleting alternate email ${alternateEmailId} for user: ${userId}`);
+  log(`Delete Alternate Email`);
 
   try {
-    await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/users/${userId}/alternateemails/${alternateEmailId}`,
+      path: `/users/${inputs.userId}/alternateemails/${inputs.alternateEmailId}`,
     });
 
-    log('Successfully deleted alternate email');
-
-    setOutput(outputVariable, {
-      success: true,
-      deletedEmailId: alternateEmailId,
-      userId,
-    });
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error('User or alternate email not found');
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Permission')
-    ) {
-      throw new Error(
-        'Permission denied. System administrator access required.',
-      );
-    } else {
-      throw new Error(`Failed to delete alternate email: ${errorMessage}`);
-    }
+    throw new Error(`Failed to delete alternate email: ${errorMessage}`);
   }
 };

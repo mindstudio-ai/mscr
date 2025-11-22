@@ -2,8 +2,8 @@ export interface ListDiscussionsWithRowInputs {
   sheetId: string;
   rowId: string;
   include?: string;
+  exclude?: string;
+  pageSize?: number;
   page?: number;
-  pagesize?: number;
-  includeall?: boolean;
   outputVariable: string;
 }

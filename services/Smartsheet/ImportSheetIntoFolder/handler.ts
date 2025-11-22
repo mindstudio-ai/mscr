@@ -104,46 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ImportSheetIntoFolderInputs>) => {
-  const {
-    folderId,
-    sheetname,
-    headerrowindex,
-    primarycolumnindex,
-    filePath,
-    fileName,
-    outputVariable,
-  } = inputs;
-  if (!folderId) {
-    throw new Error('folderId is required');
-  }
-  if (!filePath) {
-    throw new Error('filePath is required');
-  }
-  const path = `/folders/${folderId}/sheets/import`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (sheetname !== undefined && sheetname !== null) {
-    queryParams['sheetName'] = sheetname;
-  }
-  if (headerrowindex !== undefined && headerrowindex !== null) {
-    queryParams['headerRowIndex'] = headerrowindex;
-  }
-  if (primarycolumnindex !== undefined && primarycolumnindex !== null) {
-    queryParams['primaryColumnIndex'] = primarycolumnindex;
+  if (!inputs.folderId) {
+    throw new Error('Folder Id is required');
   }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'POST',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
-  requestOptions.multipart = true;
-  requestOptions.filePath = filePath;
-  if (fileName) {
-    requestOptions.fileName = fileName;
-  }
+  log(`Import Sheet into Folder`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/folders/${inputs.folderId}/sheets/import`,
+      queryParams,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to import sheet into folder: ${errorMessage}`);
+  }
 };

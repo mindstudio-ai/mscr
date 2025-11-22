@@ -1,7 +1,7 @@
 export interface CreateWorkspaceInputs {
-  name: string;
-  include?: string;
-  skipRemap?: string;
-  accessApiLevel?: number;
+  id?: any;
+  name?: any;
+  accessLevel?: string;
+  permalink?: any;
   outputVariable: string;
 }

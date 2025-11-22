@@ -5,25 +5,47 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Add Group Members
-  description: Adds members to a group
+  description: 'Adds one or more members to a group. This operation supports both single-object and bulk semantics. For more information, see Optional Bulk Operations. If called with a single GroupMember object, and that group member already exists, error code 1129 is returned. If called with an array of GroupMember objects, any users specified in the array that are already group members are ignored and omitted from the response. This operation is only available to group administrators and system administrators.'
+
   quickHelp: readme.md
 configuration:
-  - title: Group Information
+  - title: Resource Information
     items:
-      - label: Group ID
+      - label: Group Id
         required: true
-        helpText: The ID of the group
         variable: groupId
         type: text
-      - label: Member Emails (comma-separated)
-        required: true
-        helpText: Comma-separated list of email addresses to add as members
-        variable: memberEmails
+        placeholder: Enter Group Id...
+  - title: Request Data
+    items:
+      - label: Id
+        required: false
+        variable: id
         type: text
+        placeholder: Enter Id...
+      - label: Email
+        required: true
+        variable: email
+        type: text
+        placeholder: Enter Email...
+      - label: First Name
+        required: false
+        variable: firstName
+        type: text
+        placeholder: Enter First Name...
+      - label: Last Name
+        required: false
+        variable: lastName
+        type: text
+        placeholder: Enter Last Name...
+      - label: Name
+        required: true
+        variable: name
+        type: text
+        placeholder: Enter Name...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the result
         variable: outputVariable
         type: outputVariableName

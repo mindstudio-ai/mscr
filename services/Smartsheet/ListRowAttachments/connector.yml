@@ -5,40 +5,56 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Row Attachments
-  description: Lists attachments on a row
+  description: 'Gets a list of all attachments that are on the row, including row and discussion-level attachments.'
   quickHelp: readme.md
 configuration:
-  - title: Row Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Row ID
+        placeholder: Enter Sheet Id...
+      - label: Row Id
         required: true
         variable: rowId
         type: text
+        placeholder: Enter Row Id...
+  - title: File Upload
+    items:
+      - label: File Path
+        required: true
+        variable: filePath
+        type: text
+        placeholder: /path/to/file
+      - label: File Name
+        required: false
+        variable: fileName
+        type: text
+        placeholder: filename.ext
   - title: Query Options
     collapsed: true
     items:
-      - label: Page
+      - label: Include
         required: false
-        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
       - label: Page Size
         required: false
-        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
         variable: pageSize
         type: number
         defaultValue: 100
-      - label: Include All
+      - label: Page
         required: false
-        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
-        variable: includeAll
-        type: checkbox
-        defaultValue: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

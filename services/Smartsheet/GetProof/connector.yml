@@ -5,29 +5,44 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Proof
-  description: Gets details of a specific proof request
+  description: 'Gets the proof specified in the URL. Returns the proof, which is optionally populated with discussion and attachment objects.'
   quickHelp: readme.md
 configuration:
-  - title: Proof Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
+        placeholder: Enter Sheet Id...
       - label: Proof Id
         required: true
-        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
+        placeholder: Enter Proof Id...
   - title: Query Options
     collapsed: true
     items:
       - label: Include
         required: false
-        helpText: 'A comma-separated list of optional elements to include in the response. '
         variable: include
         type: text
-        placeholder: attachments
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

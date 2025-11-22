@@ -104,48 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ImportCSVToSheetInputs>) => {
-  const {
-    fileUrl,
-    sheetName,
-    headerRowIndex,
-    primaryColumnIndex,
-    outputVariable,
-  } = inputs;
 
-  if (!fileUrl) {
-    throw new Error('File URL is required');
-  }
-  if (!sheetName) {
-    throw new Error('Sheet name is required');
-  }
-
-  log(`Importing CSV file: ${fileUrl}`);
+  log(`Import Sheet from CSV / XLSX`);
 
   try {
-    const queryParams: Record<string, string | number> = {
-      sheetName,
-    };
-    if (headerRowIndex !== undefined) {
-      queryParams.headerRowIndex = headerRowIndex;
-    }
-    if (primaryColumnIndex !== undefined) {
-      queryParams.primaryColumnIndex = primaryColumnIndex;
-    }
-
-    const importBody: any = {
-      type: 'csv',
-      file: fileUrl,
-    };
+    const queryParams: Record<string, string | number | boolean> = {};
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: '/sheets/import',
+      path: `/sheets/import`,
       queryParams,
-      body: importBody,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
     });
-    log('CSV imported successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to import CSV: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to import sheet from csv / xlsx: ${errorMessage}`);
   }
 };

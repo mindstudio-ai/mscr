@@ -104,58 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListSheetAttachmentsInputs>) => {
-  const { sheetId, page, pageSize, includeAll, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log(`Listing attachments for sheet: ${sheetId}`);
+  log(`List Attachments`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/attachments`,
+      path: `/sheets/${inputs.sheetId}/attachments`,
       queryParams,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
     });
 
-    const data = (response as any).data || response;
-    const totalCount =
-      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
-    log(
-      `Successfully retrieved ${Array.isArray(data) ? data.length : 0} attachment(s)`,
-    );
-
-    setOutput(outputVariable, {
-      totalCount,
-      attachments: data,
-    });
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error(`Sheet not found: ${sheetId}`);
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Permission')
-    ) {
-      throw new Error('Permission denied');
-    } else {
-      throw new Error(`Failed to list attachments: ${errorMessage}`);
-    }
+    throw new Error(`Failed to list attachments: ${errorMessage}`);
   }
 };

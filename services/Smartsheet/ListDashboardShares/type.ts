@@ -1,9 +1,8 @@
 export interface ListDashboardSharesInputs {
   sightId: string;
-  sharinginclude?: string;
-  includeall?: boolean;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
   page?: number;
-  pagesize?: number;
-  accessapilevel?: number;
   outputVariable: string;
 }

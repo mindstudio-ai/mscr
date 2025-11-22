@@ -1,10 +1,13 @@
 export interface CreateFolderInputs {
-  parentType: string;
-  parentId: string;
-  name: string;
   folderId: string;
-  include?: string;
-  exclude?: string;
-  skipRemap?: string;
+  id?: any;
+  name?: any;
+  favorite?: any;
+  permalink?: any;
+  folders?: string;
+  reports?: string;
+  sheets?: string;
+  sights?: string;
+  templates?: string;
   outputVariable: string;
 }

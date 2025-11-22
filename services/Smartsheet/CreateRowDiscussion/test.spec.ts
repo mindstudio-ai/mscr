@@ -1,15 +1,13 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('creates row discussion', async () => {
+test('create a discussion on a row', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheet-id',
-    rowId: 'test-row-id',
-    title: 'Row Discussion',
-    commentText: 'Row comment',
-    outputVariable: 'discussion',
+    sheetId: 'test-sheetId',
+    rowId: 'test-rowId',
+    outputVariable: 'result',
   });
-  expect(ctx.outputs['discussion']).toBeTruthy();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

@@ -104,25 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetAutomationRuleInputs>) => {
-  const { sheetId, automationRuleId, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!automationRuleId) {
-    throw new Error('Automation Rule ID is required');
+  if (!inputs.automationRuleId) {
+    throw new Error('Automation Rule Id is required');
   }
 
-  log(`Getting automation rule ${automationRuleId}`);
+  log(`Get an Automation Rule`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/automationrules/${automationRuleId}`,
+      path: `/sheets/${inputs.sheetId}/automationrules/${inputs.automationRuleId}`,
+      queryParams,
     });
-    log(`Retrieved rule: ${(response as any).name}`);
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to get automation rule: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get an automation rule: ${errorMessage}`);
   }
 };

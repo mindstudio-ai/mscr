@@ -5,52 +5,51 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Send Report
-  description: Sends the report as a PDF attachment via email to the designated recipients
+  description: 'Sends the report as a PDF attachment via email to the designated recipients'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: report Id
+      - label: Report Id
         required: true
-        helpText: (Required) reportID of the report being accessed.
         variable: reportId
         type: text
-      - label: format
+        placeholder: Enter Report Id...
+  - title: Request Data
+    items:
+      - label: Format
         required: false
         variable: format
         type: text
-      - label: formatdetails
+        placeholder: Enter Format...
+      - label: Format Details
         required: false
-        variable: formatdetails
+        variable: formatDetails
         type: text
-      - label: ccme
+        placeholder: Enter Format Details...
+      - label: Cc Me
         required: false
-        variable: ccme
+        variable: ccMe
         type: text
-      - label: message
+        placeholder: Enter Cc Me...
+      - label: Message
         required: false
         variable: message
         type: text
-      - label: sendto
+        placeholder: Enter Message...
+      - label: Send To
         required: false
-        variable: sendto
+        variable: sendTo
         type: text
-      - label: email
-        required: false
-        variable: email
-        type: text
-      - label: email Value
-        required: false
-        variable: emailValue
-        type: text
-      - label: subject
+        placeholder: Enter Send To...
+      - label: Subject
         required: false
         variable: subject
         type: text
+        placeholder: Enter Subject...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -1,40 +1,39 @@
 apiVersion: v1
 kind: Action
-id: listWebhooks
+id: list-webhooks
 serviceId: smartsheet
 active: false
 metadata:
   name: List Webhooks
-  description: Lists all webhooks owned by the user
+  description: '''Gets the list of all webhooks that the user owns (if a user-generated token was used to make the request) or the list of all webhooks associated with the third-party app (if a third-party app made the request). Items in the response are ordered by API cient name > webhook name > creation date.'''
   quickHelp: readme.md
 configuration:
-  - title: Parameters
-    items: []
-  - title: Options
+  - title: Query Options
     collapsed: true
     items:
-      - label: Include All
+      - label: Include
         required: false
-        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
-        variable: includeAll
-        type: checkbox
-        defaultValue: false
-      - label: Page
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
         required: false
-        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
       - label: Page Size
         required: false
-        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
         variable: pageSize
         type: number
         defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the list of webhooks
         variable: outputVariable
         type: outputVariableName

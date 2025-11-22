@@ -104,60 +104,68 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateUpdateRequestInputs>) => {
-  const {
-    sheetId,
-    rowIds,
-    columnIds,
-    recipientEmails,
-    subject,
-    message,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
-  }
-  if (!rowIds) {
-    throw new Error('Row IDs are required');
-  }
-  if (!columnIds) {
-    throw new Error('Column IDs are required');
-  }
-  if (!recipientEmails) {
-    throw new Error('Recipient emails are required');
-  }
-  if (!subject) {
-    throw new Error('Subject is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log('Creating update request');
+  log(`Create an Update Request`);
 
   try {
-    const rows = rowIds.split(',').map((id: string) => parseInt(id.trim(), 10));
-    const columns = columnIds
-      .split(',')
-      .map((id: string) => parseInt(id.trim(), 10));
-    const emails = recipientEmails.split(',').map((e: string) => e.trim());
-    const recipients = emails.map((email: string) => ({ email }));
-
-    const requestBody: any = {
-      rowIds: rows,
-      columnIds: columns,
-      sendTo: recipients,
-      subject,
-    };
-    if (message) {
-      requestBody.message = message;
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.rowIds !== undefined) {
+      requestBody.rowIds = inputs.rowIds;
+    }
+    if (inputs.columnIds !== undefined) {
+      requestBody.columnIds = inputs.columnIds;
+    }
+    if (inputs.includeAttachments !== undefined) {
+      requestBody.includeAttachments = inputs.includeAttachments;
+    }
+    if (inputs.includeDiscussions !== undefined) {
+      requestBody.includeDiscussions = inputs.includeDiscussions;
+    }
+    if (inputs.layout !== undefined) {
+      requestBody.layout = inputs.layout;
+    }
+    if (inputs.ccMe !== undefined) {
+      requestBody.ccMe = inputs.ccMe;
+    }
+    if (inputs.message !== undefined) {
+      requestBody.message = inputs.message;
+    }
+    if (inputs.sendTo !== undefined) {
+      requestBody.sendTo = inputs.sendTo;
+    }
+    if (inputs.subject !== undefined) {
+      requestBody.subject = inputs.subject;
+    }
+    if (inputs.id !== undefined) {
+      requestBody.id = inputs.id;
+    }
+    if (inputs.createdAt !== undefined) {
+      requestBody.createdAt = inputs.createdAt;
+    }
+    if (inputs.modifiedAt !== undefined) {
+      requestBody.modifiedAt = inputs.modifiedAt;
+    }
+    if (inputs.schedule !== undefined) {
+      requestBody.schedule = inputs.schedule;
+    }
+    if (inputs.sentBy !== undefined) {
+      requestBody.sentBy = inputs.sentBy;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/updaterequests`,
+      path: `/sheets/${inputs.sheetId}/updaterequests`,
       body: requestBody,
     });
-    log('Update request created successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to create update request: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create an update request: ${errorMessage}`);
   }
 };

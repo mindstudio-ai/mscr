@@ -104,25 +104,24 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteSightInputs>) => {
-  const { sightId, outputVariable } = inputs;
-
-  if (!sightId) {
-    throw new Error('Sight ID is required');
+  if (!inputs.sightId) {
+    throw new Error('Sight Id is required');
   }
 
-  log(`Deleting dashboard ${sightId}`);
+  log(`Delete Dashboard`);
 
   try {
-    await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sights/${sightId}`,
+      path: `/sights/${inputs.sightId}`,
     });
-    log('Dashboard deleted successfully');
-    setOutput(outputVariable, {
-      success: true,
-      deletedSightId: sightId,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to delete dashboard: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete dashboard: ${errorMessage}`);
   }
 };

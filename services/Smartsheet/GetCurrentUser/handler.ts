@@ -104,26 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetCurrentUserInputs>) => {
-  const { include, outputVariable } = inputs;
+
+  log(`Get Current User`);
 
   try {
-    log('Retrieving current user information...');
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    const queryParams: Record<string, string> = {};
-    if (include) {
-      queryParams.include = include;
-    }
-
-    const result = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: '/users/me',
+      path: `/users/me`,
       queryParams,
     });
 
-    log(`Successfully retrieved current user: ${result?.email}`);
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error getting current user: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get current user: ${errorMessage}`);
   }
 };

@@ -1,12 +1,14 @@
 export interface SetSheetPublishInputs {
   sheetId: string;
-  icalEnabled?: 'True' | 'False';
-  readOnlyFullAccessibleBy?: 'ALL' | 'ORG' | 'SHARED';
-  readOnlyFullDefaultView?: 'CALENDAR' | 'CARD' | 'GRID';
-  readOnlyFullEnabled?: 'True' | 'False';
-  readOnlyLiteEnabled?: 'True' | 'False';
-  readWriteAccessibleBy?: 'ALL' | 'ORG' | 'SHARED';
-  readWriteDefaultView?: 'CALENDAR' | 'CARD' | 'GRID';
-  readWriteEnabled?: 'True' | 'False';
+  icalEnabled?: any;
+  readOnlyFullAccessibleBy?: string;
+  readOnlyFullDefaultView?: string;
+  readOnlyFullEnabled?: any;
+  readOnlyFullShowToolbar?: any;
+  readOnlyLiteEnabled?: any;
+  readWriteAccessibleBy?: string;
+  readWriteDefaultView?: string;
+  readWriteEnabled?: any;
+  readWriteShowToolbar?: any;
   outputVariable: string;
 }

@@ -5,36 +5,39 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Child Folders
-  description: Lists all child folders within a folder
+  description: 'Gets a list of folders in a given folder. The list contains an abbreviated Folder object for each folder.'
   quickHelp: readme.md
 configuration:
-  - title: Folder Information
+  - title: Resource Information
     items:
-      - label: Folder ID
+      - label: Folder Id
         required: true
         variable: folderId
         type: text
+        placeholder: Enter Folder Id...
   - title: Query Options
     collapsed: true
     items:
-      - label: Include All
+      - label: Include
         required: false
-        helpText: (Deprecated as of February 1, 2025, and will be removed. A replacement is coming soon.) If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are igno
-        variable: includeAll
-        type: checkbox
-        defaultValue: false
-      - label: Page
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
         required: false
-        helpText: (Deprecated as of February 1, 2025, and will be removed. A replacement is coming soon.) Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pa
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
       - label: Page Size
         required: false
-        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
         variable: pageSize
         type: number
         defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

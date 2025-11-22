@@ -104,28 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetContactInputs>) => {
-  const { contactId, include, outputVariable } = inputs;
-
-  if (!contactId) {
-    throw new Error('Contact ID is required');
+  if (!inputs.contactId) {
+    throw new Error('Contact Id is required');
   }
 
-  log(`Getting contact ${contactId}`);
+  log(`Get Contact`);
 
   try {
-    const queryParams: Record<string, string> = {};
-    if (include) {
-      queryParams.include = include;
-    }
+    const queryParams: Record<string, string | number | boolean> = {};
 
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/contacts/${contactId}`,
+      path: `/contacts/${inputs.contactId}`,
       queryParams,
     });
-    log('Retrieved contact successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to get contact: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get contact: ${errorMessage}`);
   }
 };

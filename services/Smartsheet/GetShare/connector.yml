@@ -5,34 +5,47 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Share
-  description: Gets details of a specific share
+  description: 'Gets the share specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Share Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet
         variable: sheetId
         type: text
-      - label: Share ID
+        placeholder: Enter Sheet Id...
+      - label: Share Id
         required: true
-        helpText: The ID of the share
         variable: shareId
         type: text
+        placeholder: Enter Share Id...
   - title: Query Options
     collapsed: true
     items:
-      - label: Access Api Level
+      - label: Include
         required: false
-        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
-        variable: accessApiLevel
+        variable: include
+        type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
         type: number
-        defaultValue: 0
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the share details
         variable: outputVariable
         type: outputVariableName

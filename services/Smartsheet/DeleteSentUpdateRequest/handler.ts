@@ -104,20 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteSentUpdateRequestInputs>) => {
-  const { sheetId, sentUpdateRequestId, outputVariable } = inputs;
-  if (!sheetId) {
-    throw new Error('sheetId is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!sentUpdateRequestId) {
-    throw new Error('sentUpdateRequestId is required');
+  if (!inputs.sentUpdateRequestId) {
+    throw new Error('Sent Update Request Id is required');
   }
-  const path = `/sheets/${sheetId}/sentupdaterequests/${sentUpdateRequestId}`;
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'DELETE',
-    path,
-  };
+  log(`Delete Sent Update Request`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'DELETE',
+      path: `/sheets/${inputs.sheetId}/sentupdaterequests/${inputs.sentUpdateRequestId}`,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete sent update request: ${errorMessage}`);
+  }
 };

@@ -5,25 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Update Request
-  description: Deletes an update request
+  description: 'Terminates the future scheduled delivery of the update request specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Update Request Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet
         variable: sheetId
         type: text
-      - label: Update Request ID
+        placeholder: Enter Sheet Id...
+      - label: Update Request Id
         required: true
-        helpText: The ID of the update request
         variable: updateRequestId
         type: text
+        placeholder: Enter Update Request Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

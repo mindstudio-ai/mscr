@@ -1,15 +1,21 @@
 export interface AddColumnInputs {
   sheetId: string;
-  columnTitle: string;
-  columnType:
-    | 'TEXT_NUMBER'
-    | 'PICKLIST'
-    | 'DATE'
-    | 'CONTACT_LIST'
-    | 'CHECKBOX'
-    | 'DURATION';
-  picklistOptions?: string;
-  insertPosition?: 'end' | 'beginning' | 'before' | 'after';
-  siblingColumnIndex?: string;
+  title?: any;
+  type?: string;
+  formula?: any;
+  hidden?: any;
+  index?: any;
+  autoNumberFormat?: string;
+  contactOptions?: string;
+  description?: any;
+  format?: any;
+  locked?: any;
+  lockedForUser?: any;
+  options?: string;
+  symbol?: any;
+  systemColumnType?: string;
+  validation?: any;
+  version?: any;
+  width?: any;
   outputVariable: string;
 }

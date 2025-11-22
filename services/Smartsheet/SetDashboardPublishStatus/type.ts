@@ -1,7 +1,7 @@
 export interface SetDashboardPublishStatusInputs {
   sightId: string;
-  readonlyfullenabled?: string;
-  readonlyfullaccessibleby?: string;
-  readonlyfullurl?: string;
+  readOnlyFullEnabled?: any;
+  readOnlyFullAccessibleBy?: string;
+  readOnlyFullUrl?: any;
   outputVariable: string;
 }

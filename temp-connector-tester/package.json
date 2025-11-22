@@ -1,0 +1,25 @@
+{
+  "name": "connector-tester",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run api\" \"npm run frontend\"",
+    "api": "node api-server.js",
+    "frontend": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "tsx": "^4.20.6",
+    "vite": "^5.0.8"
+  }
+}

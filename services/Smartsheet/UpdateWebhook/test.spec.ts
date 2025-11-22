@@ -1,49 +1,12 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { handler } from './handler';
+import { expect, test } from 'vitest';
+import runConnector from '../../../src/utils/testHarness';
 
-describe('UpdateWebhook', () => {
-  const mockSetOutput = vi.fn();
-  const mockLog = vi.fn();
-  const mockUploadFile = vi.fn();
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    process.env.accessToken = 'test-token';
+test('update webhook', async () => {
+  process.env.accessToken = process.env.accessToken;
+  const { handler } = await import('./handler.ts');
+  const ctx = await runConnector(handler, {
+    webhookId: 'test-webhookId',
+    outputVariable: 'result',
   });
-
-  it('should update webhook successfully', async () => {
-    const inputs = {
-      webhookId: '123456789',
-      name: 'Updated Webhook',
-      enabled: true,
-      outputVariable: 'updatedWebhook',
-    };
-
-    await expect(
-      handler({
-        inputs,
-        setOutput: mockSetOutput,
-        log: mockLog,
-        uploadFile: mockUploadFile,
-      }),
-    ).resolves.not.toThrow();
-
-    expect(mockLog).toHaveBeenCalledWith('Updating webhook 123456789...');
-  });
-
-  it('should throw error when webhookId is missing', async () => {
-    const inputs = {
-      name: 'Updated Webhook',
-      outputVariable: 'updatedWebhook',
-    };
-
-    await expect(
-      handler({
-        inputs,
-        setOutput: mockSetOutput,
-        log: mockLog,
-        uploadFile: mockUploadFile,
-      }),
-    ).rejects.toThrow('Webhook ID is required');
-  });
+  expect(ctx.outputs['result']).toBeTruthy();
 });

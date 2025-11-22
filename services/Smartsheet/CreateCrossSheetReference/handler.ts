@@ -104,57 +104,38 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateCrossSheetReferenceInputs>) => {
-  const {
-    sheetId,
-    name,
-    sourceSheetId,
-    startRowId,
-    endRowId,
-    startColumnId,
-    endColumnId,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
-  }
-  if (!name) {
-    throw new Error('Reference name is required');
-  }
-  if (!sourceSheetId) {
-    throw new Error('Source Sheet ID is required');
-  }
-  if (!startRowId) {
-    throw new Error('Start Row ID is required');
-  }
-  if (!endRowId) {
-    throw new Error('End Row ID is required');
-  }
-  if (!startColumnId) {
-    throw new Error('Start Column ID is required');
-  }
-  if (!endColumnId) {
-    throw new Error('End Column ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log(`Creating cross-sheet reference: ${name}`);
+  log(`Create Cross-sheet References`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.sourceSheetId !== undefined) {
+      requestBody.sourceSheetId = inputs.sourceSheetId;
+    }
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
+    }
+    if (inputs.endColumnId !== undefined) {
+      requestBody.endColumnId = inputs.endColumnId;
+    }
+    if (inputs.startColumnId !== undefined) {
+      requestBody.startColumnId = inputs.startColumnId;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/crosssheetreferences`,
-      body: {
-        name,
-        sourceSheetId: parseInt(sourceSheetId, 10),
-        startRowId: parseInt(startRowId, 10),
-        endRowId: parseInt(endRowId, 10),
-        startColumnId: parseInt(startColumnId, 10),
-        endColumnId: parseInt(endColumnId, 10),
-      },
+      path: `/sheets/${inputs.sheetId}/crosssheetreferences`,
+      body: requestBody,
     });
-    log('Cross-sheet reference created successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to create cross-sheet reference: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create cross-sheet references: ${errorMessage}`);
   }
 };

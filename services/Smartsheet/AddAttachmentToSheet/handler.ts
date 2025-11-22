@@ -104,61 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddAttachmentToSheetInputs>) => {
-  const { sheetId, attachmentType, filePath, url, name, outputVariable } =
-    inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  if (attachmentType === 'LINK' && !url) {
-    throw new Error('URL is required for LINK attachments');
-  }
-
-  if (attachmentType === 'FILE' && !filePath) {
-    throw new Error('File path is required for FILE attachments');
-  }
-
-  log(`Adding ${attachmentType} attachment to sheet: ${sheetId}`);
+  log(`Attach File or URL to Sheet`);
 
   try {
-    let response;
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    if (attachmentType === 'LINK') {
-      response = await smartsheetApiRequest({
-        method: 'POST',
-        path: `/sheets/${sheetId}/attachments`,
-        body: {
-          attachmentType: 'LINK',
-          url,
-          name: name || url,
-        },
-      });
-    } else {
-      response = await smartsheetApiRequest({
-        method: 'POST',
-        path: `/sheets/${sheetId}/attachments`,
-        multipart: true,
-        filePath,
-        fileName: name,
-      });
-    }
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${inputs.sheetId}/attachments`,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
+    });
 
-    log(`Successfully added attachment with ID: ${(response as any).id}`);
-
-    setOutput(outputVariable, response);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error(`Sheet not found: ${sheetId}`);
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Permission')
-    ) {
-      throw new Error('Permission denied. Editor access required.');
-    } else {
-      throw new Error(`Failed to add attachment: ${errorMessage}`);
-    }
+    throw new Error(`Failed to attach file or url to sheet: ${errorMessage}`);
   }
 };

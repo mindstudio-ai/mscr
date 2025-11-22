@@ -1,7 +1,10 @@
 export interface ListSheetAttachmentsInputs {
   sheetId: string;
-  page?: number;
+  include?: string;
+  exclude?: string;
   pageSize?: number;
-  includeAll?: boolean;
+  page?: number;
+  filePath?: string;
+  fileName?: string;
   outputVariable: string;
 }

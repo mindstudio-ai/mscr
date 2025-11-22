@@ -104,27 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteAttachmentInputs>) => {
-  const { sheetId, attachmentId, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!attachmentId) {
-    throw new Error('Attachment ID is required');
+  if (!inputs.attachmentId) {
+    throw new Error('Attachment Id is required');
   }
 
-  log(`Deleting attachment ${attachmentId} from sheet ${sheetId}`);
+  log(`Delete Attachment`);
 
   try {
-    await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${sheetId}/attachments/${attachmentId}`,
+      path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}`,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
     });
-    log('Successfully deleted attachment');
-    setOutput(outputVariable, {
-      success: true,
-      deletedAttachmentId: attachmentId,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
     throw new Error(`Failed to delete attachment: ${errorMessage}`);

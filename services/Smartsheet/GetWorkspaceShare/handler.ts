@@ -104,27 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetWorkspaceShareInputs>) => {
-  const { workspaceId, shareId, accessapilevel, outputVariable } = inputs;
-  if (!workspaceId) {
-    throw new Error('workspaceId is required');
+  if (!inputs.workspaceId) {
+    throw new Error('Workspace Id is required');
   }
-  if (!shareId) {
-    throw new Error('shareId is required');
-  }
-  const path = `/workspaces/${workspaceId}/shares/${shareId}`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (accessapilevel !== undefined && accessapilevel !== null) {
-    queryParams['accessApiLevel'] = accessapilevel;
+  if (!inputs.shareId) {
+    throw new Error('Share Id is required');
   }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'GET',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
+  log(`Get Workspace Share`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/workspaces/${inputs.workspaceId}/shares/${inputs.shareId}`,
+      queryParams,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get workspace share: ${errorMessage}`);
+  }
 };

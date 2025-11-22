@@ -104,30 +104,30 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddCommentAttachmentInputs>) => {
-  const { sheetId, commentId, filePath, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!commentId) {
-    throw new Error('Comment ID is required');
-  }
-  if (!filePath) {
-    throw new Error('File path is required');
+  if (!inputs.commentId) {
+    throw new Error('Comment Id is required');
   }
 
-  log(`Adding attachment to comment ${commentId}`);
+  log(`Attach File or URL to Comment`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${sheetId}/comments/${commentId}/attachments`,
+      path: `/sheets/${inputs.sheetId}/comments/${inputs.commentId}/attachments`,
       multipart: true,
-      filePath,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
     });
-    log(`Successfully added attachment with ID: ${(response as any).id}`);
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to add comment attachment: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to attach file or url to comment: ${errorMessage}`);
   }
 };

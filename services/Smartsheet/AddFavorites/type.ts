@@ -1,4 +1,5 @@
 export interface AddFavoritesInputs {
-  favoritesJson: string;
+  objectId?: any;
+  type?: string;
   outputVariable: string;
 }

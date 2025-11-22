@@ -5,31 +5,47 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Is Favorite
-  description: Checks whether an item has been tagged as a favorite for the current user by type and ID.
+  description: 'Checks whether an item has been tagged as a favorite for the current user by type and ID.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: favorite Type
+      - label: Favorite Type
         required: true
-        helpText: (Required) The favorite type.
         variable: favoriteType
         type: text
-      - label: favorite Id
+        placeholder: Enter Favorite Type...
+      - label: Favorite Id
         required: true
-        helpText: (Required) Favorite Id, e.g., sheet Id, report Id.
         variable: favoriteId
         type: text
-      - label: include
+        placeholder: Enter Favorite Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
         required: false
-        helpText: |
-          A comma-separated list of optional elements to include in the response.
         variable: include
         type: text
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

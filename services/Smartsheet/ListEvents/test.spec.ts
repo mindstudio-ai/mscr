@@ -1,11 +1,11 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('lists events', async () => {
+test('list events', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    outputVariable: 'events',
+    outputVariable: 'result',
   });
-  expect(ctx.outputs['events'].events).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

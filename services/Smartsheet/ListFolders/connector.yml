@@ -5,7 +5,7 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Folders
-  description: Lists all folders in a workspace
+  description: 'Lists all folders in a workspace'
   quickHelp: readme.md
 configuration:
   - title: Folder Information

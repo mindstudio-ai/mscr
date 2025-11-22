@@ -104,31 +104,35 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateGroupInputs>) => {
-  const { groupId, name, description, outputVariable } = inputs;
-
-  if (!groupId) {
-    throw new Error('Group ID is required');
+  if (!inputs.groupId) {
+    throw new Error('Group Id is required');
   }
 
-  log(`Updating group ${groupId}`);
+  log(`Update Group`);
 
   try {
-    const updateBody: any = {};
-    if (name) {
-      updateBody.name = name;
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
     }
-    if (description !== undefined) {
-      updateBody.description = description;
+    if (inputs.description !== undefined) {
+      requestBody.description = inputs.description;
+    }
+    if (inputs.ownerId !== undefined) {
+      requestBody.ownerId = inputs.ownerId;
     }
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/groups/${groupId}`,
-      body: updateBody,
+      path: `/groups/${inputs.groupId}`,
+      body: requestBody,
     });
-    log('Group updated successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to update group: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to update group: ${errorMessage}`);
   }
 };

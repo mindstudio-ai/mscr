@@ -104,47 +104,31 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListAttachmentVersionsInputs>) => {
-  const { sheetId, attachmentId, page, pageSize, includeAll, outputVariable } =
-    inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!attachmentId) {
-    throw new Error('Attachment ID is required');
+  if (!inputs.attachmentId) {
+    throw new Error('Attachment Id is required');
   }
 
-  log(`Listing versions for attachment ${attachmentId}`);
+  log(`List Versions`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/attachments/${attachmentId}/versions`,
+      path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}/versions`,
       queryParams,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
     });
-    const data = (response as any).data || response;
-    const totalCount =
-      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
-    log(`Found ${Array.isArray(data) ? data.length : 0} version(s)`);
-    setOutput(outputVariable, {
-      totalCount,
-      versions: data,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to list versions: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list versions: ${errorMessage}`);
   }
 };

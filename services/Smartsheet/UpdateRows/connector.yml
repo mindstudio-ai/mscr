@@ -5,52 +5,137 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Rows
-  description: Updates one or more existing rows in a sheet by modifying cell values
+  description: 'Updates cell values in the specified rows, expands/collapses the specified rows, or modifies the position of specified rows (including indenting/outdenting). For detailed information about changing row positions, see location-specifier attributes. Note: This operation does not handle adding images to cells. However, you can upload an image to a cell by calling the operation described in the Add Image to Cell page.'
+
   quickHelp: readme.md
 configuration:
-  - title: Sheet Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet containing the rows to update
         variable: sheetId
         type: text
-        placeholder: Enter sheet ID...
-  - title: Row Updates
+        placeholder: Enter Sheet Id...
+  - title: Request Data
     items:
-      - label: Rows Data
-        required: true
-        helpText: Array of row objects with id and cells to update. Each cell needs columnId and value
-        variable: rowsData
+      - label: Id
+        required: false
+        variable: id
         type: text
-        textOptions:
-          type: multiline
-        placeholder: '[{"id":1234567890,"cells":[{"columnId":123456,"value":"Updated Value"}]}]'
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Access Api Level
+        placeholder: Enter Id...
+      - label: Sheet Id
         required: false
-        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
-        variable: accessApiLevel
-        type: number
-        defaultValue: 0
-      - label: Allow Partial Success
+        variable: sheetId
+        type: text
+        placeholder: Enter Sheet Id...
+      - label: Sibling Id
         required: false
-        helpText: When specified with a value of true, enables partial success for this bulk operation. See [Partial Success](https://smartsheet.redoc.ly/#section/Work-at-Scale/Bulk-Operations) for more information.
-        variable: allowPartialSuccess
-        type: checkbox
-        defaultValue: false
-      - label: Override Validation
+        variable: siblingId
+        type: text
+        placeholder: Enter Sibling Id...
+      - label: Access Level
         required: false
-        helpText: 'You may use the query string parameter **overrideValidation** with a value of **true** to allow a cell value outside of the validation limits. You must specify **strict** with a value of **false** to '
-        variable: overrideValidation
-        type: checkbox
-        defaultValue: false
+        variable: accessLevel
+        type: text
+        placeholder: Enter Access Level...
+      - label: Attachments
+        required: false
+        variable: attachments
+        type: text
+        placeholder: Enter Attachments...
+      - label: Cells
+        required: false
+        variable: cells
+        type: text
+        placeholder: Enter Cells...
+      - label: Columns
+        required: false
+        variable: columns
+        type: text
+        placeholder: Enter Columns...
+      - label: Conditional Format
+        required: false
+        variable: conditionalFormat
+        type: text
+        placeholder: Enter Conditional Format...
+      - label: Created At
+        required: false
+        variable: createdAt
+        type: text
+        placeholder: Enter Created At...
+      - label: Created By
+        required: false
+        variable: createdBy
+        type: text
+        placeholder: Enter Created By...
+      - label: Discussions
+        required: false
+        variable: discussions
+        type: text
+        placeholder: Enter Discussions...
+      - label: Proof
+        required: false
+        variable: proof
+        type: text
+        placeholder: Enter Proof...
+      - label: Expanded
+        required: false
+        variable: expanded
+        type: text
+        placeholder: Enter Expanded...
+      - label: Filtered Out
+        required: false
+        variable: filteredOut
+        type: text
+        placeholder: Enter Filtered Out...
+      - label: Format
+        required: false
+        variable: format
+        type: text
+        placeholder: Enter Format...
+      - label: In Critical Path
+        required: false
+        variable: inCriticalPath
+        type: text
+        placeholder: Enter In Critical Path...
+      - label: Locked
+        required: false
+        variable: locked
+        type: text
+        placeholder: Enter Locked...
+      - label: Locked For User
+        required: false
+        variable: lockedForUser
+        type: text
+        placeholder: Enter Locked For User...
+      - label: Modified At
+        required: false
+        variable: modifiedAt
+        type: text
+        placeholder: Enter Modified At...
+      - label: Modified By
+        required: false
+        variable: modifiedBy
+        type: text
+        placeholder: Enter Modified By...
+      - label: Perma Link
+        required: false
+        variable: permaLink
+        type: text
+        placeholder: Enter Perma Link...
+      - label: Row Number
+        required: false
+        variable: rowNumber
+        type: text
+        placeholder: Enter Row Number...
+      - label: Version
+        required: false
+        variable: version
+        type: text
+        placeholder: Enter Version...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the updated rows information
         variable: outputVariable
         type: outputVariableName

@@ -104,28 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteDiscussionInputs>) => {
-  const { sheetId, discussionId, outputVariable } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!discussionId) {
-    throw new Error('Discussion ID is required');
+  if (!inputs.discussionId) {
+    throw new Error('Discussion Id is required');
   }
 
-  log(`Deleting discussion ${discussionId}`);
+  log(`Delete a Discussion`);
 
   try {
-    await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${sheetId}/discussions/${discussionId}`,
+      path: `/sheets/${inputs.sheetId}/discussions/${inputs.discussionId}`,
     });
-    log('Discussion deleted successfully');
-    setOutput(outputVariable, {
-      success: true,
-      deletedDiscussionId: discussionId,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to delete discussion: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete a discussion: ${errorMessage}`);
   }
 };

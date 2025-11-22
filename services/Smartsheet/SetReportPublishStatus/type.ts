@@ -1,9 +1,9 @@
 export interface SetReportPublishStatusInputs {
   reportId: string;
-  readonlyfullaccessibleby?: string;
-  readonlyfulldefaultview?: string;
-  readonlyfullenabled?: string;
-  readonlyfullshowtoolbar?: string;
-  readonlyfullurl?: string;
+  readOnlyFullAccessibleBy?: any;
+  readOnlyFullDefaultView?: any;
+  readOnlyFullEnabled?: any;
+  readOnlyFullShowToolbar?: any;
+  readOnlyFullUrl?: any;
   outputVariable: string;
 }

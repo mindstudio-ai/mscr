@@ -5,80 +5,106 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Add Column
-  description: Adds a new column to a sheet with specified properties
+  description: 'Inserts one or more columns into the sheet specified in the URL.This operation can be performed using a simple upload or a multipart upload. For more information, see Post an Attachment.'
   quickHelp: readme.md
 configuration:
-  - title: Sheet Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet where the column will be added
         variable: sheetId
         type: text
-        placeholder: Enter sheet ID...
-  - title: Column Details
+        placeholder: Enter Sheet Id...
+  - title: Request Data
     items:
-      - label: Column Title
+      - label: Title
         required: true
-        helpText: The title/name for the new column
-        variable: columnTitle
+        variable: title
         type: text
-        placeholder: Enter column name...
-      - label: Column Type
-        required: true
-        helpText: The type of data this column will contain
-        variable: columnType
-        type: select
-        defaultValue: TEXT_NUMBER
-        selectOptions:
-          options:
-            - label: Text/Number
-              value: TEXT_NUMBER
-            - label: Picklist (Dropdown)
-              value: PICKLIST
-            - label: Date
-              value: DATE
-            - label: Contact List
-              value: CONTACT_LIST
-            - label: Checkbox
-              value: CHECKBOX
-            - label: Duration
-              value: DURATION
-      - label: Picklist Options
+        placeholder: Enter Title...
+      - label: Type
         required: false
-        helpText: For PICKLIST type - comma-separated options or JSON array
-        variable: picklistOptions
+        variable: type
         type: text
-        placeholder: Option 1,Option 2,Option 3 or ["Option 1","Option 2"]
-  - title: Position
-    collapsed: true
-    items:
-      - label: Insert Position
+        placeholder: Enter Type...
+      - label: Formula
         required: false
-        helpText: Where to insert the column relative to existing columns
-        variable: insertPosition
-        type: select
-        defaultValue: end
-        selectOptions:
-          options:
-            - label: At End
-              value: end
-            - label: At Beginning
-              value: beginning
-            - label: Before Column
-              value: before
-            - label: After Column
-              value: after
-      - label: Sibling Column Index
-        required: false
-        helpText: Column index for "Before" or "After" positioning (0-based)
-        variable: siblingColumnIndex
+        variable: formula
         type: text
-        placeholder: '0'
+        placeholder: Enter Formula...
+      - label: Hidden
+        required: false
+        variable: hidden
+        type: text
+        placeholder: Enter Hidden...
+      - label: Index
+        required: false
+        variable: index
+        type: text
+        placeholder: Enter Index...
+      - label: Auto Number Format
+        required: false
+        variable: autoNumberFormat
+        type: text
+        placeholder: Enter Auto Number Format...
+      - label: Contact Options
+        required: false
+        variable: contactOptions
+        type: text
+        placeholder: Enter Contact Options...
+      - label: Description
+        required: false
+        variable: description
+        type: text
+        placeholder: Enter Description...
+      - label: Format
+        required: false
+        variable: format
+        type: text
+        placeholder: Enter Format...
+      - label: Locked
+        required: false
+        variable: locked
+        type: text
+        placeholder: Enter Locked...
+      - label: Locked For User
+        required: false
+        variable: lockedForUser
+        type: text
+        placeholder: Enter Locked For User...
+      - label: Options
+        required: false
+        variable: options
+        type: text
+        placeholder: Enter Options...
+      - label: Symbol
+        required: false
+        variable: symbol
+        type: text
+        placeholder: Enter Symbol...
+      - label: System Column Type
+        required: false
+        variable: systemColumnType
+        type: text
+        placeholder: Enter System Column Type...
+      - label: Validation
+        required: false
+        variable: validation
+        type: text
+        placeholder: Enter Validation...
+      - label: Version
+        required: false
+        variable: version
+        type: text
+        placeholder: Enter Version...
+      - label: Width
+        required: false
+        variable: width
+        type: text
+        placeholder: Enter Width...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the created column information
         variable: outputVariable
         type: outputVariableName

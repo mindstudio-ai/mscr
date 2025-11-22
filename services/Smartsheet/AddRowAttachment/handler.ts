@@ -104,43 +104,30 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddRowAttachmentInputs>) => {
-  const { sheetId, rowId, attachmentType, filePath, url, outputVariable } =
-    inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
-  if (!rowId) {
-    throw new Error('Row ID is required');
-  }
-  if (attachmentType === 'LINK' && !url) {
-    throw new Error('URL is required for LINK attachments');
-  }
-  if (attachmentType === 'FILE' && !filePath) {
-    throw new Error('File path is required for FILE attachments');
+  if (!inputs.rowId) {
+    throw new Error('Row Id is required');
   }
 
-  log(`Adding ${attachmentType} attachment to row ${rowId}`);
+  log(`Attach File or URL to Row`);
 
   try {
-    let response;
-    if (attachmentType === 'LINK') {
-      response = await smartsheetApiRequest({
-        method: 'POST',
-        path: `/sheets/${sheetId}/rows/${rowId}/attachments`,
-        body: { attachmentType: 'LINK', url },
-      });
-    } else {
-      response = await smartsheetApiRequest({
-        method: 'POST',
-        path: `/sheets/${sheetId}/rows/${rowId}/attachments`,
-        multipart: true,
-        filePath,
-      });
-    }
-    log(`Successfully added attachment with ID: ${(response as any).id}`);
-    setOutput(outputVariable, response);
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/attachments`,
+      multipart: true,
+      filePath: inputs.filePath,
+      fileName: inputs.fileName,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to add row attachment: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to attach file or url to row: ${errorMessage}`);
   }
 };

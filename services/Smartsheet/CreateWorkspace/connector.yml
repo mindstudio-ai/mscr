@@ -1,45 +1,38 @@
 apiVersion: v1
 kind: Action
-id: createWorkspace
+id: create-workspace
 serviceId: smartsheet
 active: false
 metadata:
   name: Create Workspace
-  description: Creates a new workspace
+  description: 'Creates a new workspace.'
   quickHelp: readme.md
 configuration:
-  - title: Workspace Information
+  - title: Request Data
     items:
+      - label: Id
+        required: false
+        variable: id
+        type: text
+        placeholder: Enter Id...
       - label: Name
         required: true
-        helpText: Name of the workspace
         variable: name
         type: text
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
+        placeholder: Enter Name...
+      - label: Access Level
         required: false
-        helpText: 'A comma-separated list of elements to include:   * **all**   * **attachments**   * **brand**   * **cellLinks** - includes cross-sheet references   * **data** - includes formatting   * **discussions** '
-        variable: include
+        variable: accessLevel
         type: text
-        placeholder: filters
-      - label: Skip Remap
+        placeholder: Enter Access Level...
+      - label: Permalink
         required: false
-        helpText: A comma-separated list of references to NOT re-map for the newly created folder.
-        variable: skipRemap
+        variable: permalink
         type: text
-        placeholder: reports
-      - label: Access Api Level
-        required: false
-        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
-        variable: accessApiLevel
-        type: number
-        defaultValue: 0
+        placeholder: Enter Permalink...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the created workspace
         variable: outputVariable
         type: outputVariableName

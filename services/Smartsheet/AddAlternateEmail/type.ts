@@ -1,5 +1,5 @@
 export interface AddAlternateEmailInputs {
   userId: string;
-  email: string;
+  email?: any;
   outputVariable: string;
 }

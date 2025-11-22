@@ -5,27 +5,48 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Send Sheet
-  description: Sends a sheet via email
+  description: 'Sends the sheet as a PDF attachment via email to the designated recipients.'
   quickHelp: readme.md
 configuration:
-  - title: Sheet Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Recipient Emails (comma-separated)
-        required: true
-        variable: recipientEmails
+        placeholder: Enter Sheet Id...
+  - title: Request Data
+    items:
+      - label: Format
+        required: false
+        variable: format
         type: text
-      - label: Subject
-        required: true
-        variable: subject
+        placeholder: Enter Format...
+      - label: Format Details
+        required: false
+        variable: formatDetails
         type: text
-      - label: Message (optional)
+        placeholder: Enter Format Details...
+      - label: Cc Me
+        required: false
+        variable: ccMe
+        type: text
+        placeholder: Enter Cc Me...
+      - label: Message
         required: false
         variable: message
         type: text
+        placeholder: Enter Message...
+      - label: Send To
+        required: false
+        variable: sendTo
+        type: text
+        placeholder: Enter Send To...
+      - label: Subject
+        required: false
+        variable: subject
+        type: text
+        placeholder: Enter Subject...
   - title: Output
     items:
       - label: Output Variable

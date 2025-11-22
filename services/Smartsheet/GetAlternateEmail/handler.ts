@@ -104,39 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetAlternateEmailInputs>) => {
-  const { userId, alternateEmailId, outputVariable } = inputs;
-
-  if (!userId) {
-    throw new Error('User ID is required');
+  if (!inputs.userId) {
+    throw new Error('User Id is required');
+  }
+  if (!inputs.alternateEmailId) {
+    throw new Error('Alternate Email Id is required');
   }
 
-  if (!alternateEmailId) {
-    throw new Error('Alternate Email ID is required');
-  }
-
-  log(`Retrieving alternate email ${alternateEmailId} for user: ${userId}`);
+  log(`Get Alternate Email`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/users/${userId}/alternateemails/${alternateEmailId}`,
+      path: `/users/${inputs.userId}/alternateemails/${inputs.alternateEmailId}`,
+      queryParams,
     });
 
-    log(`Successfully retrieved alternate email: ${(response as any).email}`);
-
-    setOutput(outputVariable, response);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-
-    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
-      throw new Error('User or alternate email not found');
-    } else if (
-      errorMessage.includes('403') ||
-      errorMessage.includes('Permission')
-    ) {
-      throw new Error('Permission denied');
-    } else {
-      throw new Error(`Failed to get alternate email: ${errorMessage}`);
-    }
+    throw new Error(`Failed to get alternate email: ${errorMessage}`);
   }
 };

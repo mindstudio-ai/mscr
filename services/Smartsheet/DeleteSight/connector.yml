@@ -4,16 +4,17 @@ id: delete-sight
 serviceId: smartsheet
 active: false
 metadata:
-  name: Delete Sight (Dashboard)
-  description: Deletes a dashboard
+  name: Delete Sight
+  description: 'Deletes the dashboard specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Sight Information
+  - title: Resource Information
     items:
-      - label: Sight ID
+      - label: Sight Id
         required: true
         variable: sightId
         type: text
+        placeholder: Enter Sight Id...
   - title: Output
     items:
       - label: Output Variable

@@ -1,8 +1,11 @@
 export interface ListAttachmentVersionsInputs {
   sheetId: string;
   attachmentId: string;
-  page?: number;
+  include?: string;
+  exclude?: string;
   pageSize?: number;
-  includeAll?: boolean;
+  page?: number;
+  filePath?: string;
+  fileName?: string;
   outputVariable: string;
 }

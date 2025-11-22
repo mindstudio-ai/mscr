@@ -5,22 +5,19 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Reset Shared Secret
-  description: |
-    Resets the shared secret for the specified webhook. For more information about how a shared secret is used, see Authenticating Callbacks.
-    This operation can be used to rotate an API client's webhooks' shared secrets at periodic intervals to provide additional security.
+  description: 'Resets the shared secret for the specified webhook. For more information about how a shared secret is used, see Authenticating Callbacks. This operation can be used to rotate an API client''s webhooks'' shared secrets at periodic intervals to provide additional security.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: webhook Id
+      - label: Webhook Id
         required: true
-        helpText: (Required) The Id of a Webhook
         variable: webhookId
         type: text
+        placeholder: Enter Webhook Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

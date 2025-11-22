@@ -104,58 +104,41 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateWebhookInputs>) => {
-  const {
-    name,
-    callbackUrl,
-    scope,
-    scopeObjectId,
-    events,
-    version,
-    outputVariable,
-  } = inputs;
 
-  if (!name) {
-    throw new Error('Webhook name is required');
-  }
-
-  if (!callbackUrl) {
-    throw new Error('Callback URL is required');
-  }
-
-  if (!scope) {
-    throw new Error('Scope is required');
-  }
-
-  if (!scopeObjectId) {
-    throw new Error('Scope object ID is required');
-  }
-
-  if (!events || !Array.isArray(events) || events.length === 0) {
-    throw new Error('Events array is required');
-  }
+  log(`Create Webhook`);
 
   try {
-    log(`Creating webhook ${name}...`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.callbackUrl !== undefined) {
+      requestBody.callbackUrl = inputs.callbackUrl;
+    }
+    if (inputs.events !== undefined) {
+      requestBody.events = inputs.events;
+    }
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
+    }
+    if (inputs.version !== undefined) {
+      requestBody.version = inputs.version;
+    }
+    if (inputs.scope !== undefined) {
+      requestBody.scope = inputs.scope;
+    }
+    if (inputs.scopeObjectId !== undefined) {
+      requestBody.scopeObjectId = inputs.scopeObjectId;
+    }
 
-    const webhookSpec: any = {
-      name,
-      callbackUrl,
-      scope,
-      scopeObjectId: parseInt(scopeObjectId, 10),
-      events,
-      version: version || 1,
-    };
-
-    const result = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest({
       method: 'POST',
-      path: '/webhooks',
-      body: webhookSpec,
+      path: `/webhooks`,
+      body: requestBody,
     });
 
-    log(`Successfully created webhook: ${name}`);
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error creating webhook: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to create webhook: ${errorMessage}`);
   }
 };

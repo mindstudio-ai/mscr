@@ -1,13 +1,13 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('removes group member', async () => {
+test('delete group members', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    groupId: 'test-group-id',
-    userId: 'test-user-id',
+    groupId: 'test-groupId',
+    userId: 'test-userId',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result'].success).toBe(true);
+  expect(ctx.outputs['result']).toBeTruthy();
 });

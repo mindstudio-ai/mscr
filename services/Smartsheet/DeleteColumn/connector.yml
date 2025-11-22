@@ -5,19 +5,21 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Column
-  description: Deletes a column from a sheet
+  description: 'Deletes the column specified in the URL.'
   quickHelp: readme.md
 configuration:
-  - title: Column Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Column ID
+        placeholder: Enter Sheet Id...
+      - label: Column Id
         required: true
         variable: columnId
         type: text
+        placeholder: Enter Column Id...
   - title: Output
     items:
       - label: Output Variable

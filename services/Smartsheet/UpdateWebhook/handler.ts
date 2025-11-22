@@ -104,41 +104,41 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateWebhookInputs>) => {
-  const { webhookId, name, enabled, events, callbackUrl, outputVariable } =
-    inputs;
-
-  if (!webhookId) {
-    throw new Error('Webhook ID is required');
+  if (!inputs.webhookId) {
+    throw new Error('Webhook Id is required');
   }
 
+  log(`Update Webhook`);
+
   try {
-    log(`Updating webhook ${webhookId}...`);
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.callbackUrl !== undefined) {
+      requestBody.callbackUrl = inputs.callbackUrl;
+    }
+    if (inputs.events !== undefined) {
+      requestBody.events = inputs.events;
+    }
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
+    }
+    if (inputs.version !== undefined) {
+      requestBody.version = inputs.version;
+    }
+    if (inputs.enabled !== undefined) {
+      requestBody.enabled = inputs.enabled;
+    }
 
-    const webhookSpec: any = {};
-
-    if (name) {
-      webhookSpec.name = name;
-    }
-    if (enabled !== undefined) {
-      webhookSpec.enabled = enabled;
-    }
-    if (events) {
-      webhookSpec.events = events;
-    }
-    if (callbackUrl) {
-      webhookSpec.callbackUrl = callbackUrl;
-    }
-
-    const result = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/webhooks/${webhookId}`,
-      body: webhookSpec,
+      path: `/webhooks/${inputs.webhookId}`,
+      body: requestBody,
     });
 
-    log(`Successfully updated webhook: ${webhookId}`);
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error updating webhook: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to update webhook: ${errorMessage}`);
   }
 };

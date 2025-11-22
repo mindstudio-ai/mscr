@@ -1,7 +1,8 @@
 export interface ListProofsInputs {
   sheetId: string;
-  page?: number;
+  include?: string;
+  exclude?: string;
   pageSize?: number;
-  includeAll?: boolean;
+  page?: number;
   outputVariable: string;
 }

@@ -5,25 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Proof Version
-  description: Deletes a proof version. Proof Id must be a current version proof Id.
+  description: 'Deletes a proof version. Proof Id must be a current version proof Id.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: sheet Id
+      - label: Sheet Id
         required: true
-        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-      - label: proof Id
+        placeholder: Enter Sheet Id...
+      - label: Proof Id
         required: true
-        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
+        placeholder: Enter Proof Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

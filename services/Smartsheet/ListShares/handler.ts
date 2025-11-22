@@ -104,56 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListSharesInputs>) => {
-  const {
-    sheetId,
-    sharingInclude,
-    includeAll,
-    page,
-    pageSize,
-    accessApiLevel,
-    outputVariable,
-  } = inputs;
-
-  if (!sheetId) {
-    throw new Error('Sheet ID is required');
+  if (!inputs.sheetId) {
+    throw new Error('Sheet Id is required');
   }
 
-  log(`Listing shares for sheet ${sheetId}`);
+  log(`List Sheet Shares`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (sharingInclude) {
-      queryParams.sharingInclude = sharingInclude;
-    }
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (accessApiLevel !== undefined) {
-      queryParams.accessApiLevel = accessApiLevel;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${sheetId}/shares`,
+      path: `/sheets/${inputs.sheetId}/shares`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    const shares = Array.isArray(data) ? data : [];
-    log(`Found ${shares.length} share(s)`);
-    setOutput(outputVariable, {
-      totalCount: shares.length,
-      shares,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to list shares: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list sheet shares: ${errorMessage}`);
   }
 };

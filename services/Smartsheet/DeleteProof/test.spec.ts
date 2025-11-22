@@ -1,15 +1,13 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('DeleteProof executes successfully', async () => {
+test('delete proof', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'sheetId-sample',
-    proofId: 'proofId-sample',
+    sheetId: 'test-sheetId',
+    proofId: 'test-proofId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

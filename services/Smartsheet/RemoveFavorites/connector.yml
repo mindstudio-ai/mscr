@@ -4,34 +4,17 @@ id: remove-favorites
 serviceId: smartsheet
 active: false
 metadata:
-  name: Remove Favorites (Bulk)
-  description: Removes multiple items from favorites at once
+  name: Remove Favorites
+  description: 'Deletes all favorites with the same type for the user.'
   quickHelp: readme.md
 configuration:
-  - title: Favorite Information
+  - title: Resource Information
     items:
-      - label: Object Type
-        required: true
-        helpText: sheet, workspace, folder, report, sight, template
-        variable: objectType
-        type: text
-      - label: Object IDs (comma-separated)
-        required: true
-        variable: objectIds
-        type: text
       - label: Favorite Type
         required: true
-        helpText: (Required) The favorite type.
         variable: favoriteType
         type: text
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Object Ids
-        required: true
-        helpText: '(Required) A comma-separated list of Ids of the favorited item. '
-        variable: objectIds
-        type: text
+        placeholder: Enter Favorite Type...
   - title: Output
     items:
       - label: Output Variable

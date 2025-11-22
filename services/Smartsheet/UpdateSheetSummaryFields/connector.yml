@@ -5,29 +5,28 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Sheet Summary Fields
-  description: Updates one or more summary fields
+  description: 'Updates the summary fields for the given sheet.'
   quickHelp: readme.md
 configuration:
-  - title: Field Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Fields JSON
-        required: true
-        helpText: Array of field objects with id and value/formula
-        variable: fieldsJson
-        type: text
-  - title: Query Options
-    collapsed: true
+        placeholder: Enter Sheet Id...
+  - title: Request Data
     items:
-      - label: Rename If Conflict
+      - label: 0
         required: false
-        helpText: Set to true if you want to override the requirement for unique summary field names. Repeated names will be adjusted by appending "(1)" or similar after the field name.
-        variable: renameIfConflict
-        type: checkbox
-        defaultValue: false
+        variable: 0
+        type: text
+        placeholder: Enter 0...
+      - label: 1
+        required: false
+        variable: 1
+        type: text
+        placeholder: Enter 1...
   - title: Output
     items:
       - label: Output Variable

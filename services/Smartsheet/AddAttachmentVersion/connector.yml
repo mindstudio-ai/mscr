@@ -5,24 +5,33 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Add Attachment Version
-  description: Uploads a new version of an attachment
+  description: 'Uploads a new version of a file to a sheet or row. This operation can be performed using a simple upload or a multipart upload.'
   quickHelp: readme.md
 configuration:
-  - title: Attachment Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
         variable: sheetId
         type: text
-      - label: Attachment ID
+        placeholder: Enter Sheet Id...
+      - label: Attachment Id
         required: true
         variable: attachmentId
         type: text
+        placeholder: Enter Attachment Id...
+  - title: File Upload
+    items:
       - label: File Path
         required: true
-        helpText: Path to the new version file
         variable: filePath
         type: text
+        placeholder: /path/to/file
+      - label: File Name
+        required: false
+        variable: fileName
+        type: text
+        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable

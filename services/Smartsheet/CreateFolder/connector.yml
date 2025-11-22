@@ -5,50 +5,63 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Folder
-  description: Creates a new folder in a workspace or folder
+  description: 'Creates a new folder.'
   quickHelp: readme.md
 configuration:
-  - title: Folder Information
+  - title: Resource Information
     items:
-      - label: Parent Type
+      - label: Folder Id
         required: true
-        helpText: workspace or folder
-        variable: parentType
+        variable: folderId
         type: text
-      - label: Parent ID
-        required: true
-        variable: parentId
+        placeholder: Enter Folder Id...
+  - title: Request Data
+    items:
+      - label: Id
+        required: false
+        variable: id
         type: text
-      - label: Folder Name
+        placeholder: Enter Id...
+      - label: Name
         required: true
         variable: name
         type: text
-      - label: Folder Id
-        required: true
-        helpText: (Required) Folder Id where you can create sheets, sights, reports, templates, and other folders.
-        variable: folderId
-        type: text
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
+        placeholder: Enter Name...
+      - label: Favorite
         required: false
-        helpText: 'A comma-separated list of elements to copy:   * **attachments**   * **cellLinks** - includes cross-sheet references   * **data** - includes formatting   * **discussions** - includes comments   * **fil'
-        variable: include
+        variable: favorite
         type: text
-        placeholder: data
-      - label: Exclude
+        placeholder: Enter Favorite...
+      - label: Permalink
         required: false
-        helpText: When specified with a value of **sheetHyperlinks**, excludes this category from the response
-        variable: exclude
+        variable: permalink
         type: text
-        placeholder: sheetHyperlinks
-      - label: Skip Remap
+        placeholder: Enter Permalink...
+      - label: Folders
         required: false
-        helpText: A comma-separated list of references to NOT re-map for the newly created folder.
-        variable: skipRemap
+        variable: folders
         type: text
-        placeholder: reports
+        placeholder: Enter Folders...
+      - label: Reports
+        required: false
+        variable: reports
+        type: text
+        placeholder: Enter Reports...
+      - label: Sheets
+        required: false
+        variable: sheets
+        type: text
+        placeholder: Enter Sheets...
+      - label: Sights
+        required: false
+        variable: sights
+        type: text
+        placeholder: Enter Sights...
+      - label: Templates
+        required: false
+        variable: templates
+        type: text
+        placeholder: Enter Templates...
   - title: Output
     items:
       - label: Output Variable

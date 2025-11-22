@@ -5,45 +5,51 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Proof Version
-  description: Creates a proof version. Proof Id must be for the original proof.
+  description: 'Creates a proof version. Proof Id must be for the original proof.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Resource Information
     items:
-      - label: sheet Id
+      - label: Sheet Id
         required: true
-        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-      - label: proof Id
+        placeholder: Enter Sheet Id...
+      - label: Proof Id
         required: true
-        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
-      - label: attachmentsubtype
+        placeholder: Enter Proof Id...
+  - title: Request Data
+    items:
+      - label: Attachment Sub Type
         required: false
-        variable: attachmentsubtype
+        variable: attachmentSubType
         type: text
-      - label: attachmenttype
+        placeholder: Enter Attachment Sub Type...
+      - label: Attachment Type
         required: false
-        variable: attachmenttype
+        variable: attachmentType
         type: text
-      - label: description
+        placeholder: Enter Attachment Type...
+      - label: Description
         required: false
         variable: description
         type: text
-      - label: name
-        required: false
+        placeholder: Enter Description...
+      - label: Name
+        required: true
         variable: name
         type: text
-      - label: url
+        placeholder: Enter Name...
+      - label: Url
         required: false
         variable: url
         type: text
+        placeholder: Enter Url...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -1,16 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('SortRowsInSheet executes successfully', async () => {
+test('sort rows in sheet', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'sheetId-sample',
-    includeExclude: 'includeExclude-value',
-    sortcriteria: 'sortcriteria-value',
+    sheetId: 'test-sheetId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

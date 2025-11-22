@@ -104,42 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListFavoritesInputs>) => {
-  const { includeAll, page, pageSize, include, outputVariable } = inputs;
 
-  log('Listing favorites');
+  log(`Get Favorites`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    if (includeAll !== undefined) {
-      queryParams.includeAll = includeAll;
-    }
-    if (page !== undefined) {
-      queryParams.page = page;
-    }
-    if (pageSize !== undefined) {
-      queryParams.pageSize = pageSize;
-    }
-    if (include) {
-      queryParams.include = include;
-    }
 
-    const response = await smartsheetApiRequest<{
-      data: any[];
-      totalCount?: number;
-    }>({
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: '/favorites',
+      path: `/favorites`,
       queryParams,
     });
-    const data = (response as any).data || response;
-    const totalCount =
-      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
-    log(`Found ${totalCount} favorite(s)`);
-    setOutput(outputVariable, {
-      totalCount,
-      favorites: data,
-    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to list favorites: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get favorites: ${errorMessage}`);
   }
 };

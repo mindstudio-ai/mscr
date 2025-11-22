@@ -5,29 +5,42 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Folder
-  description: Gets details of a specific folder
+  description: 'Gets a Folder object.'
   quickHelp: readme.md
 configuration:
-  - title: Folder Information
+  - title: Resource Information
     items:
-      - label: Folder ID
+      - label: Folder Id
         required: true
-        helpText: The ID of the folder
         variable: folderId
         type: text
+        placeholder: Enter Folder Id...
   - title: Query Options
     collapsed: true
     items:
       - label: Include
         required: false
-        helpText: 'A comma-separated list of optional elements to include in the response:   * **source** - Adds the Source object indicating which object the folder was created from, if any   * (Deprecated as of Februa'
         variable: include
         type: text
-        placeholder: (Deprecated) distributionLink
+        placeholder: writerInfo
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: filteredOutRows
+      - label: Page Size
+        required: false
+        variable: pageSize
+        type: number
+        defaultValue: 100
+      - label: Page
+        required: false
+        variable: page
+        type: number
+        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the folder details
         variable: outputVariable
         type: outputVariableName

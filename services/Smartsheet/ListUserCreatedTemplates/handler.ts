@@ -104,30 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListUserCreatedTemplatesInputs>) => {
-  const { accessapilevel, includeall, page, pagesize, outputVariable } = inputs;
-  const path = `/templates`;
-  const queryParams: Record<string, string | number | boolean> = {};
-  if (accessapilevel !== undefined && accessapilevel !== null) {
-    queryParams['accessApiLevel'] = accessapilevel;
-  }
-  if (includeall !== undefined && includeall !== null) {
-    queryParams['includeAll'] = includeall;
-  }
-  if (page !== undefined && page !== null) {
-    queryParams['page'] = page;
-  }
-  if (pagesize !== undefined && pagesize !== null) {
-    queryParams['pageSize'] = pagesize;
-  }
 
-  const requestOptions: ApiRequestOptions = {
-    method: 'GET',
-    path,
-  };
-  if (Object.keys(queryParams).length > 0) {
-    requestOptions.queryParams = queryParams;
-  }
+  log(`List User-Created Templates`);
 
-  const response = await smartsheetApiRequest(requestOptions);
-  setOutput(outputVariable, response);
+  try {
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
+      method: 'GET',
+      path: `/templates`,
+      queryParams,
+    });
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to list user-created templates: ${errorMessage}`);
+  }
 };

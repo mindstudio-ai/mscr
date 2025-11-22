@@ -1,18 +1,13 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
-import { handler } from './handler';
 
-test('AddImageToSheetSummary executes successfully', async () => {
+test('add image to sheet summary', async () => {
   process.env.accessToken = process.env.accessToken;
-
+  const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'sheetId-sample',
-    fieldId: 'fieldId-sample',
-    alttext: 'alttext-value',
-    overridevalidation: true,
-    filePath: './path/to/file.txt',
+    sheetId: 'test-sheetId',
+    fieldId: 'test-fieldId',
     outputVariable: 'result',
   });
-
-  expect(ctx.outputs['result']).toBeDefined();
+  expect(ctx.outputs['result']).toBeTruthy();
 });

@@ -104,56 +104,66 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddUserInputs>) => {
-  const {
-    email,
-    firstName,
-    lastName,
-    admin,
-    licensedSheetCreator,
-    sendEmail,
-    outputVariable,
-  } = inputs;
 
-  if (!email) {
-    throw new Error('Email is required');
-  }
+  log(`Add User`);
 
   try {
-    log(`Adding user ${email}...`);
-
-    const queryParams: Record<string, boolean> = {};
-    if (sendEmail !== undefined) {
-      queryParams.sendEmail = sendEmail;
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.id !== undefined) {
+      requestBody.id = inputs.id;
+    }
+    if (inputs.admin !== undefined) {
+      requestBody.admin = inputs.admin;
+    }
+    if (inputs.customWelcomeScreenViewed !== undefined) {
+      requestBody.customWelcomeScreenViewed = inputs.customWelcomeScreenViewed;
+    }
+    if (inputs.email !== undefined) {
+      requestBody.email = inputs.email;
+    }
+    if (inputs.firstName !== undefined) {
+      requestBody.firstName = inputs.firstName;
+    }
+    if (inputs.groupAdmin !== undefined) {
+      requestBody.groupAdmin = inputs.groupAdmin;
+    }
+    if (inputs.lastLogin !== undefined) {
+      requestBody.lastLogin = inputs.lastLogin;
+    }
+    if (inputs.lastName !== undefined) {
+      requestBody.lastName = inputs.lastName;
+    }
+    if (inputs.licensedSheetCreator !== undefined) {
+      requestBody.licensedSheetCreator = inputs.licensedSheetCreator;
+    }
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
+    }
+    if (inputs.profileImage !== undefined) {
+      requestBody.profileImage = inputs.profileImage;
+    }
+    if (inputs.resourceViewer !== undefined) {
+      requestBody.resourceViewer = inputs.resourceViewer;
+    }
+    if (inputs.sheetCount !== undefined) {
+      requestBody.sheetCount = inputs.sheetCount;
+    }
+    if (inputs.status !== undefined) {
+      requestBody.status = inputs.status;
     }
 
-    const userSpec: any = {
-      email,
-    };
-
-    if (firstName) {
-      userSpec.firstName = firstName;
-    }
-    if (lastName) {
-      userSpec.lastName = lastName;
-    }
-    if (admin !== undefined) {
-      userSpec.admin = admin;
-    }
-    if (licensedSheetCreator !== undefined) {
-      userSpec.licensedSheetCreator = licensedSheetCreator;
-    }
-
-    const result = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest({
       method: 'POST',
-      path: '/users',
+      path: `/users`,
       queryParams,
-      body: userSpec,
+      body: requestBody,
     });
 
-    log(`Successfully added user: ${email}`);
-    setOutput(outputVariable, result);
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error adding user: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to add user: ${errorMessage}`);
   }
 };

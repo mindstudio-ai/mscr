@@ -104,26 +104,53 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateFolderInputs>) => {
-  const { folderId, name, outputVariable } = inputs;
-
-  if (!folderId) {
-    throw new Error('Folder ID is required');
-  }
-  if (!name) {
-    throw new Error('New name is required');
+  if (!inputs.folderId) {
+    throw new Error('Folder Id is required');
   }
 
-  log(`Updating folder ${folderId}`);
+  log(`Update Folder`);
 
   try {
+    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: any = {};
+    if (inputs.id !== undefined) {
+      requestBody.id = inputs.id;
+    }
+    if (inputs.name !== undefined) {
+      requestBody.name = inputs.name;
+    }
+    if (inputs.favorite !== undefined) {
+      requestBody.favorite = inputs.favorite;
+    }
+    if (inputs.permalink !== undefined) {
+      requestBody.permalink = inputs.permalink;
+    }
+    if (inputs.folders !== undefined) {
+      requestBody.folders = inputs.folders;
+    }
+    if (inputs.reports !== undefined) {
+      requestBody.reports = inputs.reports;
+    }
+    if (inputs.sheets !== undefined) {
+      requestBody.sheets = inputs.sheets;
+    }
+    if (inputs.sights !== undefined) {
+      requestBody.sights = inputs.sights;
+    }
+    if (inputs.templates !== undefined) {
+      requestBody.templates = inputs.templates;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/folders/${folderId}`,
-      body: { name },
+      path: `/folders/${inputs.folderId}`,
+      body: requestBody,
     });
-    log('Folder updated successfully');
-    setOutput(outputVariable, response);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to update folder: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to update folder: ${errorMessage}`);
   }
 };

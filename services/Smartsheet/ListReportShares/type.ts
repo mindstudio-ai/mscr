@@ -1,8 +1,8 @@
 export interface ListReportSharesInputs {
   reportId: string;
-  sharinginclude?: string;
-  includeall?: boolean;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
   page?: number;
-  pagesize?: number;
   outputVariable: string;
 }

@@ -1,24 +1,23 @@
 apiVersion: v1
 kind: Action
-id: deleteWorkspace
+id: delete-workspace
 serviceId: smartsheet
 active: false
 metadata:
   name: Delete Workspace
-  description: Deletes a workspace
+  description: 'Deletes a workspace.'
   quickHelp: readme.md
 configuration:
-  - title: Workspace Information
+  - title: Resource Information
     items:
-      - label: Workspace ID
+      - label: Workspace Id
         required: true
-        helpText: The ID of the workspace to delete
         variable: workspaceId
         type: text
+        placeholder: Enter Workspace Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

@@ -4,17 +4,23 @@ id: add-favorites
 serviceId: smartsheet
 active: false
 metadata:
-  name: Add Favorites (Bulk)
-  description: Adds multiple items to favorites at once
+  name: Add Favorites
+  description: 'Adds one or more favorite items for the current user. This operation supports both single-object and bulk semantics. For more information, see Optional Bulk Operations. If called with a single Favorite object, and that favorite already exists, error code 1129 is returned. If called with an array of Favorite objects, any objects specified in the array that are already marked as favorites are ignored and omitted from the response.'
+
   quickHelp: readme.md
 configuration:
-  - title: Favorite Information
+  - title: Request Data
     items:
-      - label: Favorites JSON
-        required: true
-        helpText: Array of objects with type and objectId
-        variable: favoritesJson
+      - label: Object Id
+        required: false
+        variable: objectId
         type: text
+        placeholder: Enter Object Id...
+      - label: Type
+        required: false
+        variable: type
+        type: text
+        placeholder: Enter Type...
   - title: Output
     items:
       - label: Output Variable

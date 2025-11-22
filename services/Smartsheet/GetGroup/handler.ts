@@ -104,22 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetGroupInputs>) => {
-  const { groupId, outputVariable } = inputs;
-
-  if (!groupId) {
-    throw new Error('Group ID is required');
+  if (!inputs.groupId) {
+    throw new Error('Group Id is required');
   }
 
-  log(`Getting group ${groupId}`);
+  log(`Get Group`);
 
   try {
-    const result = await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+
+    const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/groups/${groupId}`,
+      path: `/groups/${inputs.groupId}`,
+      queryParams,
     });
-    log(`Retrieved group ${groupId} successfully`);
-    setOutput(outputVariable, result);
+
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    throw new Error(`Failed to get group: ${error.message}`);
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to get group: ${errorMessage}`);
   }
 };

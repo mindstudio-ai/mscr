@@ -104,27 +104,24 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteWorkspaceInputs>) => {
-  const { workspaceId, outputVariable } = inputs;
-
-  if (!workspaceId) {
-    throw new Error('Workspace ID is required');
+  if (!inputs.workspaceId) {
+    throw new Error('Workspace Id is required');
   }
 
+  log(`Delete Workspace`);
+
   try {
-    log(`Deleting workspace ${workspaceId}...`);
+    const queryParams: Record<string, string | number | boolean> = {};
 
-    await smartsheetApiRequest({
+    const response = await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/workspaces/${workspaceId}`,
+      path: `/workspaces/${inputs.workspaceId}`,
     });
 
-    log(`Successfully deleted workspace: ${workspaceId}`);
-    setOutput(outputVariable, {
-      success: true,
-      deletedWorkspaceId: workspaceId,
-    });
+    log('Successfully completed operation');
+    setOutput(inputs.outputVariable, response);
   } catch (error: any) {
-    log(`Error deleting workspace: ${error.message}`);
-    throw error;
+    const errorMessage = error.message || 'Unknown error occurred';
+    throw new Error(`Failed to delete workspace: ${errorMessage}`);
   }
 };

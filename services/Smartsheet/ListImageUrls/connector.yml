@@ -5,79 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: List Image Urls
-  description: Posts an array of Image Url objects that can be used to retrieve the specified cell images.
+  description: 'Posts an array of Image Url objects that can be used to retrieve the specified cell images.'
   quickHelp: readme.md
 configuration:
-  - title: Parameters
+  - title: Request Data
     items:
-      - label: imageid
+      - label: 0
         required: false
-        variable: imageid
+        variable: 0
         type: text
-      - label: error
+        placeholder: Enter 0...
+      - label: 1
         required: false
-        variable: error
+        variable: 1
         type: text
-      - label: refid
-        required: false
-        variable: refid
-        type: text
-      - label: errorcode
-        required: false
-        variable: errorcode
-        type: text
-      - label: message
-        required: false
-        variable: message
-        type: text
-      - label: height
-        required: false
-        variable: height
-        type: text
-      - label: url
-        required: false
-        variable: url
-        type: text
-      - label: width
-        required: false
-        variable: width
-        type: text
-      - label: imageid Value
-        required: false
-        variable: imageidValue
-        type: text
-      - label: error Value
-        required: false
-        variable: errorValue
-        type: text
-      - label: refid Value
-        required: false
-        variable: refidValue
-        type: text
-      - label: errorcode Value
-        required: false
-        variable: errorcodeValue
-        type: text
-      - label: message Value
-        required: false
-        variable: messageValue
-        type: text
-      - label: height Value
-        required: false
-        variable: heightValue
-        type: text
-      - label: url Value
-        required: false
-        variable: urlValue
-        type: text
-      - label: width Value
-        required: false
-        variable: widthValue
-        type: text
+        placeholder: Enter 1...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -1,6 +1,6 @@
 export interface AddCommentInputs {
   sheetId: string;
   discussionId: string;
-  text: string;
+  text?: any;
   outputVariable: string;
 }

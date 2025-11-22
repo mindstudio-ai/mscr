@@ -5,25 +5,24 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Proof Request
-  description: Deletes a proof request
+  description: 'Deletes all proof requests in a proof.'
   quickHelp: readme.md
 configuration:
-  - title: Proof Information
+  - title: Resource Information
     items:
-      - label: Sheet ID
+      - label: Sheet Id
         required: true
-        helpText: The ID of the sheet
         variable: sheetId
         type: text
+        placeholder: Enter Sheet Id...
       - label: Proof Id
         required: true
-        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
+        placeholder: Enter Proof Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
-        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

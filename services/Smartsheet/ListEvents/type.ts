@@ -1,9 +1,7 @@
 export interface ListEventsInputs {
-  since?: string;
-  streamPosition?: string;
-  to?: string;
-  maxCount?: number;
-  numericDates?: boolean;
-  managedPlanId?: number;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
+  page?: number;
   outputVariable: string;
 }

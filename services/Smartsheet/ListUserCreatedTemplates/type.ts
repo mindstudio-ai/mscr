@@ -1,7 +1,7 @@
 export interface ListUserCreatedTemplatesInputs {
-  accessapilevel?: number;
-  includeall?: boolean;
+  include?: string;
+  exclude?: string;
+  pageSize?: number;
   page?: number;
-  pagesize?: number;
   outputVariable: string;
 }
