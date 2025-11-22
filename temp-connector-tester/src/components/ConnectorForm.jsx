@@ -18,12 +18,15 @@ function ConnectorForm({ connector, connectorStatus, onStatusUpdate }) {
         if (item.variable) {
           initialData[item.variable] = item.defaultValue || '';
         }
+        if (item.variable === 'outputVariable') {
+          initialData[item.variable] = "out";
+        }
       });
     });
     setFormData(initialData);
     setResult(null);
     setError(null);
-    
+
     // Load status and comment
     if (connectorStatus) {
       setIsDone(connectorStatus.status === 'done');
@@ -142,7 +145,7 @@ function ConnectorForm({ connector, connectorStatus, onStatusUpdate }) {
   const handleMarkDone = async () => {
     const newStatus = isDone ? 'pending' : 'done';
     setIsDone(newStatus === 'done');
-    
+
     try {
       await saveConnectorStatus(connector.id, newStatus, comment);
       onStatusUpdate(connector.id, newStatus, comment);
