@@ -65,7 +65,7 @@ app.get('/api/connectors', (req, res) => {
   }
 });
 
-const accessToken = 'gH7cjqIFBizHEyBsTacSEEbAFCDw7ESa2k9MJ';
+const accessToken = '**REMOVED**';
 
 // API endpoint to test a connector
 app.post('/api/test-connector', async (req, res) => {
