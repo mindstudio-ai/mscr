@@ -30,18 +30,24 @@ configuration:
       - label: Include Attachments
         required: false
         variable: includeAttachments
-        type: text
-        placeholder: Enter Include Attachments...
+        type: boolean
+        defaultValue: false
       - label: Include Discussions
         required: false
         variable: includeDiscussions
-        type: text
-        placeholder: Enter Include Discussions...
+        type: boolean
+        defaultValue: false
       - label: Layout
         required: false
         variable: layout
-        type: text
-        placeholder: Enter Layout...
+        type: select
+        selectOptions:
+          options:
+          - label: HORIZONTAL
+            value: HORIZONTAL
+          - label: VERTICAL
+            value: VERTICAL
+        placeholder: Select Layout...
       - label: Cc Me
         required: false
         variable: ccMe

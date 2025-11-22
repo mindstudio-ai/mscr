@@ -111,12 +111,12 @@ export const handler = async ({
   log(`Delete Multiple Favorites`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'DELETE',
       path: `/favorites/${inputs.favoriteType}`,
-      queryParams,
+      queryParams: {
+        objectIds: inputs.objectIds,
+      },
     });
 
     log('Successfully completed operation');

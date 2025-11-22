@@ -4,6 +4,11 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import YAML from 'yaml';
 import { spawn } from 'child_process';
+import {
+  syncAllConnectors,
+  updateConnectorInSheet,
+  logConnectorTest,
+} from './googleSheetsService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -65,7 +70,7 @@ app.get('/api/connectors', (req, res) => {
   }
 });
 
-const accessToken = '**REMOVED**';
+const accessToken = 'JFP2RQN4qgLFAMAT5nzuPbWy3EJ90eFXTG5Ca';
 
 // API endpoint to test a connector
 app.post('/api/test-connector', async (req, res) => {
@@ -120,20 +125,16 @@ app.post('/api/test-connector', async (req, res) => {
         stderr += data.toString();
       });
 
-      tsxProcess.on('close', (code) => {
+      tsxProcess.on('close', async (code) => {
         try {
           // Try to parse JSON from stdout
           const jsonMatch = stdout.match(/\{[\s\S]*\}/);
+          let result;
           if (jsonMatch) {
-            const result = JSON.parse(jsonMatch[0]);
-            if (result.success) {
-              res.json(result);
-            } else {
-              res.status(500).json(result);
-            }
+            result = JSON.parse(jsonMatch[0]);
           } else {
             // Fallback: return mock response
-            res.json({
+            result = {
               success: true,
               outputs: {
                 result: {
@@ -147,7 +148,23 @@ app.post('/api/test-connector', async (req, res) => {
                 `Executed ${connector.name}`,
                 ...stderr.split('\n').filter(Boolean),
               ],
-            });
+            };
+          }
+
+          // Log test to Google Sheets (non-blocking)
+          logConnectorTest(
+            connector,
+            inputs,
+            result.success ? result.outputs : null,
+            result.success ? null : result.error
+          ).catch((err) => {
+            console.error('Failed to log test to Google Sheets:', err);
+          });
+
+          if (result.success) {
+            res.json(result);
+          } else {
+            res.status(500).json(result);
           }
           resolve();
         } catch (error) {
@@ -160,9 +177,9 @@ app.post('/api/test-connector', async (req, res) => {
         }
       });
 
-      tsxProcess.on('error', (error) => {
+      tsxProcess.on('error', async (error) => {
         // Fallback to mock response if tsx is not available
-        res.json({
+        const result = {
           success: true,
           outputs: {
             result: {
@@ -176,7 +193,14 @@ app.post('/api/test-connector', async (req, res) => {
             `[Mock] Would execute ${connector.name}`,
             `Inputs: ${JSON.stringify(inputs)}`,
           ],
+        };
+
+        // Log test to Google Sheets (non-blocking)
+        logConnectorTest(connector, inputs, result.outputs, null).catch((err) => {
+          console.error('Failed to log test to Google Sheets:', err);
         });
+
+        res.json(result);
         resolve();
       });
     });
@@ -186,6 +210,49 @@ app.post('/api/test-connector', async (req, res) => {
       error: error.message,
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
     });
+  }
+});
+
+// API endpoint to sync all connectors to Google Sheet
+app.post('/api/sync-to-sheet', async (req, res) => {
+  try {
+    const { statuses } = req.body;
+    const connectors = loadConnectors();
+    const result = await syncAllConnectors(connectors, statuses || {});
+    
+    if (result.success) {
+      res.json(result);
+    } else {
+      res.status(500).json(result);
+    }
+  } catch (error) {
+    console.error('Error syncing to Google Sheet:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// API endpoint to update a single connector in Google Sheet
+app.post('/api/update-connector-sheet', async (req, res) => {
+  try {
+    const { connectorId, status } = req.body;
+    
+    const connectors = loadConnectors();
+    const connector = connectors.find((c) => c.id === connectorId);
+    
+    if (!connector) {
+      return res.status(404).json({ error: 'Connector not found' });
+    }
+
+    const result = await updateConnectorInSheet(connector, status);
+    
+    if (result.success) {
+      res.json(result);
+    } else {
+      res.status(500).json(result);
+    }
+  } catch (error) {
+    console.error('Error updating connector in Google Sheet:', error);
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 

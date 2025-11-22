@@ -111,21 +111,18 @@ export const handler = async ({
     throw new Error('Alternate Email Id is required');
   }
 
-  log(`Get Alternate Email`);
+  log(`Get Alternate Email for user ${inputs.userId} and alternate email ${inputs.alternateEmailId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/users/${inputs.userId}/alternateemails/${inputs.alternateEmailId}`,
-      queryParams,
     });
 
     log('Successfully completed operation');
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get alternate email: ${errorMessage}`);
+    throw new Error(`Failed to get alternate email for user ${inputs.userId} and alternate email ${inputs.alternateEmailId}: ${errorMessage}`);
   }
 };

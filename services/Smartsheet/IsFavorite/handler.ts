@@ -114,7 +114,9 @@ export const handler = async ({
   log(`Is Favorite`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string | number | boolean> = {
+      include: inputs.include || '',
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',

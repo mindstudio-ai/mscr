@@ -15,18 +15,6 @@ configuration:
         variable: sheetId
         type: text
         placeholder: Enter Sheet Id...
-  - title: File Upload
-    items:
-      - label: File Path
-        required: true
-        variable: filePath
-        type: text
-        placeholder: /path/to/file
-      - label: File Name
-        required: false
-        variable: fileName
-        type: text
-        placeholder: filename.ext
   - title: Query Options
     collapsed: true
     items:

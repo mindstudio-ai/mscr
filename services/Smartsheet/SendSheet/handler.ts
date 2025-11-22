@@ -116,8 +116,10 @@ export const handler = async ({
     if (inputs.format !== undefined) {
       requestBody.format = inputs.format;
     }
-    if (inputs.formatDetails !== undefined) {
-      requestBody.formatDetails = inputs.formatDetails;
+    if (inputs.paperSize !== undefined) {
+      requestBody.formatDetails = {
+        paperSize: inputs.paperSize
+      };
     }
     if (inputs.ccMe !== undefined) {
       requestBody.ccMe = inputs.ccMe;
@@ -126,7 +128,7 @@ export const handler = async ({
       requestBody.message = inputs.message;
     }
     if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = inputs.sendTo;
+      requestBody.sendTo = [{ email: inputs.sendTo }];
     }
     if (inputs.subject !== undefined) {
       requestBody.subject = inputs.subject;

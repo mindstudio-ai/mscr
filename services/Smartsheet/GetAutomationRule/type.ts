@@ -1,9 +1,5 @@
 export interface GetAutomationRuleInputs {
-  sheetId: string;
+  sheetId: number;
   automationRuleId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
   outputVariable: string;
 }

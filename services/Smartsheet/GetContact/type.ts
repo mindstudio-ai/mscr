@@ -1,8 +1,5 @@
 export interface GetContactInputs {
-  contactId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  contactId: number;
+  includeProfileImage: 'true' | 'false';
   outputVariable: string;
 }

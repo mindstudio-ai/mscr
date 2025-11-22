@@ -13,36 +13,43 @@ configuration:
       - label: Sheet Id
         required: true
         variable: sheetId
-        type: text
+        type: number
         placeholder: Enter Sheet Id...
       - label: Row Id
         required: true
         variable: rowId
-        type: text
+        type: number
         placeholder: Enter Row Id...
-  - title: Query Options
-    collapsed: true
+  - title: Query Parameters
     items:
+      - label: Access API Level
+        required: false
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
       - label: Include
         required: false
         variable: include
         type: text
-        placeholder: writerInfo
+        placeholder: columns
       - label: Exclude
         required: false
         variable: exclude
         type: text
-        placeholder: filteredOutRows
-      - label: Page Size
+        placeholder: Enter Exclude...
+      - label: Level
         required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: level
+        type: select
+        placeholder: Select Level...
+        selectOptions:
+          options:
+          - label: 0
+            value: 0
+          - label: 1
+            value: 1
+          - label: 2
+            value: 2
   - title: Output
     items:
       - label: Output Variable

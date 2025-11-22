@@ -1,9 +1,5 @@
 export interface GetAlternateEmailInputs {
-  userId: string;
+  userId: number;
   alternateEmailId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
   outputVariable: string;
 }

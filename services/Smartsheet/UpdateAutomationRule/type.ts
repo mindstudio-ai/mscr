@@ -1,5 +1,5 @@
 export interface UpdateAutomationRuleInputs {
-  sheetId: string;
+  sheetId: number;
   automationRuleId: string;
   id?: any;
   action?: string;

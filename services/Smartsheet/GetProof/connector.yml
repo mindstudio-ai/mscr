@@ -13,36 +13,26 @@ configuration:
       - label: Sheet Id
         required: true
         variable: sheetId
-        type: text
+        type: number
         placeholder: Enter Sheet Id...
       - label: Proof Id
         required: true
         variable: proofId
         type: text
         placeholder: Enter Proof Id...
-  - title: Query Options
-    collapsed: true
+  - title: Query Parameters
     items:
       - label: Include
         required: false
         variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        type: select
+        placeholder: Select Include...
+        selectOptions:
+          options:
+          - label: Attachments
+            value: attachments
+          - label: Discussions
+            value: discussions
   - title: Output
     items:
       - label: Output Variable

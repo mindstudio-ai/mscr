@@ -13,38 +13,21 @@ configuration:
       - label: Sheet Id
         required: true
         variable: sheetId
-        type: text
+        type: number
         placeholder: Enter Sheet Id...
       - label: Row Id
         required: true
         variable: rowId
-        type: text
+        type: number
         placeholder: Enter Row Id...
-  - title: File Upload
-    items:
-      - label: File Path
-        required: true
-        variable: filePath
-        type: text
-        placeholder: /path/to/file
-      - label: File Name
-        required: false
-        variable: fileName
-        type: text
-        placeholder: filename.ext
   - title: Query Options
     collapsed: true
     items:
-      - label: Include
+      - label: Include All
         required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
+        variable: includeAll
+        type: boolean
+        defaultValue: false
       - label: Page Size
         required: false
         variable: pageSize

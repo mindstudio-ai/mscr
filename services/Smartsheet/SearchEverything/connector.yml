@@ -11,26 +11,36 @@ configuration:
   - title: Query Options
     collapsed: true
     items:
+      - label: Search Query
+        required: true
+        variable: query
+        type: text
+        placeholder: Enter text to search for...
+      - label: Location
+        required: false
+        variable: location
+        type: text
+        placeholder: Enter location...
+      - label: Modified Since
+        required: false
+        variable: modifiedSince
+        type: text
+        placeholder: Enter modified since...
       - label: Include
         required: false
         variable: include
         type: text
-        placeholder: writerInfo
-      - label: Exclude
+        placeholder: Enter include...
+      - label: Scopes
         required: false
-        variable: exclude
+        variable: scopes
         type: text
-        placeholder: filteredOutRows
-      - label: Page Size
+        placeholder: Enter scopes...
+      - label: Scopes Value
         required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: scopesValue
+        type: text
+        placeholder: Enter scopes value...
   - title: Output
     items:
       - label: Output Variable

@@ -25,6 +25,18 @@ configuration:
         variable: columnId
         type: text
         placeholder: Enter Column Id...
+  - title: Image Details
+    items:
+      - label: Image URL
+        required: true
+        variable: imageUrl
+        type: text
+        placeholder: Enter Image URL...
+      - label: Image Name
+        required: true
+        variable: imageName
+        type: text
+        placeholder: Enter Image Name...
   - title: Output
     items:
       - label: Output Variable

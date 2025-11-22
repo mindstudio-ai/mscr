@@ -105,10 +105,16 @@ export const handler = async ({
   log,
 }: IHandlerContext<ListGroupsInputs>) => {
 
-  log(`List Org Groups`);
+  log(`List Org Groups with include all ${inputs.includeAll}, modified since ${inputs.modifiedSince}, numeric dates ${inputs.numericDates}, page size ${inputs.pageSize}, page ${inputs.page}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      includeAll: inputs.includeAll || false,
+      modifiedSince: inputs.modifiedSince || undefined,
+      numericDates: inputs.numericDates || false,
+      pageSize: inputs.pageSize || 100,
+      page: inputs.page || 1,
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
@@ -120,6 +126,6 @@ export const handler = async ({
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list org groups: ${errorMessage}`);
+    throw new Error(`Failed to list org groups with include all ${inputs.includeAll}, modified since ${inputs.modifiedSince}, numeric dates ${inputs.numericDates}, page size ${inputs.pageSize}, page ${inputs.page}: ${errorMessage}`);
   }
 };

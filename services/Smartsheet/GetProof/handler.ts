@@ -111,10 +111,12 @@ export const handler = async ({
     throw new Error('Proof Id is required');
   }
 
-  log(`Get Proof`);
+  log(`Get Proof for sheet ${inputs.sheetId} and proof ${inputs.proofId} with include ${inputs.include}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      include: inputs.include,
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
@@ -126,6 +128,6 @@ export const handler = async ({
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get proof: ${errorMessage}`);
+    throw new Error(`Failed to get proof for sheet ${inputs.sheetId} and proof ${inputs.proofId} with include ${inputs.include}: ${errorMessage}`);
   }
 };

@@ -111,21 +111,18 @@ export const handler = async ({
     throw new Error('Automation Rule Id is required');
   }
 
-  log(`Get an Automation Rule`);
+  log(`Get an Automation Rule for sheet ${inputs.sheetId} and automation rule ${inputs.automationRuleId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/automationrules/${inputs.automationRuleId}`,
-      queryParams,
     });
 
     log('Successfully completed operation');
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get an automation rule: ${errorMessage}`);
+    throw new Error(`Failed to get an automation rule for sheet ${inputs.sheetId} and automation rule ${inputs.automationRuleId}: ${errorMessage}`);
   }
 };

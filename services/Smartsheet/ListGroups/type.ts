@@ -1,7 +1,8 @@
 export interface ListGroupsInputs {
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
+  includeAll?: boolean;
+  modifiedSince?: string;
+  numericDates?: boolean;
   page?: number;
+  pageSize?: number;
   outputVariable: string;
 }

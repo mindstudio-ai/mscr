@@ -12,15 +12,27 @@ configuration:
   - title: Request Data
     items:
       - label: Object Id
-        required: false
+        required: true
         variable: objectId
-        type: text
-        placeholder: Enter Object Id...
+        type: number
       - label: Type
-        required: false
+        required: true
         variable: type
-        type: text
-        placeholder: Enter Type...
+        type: select
+        selectOptions:
+          options:
+            - label: Folder
+              value: folder
+            - label: Report
+              value: report
+            - label: Sheet
+              value: sheet
+            - label: Sight
+              value: sight
+            - label: Template
+              value: template
+            - label: Workspace
+              value: workspace
   - title: Output
     items:
       - label: Output Variable

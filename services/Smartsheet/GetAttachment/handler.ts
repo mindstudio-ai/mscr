@@ -111,24 +111,19 @@ export const handler = async ({
     throw new Error('Attachment Id is required');
   }
 
-  log(`Get Attachment`);
+  log(`Get Attachment for attachment ${inputs.attachmentId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
 
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}`,
-      queryParams,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
     });
 
     log('Successfully completed operation');
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get attachment: ${errorMessage}`);
+    throw new Error(`Failed to get attachment for attachment ${inputs.attachmentId}: ${errorMessage}`);
   }
 };

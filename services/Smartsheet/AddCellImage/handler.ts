@@ -59,8 +59,19 @@ const smartsheetApiRequest = async <T = any>(
     Object.assign(headers, form.getHeaders());
     body = form;
   } else if (options.body) {
-    headers['Content-Type'] = 'application/json';
-    body = JSON.stringify(options.body);
+    // Check if body is a Buffer or ArrayBuffer (binary data)
+    if (Buffer.isBuffer(options.body) || options.body instanceof ArrayBuffer) {
+      // If Content-Type is already set to octet-stream, use the body as-is
+      if (headers['Content-Type'] === 'application/octet-stream') {
+        body = Buffer.isBuffer(options.body) ? options.body : Buffer.from(options.body);
+      } else {
+        headers['Content-Type'] = 'application/json';
+        body = JSON.stringify(options.body);
+      }
+    } else {
+      headers['Content-Type'] = 'application/json';
+      body = JSON.stringify(options.body);
+    }
   }
 
   const response = await fetch(url.toString(), {
@@ -113,18 +124,44 @@ export const handler = async ({
   if (!inputs.columnId) {
     throw new Error('Column Id is required');
   }
+  if (!inputs.imageUrl) {
+    throw new Error('Image URL is required');
+  }
+  if (!inputs.imageName) {
+    throw new Error('Image Name is required');
+  }
 
   log(`Add Image to Cell`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
+
+    const fetchImage = await fetch(inputs.imageUrl);
+    if (!fetchImage.ok) {
+      throw new Error(`Failed to fetch image: ${fetchImage.status} ${fetchImage.statusText}`);
+    }
+    const imageBuffer = await fetchImage.arrayBuffer();
+    const imageBufferNode = Buffer.from(imageBuffer);
+
+
+    const queryParams: Record<string, string | number | boolean | undefined> = {};
+    if (inputs.altText) {
+      queryParams.altText = inputs.altText;
+    }
+    if (inputs.overrideValidation !== undefined) {
+      queryParams.overrideValidation = inputs.overrideValidation;
+    }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/columns/${inputs.columnId}/cellimages`,
       queryParams,
-      body: requestBody,
+      body: imageBufferNode,
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': `attachment; filename="${inputs.imageName}"`,
+        'Content-Length': imageBufferNode.byteLength.toString(),
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

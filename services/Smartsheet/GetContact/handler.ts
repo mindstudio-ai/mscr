@@ -108,10 +108,12 @@ export const handler = async ({
     throw new Error('Contact Id is required');
   }
 
-  log(`Get Contact`);
+  log(`Get Contact for contact ${inputs.contactId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      include: inputs.includeProfileImage === 'true' ? 'profileImage' : '',
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
@@ -123,6 +125,6 @@ export const handler = async ({
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get contact: ${errorMessage}`);
+    throw new Error(`Failed to get contact for contact ${inputs.contactId}: ${errorMessage}`);
   }
 };

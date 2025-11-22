@@ -27,11 +27,6 @@ configuration:
         variable: destinationType
         type: text
         placeholder: Enter Destination Type...
-      - label: New Name
-        required: false
-        variable: newName
-        type: text
-        placeholder: Enter New Name...
   - title: Output
     items:
       - label: Output Variable

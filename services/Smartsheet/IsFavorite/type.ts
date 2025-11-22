@@ -1,9 +1,11 @@
 export interface IsFavoriteInputs {
-  favoriteType: string;
-  favoriteId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  favoriteType: "folder"
+  | "report"
+  | "sheet"
+  | "sight"
+  | "template"
+  | "workspace";
+  favoriteId: number;
+  include?: "directId" | "name";
   outputVariable: string;
 }

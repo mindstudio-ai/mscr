@@ -99,6 +99,10 @@ const smartsheetApiRequest = async <T = any>(
   return (await response.text()) as T;
 };
 
+const parseIdsStringToArray = (idsString: string) => {
+  return idsString?.split(',').map((id: string) => id.trim());
+}
+
 export const handler = async ({
   inputs,
   setOutput,
@@ -114,10 +118,12 @@ export const handler = async ({
     const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
     if (inputs.rowIds !== undefined) {
-      requestBody.rowIds = inputs.rowIds;
+      requestBody.rowIds = parseIdsStringToArray(inputs.rowIds);
     }
     if (inputs.to !== undefined) {
-      requestBody.to = inputs.to;
+      requestBody.to = {
+        sheetId: inputs.to,
+      };
     }
 
     const response = await smartsheetApiRequest({

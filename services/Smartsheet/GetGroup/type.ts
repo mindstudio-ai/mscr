@@ -1,8 +1,4 @@
 export interface GetGroupInputs {
-  groupId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  groupId: number;
   outputVariable: string;
 }

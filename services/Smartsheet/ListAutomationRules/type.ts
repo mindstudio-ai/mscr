@@ -1,7 +1,6 @@
 export interface ListAutomationRulesInputs {
   sheetId: string;
-  include?: string;
-  exclude?: string;
+  includeAll?: boolean;
   pageSize?: number;
   page?: number;
   outputVariable: string;

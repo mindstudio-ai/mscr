@@ -13,8 +13,27 @@ configuration:
       - label: Favorite Type
         required: true
         variable: favoriteType
-        type: text
-        placeholder: Enter Favorite Type...
+        type: select
+        selectOptions:
+          options:
+            - label: Folder
+              value: folder
+            - label: Report
+              value: report
+            - label: Sheet
+              value: sheet
+            - label: Sight
+              value: sight
+            - label: Template
+              value: template
+            - label: Workspace
+              value: workspace
+      - label: Object IDs
+        required: true
+        variable: objectIds
+        type: string
+        multi: true
+        placeholder: Enter comma-separated list of Object IDs...
   - title: Output
     items:
       - label: Output Variable

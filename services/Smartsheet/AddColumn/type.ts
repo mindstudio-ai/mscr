@@ -1,21 +1,37 @@
 export interface AddColumnInputs {
   sheetId: string;
-  title?: any;
-  type?: string;
-  formula?: any;
-  hidden?: any;
-  index?: any;
+  title?: string;
+  type?: "ABSTRACT_DATETIME"
+  | "CHECKBOX"
+  | "CONTACT_LIST"
+  | "DATE"
+  | "DATETIME"
+  | "DURATION"
+  | "MULTI_CONTACT_LIST"
+  | "MULTI_PICKLIST"
+  | "PICKLIST"
+  | "PREDECESSOR"
+  | "TEXT_NUMBER";
+  formula?: string;
+  format?: string;
+  contactOptions?: {
+    email: string;
+    name: string;
+  };
+  index?: number;
   autoNumberFormat?: string;
-  contactOptions?: string;
-  description?: any;
-  format?: any;
-  locked?: any;
-  lockedForUser?: any;
-  options?: string;
-  symbol?: any;
-  systemColumnType?: string;
-  validation?: any;
-  version?: any;
-  width?: any;
+  description?: string;
+  locked?: boolean;
+  lockedForUser?: boolean;
+  options?: string[];
+  symbol?: string;
+  systemColumnType?: "AUTO_NUMBER"
+  | "CREATED_BY"
+  | "CREATED_DATE"
+  | "MODIFIED_BY"
+  | "MODIFIED_DATE";
+  validation?: boolean;
+  width?: number;
+  hidden?: boolean;
   outputVariable: string;
 }

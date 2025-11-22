@@ -1,7 +1,9 @@
 export interface SearchEverythingInputs {
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
   outputVariable: string;
+  query?: string;
+  location?: string;
+  modifiedSince?: string;
+  include?: string;
+  scopes?: string;
+  scopesValue?: string; 
 }

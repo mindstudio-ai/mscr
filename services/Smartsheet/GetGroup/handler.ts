@@ -108,21 +108,18 @@ export const handler = async ({
     throw new Error('Group Id is required');
   }
 
-  log(`Get Group`);
+  log(`Get Group for group ${inputs.groupId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/groups/${inputs.groupId}`,
-      queryParams,
     });
 
     log('Successfully completed operation');
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get group: ${errorMessage}`);
+    throw new Error(`Failed to get group for group ${inputs.groupId}: ${errorMessage}`);
   }
 };

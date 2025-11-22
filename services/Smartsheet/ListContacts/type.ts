@@ -1,7 +1,8 @@
 export interface ListContactsInputs {
-  include?: string;
-  exclude?: string;
+  includeAll?: boolean;
   pageSize?: number;
   page?: number;
+  modifiedSince?: string;
+  numericDates?: boolean;
   outputVariable: string;
 }

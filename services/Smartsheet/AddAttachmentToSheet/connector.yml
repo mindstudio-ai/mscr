@@ -16,18 +16,63 @@ configuration:
         variable: sheetId
         type: text
         placeholder: Enter Sheet Id...
-  - title: File Upload
+  - title: Attachment Details
     items:
-      - label: File Path
+      - label: Attachment Type
         required: true
-        variable: filePath
-        type: text
-        placeholder: /path/to/file
-      - label: File Name
+        variable: attachmentType
+        type: select
+        placeholder: Select Attachment Type...
+        selectOptions:
+          options:
+          - label: LINK
+            value: LINK
+          - label: BOXCOM
+            value: BOXCOM
+          - label: DROPBOX
+            value: DROPBOX
+          - label: EGNYTE
+            value: EGNYTE
+          - label: EVERNOTE
+            value: EVERNOTE
+          - label: GOOGLEDRIVE
+            value: GOOGLEDRIVE
+          - label: ONEDRIVE
+            value: ONEDRIVE
+      - label: URL
         required: false
-        variable: fileName
+        variable: url
         type: text
-        placeholder: filename.ext
+        placeholder: Enter URL...
+      - label: Name
+        required: false
+        variable: name
+        type: text
+        placeholder: Enter Name...
+      - label: Description
+        required: false
+        variable: description
+        type: text
+        placeholder: Enter Description...
+      - label: Attachment Sub Type
+        required: false
+        variable: attachmentSubType
+        type: select
+        placeholder: Select Attachment Sub Type...
+        selectOptions:
+          options:
+          - label: DOCUMENT
+            value: DOCUMENT
+          - label: DRAWING
+            value: DRAWING
+          - label: FOLDER
+            value: FOLDER
+          - label: PDF
+            value: PDF
+          - label: PRESENTATION
+            value: PRESENTATION
+          - label: SPREADSHEET
+            value: SPREADSHEET
   - title: Output
     items:
       - label: Output Variable

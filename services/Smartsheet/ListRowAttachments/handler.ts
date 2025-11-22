@@ -111,24 +111,25 @@ export const handler = async ({
     throw new Error('Row Id is required');
   }
 
-  log(`List Row Attachments`);
+  log(`List Row Attachments for row ${inputs.rowId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      includeAll: inputs.includeAll || false,
+      pageSize: inputs.pageSize || 100,
+      page: inputs.page || 1,
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/attachments`,
       queryParams,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
     });
 
     log('Successfully completed operation');
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list row attachments: ${errorMessage}`);
+    throw new Error(`Failed to list row attachments for row ${inputs.rowId}: ${errorMessage}`);
   }
 };

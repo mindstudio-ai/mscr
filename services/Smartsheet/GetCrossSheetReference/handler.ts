@@ -111,15 +111,13 @@ export const handler = async ({
     throw new Error('Cross Sheet Reference Id is required');
   }
 
-  log(`Get Cross-sheet Reference`);
+  log(`Get Cross-sheet Reference for cross sheet reference ${inputs.crossSheetReferenceId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
 
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/crosssheetreferences/${inputs.crossSheetReferenceId}`,
-      queryParams,
     });
 
     log('Successfully completed operation');

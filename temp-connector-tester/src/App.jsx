@@ -15,26 +15,90 @@ function App() {
     loadStatuses();
   }, []);
 
+  // Sync all connectors to Google Sheet once after initial load
+  const [hasSynced, setHasSynced] = useState(false);
+  useEffect(() => {
+    if (connectors.length > 0 && !loading && !hasSynced) {
+      // Wait a bit to ensure statuses are loaded
+      const timer = setTimeout(() => {
+        syncToGoogleSheet();
+        setHasSynced(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [connectors.length, loading, hasSynced]);
+
   const loadStatuses = async () => {
     try {
       await initDB();
       const statuses = await getAllConnectorStatuses();
       setConnectorStatuses(statuses);
+      return statuses;
     } catch (error) {
       console.error('Failed to load connector statuses:', error);
+      return {};
     }
   };
 
   const updateConnectorStatus = (connectorId, status, comment) => {
-    setConnectorStatuses((prev) => ({
-      ...prev,
-      [connectorId]: {
-        connectorId,
-        status,
-        comment,
-        updatedAt: new Date().toISOString(),
-      },
-    }));
+    setConnectorStatuses((prev) => {
+      const updated = {
+        ...prev,
+        [connectorId]: {
+          connectorId,
+          status,
+          comment,
+          updatedAt: new Date().toISOString(),
+        },
+      };
+      
+      // Sync to Google Sheet when status is updated
+      syncConnectorToSheet(connectorId, updated[connectorId]);
+      
+      return updated;
+    });
+  };
+
+  const syncToGoogleSheet = async (statuses = null) => {
+    try {
+      const statusesToSync = statuses || connectorStatuses;
+      await fetch('/api/sync-to-sheet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          statuses: statusesToSync,
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to sync to Google Sheet:', error);
+      // Don't show error to user, just log it
+    }
+  };
+
+  const syncConnectorToSheet = async (connectorId, status) => {
+    try {
+      const connector = connectors.find((c) => c.id === connectorId);
+      if (!connector) {
+        console.warn(`Connector ${connectorId} not found for Google Sheet sync`);
+        return;
+      }
+      
+      await fetch('/api/update-connector-sheet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          connectorId,
+          status,
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to update connector in Google Sheet:', error);
+      // Don't show error to user, just log it
+    }
   };
 
   const loadConnectors = async () => {
@@ -46,9 +110,11 @@ function App() {
         setSelectedConnector(data[0]);
       }
       setLoading(false);
+      return data;
     } catch (error) {
       console.error('Failed to load connectors:', error);
       setLoading(false);
+      return [];
     }
   };
 

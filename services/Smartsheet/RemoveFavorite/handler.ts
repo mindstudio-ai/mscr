@@ -114,8 +114,6 @@ export const handler = async ({
   log(`Delete Favorite`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'DELETE',
       path: `/favorites/${inputs.favoriteType}/${inputs.favoriteId}`,

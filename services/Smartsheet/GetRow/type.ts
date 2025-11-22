@@ -1,9 +1,9 @@
 export interface GetRowInputs {
-  sheetId: string;
-  rowId: string;
+  sheetId: number;
+  rowId: number;
+  accessApiLevel?: number;
   include?: string;
   exclude?: string;
-  pageSize?: number;
-  page?: number;
+  level?: 0 | 1 | 2;
   outputVariable: string;
 }

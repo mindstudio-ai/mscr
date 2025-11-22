@@ -111,58 +111,77 @@ export const handler = async ({
   log(`Add Columns`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
-    if (inputs.title !== undefined) {
+
+    if (inputs.title) {
       requestBody.title = inputs.title;
     }
-    if (inputs.type !== undefined) {
+    if (inputs.type) {
       requestBody.type = inputs.type;
     }
-    if (inputs.formula !== undefined) {
+    if (inputs.formula) {
       requestBody.formula = inputs.formula;
     }
-    if (inputs.hidden !== undefined) {
-      requestBody.hidden = inputs.hidden;
-    }
-    if (inputs.index !== undefined) {
-      requestBody.index = inputs.index;
-    }
-    if (inputs.autoNumberFormat !== undefined) {
-      requestBody.autoNumberFormat = inputs.autoNumberFormat;
-    }
-    if (inputs.contactOptions !== undefined) {
-      requestBody.contactOptions = inputs.contactOptions;
-    }
-    if (inputs.description !== undefined) {
-      requestBody.description = inputs.description;
-    }
-    if (inputs.format !== undefined) {
+    if (inputs.format) {
       requestBody.format = inputs.format;
     }
-    if (inputs.locked !== undefined) {
+    if (inputs.contactOptions) {
+      // Handle contactOptions - it might be a string (JSON) or already an object
+      if (typeof inputs.contactOptions === 'string') {
+        try {
+          requestBody.contactOptions = JSON.parse(inputs.contactOptions);
+        } catch {
+          throw new Error('Invalid contactOptions format. Expected JSON object with email and name.');
+        }
+      } else {
+        requestBody.contactOptions = {};
+      }
+    }
+    if (inputs.index) {
+      requestBody.index = inputs.index;
+    }
+    if (inputs.autoNumberFormat) {
+      requestBody.autoNumberFormat = inputs.autoNumberFormat;
+    }
+    if (inputs.description) {
+      requestBody.description = inputs.description;
+    }
+    if (inputs.locked) {
       requestBody.locked = inputs.locked;
     }
-    if (inputs.lockedForUser !== undefined) {
+    if (inputs.lockedForUser) {
       requestBody.lockedForUser = inputs.lockedForUser;
     }
-    if (inputs.options !== undefined) {
-      requestBody.options = inputs.options;
+    if (inputs.options) {
+      // Handle options - it might be a string (JSON array or comma-separated) or already an array
+      if (Array.isArray(inputs.options)) {
+        requestBody.options = inputs.options;
+      } else {
+        // If it's a string, parse it
+        const optionsStr = String(inputs.options);
+        try {
+          // Try parsing as JSON first
+          requestBody.options = JSON.parse(optionsStr);
+        } catch {
+          // If not valid JSON, treat as comma-separated string
+          requestBody.options = optionsStr.split(',').map((opt: string) => opt.trim()).filter((opt: string) => opt.length > 0);
+        }
+      }
     }
-    if (inputs.symbol !== undefined) {
+    if (inputs.symbol) {
       requestBody.symbol = inputs.symbol;
     }
-    if (inputs.systemColumnType !== undefined) {
+    if (inputs.systemColumnType) {
       requestBody.systemColumnType = inputs.systemColumnType;
     }
-    if (inputs.validation !== undefined) {
+    if (inputs.validation) {
       requestBody.validation = inputs.validation;
     }
-    if (inputs.version !== undefined) {
-      requestBody.version = inputs.version;
-    }
-    if (inputs.width !== undefined) {
+    if (inputs.width) {
       requestBody.width = inputs.width;
+    }
+    if (inputs.hidden) {
+      requestBody.hidden = inputs.hidden;
     }
 
     const response = await smartsheetApiRequest({

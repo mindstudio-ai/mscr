@@ -113,6 +113,10 @@ export const handler = async ({
   try {
     const queryParams: Record<string, string | number | boolean> = {};
 
+    if (inputs.query) {
+      queryParams.query = inputs.query;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/search/sheets/${inputs.sheetId}`,

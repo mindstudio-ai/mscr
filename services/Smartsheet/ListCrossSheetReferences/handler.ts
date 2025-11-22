@@ -108,10 +108,14 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`List Cross-sheet References`);
+  log(`List Cross-sheet References for sheet ${inputs.sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      includeAll: inputs.includeAll || false,
+      pageSize: inputs.pageSize || 100,
+      page: inputs.page || 1,
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
@@ -123,6 +127,6 @@ export const handler = async ({
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list cross-sheet references: ${errorMessage}`);
+    throw new Error(`Failed to list cross-sheet references for sheet ${inputs.sheetId}: ${errorMessage}`);
   }
 };

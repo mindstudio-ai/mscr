@@ -108,12 +108,11 @@ export const handler = async ({
   log(`Add Favorites`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
-    if (inputs.objectId !== undefined) {
+    if (inputs.objectId) {
       requestBody.objectId = inputs.objectId;
     }
-    if (inputs.type !== undefined) {
+    if (inputs.type) {
       requestBody.type = inputs.type;
     }
 

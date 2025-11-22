@@ -1,5 +1,10 @@
 export interface AddFavoritesInputs {
-  objectId?: any;
-  type?: string;
+  objectId?: number;
+  type?: "folder"
+  | "report"
+  | "sheet"
+  | "sight"
+  | "template"
+  | "workspace";
   outputVariable: string;
 }

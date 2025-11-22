@@ -1,9 +1,6 @@
 export interface GetProofInputs {
-  sheetId: string;
+  sheetId: number;
   proofId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  include?: "attachments" | "discussions" | undefined;
   outputVariable: string;
 }

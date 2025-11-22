@@ -1,4 +1,10 @@
 export interface RemoveFavoritesInputs {
-  favoriteType: string;
+  favoriteType: "folder"
+  | "report"
+  | "sheet"
+  | "sight"
+  | "template"
+  | "workspace";
+  objectIds: string;
   outputVariable: string;
 }

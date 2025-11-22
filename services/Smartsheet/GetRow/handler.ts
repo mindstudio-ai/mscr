@@ -111,10 +111,15 @@ export const handler = async ({
     throw new Error('Row Id is required');
   }
 
-  log(`Get Row`);
+  log(`Get Row for sheet ${inputs.sheetId} and row ${inputs.rowId} with access api level ${inputs.accessApiLevel}, include ${inputs.include}, exclude ${inputs.exclude}, level ${inputs.level}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      accessApiLevel: inputs.accessApiLevel,
+      include: inputs.include,
+      exclude: inputs.exclude,
+      level: inputs.level,
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
@@ -126,6 +131,6 @@ export const handler = async ({
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get row: ${errorMessage}`);
+    throw new Error(`Failed to get row for sheet ${inputs.sheetId} and row ${inputs.rowId} with access api level ${inputs.accessApiLevel}, include ${inputs.include}, exclude ${inputs.exclude}, level ${inputs.level}: ${errorMessage}`);
   }
 };

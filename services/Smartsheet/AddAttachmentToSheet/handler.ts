@@ -1,7 +1,5 @@
 import { AddAttachmentToSheetInputs } from './type';
 import { IHandlerContext } from '../type';
-import fs from 'fs';
-import FormData from 'form-data';
 import fetch from 'node-fetch';
 const BASE_URL = 'https://api.smartsheet.com/2.0';
 
@@ -11,9 +9,6 @@ interface ApiRequestOptions {
   queryParams?: Record<string, string | number | boolean | undefined>;
   body?: any;
   headers?: Record<string, string>;
-  multipart?: boolean;
-  filePath?: string;
-  fileName?: string;
 }
 
 const smartsheetApiRequest = async <T = any>(
@@ -40,25 +35,7 @@ const smartsheetApiRequest = async <T = any>(
 
   let body: any = undefined;
 
-  if (options.multipart && options.filePath) {
-    const form = new FormData();
-    const fileStream = fs.createReadStream(options.filePath);
-    const fileName =
-      options.fileName || options.filePath.split('/').pop() || 'file';
-
-    form.append('file', fileStream, fileName);
-
-    if (options.body) {
-      Object.entries(options.body).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-          form.append(key, String(value));
-        }
-      });
-    }
-
-    Object.assign(headers, form.getHeaders());
-    body = form;
-  } else if (options.body) {
+  if (options.body) {
     headers['Content-Type'] = 'application/json';
     body = JSON.stringify(options.body);
   }
@@ -108,23 +85,43 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`Attach File or URL to Sheet`);
+  if (!inputs.attachmentType) {
+    throw new Error('Attachment Type is required');
+  }
+
+  log(`Attach URL to Sheet`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const body: Record<string, any> = {
+      attachmentType: inputs.attachmentType,
+    };
+
+    if (inputs.url) {
+      body.url = inputs.url;
+    }
+
+    if (inputs.name) {
+      body.name = inputs.name;
+    }
+
+    if (inputs.description) {
+      body.description = inputs.description;
+    }
+
+    if (inputs.attachmentSubType) {
+      body.attachmentSubType = inputs.attachmentSubType;
+    }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/attachments`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
+      body,
     });
 
     log('Successfully completed operation');
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to attach file or url to sheet: ${errorMessage}`);
+    throw new Error(`Failed to attach url to sheet: ${errorMessage}`);
   }
 };

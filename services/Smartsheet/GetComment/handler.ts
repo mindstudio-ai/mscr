@@ -111,21 +111,18 @@ export const handler = async ({
     throw new Error('Comment Id is required');
   }
 
-  log(`Get a comment`);
+  log(`Get Comment for comment ${inputs.commentId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/comments/${inputs.commentId}`,
-      queryParams,
     });
 
     log('Successfully completed operation');
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get a comment: ${errorMessage}`);
+    throw new Error(`Failed to get comment for comment ${inputs.commentId}: ${errorMessage}`);
   }
 };

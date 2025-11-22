@@ -108,10 +108,14 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`List All Automation Rules`);
+  log(`List All Automation Rules for sheet ${inputs.sheetId} with include all ${inputs.includeAll}, page size ${inputs.pageSize}, page ${inputs.page}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      includeAll: inputs.includeAll || false,
+      pageSize: inputs.pageSize || 100,
+      page: inputs.page || 1,
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
@@ -123,6 +127,6 @@ export const handler = async ({
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list all automation rules: ${errorMessage}`);
+    throw new Error(`Failed to list all automation rules for sheet ${inputs.sheetId} with include all ${inputs.includeAll}, page size ${inputs.pageSize}, page ${inputs.page}: ${errorMessage}`);
   }
 };

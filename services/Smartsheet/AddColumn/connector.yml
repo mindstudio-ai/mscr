@@ -18,65 +18,88 @@ configuration:
   - title: Request Data
     items:
       - label: Title
-        required: true
+        required: false
         variable: title
         type: text
         placeholder: Enter Title...
       - label: Type
         required: false
         variable: type
-        type: text
-        placeholder: Enter Type...
+        type: select
+        placeholder: Select Type...
+        selectOptions:
+          options:
+          - label: ABSTRACT_DATETIME
+            value: ABSTRACT_DATETIME
+          - label: CHECKBOX
+            value: CHECKBOX
+          - label: CONTACT_LIST
+            value: CONTACT_LIST
+          - label: DATE
+            value: DATE
+          - label: DATETIME
+            value: DATETIME
+          - label: DURATION
+            value: DURATION
+          - label: MULTI_CONTACT_LIST
+            value: MULTI_CONTACT_LIST
+          - label: MULTI_PICKLIST
+            value: MULTI_PICKLIST
+          - label: PICKLIST
+            value: PICKLIST
+          - label: PREDECESSOR
+            value: PREDECESSOR
+          - label: TEXT_NUMBER
+            value: TEXT_NUMBER
       - label: Formula
         required: false
         variable: formula
         type: text
         placeholder: Enter Formula...
-      - label: Hidden
-        required: false
-        variable: hidden
-        type: text
-        placeholder: Enter Hidden...
-      - label: Index
-        required: false
-        variable: index
-        type: text
-        placeholder: Enter Index...
-      - label: Auto Number Format
-        required: false
-        variable: autoNumberFormat
-        type: text
-        placeholder: Enter Auto Number Format...
-      - label: Contact Options
-        required: false
-        variable: contactOptions
-        type: text
-        placeholder: Enter Contact Options...
-      - label: Description
-        required: false
-        variable: description
-        type: text
-        placeholder: Enter Description...
       - label: Format
         required: false
         variable: format
         type: text
         placeholder: Enter Format...
+      - label: Contact Options
+        required: false
+        variable: contactOptions
+        type: text
+      - label: Index
+        required: false
+        variable: index
+        type: number
+        placeholder: Enter Index (zero-based)...
+      - label: Hidden
+        required: false
+        variable: hidden
+        type: boolean
+        defaultValue: false
+      - label: Auto Number Format
+        required: false
+        variable: autoNumberFormat
+        type: text
+        placeholder: Enter Auto Number Format...
+      - label: Description
+        required: false
+        variable: description
+        type: text
+        placeholder: Enter Description...
       - label: Locked
         required: false
         variable: locked
-        type: text
-        placeholder: Enter Locked...
+        type: boolean
+        defaultValue: false
       - label: Locked For User
         required: false
         variable: lockedForUser
-        type: text
-        placeholder: Enter Locked For User...
+        type: boolean
+        defaultValue: false
       - label: Options
         required: false
         variable: options
         type: text
-        placeholder: Enter Options...
+        placeholder: Enter Options (JSON array or comma-separated)...
       - label: Symbol
         required: false
         variable: symbol
@@ -85,22 +108,29 @@ configuration:
       - label: System Column Type
         required: false
         variable: systemColumnType
-        type: text
-        placeholder: Enter System Column Type...
+        type: select
+        placeholder: Select System Column Type...
+        selectOptions:
+          options:
+          - label: AUTO_NUMBER
+            value: AUTO_NUMBER
+          - label: CREATED_BY
+            value: CREATED_BY
+          - label: CREATED_DATE
+            value: CREATED_DATE
+          - label: MODIFIED_BY
+            value: MODIFIED_BY
+          - label: MODIFIED_DATE
+            value: MODIFIED_DATE
       - label: Validation
         required: false
         variable: validation
-        type: text
-        placeholder: Enter Validation...
-      - label: Version
-        required: false
-        variable: version
-        type: text
-        placeholder: Enter Version...
+        type: boolean
+        defaultValue: false
       - label: Width
         required: false
         variable: width
-        type: text
+        type: number
         placeholder: Enter Width...
   - title: Output
     items:

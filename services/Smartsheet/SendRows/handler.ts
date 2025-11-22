@@ -99,6 +99,10 @@ const smartsheetApiRequest = async <T = any>(
   return (await response.text()) as T;
 };
 
+const parseIdsStringToArray = (idsString: string) => {
+  return idsString?.split(',').map((id: string) => parseInt(id.trim()));
+}
+
 export const handler = async ({
   inputs,
   setOutput,
@@ -112,18 +116,28 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
+    const requestBody: any = {
+      columnIds: [],
+      rowIds: [],
+      includeAttachments: false,
+      includeDiscussions: false,
+      layout: undefined,
+      ccMe: undefined,
+      message: undefined,
+      sendTo: undefined,
+      subject: undefined,
+    };
     if (inputs.rowIds !== undefined) {
-      requestBody.rowIds = inputs.rowIds;
+      requestBody.rowIds = parseIdsStringToArray(inputs.rowIds);
     }
     if (inputs.columnIds !== undefined) {
-      requestBody.columnIds = inputs.columnIds;
+      requestBody.columnIds = parseIdsStringToArray(inputs.columnIds);
     }
     if (inputs.includeAttachments !== undefined) {
-      requestBody.includeAttachments = inputs.includeAttachments;
+      requestBody.includeAttachments = inputs.includeAttachments ? true : false;
     }
     if (inputs.includeDiscussions !== undefined) {
-      requestBody.includeDiscussions = inputs.includeDiscussions;
+      requestBody.includeDiscussions = inputs.includeDiscussions ? true : false;
     }
     if (inputs.layout !== undefined) {
       requestBody.layout = inputs.layout;
@@ -135,7 +149,7 @@ export const handler = async ({
       requestBody.message = inputs.message;
     }
     if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = inputs.sendTo;
+      requestBody.sendTo = [{ email: inputs.sendTo }];
     }
     if (inputs.subject !== undefined) {
       requestBody.subject = inputs.subject;

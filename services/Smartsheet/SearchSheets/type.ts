@@ -1,8 +1,5 @@
 export interface SearchSheetsInputs {
   sheetId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  query?: string;
   outputVariable: string;
 }
