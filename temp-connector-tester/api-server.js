@@ -8,6 +8,7 @@ import {
   syncAllConnectors,
   updateConnectorInSheet,
   logConnectorTest,
+  getAllConnectorStatusesFromSheet,
 } from './googleSheetsService.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -70,7 +71,7 @@ app.get('/api/connectors', (req, res) => {
   }
 });
 
-const accessToken = 'JFP2RQN4qgLFAMAT5nzuPbWy3EJ90eFXTG5Ca';
+const accessToken = '**';
 
 // API endpoint to test a connector
 app.post('/api/test-connector', async (req, res) => {
@@ -156,7 +157,7 @@ app.post('/api/test-connector', async (req, res) => {
             connector,
             inputs,
             result.success ? result.outputs : null,
-            result.success ? null : result.error
+            result.success ? null : result.error,
           ).catch((err) => {
             console.error('Failed to log test to Google Sheets:', err);
           });
@@ -196,9 +197,11 @@ app.post('/api/test-connector', async (req, res) => {
         };
 
         // Log test to Google Sheets (non-blocking)
-        logConnectorTest(connector, inputs, result.outputs, null).catch((err) => {
-          console.error('Failed to log test to Google Sheets:', err);
-        });
+        logConnectorTest(connector, inputs, result.outputs, null).catch(
+          (err) => {
+            console.error('Failed to log test to Google Sheets:', err);
+          },
+        );
 
         res.json(result);
         resolve();
@@ -219,7 +222,7 @@ app.post('/api/sync-to-sheet', async (req, res) => {
     const { statuses } = req.body;
     const connectors = loadConnectors();
     const result = await syncAllConnectors(connectors, statuses || {});
-    
+
     if (result.success) {
       res.json(result);
     } else {
@@ -235,16 +238,16 @@ app.post('/api/sync-to-sheet', async (req, res) => {
 app.post('/api/update-connector-sheet', async (req, res) => {
   try {
     const { connectorId, status } = req.body;
-    
+
     const connectors = loadConnectors();
     const connector = connectors.find((c) => c.id === connectorId);
-    
+
     if (!connector) {
       return res.status(404).json({ error: 'Connector not found' });
     }
 
     const result = await updateConnectorInSheet(connector, status);
-    
+
     if (result.success) {
       res.json(result);
     } else {
@@ -256,12 +259,68 @@ app.post('/api/update-connector-sheet', async (req, res) => {
   }
 });
 
+// API endpoint to get connector statuses from Google Sheets
+app.get('/api/connector-statuses', async (req, res) => {
+  try {
+    const connectors = loadConnectors();
+    const statuses = await getAllConnectorStatusesFromSheet(connectors);
+    res.json(statuses);
+  } catch (error) {
+    console.error('Error loading statuses from Google Sheets:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API endpoint to save connector status to Google Sheets
+app.post('/api/connector-status', async (req, res) => {
+  try {
+    const { connectorId, status, comment, connector } = req.body;
+
+    // Find connector if not provided
+    let connectorData = connector;
+    if (!connectorData) {
+      const connectors = loadConnectors();
+      connectorData = connectors.find((c) => c.id === connectorId);
+    }
+
+    if (!connectorData) {
+      return res.status(404).json({ error: 'Connector not found' });
+    }
+
+    const result = await updateConnectorInSheet(connectorData, {
+      status,
+      comment,
+      updatedAt: new Date().toISOString(),
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error saving status to Google Sheets:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API endpoint to sync all connectors to Google Sheets
+app.post('/api/sync-to-sheets', async (req, res) => {
+  try {
+    const connectors = loadConnectors();
+    const statuses = req.body.statuses || {};
+
+    const result = await syncAllConnectors(connectors, statuses);
+    res.json(result);
+  } catch (error) {
+    console.error('Error syncing to Google Sheets:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`🔌 API Server running on http://localhost:${PORT}`);
   console.log(`📁 Loading connectors from: ${CONNECTORS_DIR}`);
   const connectors = loadConnectors();
   console.log(`✅ Loaded ${connectors.length} connectors`);
+  console.log(`📊 Google Sheets sync enabled`);
   console.log(`\n💡 Start the frontend with: npm run frontend`);
   console.log(`🌐 Then open: http://localhost:3000\n`);
 });

@@ -111,14 +111,16 @@ export const handler = async ({
     throw new Error('Row Id is required');
   }
 
-  log(`Create a Discussion on a Row`);
+  if (!inputs.comment) {
+    throw new Error('Comment is required');
+  }
+
+  log(
+    `Create a Discussion on a Row ${inputs.rowId} on sheet ${inputs.sheetId}`,
+  );
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.comment !== undefined) {
-      requestBody.comment = inputs.comment;
-    }
+    const requestBody = { comment: { text: inputs.comment } };
 
     const response = await smartsheetApiRequest({
       method: 'POST',
@@ -126,7 +128,7 @@ export const handler = async ({
       body: requestBody,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully created row discussion: ${response.result.id}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';

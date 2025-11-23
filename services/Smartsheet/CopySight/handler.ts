@@ -108,18 +108,21 @@ export const handler = async ({
     throw new Error('Sight Id is required');
   }
 
-  log(`Copy Dashboard`);
+  if (!inputs.destinationId) {
+    throw new Error('Destination Id is required');
+  }
+
+  log(`Copy Sight ${inputs.sightId} to ${inputs.destinationId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.destinationId !== undefined) {
-      requestBody.destinationId = inputs.destinationId;
-    }
-    if (inputs.destinationType !== undefined) {
+    const requestBody: any = {
+      destinationId: inputs.destinationId,
+    };
+
+    if (inputs.destinationType) {
       requestBody.destinationType = inputs.destinationType;
     }
-    if (inputs.newName !== undefined) {
+    if (inputs.newName) {
       requestBody.newName = inputs.newName;
     }
 

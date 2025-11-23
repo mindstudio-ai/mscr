@@ -1,7 +1,7 @@
 export interface CopySightInputs {
   sightId: string;
-  destinationId?: any;
-  destinationType?: string;
-  newName?: any;
+  destinationId: string;
+  destinationType?: 'folder' | 'workspace';
+  newName?: string;
   outputVariable: string;
 }

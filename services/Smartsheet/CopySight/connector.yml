@@ -14,24 +14,26 @@ configuration:
         required: true
         variable: sightId
         type: text
-        placeholder: Enter Sight Id...
   - title: Request Data
     items:
       - label: Destination Id
-        required: false
+        required: true
         variable: destinationId
         type: text
-        placeholder: Enter Destination Id...
       - label: Destination Type
-        required: false
+        required: true
         variable: destinationType
-        type: text
-        placeholder: Enter Destination Type...
+        type: select
+        selectOptions:
+          options:
+            - label: Folder
+              value: folder
+            - label: Workspace
+              value: workspace
       - label: New Name
-        required: false
+        required: true
         variable: newName
         type: text
-        placeholder: Enter New Name...
   - title: Output
     items:
       - label: Output Variable

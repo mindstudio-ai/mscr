@@ -114,10 +114,16 @@ export const handler = async ({
     throw new Error('Column Id is required');
   }
 
-  log(`List Cell History`);
+  log(
+    `Get Cell History for sheet ${inputs.sheetId}, row ${inputs.rowId}, column ${inputs.columnId}`,
+  );
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string | number | boolean> = {
+      level: inputs.level?.toString() || '0',
+      pageSize: inputs.pageSize?.toString() || '100',
+      page: inputs.page?.toString() || '1',
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
@@ -125,10 +131,14 @@ export const handler = async ({
       queryParams,
     });
 
-    log('Successfully completed operation');
+    log(
+      `Successfully completed operation for sheet ${inputs.sheetId}, row ${inputs.rowId}, column ${inputs.columnId}`,
+    );
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list cell history: ${errorMessage}`);
+    throw new Error(
+      `Failed to get cell history for sheet ${inputs.sheetId}, row ${inputs.rowId}, column ${inputs.columnId}: ${errorMessage}`,
+    );
   }
 };

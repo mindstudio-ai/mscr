@@ -23,7 +23,7 @@ configuration:
   - title: Request Data
     items:
       - label: Comment
-        required: false
+        required: true
         variable: comment
         type: text
         placeholder: Enter Comment...

@@ -3,8 +3,8 @@ export interface GetCellHistoryInputs {
   rowId: string;
   columnId: string;
   include?: string;
-  exclude?: string;
   pageSize?: number;
   page?: number;
+  level?: 0 | 1 | 2;
   outputVariable: string;
 }

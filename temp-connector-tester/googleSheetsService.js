@@ -35,7 +35,7 @@ async function initializeSheets() {
         credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
       } else {
         throw new Error(
-          `${process.env.GOOGLE_CREDENTIALS} Google credentials not found. Please set GOOGLE_CREDENTIALS_PATH or GOOGLE_CREDENTIALS environment variable.`
+          `${process.env.GOOGLE_CREDENTIALS} Google credentials not found. Please set GOOGLE_CREDENTIALS_PATH or GOOGLE_CREDENTIALS environment variable.`,
         );
       }
     }
@@ -72,7 +72,7 @@ async function ensureSheetExists() {
 
     // Check if our sheet exists
     const sheetExists = spreadsheet.data.sheets.some(
-      (sheet) => sheet.properties.title === SHEET_NAME
+      (sheet) => sheet.properties.title === SHEET_NAME,
     );
 
     if (!sheetExists) {
@@ -119,68 +119,133 @@ async function ensureSheetExists() {
   }
 }
 
-// Sync all connectors to Google Sheet
+// Sync all connectors to Google Sheet (only adds new connectors, doesn't overwrite existing)
 export async function syncAllConnectors(connectors, statuses = {}) {
   try {
     if (!SPREADSHEET_ID) {
-      console.warn('Google Sheets integration not configured. Set GOOGLE_SHEET_ID to enable.');
+      console.warn(
+        'Google Sheets integration not configured. Set GOOGLE_SHEET_ID to enable.',
+      );
       return { success: false, error: 'Google Sheets not configured' };
     }
-    
+
     const sheetsAPI = await initializeSheets();
     await ensureSheetExists();
 
-    // Prepare data rows
-    const rows = connectors.map((connector) => {
-      const status = statuses[connector.id] || {
-        status: 'pending',
-        comment: '',
-        updatedAt: null,
-      };
-
-      return [
-        connector.id || '',
-        connector.name || connector.directory || '',
-        status.status || 'pending',
-        status.comment || '',
-        status.updatedAt || new Date().toISOString(),
-        '', // Tested At - will be filled when connector is tested
-      ];
-    });
-
-    // Clear existing data (except headers)
-    await sheetsAPI.spreadsheets.values.clear({
+    // First, get existing connectors from the sheet
+    const response = await sheetsAPI.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range: `${SHEET_NAME}!A2:F1000`,
     });
 
-    // Write all data
-    if (rows.length > 0) {
-      await sheetsAPI.spreadsheets.values.update({
+    const existingRows = response.data.values || [];
+    const existingConnectorIds = new Set(
+      existingRows.map((row) => row && row[0]).filter(Boolean),
+    );
+
+    // Only add new connectors that don't exist in the sheet
+    const newRows = [];
+    connectors.forEach((connector) => {
+      if (!existingConnectorIds.has(connector.id)) {
+        const status = statuses[connector.id] || {
+          status: 'pending',
+          comment: '',
+          updatedAt: null,
+        };
+
+        newRows.push([
+          connector.id || '',
+          connector.name || connector.directory || '',
+          status.status || 'pending',
+          status.comment || '',
+          status.updatedAt || new Date().toISOString(),
+          '', // Tested At - will be filled when connector is tested
+        ]);
+      }
+    });
+
+    // Append only new rows (don't overwrite existing data)
+    if (newRows.length > 0) {
+      await sheetsAPI.spreadsheets.values.append({
         spreadsheetId: SPREADSHEET_ID,
-        range: `${SHEET_NAME}!A2:F${rows.length + 1}`,
+        range: `${SHEET_NAME}!A2:F2`,
         valueInputOption: 'RAW',
+        insertDataOption: 'INSERT_ROWS',
         resource: {
-          values: rows,
+          values: newRows,
         },
       });
     }
 
-    return { success: true, message: `Synced ${rows.length} connectors to Google Sheet` };
+    return {
+      success: true,
+      message: `Added ${newRows.length} new connectors to Google Sheet`,
+    };
   } catch (error) {
     console.error('Error syncing connectors to Google Sheet:', error);
     return { success: false, error: error.message };
   }
 }
 
-// Update a single connector row in Google Sheet
-export async function updateConnectorInSheet(connector, status, testedAt = null) {
+// Get all connector statuses from Google Sheet
+export async function getAllConnectorStatusesFromSheet(connectors) {
   try {
     if (!SPREADSHEET_ID) {
-      console.warn('Google Sheets integration not configured. Set GOOGLE_SHEET_ID to enable.');
+      console.warn('Google Sheets integration not configured.');
+      return {};
+    }
+
+    const sheetsAPI = await initializeSheets();
+    await ensureSheetExists();
+
+    // Read all data from the sheet
+    const response = await sheetsAPI.spreadsheets.values.get({
+      spreadsheetId: SPREADSHEET_ID,
+      range: `${SHEET_NAME}!A2:F1000`,
+    });
+
+    const rows = response.data.values || [];
+    const statusMap = {};
+
+    // Parse rows into status map
+    // Only return connectors that actually exist in the sheet
+    // Don't create default entries - those should only be created when explicitly saved
+    rows.forEach((row) => {
+      if (row && row[0]) {
+        // row format: [connectorId, connectorName, status, comment, updatedAt, testedAt]
+        statusMap[row[0]] = {
+          connectorId: row[0],
+          status: row[2] || 'pending',
+          comment: row[3] || '',
+          updatedAt: row[4] || new Date().toISOString(),
+          testedAt: row[5] || null,
+        };
+      }
+    });
+
+    // Don't create default entries for connectors not in sheet
+    // They will be created when user explicitly marks them as done or adds a comment
+    return statusMap;
+  } catch (error) {
+    console.error('Error reading connector statuses from Google Sheet:', error);
+    return {};
+  }
+}
+
+// Update a single connector row in Google Sheet
+export async function updateConnectorInSheet(
+  connector,
+  status,
+  testedAt = null,
+) {
+  try {
+    if (!SPREADSHEET_ID) {
+      console.warn(
+        'Google Sheets integration not configured. Set GOOGLE_SHEET_ID to enable.',
+      );
       return { success: false, error: 'Google Sheets not configured' };
     }
-    
+
     const sheetsAPI = await initializeSheets();
     await ensureSheetExists();
 
@@ -249,26 +314,31 @@ export async function updateConnectorInSheet(connector, status, testedAt = null)
 }
 
 // Log connector test result to Google Sheet
-export async function logConnectorTest(connector, inputs, result, error = null) {
+export async function logConnectorTest(
+  connector,
+  inputs,
+  result,
+  error = null,
+) {
   try {
     if (!SPREADSHEET_ID) {
       // Silently skip if not configured
       return { success: false, error: 'Google Sheets not configured' };
     }
-    
+
     const sheetsAPI = await initializeSheets();
     await ensureSheetExists();
 
     // Create or get a "Test Logs" sheet
     const TEST_LOG_SHEET = 'Test Logs';
-    
+
     try {
       const spreadsheet = await sheetsAPI.spreadsheets.get({
         spreadsheetId: SPREADSHEET_ID,
       });
 
       const sheetExists = spreadsheet.data.sheets.some(
-        (sheet) => sheet.properties.title === TEST_LOG_SHEET
+        (sheet) => sheet.properties.title === TEST_LOG_SHEET,
       );
 
       if (!sheetExists) {
@@ -335,4 +405,3 @@ export async function logConnectorTest(connector, inputs, result, error = null) 
     return { success: false, error: error.message };
   }
 }
-

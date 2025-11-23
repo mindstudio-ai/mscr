@@ -111,22 +111,27 @@ export const handler = async ({
     throw new Error('Discussion Id is required');
   }
 
-  log(`List Discussion Attachments`);
+  log(
+    `List Discussion Attachments on sheet ${inputs.sheetId} and discussion ${inputs.discussionId}`,
+  );
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams = {
+      includeAll: inputs.includeAll || false,
+      pageSize: inputs.pageSize || 100,
+      page: inputs.page || 1,
+    };
 
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/discussions/${inputs.discussionId}/attachments`,
       queryParams,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(
+      `Successfully listed discussion attachments: ${response.data.length} attachments`,
+    );
+    setOutput(inputs.outputVariable, response.data);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
     throw new Error(`Failed to list discussion attachments: ${errorMessage}`);

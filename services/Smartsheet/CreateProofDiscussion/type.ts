@@ -1,6 +1,6 @@
 export interface CreateProofDiscussionInputs {
   sheetId: string;
   proofId: string;
-  comment?: string;
+  comment: string;
   outputVariable: string;
 }

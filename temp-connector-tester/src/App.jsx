@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ConnectorList from './components/ConnectorList';
 import ConnectorForm from './components/ConnectorForm';
+import VariablesManager from './components/VariablesManager';
 import { initDB, getAllConnectorStatuses } from './utils/indexedDB';
 
 function App() {
@@ -9,28 +10,37 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [connectorStatuses, setConnectorStatuses] = useState({});
+  const [showVariablesManager, setShowVariablesManager] = useState(false);
 
   useEffect(() => {
     loadConnectors();
     loadStatuses();
   }, []);
 
-  // Sync all connectors to Google Sheet once after initial load
-  const [hasSynced, setHasSynced] = useState(false);
+  // Keyboard shortcut to open Variables Manager (Ctrl/Cmd + V)
   useEffect(() => {
-    if (connectors.length > 0 && !loading && !hasSynced) {
-      // Wait a bit to ensure statuses are loaded
-      const timer = setTimeout(() => {
-        syncToGoogleSheet();
-        setHasSynced(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [connectors.length, loading, hasSynced]);
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'v' && !e.shiftKey) {
+        // Only open if not typing in an input
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          setShowVariablesManager(true);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Don't auto-sync on page load - only load from Google Sheets
+  // Sync only happens when user explicitly updates a status
 
   const loadStatuses = async () => {
     try {
       await initDB();
+      // getAllConnectorStatuses() now loads from Google Sheets first (primary source)
+      // then caches in IndexedDB
       const statuses = await getAllConnectorStatuses();
       setConnectorStatuses(statuses);
       return statuses;
@@ -41,28 +51,23 @@ function App() {
   };
 
   const updateConnectorStatus = (connectorId, status, comment) => {
-    setConnectorStatuses((prev) => {
-      const updated = {
-        ...prev,
-        [connectorId]: {
-          connectorId,
-          status,
-          comment,
-          updatedAt: new Date().toISOString(),
-        },
-      };
-      
-      // Sync to Google Sheet when status is updated
-      syncConnectorToSheet(connectorId, updated[connectorId]);
-      
-      return updated;
-    });
+    // Note: saveConnectorStatus() already syncs to Google Sheets
+    // This just updates local state
+    setConnectorStatuses((prev) => ({
+      ...prev,
+      [connectorId]: {
+        connectorId,
+        status,
+        comment,
+        updatedAt: new Date().toISOString(),
+      },
+    }));
   };
 
   const syncToGoogleSheet = async (statuses = null) => {
     try {
       const statusesToSync = statuses || connectorStatuses;
-      await fetch('/api/sync-to-sheet', {
+      await fetch('/api/sync-to-sheets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,10 +86,12 @@ function App() {
     try {
       const connector = connectors.find((c) => c.id === connectorId);
       if (!connector) {
-        console.warn(`Connector ${connectorId} not found for Google Sheet sync`);
+        console.warn(
+          `Connector ${connectorId} not found for Google Sheet sync`,
+        );
         return;
       }
-      
+
       await fetch('/api/update-connector-sheet', {
         method: 'POST',
         headers: {
@@ -144,8 +151,25 @@ function App() {
   return (
     <div className="container">
       <div className="header">
-        <h1>🔌 Smartsheet Connector Tester</h1>
-        <p>Test and verify all Smartsheet connectors</p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            <h1>🔌 Smartsheet Connector Tester</h1>
+            <p>Test and verify all Smartsheet connectors</p>
+          </div>
+          <button
+            onClick={() => setShowVariablesManager(true)}
+            className="variables-button"
+            title="Open Variables Manager"
+          >
+            📋 Variables
+          </button>
+        </div>
       </div>
 
       <div className="main-content">
@@ -244,6 +268,20 @@ function App() {
           )}
         </div>
       </div>
+
+      {/* Floating Variables Button */}
+      <button
+        onClick={() => setShowVariablesManager(true)}
+        className="floating-variables-button"
+        title="Open Variables Manager (Ctrl/Cmd + V)"
+      >
+        📋
+      </button>
+
+      <VariablesManager
+        isOpen={showVariablesManager}
+        onClose={() => setShowVariablesManager(false)}
+      />
     </div>
   );
 }

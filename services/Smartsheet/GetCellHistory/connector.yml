@@ -14,17 +14,14 @@ configuration:
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
       - label: Row Id
         required: true
         variable: rowId
         type: text
-        placeholder: Enter Row Id...
       - label: Column Id
         required: true
         variable: columnId
         type: text
-        placeholder: Enter Column Id...
   - title: Query Options
     collapsed: true
     items:
@@ -32,12 +29,18 @@ configuration:
         required: false
         variable: include
         type: text
-        placeholder: writerInfo
-      - label: Exclude
+      - label: Level
         required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
+        variable: level
+        type: select
+        selectOptions:
+          options:
+            - label: 0
+              value: 0
+            - label: 1
+              value: 1
+            - label: 2
+              value: 2
       - label: Page Size
         required: false
         variable: pageSize

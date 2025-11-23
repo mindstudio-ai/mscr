@@ -108,18 +108,15 @@ export const handler = async ({
     throw new Error('Sight Id is required');
   }
 
-  log(`Get Dashboard Publish Status`);
+  log(`Get Dashboard Publish Status for sight ${inputs.sightId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sights/${inputs.sightId}/publish`,
-      queryParams,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully completed operation for sight ${inputs.sightId}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
