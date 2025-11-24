@@ -108,24 +108,19 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`Add Summary Fields`);
+  log(`Add Summary Fields: ${inputs.fields}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    
-    // Parse fields if provided as string, otherwise use as-is
+    const queryParams: Record<string, string | number | boolean> = {
+      renameIfConflict: inputs.renameIfConflict === 'true',
+    };
+
     let requestBody: any = [];
-    if (inputs.fields !== undefined) {
-      if (typeof inputs.fields === 'string') {
-        try {
-          requestBody = JSON.parse(inputs.fields);
-        } catch {
-          throw new Error('Fields must be a valid JSON array');
-        }
-      } else if (Array.isArray(inputs.fields)) {
-        requestBody = inputs.fields;
-      } else {
-        requestBody = [inputs.fields];
+    if (inputs.fields) {
+      try {
+        requestBody = JSON.parse(inputs.fields);
+      } catch {
+        throw new Error('Fields must be a valid JSON array');
       }
     }
 

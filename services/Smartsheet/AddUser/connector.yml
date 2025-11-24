@@ -11,76 +11,41 @@ metadata:
 configuration:
   - title: Request Data
     items:
-      - label: Id
-        required: false
-        variable: id
-        type: text
-        placeholder: Enter Id...
       - label: Admin
-        required: false
+        required: true
         variable: admin
         type: text
         placeholder: Enter Admin...
-      - label: Custom Welcome Screen Viewed
-        required: false
-        variable: customWelcomeScreenViewed
-        type: text
-        placeholder: Enter Custom Welcome Screen Viewed...
       - label: Email
         required: true
         variable: email
         type: text
         placeholder: Enter Email...
       - label: First Name
-        required: false
+        required: true
         variable: firstName
         type: text
         placeholder: Enter First Name...
-      - label: Group Admin
-        required: false
-        variable: groupAdmin
-        type: text
-        placeholder: Enter Group Admin...
-      - label: Last Login
-        required: false
-        variable: lastLogin
-        type: text
-        placeholder: Enter Last Login...
       - label: Last Name
-        required: false
+        required: true
         variable: lastName
         type: text
         placeholder: Enter Last Name...
+      - label: Group Admin
+        required: true
+        variable: groupAdmin
+        type: text
+        placeholder: Enter Group Admin...
       - label: Licensed Sheet Creator
-        required: false
+        required: true
         variable: licensedSheetCreator
         type: text
         placeholder: Enter Licensed Sheet Creator...
-      - label: Name
-        required: true
-        variable: name
-        type: text
-        placeholder: Enter Name...
-      - label: Profile Image
-        required: false
-        variable: profileImage
-        type: text
-        placeholder: Enter Profile Image...
       - label: Resource Viewer
-        required: false
+        required: true
         variable: resourceViewer
         type: text
         placeholder: Enter Resource Viewer...
-      - label: Sheet Count
-        required: false
-        variable: sheetCount
-        type: text
-        placeholder: Enter Sheet Count...
-      - label: Status
-        required: false
-        variable: status
-        type: text
-        placeholder: Enter Status...
   - title: Output
     items:
       - label: Output Variable

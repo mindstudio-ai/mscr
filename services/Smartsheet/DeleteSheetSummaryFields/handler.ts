@@ -108,10 +108,18 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`Delete Summary Fields`);
+  if (!inputs.ids) {
+    throw new Error('Field IDs are required');
+  }
+
+  log(`Delete Summary Fields ${inputs.ids}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string | number | boolean> = {
+      ids: inputs.ids,
+      ignoreSummaryFieldsNotFound:
+        inputs.ignoreSummaryFieldsNotFound === 'true',
+    };
 
     const response = await smartsheetApiRequest({
       method: 'DELETE',

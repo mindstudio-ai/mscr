@@ -104,20 +104,13 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddUserInputs>) => {
-
-  log(`Add User`);
+  log(`Add User: ${JSON.stringify(inputs)}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
-    }
     if (inputs.admin !== undefined) {
-      requestBody.admin = inputs.admin;
-    }
-    if (inputs.customWelcomeScreenViewed !== undefined) {
-      requestBody.customWelcomeScreenViewed = inputs.customWelcomeScreenViewed;
+      requestBody.admin = inputs.admin === 'true';
     }
     if (inputs.email !== undefined) {
       requestBody.email = inputs.email;
@@ -126,31 +119,16 @@ export const handler = async ({
       requestBody.firstName = inputs.firstName;
     }
     if (inputs.groupAdmin !== undefined) {
-      requestBody.groupAdmin = inputs.groupAdmin;
-    }
-    if (inputs.lastLogin !== undefined) {
-      requestBody.lastLogin = inputs.lastLogin;
+      requestBody.groupAdmin = inputs.groupAdmin === 'true';
     }
     if (inputs.lastName !== undefined) {
       requestBody.lastName = inputs.lastName;
     }
     if (inputs.licensedSheetCreator !== undefined) {
-      requestBody.licensedSheetCreator = inputs.licensedSheetCreator;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.profileImage !== undefined) {
-      requestBody.profileImage = inputs.profileImage;
+      requestBody.licensedSheetCreator = inputs.licensedSheetCreator === 'true';
     }
     if (inputs.resourceViewer !== undefined) {
-      requestBody.resourceViewer = inputs.resourceViewer;
-    }
-    if (inputs.sheetCount !== undefined) {
-      requestBody.sheetCount = inputs.sheetCount;
-    }
-    if (inputs.status !== undefined) {
-      requestBody.status = inputs.status;
+      requestBody.resourceViewer = inputs.resourceViewer === 'true';
     }
 
     const response = await smartsheetApiRequest({

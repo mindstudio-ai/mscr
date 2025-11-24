@@ -15,6 +15,15 @@ configuration:
         variable: sheetId
         type: text
         placeholder: Enter Sheet Id...
+      - label: Field IDs
+        required: true
+        variable: ids
+        type: text
+        placeholder: Enter Field IDs...
+      - label: Ignore Summary Fields Not Found
+        required: false
+        variable: ignoreSummaryFieldsNotFound
+        type: text
   - title: Output
     items:
       - label: Output Variable

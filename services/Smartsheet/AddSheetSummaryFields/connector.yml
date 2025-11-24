@@ -15,18 +15,21 @@ configuration:
         variable: sheetId
         type: text
         placeholder: Enter Sheet Id...
-  - title: Request Data
+  - title: Fields
     items:
-      - label: 0
+      - label: Rename If Conflict
         required: false
-        variable: 0
+        variable: renameIfConflict
         type: text
-        placeholder: Enter 0...
-      - label: 1
+        placeholder: Enter Rename If Conflict...
+        defaultValue: false
+        description: Set to true if you want to override the requirement for unique summary field names. Repeated names will be adjusted by appending "(1)" or similar after the field name.
+      - label: Fields
         required: false
-        variable: 1
+        variable: fields
         type: text
-        placeholder: Enter 1...
+        placeholder: Enter Fields...
+        description: Enter the fields to add to the sheet.
   - title: Output
     items:
       - label: Output Variable
