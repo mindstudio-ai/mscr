@@ -108,16 +108,15 @@ export const handler = async ({
     throw new Error('User Id is required');
   }
 
-  log(`Update User`);
+  log(`Update User ${inputs.userId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
     if (inputs.admin !== undefined) {
-      requestBody.admin = inputs.admin;
+      requestBody.admin = inputs.admin === 'true';
     }
     if (inputs.licensedSheetCreator !== undefined) {
-      requestBody.licensedSheetCreator = inputs.licensedSheetCreator;
+      requestBody.licensedSheetCreator = inputs.licensedSheetCreator === 'true';
     }
     if (inputs.firstName !== undefined) {
       requestBody.firstName = inputs.firstName;
@@ -126,10 +125,10 @@ export const handler = async ({
       requestBody.lastName = inputs.lastName;
     }
     if (inputs.groupAdmin !== undefined) {
-      requestBody.groupAdmin = inputs.groupAdmin;
+      requestBody.groupAdmin = inputs.groupAdmin === 'true';
     }
     if (inputs.resourceViewer !== undefined) {
-      requestBody.resourceViewer = inputs.resourceViewer;
+      requestBody.resourceViewer = inputs.resourceViewer === 'true';
     }
 
     const response = await smartsheetApiRequest({
