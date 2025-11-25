@@ -5,7 +5,7 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Comment
-  description: '''Updates the text of a comment. NOTE: Only the user that created the comment is permitted to update it.'''
+  description: "'Updates the text of a comment. NOTE: Only the user that created the comment is permitted to update it.'"
   quickHelp: readme.md
 configuration:
   - title: Resource Information
