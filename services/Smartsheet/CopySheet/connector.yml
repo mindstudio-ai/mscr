@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Action
+id: copy-sheet
+serviceId: smartsheet
+active: false
+metadata:
+  name: Copy Sheet
+  description: 'Creates a copy of the specified sheet.'
+  quickHelp: readme.md
+configuration:
+  - title: Resource Information
+    items:
+      - label: Sheet Id
+        required: true
+        variable: sheetId
+        type: text
+        placeholder: Enter Sheet Id...
+  - title: Request Data
+    items:
+      - label: Destination Id
+        required: false
+        variable: destinationId
+        type: text
+        placeholder: Enter Destination Id...
+      - label: Destination Type
+        required: false
+        variable: destinationType
+        type: text
+        placeholder: Enter Destination Type...
+      - label: New Name
+        required: false
+        variable: newName
+        type: text
+        placeholder: Enter New Name...
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

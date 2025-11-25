@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Action
+id: move-sheet
+serviceId: smartsheet
+active: true
+metadata:
+  name: Move Sheet
+  description: 'Moves the specified sheet to a new location. When a sheet that is shared to one or more users and/or groups is moved into or out of a workspace, those sheet-level shares are preserved.'
+
+  quickHelp: readme.md
+configuration:
+  - title: Resource Information
+    items:
+      - label: Sheet Id
+        required: true
+        variable: sheetId
+        type: text
+        placeholder: Enter Sheet Id...
+  - title: Request Data
+    items:
+      - label: Destination Id
+        required: false
+        variable: destinationId
+        type: text
+        placeholder: Enter Destination Id...
+      - label: Destination Type
+        required: false
+        variable: destinationType
+        type: text
+        placeholder: Enter Destination Type...
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName
