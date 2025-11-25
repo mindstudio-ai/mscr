@@ -104,25 +104,42 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListUpdateRequestsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, includeAll, page, pageSize, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`List Update Requests`);
+  log(`Listing update requests for sheet ${sheetId}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/updaterequests`,
+      path: `/sheets/${sheetId}/updaterequests`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const requests = Array.isArray(data) ? data : [];
+    log(`Found ${requests.length} update request(s)`);
+    setOutput(outputVariable, {
+      totalCount: requests.length,
+      updateRequests: requests,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list update requests: ${errorMessage}`);
+    throw new Error(`Failed to list update requests: ${error.message}`);
   }
 };

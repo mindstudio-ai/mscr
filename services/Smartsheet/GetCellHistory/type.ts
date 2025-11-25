@@ -5,6 +5,6 @@ export interface GetCellHistoryInputs {
   include?: string;
   pageSize?: number;
   page?: number;
-  level?: 0 | 1 | 2;
+  level?: number;
   outputVariable: string;
 }

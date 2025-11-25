@@ -1,5 +1,9 @@
 export interface ListSightsInputs {
-  pageSize?: number;
+  accessApiLevel?: number;
+  includeAll?: boolean;
+  modifiedSince?: string;
+  numericDates?: boolean;
   page?: number;
+  pageSize?: number;
   outputVariable: string;
 }

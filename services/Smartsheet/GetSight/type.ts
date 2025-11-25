@@ -1,8 +1,8 @@
 export interface GetSightInputs {
   sightId: string;
+  accessApiLevel?: number;
   include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  level?: number;
+  numericDates?: boolean;
   outputVariable: string;
 }

@@ -104,96 +104,96 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateRowsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    rowsData,
+    accessApiLevel,
+    allowPartialSuccess,
+    overrideValidation,
+    outputVariable,
+  } = inputs;
+
+  // Validate required inputs
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`Update Rows`);
+  if (!rowsData) {
+    throw new Error('Rows data is required');
+  }
+
+  log(`Updating rows in sheet: ${sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
+    // Build query parameters
+    const queryParams: Record<string, number | boolean> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
     }
-    if (inputs.sheetId !== undefined) {
-      requestBody.sheetId = inputs.sheetId;
+    if (allowPartialSuccess !== undefined) {
+      queryParams.allowPartialSuccess = allowPartialSuccess;
     }
-    if (inputs.siblingId !== undefined) {
-      requestBody.siblingId = inputs.siblingId;
-    }
-    if (inputs.accessLevel !== undefined) {
-      requestBody.accessLevel = inputs.accessLevel;
-    }
-    if (inputs.attachments !== undefined) {
-      requestBody.attachments = inputs.attachments;
-    }
-    if (inputs.cells !== undefined) {
-      requestBody.cells = inputs.cells;
-    }
-    if (inputs.columns !== undefined) {
-      requestBody.columns = inputs.columns;
-    }
-    if (inputs.conditionalFormat !== undefined) {
-      requestBody.conditionalFormat = inputs.conditionalFormat;
-    }
-    if (inputs.createdAt !== undefined) {
-      requestBody.createdAt = inputs.createdAt;
-    }
-    if (inputs.createdBy !== undefined) {
-      requestBody.createdBy = inputs.createdBy;
-    }
-    if (inputs.discussions !== undefined) {
-      requestBody.discussions = inputs.discussions;
-    }
-    if (inputs.proof !== undefined) {
-      requestBody.proof = inputs.proof;
-    }
-    if (inputs.expanded !== undefined) {
-      requestBody.expanded = inputs.expanded;
-    }
-    if (inputs.filteredOut !== undefined) {
-      requestBody.filteredOut = inputs.filteredOut;
-    }
-    if (inputs.format !== undefined) {
-      requestBody.format = inputs.format;
-    }
-    if (inputs.inCriticalPath !== undefined) {
-      requestBody.inCriticalPath = inputs.inCriticalPath;
-    }
-    if (inputs.locked !== undefined) {
-      requestBody.locked = inputs.locked;
-    }
-    if (inputs.lockedForUser !== undefined) {
-      requestBody.lockedForUser = inputs.lockedForUser;
-    }
-    if (inputs.modifiedAt !== undefined) {
-      requestBody.modifiedAt = inputs.modifiedAt;
-    }
-    if (inputs.modifiedBy !== undefined) {
-      requestBody.modifiedBy = inputs.modifiedBy;
-    }
-    if (inputs.permaLink !== undefined) {
-      requestBody.permaLink = inputs.permaLink;
-    }
-    if (inputs.rowNumber !== undefined) {
-      requestBody.rowNumber = inputs.rowNumber;
-    }
-    if (inputs.version !== undefined) {
-      requestBody.version = inputs.version;
+    if (overrideValidation !== undefined) {
+      queryParams.overrideValidation = overrideValidation;
     }
 
-    const response = await smartsheetApiRequest({
+    // Parse rows data
+    let rowsArray =
+      typeof rowsData === 'string' ? JSON.parse(rowsData) : rowsData;
+
+    if (!Array.isArray(rowsArray)) {
+      // If single row object provided, wrap in array
+      rowsArray = [rowsArray];
+    }
+
+    // Validate that each row has an id
+    for (const row of rowsArray) {
+      if (!row.id) {
+        throw new Error('Each row must have an "id" property');
+      }
+    }
+
+    log(`Updating ${rowsArray.length} row(s)`);
+
+    // Update rows in sheet
+    const response = await smartsheetApiRequest<{ id: number }[]>({
       method: 'PUT',
-      path: `/sheets/${inputs.sheetId}/rows`,
+      path: `/sheets/${sheetId}/rows`,
       queryParams,
-      body: requestBody,
+      body: rowsArray,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const resultArray = Array.isArray(response) ? response : [response];
+    log(`Successfully updated ${resultArray.length} row(s)`);
+
+    // Set output variable
+    setOutput(outputVariable, {
+      updatedRows: resultArray,
+      count: resultArray.length,
+    });
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update rows: ${errorMessage}`);
+
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error(
+        `Sheet or row not found. Please check the sheet ID and row IDs.`,
+      );
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
+      throw new Error(
+        `Permission denied. You must have editor access to update rows in this sheet.`,
+      );
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
+      throw new Error(
+        `Invalid row data: ${errorMessage}. Check your row IDs, column IDs, and values.`,
+      );
+    } else {
+      throw new Error(`Failed to update rows: ${errorMessage}`);
+    }
   }
 };

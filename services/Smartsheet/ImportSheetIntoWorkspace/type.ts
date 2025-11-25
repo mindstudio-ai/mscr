@@ -1,6 +1,9 @@
 export interface ImportSheetIntoWorkspaceInputs {
   workspaceId: string;
-  filePath?: string;
+  sheetname: string;
+  headerrowindex?: number;
+  primarycolumnindex?: number;
+  filePath: string;
   fileName?: string;
   outputVariable: string;
 }

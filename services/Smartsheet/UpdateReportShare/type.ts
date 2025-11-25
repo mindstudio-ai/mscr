@@ -1,6 +1,7 @@
 export interface UpdateReportShareInputs {
   reportId: string;
   shareId: string;
-  accessLevel?: string;
+  accessapilevel?: number;
+  accesslevel?: string;
   outputVariable: string;
 }

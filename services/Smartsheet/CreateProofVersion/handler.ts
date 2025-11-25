@@ -104,44 +104,48 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateProofVersionInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    proofId,
+    attachmentsubtype,
+    attachmenttype,
+    description,
+    name,
+    url,
+    outputVariable,
+  } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
   }
-  if (!inputs.proofId) {
-    throw new Error('Proof Id is required');
+  if (!proofId) {
+    throw new Error('proofId is required');
+  }
+  const path = `/sheets/${sheetId}/proofs/${proofId}/versions`;
+  const body: Record<string, any> = {};
+  if (attachmentsubtype !== undefined) {
+    body['attachmentSubType'] = attachmentsubtype;
+  }
+  if (attachmenttype !== undefined) {
+    body['attachmentType'] = attachmenttype;
+  }
+  if (description !== undefined) {
+    body['description'] = description;
+  }
+  if (name !== undefined) {
+    body['name'] = name;
+  }
+  if (url !== undefined) {
+    body['url'] = url;
   }
 
-  log(`Create Proof Version`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.attachmentSubType !== undefined) {
-      requestBody.attachmentSubType = inputs.attachmentSubType;
-    }
-    if (inputs.attachmentType !== undefined) {
-      requestBody.attachmentType = inputs.attachmentType;
-    }
-    if (inputs.description !== undefined) {
-      requestBody.description = inputs.description;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.url !== undefined) {
-      requestBody.url = inputs.url;
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/versions`,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to create proof version: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

@@ -2,8 +2,7 @@ export interface AddCellImageInputs {
   sheetId: string;
   rowId: string;
   columnId: string;
-  imageUrl: string;
-  imageName: string;
+  imageId: string;
   altText?: string;
   overrideValidation?: boolean;
   outputVariable: string;

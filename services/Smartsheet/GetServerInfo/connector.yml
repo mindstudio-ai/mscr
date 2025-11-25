@@ -5,32 +5,11 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Server Info
-  description: 'Gets application constants.'
+  description: Gets information about the Smartsheet server
   quickHelp: readme.md
 configuration:
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
-        required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+  - title: Parameters
+    items: []
   - title: Output
     items:
       - label: Output Variable

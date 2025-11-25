@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Action
 id: addUserAlternateEmail
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Add User Alternate Email
-  description: 'Adds an alternate email address to a user''s account'
+  description: Adds an alternate email address to a user's account
   quickHelp: readme.md
 configuration:
   - title: User Information

@@ -104,35 +104,36 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SetDashboardPublishStatusInputs>) => {
-  if (!inputs.sightId) {
-    throw new Error('Sight Id is required');
+  const {
+    sightId,
+    readonlyfullenabled,
+    readonlyfullaccessibleby,
+    readonlyfullurl,
+    outputVariable,
+  } = inputs;
+  if (!sightId) {
+    throw new Error('sightId is required');
+  }
+  const path = `/sights/${sightId}/publish`;
+  const body: Record<string, any> = {};
+  if (readonlyfullenabled !== undefined) {
+    body['readOnlyFullEnabled'] = readonlyfullenabled;
+  }
+  if (readonlyfullaccessibleby !== undefined) {
+    body['readOnlyFullAccessibleBy'] = readonlyfullaccessibleby;
+  }
+  if (readonlyfullurl !== undefined) {
+    body['readOnlyFullUrl'] = readonlyfullurl;
   }
 
-  log(`Set Dashboard Publish Status`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.readOnlyFullEnabled !== undefined) {
-      requestBody.readOnlyFullEnabled = inputs.readOnlyFullEnabled;
-    }
-    if (inputs.readOnlyFullAccessibleBy !== undefined) {
-      requestBody.readOnlyFullAccessibleBy = inputs.readOnlyFullAccessibleBy;
-    }
-    if (inputs.readOnlyFullUrl !== undefined) {
-      requestBody.readOnlyFullUrl = inputs.readOnlyFullUrl;
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'PUT',
-      path: `/sights/${inputs.sightId}/publish`,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to set dashboard publish status: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'PUT',
+    path,
+  };
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

@@ -104,22 +104,50 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListWorkspacesInputs>) => {
-
-  log(`List Workspaces`);
+  const {
+    includeAll,
+    lastKey,
+    page,
+    pageSize,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    log('Listing workspaces...');
 
-    const response = await smartsheetApiRequest({
+    const queryParams: Record<string, boolean | string | number> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (lastKey) {
+      queryParams.lastKey = lastKey;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    const result = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/workspaces`,
+      path: '/workspaces',
       queryParams,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const totalCount =
+      (result as any).totalCount || (result as any).data?.length || 0;
+    log(`Successfully retrieved ${totalCount} workspaces`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list workspaces: ${errorMessage}`);
+    log(`Error listing workspaces: ${error.message}`);
+    throw error;
   }
 };

@@ -2,34 +2,32 @@ apiVersion: v1
 kind: Action
 id: add-sheet-summary-fields
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Add Sheet Summary Fields
-  description: 'Creates one or more summary fields for the specified sheet.'
+  description: Adds new summary fields to a sheet
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Field Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Fields
+      - label: Fields JSON
+        required: true
+        helpText: Array of field objects with title and type
+        variable: fieldsJson
+        type: text
+  - title: Query Options
+    collapsed: true
     items:
       - label: Rename If Conflict
         required: false
+        helpText: Set to true if you want to override the requirement for unique summary field names. Repeated names will be adjusted by appending "(1)" or similar after the field name.
         variable: renameIfConflict
-        type: text
-        placeholder: Enter Rename If Conflict...
+        type: checkbox
         defaultValue: false
-        description: Set to true if you want to override the requirement for unique summary field names. Repeated names will be adjusted by appending "(1)" or similar after the field name.
-      - label: Fields
-        required: false
-        variable: fields
-        type: text
-        placeholder: Enter Fields...
-        description: Enter the fields to add to the sheet.
   - title: Output
     items:
       - label: Output Variable

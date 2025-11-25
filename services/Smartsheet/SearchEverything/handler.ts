@@ -104,41 +104,44 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SearchEverythingInputs>) => {
-
-  log(`Search Everything`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    if (inputs.query) {
-      queryParams.query = inputs.query;
-    }
-    if (inputs.location) {
-      queryParams.location = inputs.location;
-    }
-    if (inputs.modifiedSince) {
-      queryParams.modifiedSince = inputs.modifiedSince;
-    }
-    if (inputs.include) {
-      queryParams.include = inputs.include;
-    }
-    if (inputs.scopes) {
-      queryParams.scopes = inputs.scopes;
-    }
-    if (inputs.scopesValue) {
-      queryParams.scopesValue = inputs.scopesValue;
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/search`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to search everything: ${errorMessage}`);
+  const {
+    query,
+    location,
+    modifiedsince,
+    include,
+    scopes,
+    scopesValue,
+    outputVariable,
+  } = inputs;
+  const path = `/search`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (query !== undefined && query !== null) {
+    queryParams['query'] = query;
   }
+  if (location !== undefined && location !== null) {
+    queryParams['location'] = location;
+  }
+  if (modifiedsince !== undefined && modifiedsince !== null) {
+    queryParams['modifiedSince'] = modifiedsince;
+  }
+  if (include !== undefined && include !== null) {
+    queryParams['include'] = include;
+  }
+  if (scopes !== undefined && scopes !== null) {
+    queryParams['scopes'] = scopes;
+  }
+  if (scopesValue !== undefined && scopesValue !== null) {
+    queryParams['scopes'] = scopesValue;
+  }
+
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
+  }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

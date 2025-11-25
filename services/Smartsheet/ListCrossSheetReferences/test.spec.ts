@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('list cross-sheet references', async () => {
+test('lists cross-sheet references', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheetId',
-    outputVariable: 'result',
+    sheetId: 'test-sheet-id',
+    outputVariable: 'references',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+  expect(ctx.outputs['references'].references).toBeDefined();
 });

@@ -104,29 +104,43 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListCrossSheetReferencesInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, includeAll, page, pageSize, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`List Cross-sheet References for sheet ${inputs.sheetId}`);
+  log(`Listing cross-sheet references for sheet ${sheetId}`);
 
   try {
-    const queryParams = {
-      includeAll: inputs.includeAll || false,
-      pageSize: inputs.pageSize || 100,
-      page: inputs.page || 1,
-    };
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/crosssheetreferences`,
+      path: `/sheets/${sheetId}/crosssheetreferences`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} cross-sheet reference(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      references: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list cross-sheet references for sheet ${inputs.sheetId}: ${errorMessage}`);
+    throw new Error(`Failed to list cross-sheet references: ${error.message}`);
   }
 };

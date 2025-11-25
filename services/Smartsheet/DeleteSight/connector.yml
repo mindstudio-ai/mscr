@@ -2,19 +2,18 @@ apiVersion: v1
 kind: Action
 id: delete-sight
 serviceId: smartsheet
-active: true
+active: false
 metadata:
-  name: Delete Sight
-  description: 'Deletes the dashboard specified in the URL.'
+  name: Delete Sight (Dashboard)
+  description: Deletes a dashboard
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sight Information
     items:
-      - label: Sight Id
+      - label: Sight ID
         required: true
         variable: sightId
         type: text
-        placeholder: Enter Sight Id...
   - title: Output
     items:
       - label: Output Variable

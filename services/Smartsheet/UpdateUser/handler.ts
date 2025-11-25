@@ -104,43 +104,47 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateUserInputs>) => {
-  if (!inputs.userId) {
-    throw new Error('User Id is required');
+  const {
+    userId,
+    admin,
+    licensedSheetCreator,
+    firstName,
+    lastName,
+    outputVariable,
+  } = inputs;
+
+  if (!userId) {
+    throw new Error('User ID is required');
   }
 
-  log(`Update User ${inputs.userId}`);
-
   try {
-    const requestBody: any = {};
-    if (inputs.admin !== undefined) {
-      requestBody.admin = inputs.admin === 'true';
+    log(`Updating user ${userId}...`);
+
+    const userSpec: any = {};
+
+    if (admin !== undefined) {
+      userSpec.admin = admin;
     }
-    if (inputs.licensedSheetCreator !== undefined) {
-      requestBody.licensedSheetCreator = inputs.licensedSheetCreator === 'true';
+    if (licensedSheetCreator !== undefined) {
+      userSpec.licensedSheetCreator = licensedSheetCreator;
     }
-    if (inputs.firstName !== undefined) {
-      requestBody.firstName = inputs.firstName;
+    if (firstName) {
+      userSpec.firstName = firstName;
     }
-    if (inputs.lastName !== undefined) {
-      requestBody.lastName = inputs.lastName;
-    }
-    if (inputs.groupAdmin !== undefined) {
-      requestBody.groupAdmin = inputs.groupAdmin === 'true';
-    }
-    if (inputs.resourceViewer !== undefined) {
-      requestBody.resourceViewer = inputs.resourceViewer === 'true';
+    if (lastName) {
+      userSpec.lastName = lastName;
     }
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/users/${inputs.userId}`,
-      body: requestBody,
+      path: `/users/${userId}`,
+      body: userSpec,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully updated user: ${userId}`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update user: ${errorMessage}`);
+    log(`Error updating user: ${error.message}`);
+    throw error;
   }
 };

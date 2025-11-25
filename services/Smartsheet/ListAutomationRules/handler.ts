@@ -104,29 +104,42 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListAutomationRulesInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, includeAll, page, pageSize, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`List All Automation Rules for sheet ${inputs.sheetId} with include all ${inputs.includeAll}, page size ${inputs.pageSize}, page ${inputs.page}`);
+  log(`Listing automation rules for sheet: ${sheetId}`);
 
   try {
-    const queryParams = {
-      includeAll: inputs.includeAll || false,
-      pageSize: inputs.pageSize || 100,
-      page: inputs.page || 1,
-    };
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/automationrules`,
+      path: `/sheets/${sheetId}/automationrules`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    log(`Found ${Array.isArray(data) ? data.length : 0} automation rule(s)`);
+    setOutput(outputVariable, {
+      totalCount:
+        (response as any).totalCount || (Array.isArray(data) ? data.length : 0),
+      automationRules: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list all automation rules for sheet ${inputs.sheetId} with include all ${inputs.includeAll}, page size ${inputs.pageSize}, page ${inputs.page}: ${errorMessage}`);
+    throw new Error(`Failed to list automation rules: ${error.message}`);
   }
 };

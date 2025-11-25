@@ -104,29 +104,46 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<MakeEmailPrimaryInputs>) => {
-  if (!inputs.userId) {
-    throw new Error('User Id is required');
-  }
-  if (!inputs.alternateEmailId) {
-    throw new Error('Alternate Email Id is required');
+  const { userId, alternateEmailId, outputVariable } = inputs;
+
+  if (!userId) {
+    throw new Error('User ID is required');
   }
 
-  log(`Make Alternate Email Primary`);
+  if (!alternateEmailId) {
+    throw new Error('Alternate Email ID is required');
+  }
+
+  log(`Making alternate email ${alternateEmailId} primary for user: ${userId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/users/${inputs.userId}/alternateemails/${inputs.alternateEmailId}/makeprimary`,
-      body: requestBody,
+      path: `/users/${userId}/alternateemails/${alternateEmailId}/makeprimary`,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully made email primary: ${(response as any).email}`);
+
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to make alternate email primary: ${errorMessage}`);
+
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error('User or alternate email not found');
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
+      throw new Error(
+        'Permission denied. System administrator access required.',
+      );
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
+      throw new Error('Email must be confirmed before it can be made primary');
+    } else {
+      throw new Error(`Failed to make email primary: ${errorMessage}`);
+    }
   }
 };

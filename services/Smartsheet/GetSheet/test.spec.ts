@@ -1,12 +1,18 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('get sheet', async () => {
+test('gets a specific sheet from Smartsheet', async () => {
+  // Mock environment variables
   process.env.accessToken = process.env.accessToken;
+
   const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheetId',
-    outputVariable: 'result',
+    sheetId: 'test-sheet-id',
+    outputVariable: 'sheetDetails',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  // Verify output was set
+  expect(ctx.outputs['sheetDetails']).toBeTruthy();
+  expect(ctx.outputs['sheetDetails'].id).toBeDefined();
 });

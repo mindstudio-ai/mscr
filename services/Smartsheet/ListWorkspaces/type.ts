@@ -1,7 +1,8 @@
 export interface ListWorkspacesInputs {
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
+  includeAll?: boolean;
+  lastKey?: string;
   page?: number;
+  pageSize?: number;
+  accessApiLevel?: number;
   outputVariable: string;
 }

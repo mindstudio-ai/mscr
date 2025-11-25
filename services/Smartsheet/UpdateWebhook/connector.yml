@@ -1,51 +1,53 @@
 apiVersion: v1
 kind: Action
-id: update-webhook
+id: updateWebhook
 serviceId: smartsheet
 active: false
 metadata:
   name: Update Webhook
-  description: '''Updates the specified Webhook. The following properties can be updated:'' callbackUrl (optional) enabled (optional) events (optional) name (optional) * version (optional) When setting a webhook''s enabled to true using this operation, the behavior and result depend on the webhook''s status and may result in a webhook verification being triggered, or in some cases, an error being returned. See Webhook Status for more details.'
-
+  description: Updates an existing webhook
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Webhook Information
     items:
-      - label: Webhook Id
+      - label: Webhook ID
         required: true
+        helpText: The ID of the webhook to update
         variable: webhookId
         type: text
-        placeholder: Enter Webhook Id...
-  - title: Request Data
+  - title: Webhook Details
     items:
-      - label: Callback Url
-        required: false
-        variable: callbackUrl
-        type: text
-        placeholder: Enter Callback Url...
-      - label: Events
-        required: false
-        variable: events
-        type: text
-        placeholder: Enter Events...
       - label: Name
-        required: true
+        required: false
+        helpText: New name for the webhook
         variable: name
         type: text
-        placeholder: Enter Name...
-      - label: Version
+      - label: Callback URL
         required: false
-        variable: version
+        helpText: New callback URL
+        variable: callbackUrl
         type: text
-        placeholder: Enter Version...
+      - label: Events
+        required: false
+        helpText: New array of event types to monitor as JSON array
+        variable: events
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: '["*.*"]'
+  - title: Options
+    collapsed: true
+    items:
       - label: Enabled
         required: false
+        helpText: Whether the webhook should be enabled
         variable: enabled
-        type: text
-        placeholder: Enter Enabled...
+        type: checkbox
+        defaultValue: true
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the updated webhook
         variable: outputVariable
         type: outputVariableName

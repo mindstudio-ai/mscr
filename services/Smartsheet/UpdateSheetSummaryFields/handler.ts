@@ -104,42 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateSheetSummaryFieldsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, fieldsJson, renameIfConflict, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  if (!fieldsJson) {
+    throw new Error('Fields JSON is required');
   }
 
-  log(`Update Summary Fields`);
+  log('Updating sheet summary fields');
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    
-    // Parse fields if provided as string, otherwise use as-is
-    let requestBody: any = [];
-    if (inputs.fields !== undefined) {
-      if (typeof inputs.fields === 'string') {
-        try {
-          requestBody = JSON.parse(inputs.fields);
-        } catch {
-          throw new Error('Fields must be a valid JSON array');
-        }
-      } else if (Array.isArray(inputs.fields)) {
-        requestBody = inputs.fields;
-      } else {
-        requestBody = [inputs.fields];
-      }
+    const queryParams: Record<string, boolean> = {};
+    if (renameIfConflict !== undefined) {
+      queryParams.renameIfConflict = renameIfConflict;
     }
 
+    const fields = JSON.parse(fieldsJson);
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sheets/${inputs.sheetId}/summary/fields`,
+      path: `/sheets/${sheetId}/summary/fields`,
       queryParams,
-      body: requestBody,
+      body: { fields },
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const result = Array.isArray(response) ? response : [response];
+    log(`Updated ${result.length} field(s) successfully`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update summary fields: ${errorMessage}`);
+    throw new Error(`Failed to update sheet summary fields: ${error.message}`);
   }
 };

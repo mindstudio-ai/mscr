@@ -104,32 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateProofRequestInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, proofRequestId, message, proofId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.proofId) {
-    throw new Error('Proof Id is required');
+  if (!proofRequestId) {
+    throw new Error('Proof request ID is required');
   }
 
-  log(`Update Proof Status`);
+  log(`Updating proof request ${proofRequestId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.isCompleted !== undefined) {
-      requestBody.isCompleted = inputs.isCompleted;
+    const updateBody: any = {};
+    if (message) {
+      updateBody.message = message;
     }
+
+    // proofId is required, so always use the proof-based path
+    const path = `/sheets/${sheetId}/proofs/${proofId}/requests/${proofRequestId}`;
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}`,
-      body: requestBody,
+      path,
+      body: updateBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Proof request updated successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update proof status: ${errorMessage}`);
+    throw new Error(`Failed to update proof request: ${error.message}`);
   }
 };

@@ -104,41 +104,29 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddGroupMembersInputs>) => {
-  if (!inputs.groupId) {
-    throw new Error('Group Id is required');
+  const { groupId, memberEmails, outputVariable } = inputs;
+
+  if (!groupId) {
+    throw new Error('Group ID is required');
+  }
+  if (!memberEmails) {
+    throw new Error('Member emails are required');
   }
 
-  log(`Add Group Members`);
+  log(`Adding members to group ${groupId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
-    }
-    if (inputs.email !== undefined) {
-      requestBody.email = inputs.email;
-    }
-    if (inputs.firstName !== undefined) {
-      requestBody.firstName = inputs.firstName;
-    }
-    if (inputs.lastName !== undefined) {
-      requestBody.lastName = inputs.lastName;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
+    const emails = memberEmails.split(',').map((e: string) => e.trim());
+    const members = emails.map((email: string) => ({ email }));
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/groups/${inputs.groupId}/members`,
-      body: requestBody,
+      path: `/groups/${groupId}/members`,
+      body: members,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Added ${emails.length} member(s) to group`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to add group members: ${errorMessage}`);
+    throw new Error(`Failed to add group members: ${error.message}`);
   }
 };

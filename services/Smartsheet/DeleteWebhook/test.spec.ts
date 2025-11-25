@@ -1,12 +1,46 @@
-import { expect, test } from 'vitest';
-import runConnector from '../../../src/utils/testHarness';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { handler } from './handler';
 
-test('delete webhook', async () => {
-  process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
-  const ctx = await runConnector(handler, {
-    webhookId: 'test-webhookId',
-    outputVariable: 'result',
+describe('DeleteWebhook', () => {
+  const mockSetOutput = vi.fn();
+  const mockLog = vi.fn();
+  const mockUploadFile = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.accessToken = 'test-token';
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  it('should delete webhook successfully', async () => {
+    const inputs = {
+      webhookId: '123456789',
+      outputVariable: 'deletionResult',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).resolves.not.toThrow();
+
+    expect(mockLog).toHaveBeenCalledWith('Deleting webhook 123456789...');
+  });
+
+  it('should throw error when webhookId is missing', async () => {
+    const inputs = {
+      outputVariable: 'deletionResult',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).rejects.toThrow('Webhook ID is required');
+  });
 });

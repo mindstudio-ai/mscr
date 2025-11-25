@@ -1,7 +1,8 @@
 export interface ListPublicTemplatesInputs {
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
+  accessapilevel?: number;
+  includeall?: boolean;
+  level?: number;
   page?: number;
+  pagesize?: number;
   outputVariable: string;
 }

@@ -104,28 +104,31 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetColumnInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, columnId, level, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.columnId) {
-    throw new Error('Column Id is required');
+  if (!columnId) {
+    throw new Error('Column ID is required');
   }
 
-  log(`Get Column`);
+  log(`Getting column ${columnId} from sheet ${sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, number> = {};
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
 
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/columns/${inputs.columnId}`,
+      path: `/sheets/${sheetId}/columns/${columnId}`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Retrieved column: ${(response as any).title}`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get column: ${errorMessage}`);
+    throw new Error(`Failed to get column: ${error.message}`);
   }
 };

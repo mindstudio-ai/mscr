@@ -1,8 +1,7 @@
 export interface GetWorkspaceInputs {
   workspaceId: string;
+  loadAll?: boolean;
+  accessApiLevel?: number;
   include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
   outputVariable: string;
 }

@@ -1,6 +1,8 @@
 export interface CopyRowsToAnotherSheetInputs {
   sheetId: string;
-  rowIds?: string;
-  to?: string;
+  include?: string;
+  ignorerowsnotfound?: boolean;
+  rowids?: string;
+  toSheetid?: string;
   outputVariable: string;
 }

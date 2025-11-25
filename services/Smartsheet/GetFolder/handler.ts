@@ -104,25 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetFolderInputs>) => {
-  if (!inputs.folderId) {
-    throw new Error('Folder Id is required');
+  const { folderId, include, outputVariable } = inputs;
+
+  if (!folderId) {
+    throw new Error('Folder ID is required');
   }
 
-  log(`Get Folder`);
-
+  log(`Getting folder ${folderId}`);
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
+    }
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest({
       method: 'GET',
-      path: `/folders/${inputs.folderId}`,
+      path: `/folders/${folderId}`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved folder successfully');
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get folder: ${errorMessage}`);
+    throw new Error(`Failed to get folder: ${error.message}`);
   }
 };

@@ -104,25 +104,39 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetSheetSummaryInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, include, exclude, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`Get Sheet Summary`);
+  log(`Getting sheet summary for sheet ${sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/summary`,
+      path: `/sheets/${sheetId}/summary`,
       queryParams,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved sheet summary successfully');
+    setOutput(outputVariable, result);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get sheet summary: ${errorMessage}`);
+    if (errorMessage.includes('403') || errorMessage.includes('Permission')) {
+      throw new Error(
+        'Permission denied. You may not have access to this sheet.',
+      );
+    } else {
+      throw new Error(`Failed to get sheet summary: ${errorMessage}`);
+    }
   }
 };

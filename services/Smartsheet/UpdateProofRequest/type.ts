@@ -1,6 +1,7 @@
 export interface UpdateProofRequestInputs {
   sheetId: string;
+  proofRequestId: string;
+  message?: string;
   proofId: string;
-  isCompleted?: any;
   outputVariable: string;
 }

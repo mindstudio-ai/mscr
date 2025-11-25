@@ -1,13 +1,13 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('delete proof requests', async () => {
+test('deletes proof request', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheetId',
-    proofId: 'test-proofId',
+    sheetId: 'test-sheet-id',
+    proofRequestId: 'test-proof-id',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+  expect(ctx.outputs['result'].success).toBe(true);
 });

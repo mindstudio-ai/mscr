@@ -104,36 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListDiscussionAttachmentsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, discussionId, page, pagesize, includeall, outputVariable } =
+    inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
   }
-  if (!inputs.discussionId) {
-    throw new Error('Discussion Id is required');
+  if (!discussionId) {
+    throw new Error('discussionId is required');
+  }
+  const path = `/sheets/${sheetId}/discussions/${discussionId}/attachments`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (page !== undefined && page !== null) {
+    queryParams['page'] = page;
+  }
+  if (pagesize !== undefined && pagesize !== null) {
+    queryParams['pageSize'] = pagesize;
+  }
+  if (includeall !== undefined && includeall !== null) {
+    queryParams['includeAll'] = includeall;
   }
 
-  log(
-    `List Discussion Attachments on sheet ${inputs.sheetId} and discussion ${inputs.discussionId}`,
-  );
-
-  try {
-    const queryParams = {
-      includeAll: inputs.includeAll || false,
-      pageSize: inputs.pageSize || 100,
-      page: inputs.page || 1,
-    };
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/sheets/${inputs.sheetId}/discussions/${inputs.discussionId}/attachments`,
-      queryParams,
-    });
-
-    log(
-      `Successfully listed discussion attachments: ${response.data.length} attachments`,
-    );
-    setOutput(inputs.outputVariable, response.data);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list discussion attachments: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

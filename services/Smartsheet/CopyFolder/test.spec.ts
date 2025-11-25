@@ -1,12 +1,14 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('copy folder', async () => {
+test('copies folder', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    folderId: 'test-folderId',
-    outputVariable: 'result',
+    folderId: 'test-folder-id',
+    destinationType: 'home',
+    newName: 'Copied Folder',
+    outputVariable: 'folder',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+  expect(ctx.outputs['folder']).toBeTruthy();
 });

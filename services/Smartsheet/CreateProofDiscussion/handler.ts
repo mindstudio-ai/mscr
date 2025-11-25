@@ -104,38 +104,30 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateProofDiscussionInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, proofId, comment, text, outputVariable } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
   }
-  if (!inputs.proofId) {
-    throw new Error('Proof Id is required');
+  if (!proofId) {
+    throw new Error('proofId is required');
+  }
+  const path = `/sheets/${sheetId}/proofs/${proofId}/discussions`;
+  const body: Record<string, any> = {};
+  if (comment !== undefined) {
+    body['comment'] = comment;
+  }
+  if (text !== undefined) {
+    body['text'] = text;
   }
 
-  if (!inputs.comment) {
-    throw new Error('Comment is required');
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
   }
 
-  log(
-    `Create Proof Discussion on sheet ${inputs.sheetId} and proof ${inputs.proofId}`,
-  );
-
-  try {
-    const requestBody = {
-      comment: {
-        text: inputs.comment,
-      },
-    };
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/discussions`,
-      body: requestBody,
-    });
-
-    log(`Successfully created proof discussion: ${response.result.id}`);
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to create proof discussion: ${errorMessage}`);
-  }
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

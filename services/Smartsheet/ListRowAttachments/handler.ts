@@ -104,32 +104,46 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListRowAttachmentsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, rowId, page, pageSize, includeAll, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.rowId) {
-    throw new Error('Row Id is required');
+  if (!rowId) {
+    throw new Error('Row ID is required');
   }
 
-  log(`List Row Attachments for row ${inputs.rowId}`);
+  log(`Listing attachments for row ${rowId}`);
 
   try {
-    const queryParams = {
-      includeAll: inputs.includeAll || false,
-      pageSize: inputs.pageSize || 100,
-      page: inputs.page || 1,
-    };
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/attachments`,
+      path: `/sheets/${sheetId}/rows/${rowId}/attachments`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${Array.isArray(data) ? data.length : 0} attachment(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      attachments: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list row attachments for row ${inputs.rowId}: ${errorMessage}`);
+    throw new Error(`Failed to list row attachments: ${error.message}`);
   }
 };

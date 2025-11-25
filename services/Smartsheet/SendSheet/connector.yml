@@ -2,79 +2,30 @@ apiVersion: v1
 kind: Action
 id: send-sheet
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Send Sheet
-  description: 'Sends the sheet as a PDF attachment via email to the designated recipients.'
+  description: Sends a sheet via email
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sheet Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Request Data
-    items:
-      - label: Format
-        required: false
-        variable: format
-        type: select
-        placeholder: Select Format...
-        selectOptions:
-          options:
-          - label: EXCEL
-            value: EXCEL
-          - label: PDF
-            value: PDF
-          - label: PDF_GANTT
-            value: PDF_GANTT
-      - label: Paper Size
-        required: false
-        variable: paperSize
-        type: select
-        placeholder: Select Paper Size...
-        selectOptions:
-          options:
-          - label: A0
-            value: A0
-          - label: A1
-            value: A1
-          - label: A2
-            value: A2
-          - label: A3
-            value: A3
-          - label: A4
-            value: A4
-          - label: ARCHID
-            value: ARCHID
-          - label: LEGAL
-            value: LEGAL
-          - label: LETTER
-            value: LETTER
-          - label: WIDE
-            value: WIDE
-      - label: Cc Me
-        required: false
-        variable: ccMe
+      - label: Recipient Emails (comma-separated)
+        required: true
+        variable: recipientEmails
         type: text
-        placeholder: Enter Cc Me...
-      - label: Message
+      - label: Subject
+        required: true
+        variable: subject
+        type: text
+      - label: Message (optional)
         required: false
         variable: message
         type: text
-        placeholder: Enter Message...
-      - label: Send To
-        required: false
-        variable: sendTo
-        type: text
-        placeholder: Enter Send To...
-      - label: Subject
-        required: false
-        variable: subject
-        type: text
-        placeholder: Enter Subject...
   - title: Output
     items:
       - label: Output Variable

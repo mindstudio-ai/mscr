@@ -104,33 +104,91 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetRowInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
-  }
-  if (!inputs.rowId) {
-    throw new Error('Row Id is required');
+  const {
+    sheetId,
+    rowId,
+    accessApiLevel,
+    include,
+    includeAttachments,
+    includeColumns,
+    includeDiscussions,
+    exclude,
+    level,
+    outputVariable,
+  } = inputs;
+
+  // Validate required inputs
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`Get Row for sheet ${inputs.sheetId} and row ${inputs.rowId} with access api level ${inputs.accessApiLevel}, include ${inputs.include}, exclude ${inputs.exclude}, level ${inputs.level}`);
+  if (!rowId) {
+    throw new Error('Row ID is required');
+  }
+
+  log(`Retrieving row ${rowId} from sheet ${sheetId}`);
 
   try {
-    const queryParams = {
-      accessApiLevel: inputs.accessApiLevel,
-      include: inputs.include,
-      exclude: inputs.exclude,
-      level: inputs.level,
-    };
+    // Build query parameters
+    const queryParams: Record<string, string | number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+    const includeFlags = new Set<string>();
+    if (include) {
+      include
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .forEach((flag) => includeFlags.add(flag));
+    }
+    if (includeAttachments) {
+      includeFlags.add('attachments');
+    }
+    if (includeColumns) {
+      includeFlags.add('columns');
+    }
+    if (includeDiscussions) {
+      includeFlags.add('discussions');
+    }
+    if (includeFlags.size) {
+      queryParams.include = Array.from(includeFlags).join(',');
+    }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
 
+    // Get row
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}`,
+      path: `/sheets/${sheetId}/rows/${rowId}`,
       queryParams,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully retrieved row ${rowId}`);
+    log(`Row contains ${(response as any).cells?.length || 0} cells`);
+
+    // Set output variable
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get row for sheet ${inputs.sheetId} and row ${inputs.rowId} with access api level ${inputs.accessApiLevel}, include ${inputs.include}, exclude ${inputs.exclude}, level ${inputs.level}: ${errorMessage}`);
+
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error(
+        `Sheet or row not found. Please check the sheet ID (${sheetId}) and row ID (${rowId}).`,
+      );
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Access denied')
+    ) {
+      throw new Error(
+        `Access denied to sheet or row. You may not have permission to view this content.`,
+      );
+    } else {
+      throw new Error(`Failed to get row: ${errorMessage}`);
+    }
   }
 };

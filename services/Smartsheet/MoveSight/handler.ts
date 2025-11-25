@@ -104,35 +104,33 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<MoveSightInputs>) => {
-  if (!inputs.sightId) {
-    throw new Error('Sight Id is required');
+  const { sightId, destinationType, destinationId, outputVariable } = inputs;
+
+  if (!sightId) {
+    throw new Error('Sight ID is required');
+  }
+  if (!destinationType) {
+    throw new Error('Destination type is required');
   }
 
-  log(`Move Dashboard`);
+  log(`Moving dashboard ${sightId} to ${destinationType}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.destinationId !== undefined) {
-      requestBody.destinationId = inputs.destinationId;
-    }
-    if (inputs.destinationType !== undefined) {
-      requestBody.destinationType = inputs.destinationType;
-    }
-    if (inputs.newName !== undefined) {
-      requestBody.newName = inputs.newName;
+    const moveBody: any = {
+      destinationType: destinationType.toLowerCase(),
+    };
+    if (destinationId && destinationType.toLowerCase() !== 'home') {
+      moveBody.destinationId = parseInt(destinationId, 10);
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sights/${inputs.sightId}/move`,
-      body: requestBody,
+      path: `/sights/${sightId}/move`,
+      body: moveBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Dashboard moved successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to move dashboard: ${errorMessage}`);
+    throw new Error(`Failed to move dashboard: ${error.message}`);
   }
 };

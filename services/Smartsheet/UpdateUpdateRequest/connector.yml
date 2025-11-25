@@ -5,22 +5,27 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Update Request
-  description: 'Changes the specified update request for the sheet. Making changes to update requests that do not have future scheduled delivery is not allowed. The UpdateRequest object in the request body must specify one or more of the following attributes: ccMe: Boolean columnIds: number[] includeAttachments: Boolean includeDiscussions: Boolean message: string schedule: Schedule object sendTo: Recipient[] subject: string If an error occurs because the request specified one or more alternate email addresses, please retry using the primary email address.'
-
+  description: Updates an existing update request
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Update Request Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Update Request Id
+      - label: Update Request ID
         required: true
         variable: updateRequestId
         type: text
-        placeholder: Enter Update Request Id...
+      - label: New Subject
+        required: false
+        variable: subject
+        type: text
+      - label: New Message
+        required: false
+        variable: message
+        type: text
   - title: Output
     items:
       - label: Output Variable

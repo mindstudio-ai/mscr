@@ -59,19 +59,8 @@ const smartsheetApiRequest = async <T = any>(
     Object.assign(headers, form.getHeaders());
     body = form;
   } else if (options.body) {
-    // Check if body is a Buffer or ArrayBuffer (binary data)
-    if (Buffer.isBuffer(options.body) || options.body instanceof ArrayBuffer) {
-      // If Content-Type is already set to octet-stream, use the body as-is
-      if (headers['Content-Type'] === 'application/octet-stream') {
-        body = Buffer.isBuffer(options.body) ? options.body : Buffer.from(options.body);
-      } else {
-        headers['Content-Type'] = 'application/json';
-        body = JSON.stringify(options.body);
-      }
-    } else {
-      headers['Content-Type'] = 'application/json';
-      body = JSON.stringify(options.body);
-    }
+    headers['Content-Type'] = 'application/json';
+    body = JSON.stringify(options.body);
   }
 
   const response = await fetch(url.toString(), {
@@ -115,59 +104,49 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddCellImageInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    rowId,
+    columnId,
+    imageId,
+    altText,
+    overrideValidation,
+    outputVariable,
+  } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.rowId) {
-    throw new Error('Row Id is required');
+  if (!rowId) {
+    throw new Error('Row ID is required');
   }
-  if (!inputs.columnId) {
-    throw new Error('Column Id is required');
+  if (!columnId) {
+    throw new Error('Column ID is required');
   }
-  if (!inputs.imageUrl) {
-    throw new Error('Image URL is required');
-  }
-  if (!inputs.imageName) {
-    throw new Error('Image Name is required');
+  if (!imageId) {
+    throw new Error('Image ID is required');
   }
 
-  log(`Add Image to Cell`);
+  log(`Adding image ${imageId} to cell`);
 
   try {
-
-    const fetchImage = await fetch(inputs.imageUrl);
-    if (!fetchImage.ok) {
-      throw new Error(`Failed to fetch image: ${fetchImage.status} ${fetchImage.statusText}`);
+    const queryParams: Record<string, string | boolean> = {};
+    if (altText) {
+      queryParams.altText = altText;
     }
-    const imageBuffer = await fetchImage.arrayBuffer();
-    const imageBufferNode = Buffer.from(imageBuffer);
-
-
-    const queryParams: Record<string, string | number | boolean | undefined> = {};
-    if (inputs.altText) {
-      queryParams.altText = inputs.altText;
-    }
-    if (inputs.overrideValidation !== undefined) {
-      queryParams.overrideValidation = inputs.overrideValidation;
+    if (overrideValidation !== undefined) {
+      queryParams.overrideValidation = overrideValidation;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/columns/${inputs.columnId}/cellimages`,
+      path: `/sheets/${sheetId}/rows/${rowId}/columns/${columnId}/cellimages`,
       queryParams,
-      body: imageBufferNode,
-      headers: {
-        'Content-Type': 'application/octet-stream',
-        'Content-Disposition': `attachment; filename="${inputs.imageName}"`,
-        'Content-Length': imageBufferNode.byteLength.toString(),
-        'Accept': 'application/json',
-      },
+      body: { imageId },
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Successfully added image to cell');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to add image to cell: ${errorMessage}`);
+    throw new Error(`Failed to add cell image: ${error.message}`);
   }
 };

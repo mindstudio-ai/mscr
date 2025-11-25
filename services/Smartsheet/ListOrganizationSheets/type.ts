@@ -1,7 +1,4 @@
 export interface ListOrganizationSheetsInputs {
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  modifiedSince?: string;
   outputVariable: string;
 }

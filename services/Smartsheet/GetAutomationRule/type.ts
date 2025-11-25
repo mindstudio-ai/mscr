@@ -1,5 +1,5 @@
 export interface GetAutomationRuleInputs {
-  sheetId: number;
+  sheetId: string;
   automationRuleId: string;
   outputVariable: string;
 }

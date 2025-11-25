@@ -110,21 +110,41 @@ export const handler = async ({
     throw new Error('User ID is required');
   }
 
-  log(`List Alternate Emails for user ${userId}`);
+  log(`Retrieving alternate emails for user: ${userId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
       path: `/users/${userId}/alternateemails`,
-      queryParams,
     });
 
-    log('Successfully completed operation');
-    setOutput(outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+
+    log(`Successfully retrieved ${totalCount} alternate email(s)`);
+
+    setOutput(outputVariable, {
+      totalCount,
+      alternateEmails: data,
+    });
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list alternate emails: ${errorMessage}`);
+
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error(`User not found: ${userId}`);
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission denied')
+    ) {
+      throw new Error(
+        'Permission denied. You must be a system administrator to view alternate emails.',
+      );
+    } else {
+      throw new Error(`Failed to list alternate emails: ${errorMessage}`);
+    }
   }
 };

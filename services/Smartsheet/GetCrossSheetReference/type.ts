@@ -1,5 +1,5 @@
 export interface GetCrossSheetReferenceInputs {
-  sheetId: number;
-  crossSheetReferenceId: number;
+  sheetId: string;
+  crossSheetReferenceId: string;
   outputVariable: string;
 }

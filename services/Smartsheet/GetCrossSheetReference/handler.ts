@@ -104,26 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetCrossSheetReferenceInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, crossSheetReferenceId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.crossSheetReferenceId) {
-    throw new Error('Cross Sheet Reference Id is required');
+  if (!crossSheetReferenceId) {
+    throw new Error('Cross-sheet Reference ID is required');
   }
 
-  log(`Get Cross-sheet Reference for cross sheet reference ${inputs.crossSheetReferenceId}`);
+  log(`Getting cross-sheet reference ${crossSheetReferenceId}`);
 
   try {
-
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/crosssheetreferences/${inputs.crossSheetReferenceId}`,
+      path: `/sheets/${sheetId}/crosssheetreferences/${crossSheetReferenceId}`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved cross-sheet reference successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get cross-sheet reference: ${errorMessage}`);
+    throw new Error(`Failed to get cross-sheet reference: ${error.message}`);
   }
 };

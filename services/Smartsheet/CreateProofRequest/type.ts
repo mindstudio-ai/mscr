@@ -1,10 +1,10 @@
 export interface CreateProofRequestInputs {
   sheetId: string;
   proofId: string;
-  isDownloadable?: string;
-  ccMe?: any;
-  message?: any;
-  sendTo?: string;
-  subject?: any;
+  approverEmails: string;
+  message?: string;
+  ccMe?: boolean;
+  isDownloadable?: boolean;
+  subject?: string;
   outputVariable: string;
 }

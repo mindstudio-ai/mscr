@@ -5,25 +5,28 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Workspace Share
-  description: 'Deletes the share specified in the URL. This operation is only available to system administrators.'
+  description: |
+    Deletes the share specified in the URL.
 
+    **_This operation is only available to system administrators._**
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Workspace Id
+      - label: workspace Id
         required: true
+        helpText: (Required) WorkspaceID of the worksheet being accessed.
         variable: workspaceId
         type: text
-        placeholder: Enter Workspace Id...
-      - label: Share Id
+      - label: share Id
         required: true
+        helpText: (Required) Share Id.
         variable: shareId
         type: text
-        placeholder: Enter Share Id...
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

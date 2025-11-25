@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: add-attachment-version
+serviceId: smartsheet
+active: false
+metadata:
+  name: Add Attachment Version
+  description: Uploads a new version of an attachment
+  quickHelp: readme.md
+configuration:
+  - title: Attachment Information
+    items:
+      - label: Sheet ID
+        required: true
+        variable: sheetId
+        type: text
+      - label: Attachment ID
+        required: true
+        variable: attachmentId
+        type: text
+      - label: File Path
+        required: true
+        helpText: Path to the new version file
+        variable: filePath
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        variable: outputVariable
+        type: outputVariableName

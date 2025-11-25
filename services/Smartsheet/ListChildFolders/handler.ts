@@ -104,25 +104,38 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListChildFoldersInputs>) => {
-  if (!inputs.folderId) {
-    throw new Error('Folder Id is required');
+  const { folderId, includeAll, page, pageSize, outputVariable } = inputs;
+
+  if (!folderId) {
+    throw new Error('Folder ID is required');
   }
 
-  log(`List Folders`);
+  log(`Listing child folders of folder ${folderId}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
 
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/folders/${inputs.folderId}/folders`,
+      path: `/folders/${folderId}`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const folders = (response as any).folders || [];
+    log(`Found ${folders.length} child folder(s)`);
+    setOutput(outputVariable, {
+      totalCount: folders.length,
+      folders,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list folders: ${errorMessage}`);
+    throw new Error(`Failed to list child folders: ${error.message}`);
   }
 };

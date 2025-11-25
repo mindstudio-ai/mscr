@@ -104,22 +104,56 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListSightsInputs>) => {
+  const {
+    accessApiLevel,
+    includeAll,
+    modifiedSince,
+    numericDates,
+    page,
+    pageSize,
+    outputVariable,
+  } = inputs;
 
-  log(`List Dashboards`);
+  log('Listing all dashboards (sights)');
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
+    }
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sights`,
+      path: '/sights',
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} dashboard(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      sights: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list dashboards: ${errorMessage}`);
+    throw new Error(`Failed to list dashboards: ${error.message}`);
   }
 };

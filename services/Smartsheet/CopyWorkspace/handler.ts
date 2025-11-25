@@ -104,36 +104,62 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CopyWorkspaceInputs>) => {
-  if (!inputs.workspaceId) {
-    throw new Error('Workspace Id is required');
+  const { workspaceId, newName, include, includes, skipRemap, outputVariable } =
+    inputs;
+
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
   }
 
-  log(`Copy Workspace`);
+  if (!newName) {
+    throw new Error('New name is required');
+  }
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.destinationId !== undefined) {
-      requestBody.destinationId = inputs.destinationId;
+    log(`Copying workspace ${workspaceId}...`);
+
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
     }
-    if (inputs.destinationType !== undefined) {
-      requestBody.destinationType = inputs.destinationType;
-    }
-    if (inputs.newName !== undefined) {
-      requestBody.newName = inputs.newName;
+    if (skipRemap) {
+      queryParams.skipRemap = skipRemap;
     }
 
-    const response = await smartsheetApiRequest({
+    const copySpec: Record<string, unknown> = {
+      newName,
+    };
+
+    if (includes) {
+      try {
+        const parsed = JSON.parse(includes);
+        if (Array.isArray(parsed)) {
+          copySpec.includes = parsed;
+        } else if (typeof parsed === 'string') {
+          copySpec.includes = parsed
+            .split(',')
+            .map((item: string) => item.trim())
+            .filter(Boolean);
+        }
+      } catch {
+        copySpec.includes = includes
+          .split(',')
+          .map((item: string) => item.trim())
+          .filter(Boolean);
+      }
+    }
+
+    const result = await smartsheetApiRequest({
       method: 'POST',
-      path: `/workspaces/${inputs.workspaceId}/copy`,
+      path: `/workspaces/${workspaceId}/copy`,
       queryParams,
-      body: requestBody,
+      body: copySpec,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully copied workspace: ${newName}`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to copy workspace: ${errorMessage}`);
+    log(`Error copying workspace: ${error.message}`);
+    throw error;
   }
 };

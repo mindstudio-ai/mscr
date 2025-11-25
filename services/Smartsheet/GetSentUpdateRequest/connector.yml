@@ -5,47 +5,25 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Sent Update Request
-  description: 'Gets the specified sent update request on the sheet.'
+  description: Gets the specified sent update request on the sheet.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Sheet Id
+      - label: sheet Id
         required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Sent Update Request Id
+      - label: sent Update Request Id
         required: true
+        helpText: (Required) ID of the sent update request
         variable: sentUpdateRequestId
         type: text
-        placeholder: Enter Sent Update Request Id...
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
-        required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

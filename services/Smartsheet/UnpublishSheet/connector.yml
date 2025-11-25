@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Action
+id: unpublish-sheet
+serviceId: smartsheet
+active: false
+metadata:
+  name: Unpublish Sheet
+  description: Unpublishes a sheet (removes public access)
+  quickHelp: readme.md
+configuration:
+  - title: Sheet Information
+    items:
+      - label: Sheet ID
+        required: true
+        helpText: The ID of the sheet
+        variable: sheetId
+        type: text
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the result
+        variable: outputVariable
+        type: outputVariableName

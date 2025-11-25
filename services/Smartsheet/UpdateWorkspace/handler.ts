@@ -104,30 +104,35 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateWorkspaceInputs>) => {
-  if (!inputs.workspaceId) {
-    throw new Error('Workspace Id is required');
+  const { workspaceId, name, outputVariable } = inputs;
+
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
   }
 
-  log(`Update Workspace`);
+  if (!name) {
+    throw new Error('Workspace name is required');
+  }
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
+    log(`Updating workspace ${workspaceId}...`);
+
+    const queryParams: Record<string, number> = {};
+    if (inputs.accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = inputs.accessApiLevel;
     }
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/workspaces/${inputs.workspaceId}`,
+      path: `/workspaces/${workspaceId}`,
       queryParams,
-      body: requestBody,
+      body: { name },
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully updated workspace: ${name}`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update workspace: ${errorMessage}`);
+    log(`Error updating workspace: ${error.message}`);
+    throw error;
   }
 };

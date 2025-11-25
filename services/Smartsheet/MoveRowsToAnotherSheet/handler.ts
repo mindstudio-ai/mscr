@@ -99,44 +99,49 @@ const smartsheetApiRequest = async <T = any>(
   return (await response.text()) as T;
 };
 
-const parseIdsStringToArray = (idsString: string) => {
-  return idsString?.split(',').map((id: string) => id.trim());
-}
-
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: IHandlerContext<MoveRowsToAnotherSheetInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    include,
+    ignorerowsnotfound,
+    rowids,
+    toSheetid,
+    outputVariable,
+  } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
+  }
+  const path = `/sheets/${sheetId}/rows/move`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (include !== undefined && include !== null) {
+    queryParams['include'] = include;
+  }
+  if (ignorerowsnotfound !== undefined && ignorerowsnotfound !== null) {
+    queryParams['ignoreRowsNotFound'] = ignorerowsnotfound;
+  }
+  const body: Record<string, any> = {};
+  if (rowids !== undefined) {
+    body['rowIds'] = rowids;
+  }
+  if (toSheetid !== undefined) {
+    body['to.sheetId'] = toSheetid;
   }
 
-  log(`Move Rows to Another Sheet`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.rowIds !== undefined) {
-      requestBody.rowIds = parseIdsStringToArray(inputs.rowIds);
-    }
-    if (inputs.to !== undefined) {
-      requestBody.to = {
-        sheetId: inputs.to,
-      };
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/sheets/${inputs.sheetId}/rows/move`,
-      queryParams,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to move rows to another sheet: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
+  }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

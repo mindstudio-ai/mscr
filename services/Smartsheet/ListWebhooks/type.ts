@@ -1,7 +1,6 @@
 export interface ListWebhooksInputs {
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
+  includeAll?: boolean;
   page?: number;
+  pageSize?: number;
   outputVariable: string;
 }

@@ -2,27 +2,30 @@ apiVersion: v1
 kind: Action
 id: get-alternate-email
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get Alternate Email
-  description: 'Gets the specified alternate email.'
+  description: Gets a specific alternate email address for a user
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Email Information
     items:
-      - label: User Id
+      - label: User ID
         required: true
+        helpText: The ID of the user
         variable: userId
-        type: number
-        placeholder: Enter User Id...
-      - label: Alternate Email Id
+        type: text
+        placeholder: Enter user ID...
+      - label: Alternate Email ID
         required: true
+        helpText: The ID of the alternate email
         variable: alternateEmailId
         type: text
-        placeholder: Enter Alternate Email Id...
+        placeholder: Enter alternate email ID...
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the alternate email details
         variable: outputVariable
         type: outputVariableName

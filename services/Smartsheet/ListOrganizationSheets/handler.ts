@@ -104,22 +104,33 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListOrganizationSheetsInputs>) => {
+  const { modifiedSince, outputVariable } = inputs;
 
-  log(`List Org Sheets`);
+  log('Listing all organization sheets');
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string> = {};
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/users/sheets`,
+      path: '/users/sheets',
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} sheet(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      sheets: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list org sheets: ${errorMessage}`);
+    throw new Error(`Failed to list organization sheets: ${error.message}`);
   }
 };

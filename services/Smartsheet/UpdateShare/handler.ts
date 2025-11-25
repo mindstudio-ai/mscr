@@ -104,33 +104,36 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateShareInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, shareId, accessLevel, accessApiLevel, outputVariable } =
+    inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.shareId) {
-    throw new Error('Share Id is required');
+  if (!shareId) {
+    throw new Error('Share ID is required');
+  }
+  if (!accessLevel) {
+    throw new Error('Access level is required');
   }
 
-  log(`Update Sheet Share.`);
+  log(`Updating share ${shareId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.accessLevel !== undefined) {
-      requestBody.accessLevel = inputs.accessLevel;
+    const queryParams: Record<string, number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
     }
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sheets/${inputs.sheetId}/shares/${inputs.shareId}`,
+      path: `/sheets/${sheetId}/shares/${shareId}`,
       queryParams,
-      body: requestBody,
+      body: { accessLevel: accessLevel.toUpperCase() },
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Share updated successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update sheet share.: ${errorMessage}`);
+    throw new Error(`Failed to update share: ${error.message}`);
   }
 };

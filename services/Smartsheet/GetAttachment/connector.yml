@@ -5,21 +5,21 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Attachment
-  description: 'Fetches a temporary URL that allows you to download an attachment. The urlExpiresInMillis attribute tells you how long the URL is valid.'
+  description: Gets a specific attachment
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Attachment Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
-        type: number
-        placeholder: Enter Sheet Id...
-      - label: Attachment Id
+        type: text
+      - label: Attachment ID
         required: true
+        helpText: The ID of the attachment
         variable: attachmentId
         type: text
-        placeholder: Enter Attachment Id...
   - title: Output
     items:
       - label: Output Variable

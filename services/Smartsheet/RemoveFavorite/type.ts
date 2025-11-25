@@ -1,10 +1,7 @@
 export interface RemoveFavoriteInputs {
-  favoriteType: "folder"
-  | "report"
-  | "sheet"
-  | "sight"
-  | "template"
-  | "workspace";
-  favoriteId: number;
+  objectType: string;
+  objectId: string;
+  favoriteType: string;
+  favoriteId: string;
   outputVariable: string;
 }

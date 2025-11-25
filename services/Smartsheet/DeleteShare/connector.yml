@@ -5,24 +5,34 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Share
-  description: 'Deletes the share specified in the URL.'
+  description: Removes a share (revokes access)
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Share Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Share Id
+      - label: Share ID
         required: true
+        helpText: The ID of the share
         variable: shareId
         type: text
-        placeholder: Enter Share Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the deletion result
         variable: outputVariable
         type: outputVariableName

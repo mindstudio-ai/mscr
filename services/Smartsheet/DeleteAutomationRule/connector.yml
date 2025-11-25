@@ -5,21 +5,19 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Automation Rule
-  description: 'Deletes an automation rule.'
+  description: Deletes an automation rule
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Rule Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Automation Rule Id
+      - label: Automation Rule ID
         required: true
         variable: automationRuleId
         type: text
-        placeholder: Enter Automation Rule Id...
   - title: Output
     items:
       - label: Output Variable

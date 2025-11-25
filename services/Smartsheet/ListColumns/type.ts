@@ -1,8 +1,8 @@
 export interface ListColumnsInputs {
   sheetId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
+  level?: number;
   page?: number;
+  pageSize?: number;
+  includeAll?: boolean;
   outputVariable: string;
 }

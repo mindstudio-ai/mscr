@@ -1,8 +1,7 @@
 export interface ListChildFoldersInputs {
   folderId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
+  includeAll?: boolean;
   page?: number;
+  pageSize?: number;
   outputVariable: string;
 }

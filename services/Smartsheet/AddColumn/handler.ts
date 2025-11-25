@@ -104,96 +104,116 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddColumnInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    columnTitle,
+    columnType,
+    picklistOptions,
+    insertPosition,
+    siblingColumnIndex,
+    outputVariable,
+  } = inputs;
+
+  // Validate required inputs
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`Add Columns`);
+  if (!columnTitle) {
+    throw new Error('Column title is required');
+  }
+
+  if (!columnType) {
+    throw new Error('Column type is required');
+  }
+
+  log(`Adding column "${columnTitle}" to sheet ${sheetId}`);
 
   try {
-    const requestBody: any = {};
+    // Build column object
+    const columnSpec: any = {
+      title: columnTitle,
+      type: columnType,
+    };
 
-    if (inputs.title) {
-      requestBody.title = inputs.title;
-    }
-    if (inputs.type) {
-      requestBody.type = inputs.type;
-    }
-    if (inputs.formula) {
-      requestBody.formula = inputs.formula;
-    }
-    if (inputs.format) {
-      requestBody.format = inputs.format;
-    }
-    if (inputs.contactOptions) {
-      // Handle contactOptions - it might be a string (JSON) or already an object
-      if (typeof inputs.contactOptions === 'string') {
+    // Add picklist options if type is PICKLIST
+    if (columnType === 'PICKLIST' && picklistOptions) {
+      let optionsArray: string[];
+
+      if (typeof picklistOptions === 'string') {
+        // Try to parse as JSON first
         try {
-          requestBody.contactOptions = JSON.parse(inputs.contactOptions);
+          optionsArray = JSON.parse(picklistOptions);
         } catch {
-          throw new Error('Invalid contactOptions format. Expected JSON object with email and name.');
+          // If not JSON, split by comma
+          optionsArray = picklistOptions
+            .split(',')
+            .map((opt: string) => opt.trim())
+            .filter((opt: string) => opt.length > 0);
         }
+      } else if (Array.isArray(picklistOptions)) {
+        optionsArray = picklistOptions;
       } else {
-        requestBody.contactOptions = {};
+        throw new Error(
+          'Picklist options must be a comma-separated string or array',
+        );
       }
-    }
-    if (inputs.index) {
-      requestBody.index = inputs.index;
-    }
-    if (inputs.autoNumberFormat) {
-      requestBody.autoNumberFormat = inputs.autoNumberFormat;
-    }
-    if (inputs.description) {
-      requestBody.description = inputs.description;
-    }
-    if (inputs.locked) {
-      requestBody.locked = inputs.locked;
-    }
-    if (inputs.lockedForUser) {
-      requestBody.lockedForUser = inputs.lockedForUser;
-    }
-    if (inputs.options) {
-      // Handle options - it might be a string (JSON array or comma-separated) or already an array
-      if (Array.isArray(inputs.options)) {
-        requestBody.options = inputs.options;
-      } else {
-        // If it's a string, parse it
-        const optionsStr = String(inputs.options);
-        try {
-          // Try parsing as JSON first
-          requestBody.options = JSON.parse(optionsStr);
-        } catch {
-          // If not valid JSON, treat as comma-separated string
-          requestBody.options = optionsStr.split(',').map((opt: string) => opt.trim()).filter((opt: string) => opt.length > 0);
-        }
-      }
-    }
-    if (inputs.symbol) {
-      requestBody.symbol = inputs.symbol;
-    }
-    if (inputs.systemColumnType) {
-      requestBody.systemColumnType = inputs.systemColumnType;
-    }
-    if (inputs.validation) {
-      requestBody.validation = inputs.validation;
-    }
-    if (inputs.width) {
-      requestBody.width = inputs.width;
-    }
-    if (inputs.hidden) {
-      requestBody.hidden = inputs.hidden;
+
+      columnSpec.options = optionsArray;
+      log(`Added ${optionsArray.length} picklist options`);
     }
 
+    // Add position if specified
+    if (insertPosition && insertPosition !== 'end') {
+      if (insertPosition === 'beginning') {
+        columnSpec.index = 0;
+      } else if (
+        (insertPosition === 'before' || insertPosition === 'after') &&
+        siblingColumnIndex !== undefined &&
+        siblingColumnIndex !== ''
+      ) {
+        const index = parseInt(siblingColumnIndex, 10);
+        if (isNaN(index)) {
+          throw new Error('Sibling column index must be a valid number');
+        }
+        columnSpec.index = insertPosition === 'before' ? index : index + 1;
+      }
+    }
+
+    // Add column to sheet
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/columns`,
-      body: requestBody,
+      path: `/sheets/${sheetId}/columns`,
+      body: columnSpec,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully added column with ID: ${(response as any).id}`);
+
+    // Set output variable
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to add columns: ${errorMessage}`);
+
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error(
+        `Sheet not found: ${sheetId}. Please check the ID and your access permissions.`,
+      );
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
+      throw new Error(
+        `Permission denied. You must have editor or admin access to add columns to this sheet.`,
+      );
+    } else if (
+      errorMessage.includes('400') ||
+      errorMessage.includes('Invalid')
+    ) {
+      throw new Error(
+        `Invalid column configuration: ${errorMessage}. Check your column type and options.`,
+      );
+    } else {
+      throw new Error(`Failed to add column: ${errorMessage}`);
+    }
   }
 };

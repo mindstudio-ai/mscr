@@ -104,30 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AttachFileToProofInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, proofId, filePath, fileName, outputVariable } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
   }
-  if (!inputs.proofId) {
-    throw new Error('Proof Id is required');
+  if (!proofId) {
+    throw new Error('proofId is required');
+  }
+  if (!filePath) {
+    throw new Error('filePath is required');
+  }
+  const path = `/sheets/${sheetId}/proofs/${proofId}/attachments`;
+
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  requestOptions.multipart = true;
+  requestOptions.filePath = filePath;
+  if (fileName) {
+    requestOptions.fileName = fileName;
   }
 
-  log(`Attach File to Proof`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/attachments`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to attach file to proof: ${errorMessage}`);
-  }
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

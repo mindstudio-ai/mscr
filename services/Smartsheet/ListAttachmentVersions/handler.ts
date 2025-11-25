@@ -104,32 +104,47 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListAttachmentVersionsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, attachmentId, page, pageSize, includeAll, outputVariable } =
+    inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.attachmentId) {
-    throw new Error('Attachment Id is required');
+  if (!attachmentId) {
+    throw new Error('Attachment ID is required');
   }
 
-  log(`List Attachment Versions for attachment ${inputs.attachmentId}`);
+  log(`Listing versions for attachment ${attachmentId}`);
 
   try {
-    const queryParams = {
-      includeAll: inputs.includeAll || false,
-      pageSize: inputs.pageSize || 100,
-      page: inputs.page || 1,
-    };
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}/versions`,
+      path: `/sheets/${sheetId}/attachments/${attachmentId}/versions`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${Array.isArray(data) ? data.length : 0} version(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      versions: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list attachment versions: ${errorMessage}`);
+    throw new Error(`Failed to list versions: ${error.message}`);
   }
 };

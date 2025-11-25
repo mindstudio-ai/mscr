@@ -104,30 +104,31 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SortRowsInSheetInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, includeExclude, sortcriteria, outputVariable } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
+  }
+  const path = `/sheets/${sheetId}/sort`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (includeExclude !== undefined && includeExclude !== null) {
+    queryParams['include&exclude'] = includeExclude;
+  }
+  const body: Record<string, any> = {};
+  if (sortcriteria !== undefined) {
+    body['sortCriteria'] = sortcriteria;
   }
 
-  log(`Sort Rows in Sheet`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.sortCriteria !== undefined) {
-      requestBody.sortCriteria = inputs.sortCriteria;
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/sheets/${inputs.sheetId}/sort`,
-      queryParams,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to sort rows in sheet: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
+  }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

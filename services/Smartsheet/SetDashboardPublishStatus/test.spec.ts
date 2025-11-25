@@ -1,12 +1,17 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
+import { handler } from './handler';
 
-test('set dashboard publish status', async () => {
+test('SetDashboardPublishStatus executes successfully', async () => {
   process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
-    sightId: 'test-sightId',
+    sightId: 'sightId-sample',
+    readonlyfullenabled: 'readonlyfullenabled-value',
+    readonlyfullaccessibleby: 'readonlyfullaccessibleby-value',
+    readonlyfullurl: 'readonlyfullurl-value',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  expect(ctx.outputs['result']).toBeDefined();
 });

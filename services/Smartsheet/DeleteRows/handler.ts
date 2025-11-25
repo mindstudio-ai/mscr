@@ -104,25 +104,39 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteRowsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, rowIds, ids, ignoreRowsNotFound, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  const rawIds = ids || rowIds;
+  if (!rawIds) {
+    throw new Error('Row IDs are required');
   }
 
-  log(`Delete Rows`);
+  log('Deleting rows');
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const idArray = rawIds.split(',').map((id: string) => id.trim());
+    const queryParams: Record<string, string | boolean> = {
+      ids: idArray.join(','),
+    };
+    if (ignoreRowsNotFound !== undefined) {
+      queryParams.ignoreRowsNotFound = ignoreRowsNotFound;
+    }
 
-    const response = await smartsheetApiRequest({
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${inputs.sheetId}/rows`,
+      path: `/sheets/${sheetId}/rows`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Deleted ${idArray.length} row(s) successfully`);
+    setOutput(outputVariable, {
+      success: true,
+      deletedCount: idArray.length,
+      deletedRowIds: idArray,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete rows: ${errorMessage}`);
+    throw new Error(`Failed to delete rows: ${error.message}`);
   }
 };

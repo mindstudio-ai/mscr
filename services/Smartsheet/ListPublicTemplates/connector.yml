@@ -2,38 +2,44 @@ apiVersion: v1
 kind: Action
 id: list-public-templates
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: List Public Templates
-  description: 'Gets a list of public templates that the user has access to.'
+  description: Gets a list of public templates that the user has access to.
   quickHelp: readme.md
 configuration:
-  - title: Query Options
-    collapsed: true
+  - title: Parameters
     items:
-      - label: Include
+      - label: accessapilevel
         required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
+        helpText: |
+          Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
+        variable: accessapilevel
         type: number
-        defaultValue: 100
-      - label: Page
+      - label: includeall
         required: false
+        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
+        variable: includeall
+        type: checkbox
+      - label: level
+        required: false
+        helpText: Level of public template types. 0 refers to only Sheet types, 1 refers to all types.
+        variable: level
+        type: number
+      - label: page
+        required: false
+        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
         variable: page
         type: number
-        defaultValue: 1
+      - label: pagesize
+        required: false
+        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is 100 rows. If you need larger sets of data from your report, returns a maximum of 10,000 rows per request.
+        variable: pagesize
+        type: number
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -1,12 +1,13 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('delete multiple favorites', async () => {
+test('removes multiple favorites', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    favoriteType: 'test-favoriteType',
+    objectType: 'sheet',
+    objectIds: '123456789,987654321',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+  expect(ctx.outputs['result'].success).toBe(true);
 });

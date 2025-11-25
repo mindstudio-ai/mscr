@@ -104,66 +104,54 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ShareSheetInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    email,
+    accessLevel,
+    message,
+    sendEmail,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  if (!email) {
+    throw new Error('Email address is required');
+  }
+  if (!accessLevel) {
+    throw new Error('Access level is required');
   }
 
-  log(`Share Sheet`);
+  log(`Sharing sheet ${sheetId} with ${email}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
+    const queryParams: Record<string, boolean | number> = {};
+    if (sendEmail !== undefined) {
+      queryParams.sendEmail = sendEmail;
     }
-    if (inputs.groupId !== undefined) {
-      requestBody.groupId = inputs.groupId;
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
     }
-    if (inputs.userId !== undefined) {
-      requestBody.userId = inputs.userId;
-    }
-    if (inputs.type !== undefined) {
-      requestBody.type = inputs.type;
-    }
-    if (inputs.accessLevel !== undefined) {
-      requestBody.accessLevel = inputs.accessLevel;
-    }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
-    }
-    if (inputs.createdAt !== undefined) {
-      requestBody.createdAt = inputs.createdAt;
-    }
-    if (inputs.email !== undefined) {
-      requestBody.email = inputs.email;
-    }
-    if (inputs.message !== undefined) {
-      requestBody.message = inputs.message;
-    }
-    if (inputs.modifiedAt !== undefined) {
-      requestBody.modifiedAt = inputs.modifiedAt;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.scope !== undefined) {
-      requestBody.scope = inputs.scope;
-    }
-    if (inputs.subject !== undefined) {
-      requestBody.subject = inputs.subject;
+
+    const shareBody: any = {
+      email,
+      accessLevel: accessLevel.toUpperCase(),
+    };
+    if (message) {
+      shareBody.message = message;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/shares`,
+      path: `/sheets/${sheetId}/shares`,
       queryParams,
-      body: requestBody,
+      body: shareBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Sheet shared successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to share sheet: ${errorMessage}`);
+    throw new Error(`Failed to share sheet: ${error.message}`);
   }
 };

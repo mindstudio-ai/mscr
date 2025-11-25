@@ -2,34 +2,33 @@ apiVersion: v1
 kind: Action
 id: add-comment
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Add Comment
-  description: 'Adds a comment to a discussion. To create a comment with an attachment please use "multipart/form-data" content type.'
+  description: Adds a comment to a discussion
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Comment Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Discussion Id
+      - label: Discussion ID
         required: true
+        helpText: The ID of the discussion
         variable: discussionId
         type: text
-        placeholder: Enter Discussion Id...
-  - title: Request Data
-    items:
-      - label: Text
-        required: false
+      - label: Comment Text
+        required: true
+        helpText: The text content of the comment
         variable: text
         type: text
-        placeholder: Enter Text...
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created comment
         variable: outputVariable
         type: outputVariableName

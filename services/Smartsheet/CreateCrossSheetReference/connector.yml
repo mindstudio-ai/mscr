@@ -4,42 +4,51 @@ id: create-cross-sheet-reference
 serviceId: smartsheet
 active: false
 metadata:
-  name: Create Cross Sheet Reference
-  description: 'Adds a cross-sheet reference between two sheets and defines the data range for formulas. Each distinct data range requires a new cross-sheet reference.'
+  name: Create Cross-sheet Reference
+  description: Creates a new cross-sheet reference
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Reference Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Request Data
-    items:
-      - label: Source Sheet Id
-        required: false
-        variable: sourceSheetId
-        type: text
-        placeholder: Enter Source Sheet Id...
-      - label: Name
+      - label: Reference Name
         required: true
+        helpText: Name for the cross-sheet reference
         variable: name
         type: text
-        placeholder: Enter Name...
-      - label: End Column Id
-        required: false
-        variable: endColumnId
+      - label: Source Sheet ID
+        required: true
+        helpText: The ID of the source sheet
+        variable: sourceSheetId
         type: text
-        placeholder: Enter End Column Id...
-      - label: Start Column Id
-        required: false
+      - label: Start Row ID
+        required: true
+        helpText: The ID of the starting row
+        variable: startRowId
+        type: text
+      - label: End Row ID
+        required: true
+        helpText: The ID of the ending row
+        variable: endRowId
+        type: text
+      - label: Start Column ID
+        required: true
+        helpText: The ID of the starting column
         variable: startColumnId
         type: text
-        placeholder: Enter Start Column Id...
+      - label: End Column ID
+        required: true
+        helpText: The ID of the ending column
+        variable: endColumnId
+        type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created cross-sheet reference
         variable: outputVariable
         type: outputVariableName

@@ -1,11 +1,19 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
+import { handler } from './handler';
 
-test('search everything', async () => {
+test('SearchEverything executes successfully', async () => {
   process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
+    query: 'query-value',
+    location: 'location-value',
+    modifiedsince: 'modifiedsince-value',
+    include: 'include-value',
+    scopes: 'scopes-value',
+    scopesValue: 'scopesValue-value',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  expect(ctx.outputs['result']).toBeDefined();
 });

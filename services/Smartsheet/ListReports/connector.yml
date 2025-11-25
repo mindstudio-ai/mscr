@@ -2,38 +2,27 @@ apiVersion: v1
 kind: Action
 id: list-reports
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: List Reports
-  description: 'List all Reports accessible to the user.'
+  description: Lists all reports accessible to the user
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
   - title: Query Options
     collapsed: true
     items:
-      - label: Include
+      - label: Modified Since
         required: false
-        variable: include
+        helpText: When specified with a date and time value, response only includes the objects that are modified on or after the date and time specified. If you need to keep track of frequent changes, it may be more u
+        variable: modifiedSince
         type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        placeholder: '2024-01-01T00:00:00Z'
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the list of reports
         variable: outputVariable
         type: outputVariableName

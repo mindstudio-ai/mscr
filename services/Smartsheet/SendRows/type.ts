@@ -1,13 +1,8 @@
 export interface SendRowsInputs {
   sheetId: string;
-  rowIds?: string;
-  columnIds?: string;
-  includeAttachments?: boolean;
-  includeDiscussions?: boolean;
-  layout?: 'HORIZONTAL' | 'VERTICAL';
-  ccMe?: any;
-  message?: any;
-  sendTo?: string;
-  subject?: any;
+  rowIds: string;
+  recipientEmails: string;
+  subject: string;
+  message?: string;
   outputVariable: string;
 }

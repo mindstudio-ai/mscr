@@ -104,28 +104,52 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListGroupsInputs>) => {
+  const {
+    includeAll,
+    modifiedSince,
+    numericDates,
+    page,
+    pageSize,
+    outputVariable,
+  } = inputs;
 
-  log(`List Org Groups with include all ${inputs.includeAll}, modified since ${inputs.modifiedSince}, numeric dates ${inputs.numericDates}, page size ${inputs.pageSize}, page ${inputs.page}`);
+  log('Listing all groups');
 
   try {
-    const queryParams = {
-      includeAll: inputs.includeAll || false,
-      modifiedSince: inputs.modifiedSince || undefined,
-      numericDates: inputs.numericDates || false,
-      pageSize: inputs.pageSize || 100,
-      page: inputs.page || 1,
-    };
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
+    }
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/groups`,
+      path: '/groups',
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} group(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      groups: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list org groups with include all ${inputs.includeAll}, modified since ${inputs.modifiedSince}, numeric dates ${inputs.numericDates}, page size ${inputs.pageSize}, page ${inputs.page}: ${errorMessage}`);
+    throw new Error(`Failed to list groups: ${error.message}`);
   }
 };

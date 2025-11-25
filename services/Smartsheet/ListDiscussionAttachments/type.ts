@@ -1,8 +1,8 @@
 export interface ListDiscussionAttachmentsInputs {
   sheetId: string;
   discussionId: string;
-  includeAll?: boolean;
-  pageSize?: number;
   page?: number;
+  pagesize?: number;
+  includeall?: boolean;
   outputVariable: string;
 }

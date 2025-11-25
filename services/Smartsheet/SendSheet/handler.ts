@@ -104,46 +104,40 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SendSheetInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, recipientEmails, subject, message, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  if (!recipientEmails) {
+    throw new Error('Recipient emails are required');
+  }
+  if (!subject) {
+    throw new Error('Subject is required');
   }
 
-  log(`Send Sheet via Email`);
+  log('Sending sheet via email');
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.format !== undefined) {
-      requestBody.format = inputs.format;
-    }
-    if (inputs.paperSize !== undefined) {
-      requestBody.formatDetails = {
-        paperSize: inputs.paperSize
-      };
-    }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
-    }
-    if (inputs.message !== undefined) {
-      requestBody.message = inputs.message;
-    }
-    if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = [{ email: inputs.sendTo }];
-    }
-    if (inputs.subject !== undefined) {
-      requestBody.subject = inputs.subject;
+    const emails = recipientEmails.split(',').map((e: string) => e.trim());
+    const recipients = emails.map((email: string) => ({ email }));
+
+    const sendBody: any = {
+      to: recipients,
+      subject,
+    };
+    if (message) {
+      sendBody.message = message;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/emails`,
-      body: requestBody,
+      path: `/sheets/${sheetId}/emails`,
+      body: sendBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Sheet sent successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to send sheet via email: ${errorMessage}`);
+    throw new Error(`Failed to send sheet: ${error.message}`);
   }
 };

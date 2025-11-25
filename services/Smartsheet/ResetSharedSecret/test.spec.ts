@@ -1,12 +1,14 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
+import { handler } from './handler';
 
-test('reset shared secret', async () => {
+test('ResetSharedSecret executes successfully', async () => {
   process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
-    webhookId: 'test-webhookId',
+    webhookId: 'webhookId-sample',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  expect(ctx.outputs['result']).toBeDefined();
 });

@@ -104,26 +104,17 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ResetSharedSecretInputs>) => {
-  if (!inputs.webhookId) {
-    throw new Error('Webhook Id is required');
+  const { webhookId, outputVariable } = inputs;
+  if (!webhookId) {
+    throw new Error('webhookId is required');
   }
+  const path = `/webhooks/${webhookId}/resetSharedSecret`;
 
-  log(`Reset Shared Secret`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
 
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/webhooks/${inputs.webhookId}/resetSharedSecret`,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to reset shared secret: ${errorMessage}`);
-  }
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

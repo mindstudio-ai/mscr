@@ -104,37 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddSheetSummaryFieldsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, fieldsJson, renameIfConflict, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  if (!fieldsJson) {
+    throw new Error('Fields JSON is required');
   }
 
-  log(`Add Summary Fields: ${inputs.fields}`);
+  log('Adding sheet summary fields');
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {
-      renameIfConflict: inputs.renameIfConflict === 'true',
-    };
-
-    let requestBody: any = [];
-    if (inputs.fields) {
-      try {
-        requestBody = JSON.parse(inputs.fields);
-      } catch {
-        throw new Error('Fields must be a valid JSON array');
-      }
+    const queryParams: Record<string, boolean> = {};
+    if (renameIfConflict !== undefined) {
+      queryParams.renameIfConflict = renameIfConflict;
     }
 
+    const fields = JSON.parse(fieldsJson);
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/summary/fields`,
+      path: `/sheets/${sheetId}/summary/fields`,
       queryParams,
-      body: requestBody,
+      body: fields,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const result = Array.isArray(response) ? response : [response];
+    log(`Added ${result.length} field(s) successfully`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to add summary fields: ${errorMessage}`);
+    throw new Error(`Failed to add sheet summary fields: ${error.message}`);
   }
 };

@@ -1,26 +1,46 @@
 apiVersion: v1
 kind: Action
-id: import-csvto-sheet
+id: import-csv-to-sheet
 serviceId: smartsheet
 active: false
 metadata:
-  name: Import C S V To Sheet
-  description: 'Imports CSV or XLSX data into a new sheet in the top-level "Sheets" folder. Note the following: Both sheetName and the file name must use ASCII characters. The source data must be basic text. To include rich formula data, import and create a sheet first, and then use Update Rows. To work with images, see Cell Images. XLS is not supported. You must use XLSX. Hierarchical relationships between rows in an external file won''t import.'
-
+  name: Import CSV to Sheet
+  description: Imports a CSV file to create a new sheet
   quickHelp: readme.md
 configuration:
-  - title: File Upload
+  - title: Import Information
     items:
-      - label: File Path
+      - label: File URL or Path
         required: true
-        variable: filePath
+        variable: fileUrl
         type: text
-        placeholder: /path/to/file
-      - label: File Name
+      - label: Sheet Name
+        required: true
+        variable: sheetName
+        type: text
+      - label: Header Row Index (0-based)
         required: false
-        variable: fileName
+        variable: headerRowIndex
         type: text
-        placeholder: filename.ext
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Sheet Name
+        required: true
+        helpText: (Required) Desired name of the sheet.
+        variable: sheetName
+        type: text
+      - label: Header Row Index
+        required: false
+        helpText: 'A zero-based integer indicating the row number to use for column names. Rows before this are omitted. If not specified, the default values are Column1, Column2, etc. '
+        variable: headerRowIndex
+        type: number
+      - label: Primary Column Index
+        required: false
+        helpText: 'A zero-based integer indicating the column to designate as primary. '
+        variable: primaryColumnIndex
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

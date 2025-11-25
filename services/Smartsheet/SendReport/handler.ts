@@ -104,44 +104,56 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SendReportInputs>) => {
-  if (!inputs.reportId) {
-    throw new Error('Report Id is required');
+  const {
+    reportId,
+    format,
+    formatdetails,
+    ccme,
+    message,
+    sendto,
+    email,
+    emailValue,
+    subject,
+    outputVariable,
+  } = inputs;
+  if (!reportId) {
+    throw new Error('reportId is required');
+  }
+  const path = `/reports/${reportId}/emails`;
+  const body: Record<string, any> = {};
+  if (format !== undefined) {
+    body['format'] = format;
+  }
+  if (formatdetails !== undefined) {
+    body['formatDetails'] = formatdetails;
+  }
+  if (ccme !== undefined) {
+    body['ccMe'] = ccme;
+  }
+  if (message !== undefined) {
+    body['message'] = message;
+  }
+  if (sendto !== undefined) {
+    body['sendTo'] = sendto;
+  }
+  if (email !== undefined) {
+    body['email'] = email;
+  }
+  if (emailValue !== undefined) {
+    body['email'] = emailValue;
+  }
+  if (subject !== undefined) {
+    body['subject'] = subject;
   }
 
-  log(`Send report via email`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.format !== undefined) {
-      requestBody.format = inputs.format;
-    }
-    if (inputs.formatDetails !== undefined) {
-      requestBody.formatDetails = inputs.formatDetails;
-    }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
-    }
-    if (inputs.message !== undefined) {
-      requestBody.message = inputs.message;
-    }
-    if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = inputs.sendTo;
-    }
-    if (inputs.subject !== undefined) {
-      requestBody.subject = inputs.subject;
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/reports/${inputs.reportId}/emails`,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to send report via email: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

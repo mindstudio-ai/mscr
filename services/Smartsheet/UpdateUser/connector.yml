@@ -1,55 +1,51 @@
 apiVersion: v1
 kind: Action
-id: update-user
+id: updateUser
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Update User
-  description: 'Updates the user specified in the URL.'
+  description: Updates an existing user's information
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: User Information
     items:
-      - label: User Id
+      - label: User ID
         required: true
+        helpText: The ID of the user to update
         variable: userId
         type: text
-        placeholder: Enter User Id...
-  - title: Request Data
+  - title: User Details
+    items:
+      - label: First Name
+        required: false
+        helpText: First name of the user
+        variable: firstName
+        type: text
+      - label: Last Name
+        required: false
+        helpText: Last name of the user
+        variable: lastName
+        type: text
+  - title: Permissions
+    collapsed: true
     items:
       - label: Admin
         required: false
+        helpText: Whether the user should be an admin
         variable: admin
-        type: text
-        placeholder: Enter Admin...
+        type: checkbox
+        defaultValue: false
       - label: Licensed Sheet Creator
         required: false
+        helpText: Whether the user should be a licensed sheet creator
         variable: licensedSheetCreator
-        type: text
-        placeholder: Enter Licensed Sheet Creator...
-      - label: First Name
-        required: false
-        variable: firstName
-        type: text
-        placeholder: Enter First Name...
-      - label: Last Name
-        required: false
-        variable: lastName
-        type: text
-        placeholder: Enter Last Name...
-      - label: Group Admin
-        required: false
-        variable: groupAdmin
-        type: text
-        placeholder: Enter Group Admin...
-      - label: Resource Viewer
-        required: false
-        variable: resourceViewer
-        type: text
-        placeholder: Enter Resource Viewer...
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the updated user
         variable: outputVariable
         type: outputVariableName

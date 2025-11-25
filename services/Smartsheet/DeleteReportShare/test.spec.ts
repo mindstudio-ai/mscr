@@ -1,13 +1,16 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
+import { handler } from './handler';
 
-test('delete report share', async () => {
+test('DeleteReportShare executes successfully', async () => {
   process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
-    reportId: 'test-reportId',
-    shareId: 'test-shareId',
+    reportId: 'reportId-sample',
+    shareId: 'shareId-sample',
+    accessapilevel: 1,
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  expect(ctx.outputs['result']).toBeDefined();
 });

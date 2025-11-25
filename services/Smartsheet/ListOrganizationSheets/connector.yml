@@ -2,36 +2,23 @@ apiVersion: v1
 kind: Action
 id: list-organization-sheets
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: List Organization Sheets
-  description: 'Gets a summarized list of all sheets owned by the members of the organization account. This operation is only available to system administrators You may use the query string parameter numericDates with a value of true to enable strict parsing of dates in numeric format. See Dates and Times for more information.'
-
+  description: Lists all sheets in the organization
   quickHelp: readme.md
 configuration:
+  - title: Parameters
+    items: []
   - title: Query Options
     collapsed: true
     items:
-      - label: Include
+      - label: Modified Since
         required: false
-        variable: include
+        helpText: When specified with a date and time value, response only includes the objects that are modified on or after the date and time specified. If you need to keep track of frequent changes, it may be more u
+        variable: modifiedSince
         type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        placeholder: '2024-01-01T00:00:00Z'
   - title: Output
     items:
       - label: Output Variable

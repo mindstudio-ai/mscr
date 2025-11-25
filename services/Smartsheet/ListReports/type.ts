@@ -1,7 +1,4 @@
 export interface ListReportsInputs {
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  modifiedSince?: string;
   outputVariable: string;
 }

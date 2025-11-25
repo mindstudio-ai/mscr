@@ -104,80 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateColumnInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, columnId, title, index, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.columnId) {
-    throw new Error('Column Id is required');
+  if (!columnId) {
+    throw new Error('Column ID is required');
   }
 
-  log(`Update Column`);
+  log(`Updating column ${columnId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.title !== undefined) {
-      requestBody.title = inputs.title;
+    const updateBody: any = {};
+    if (title) {
+      updateBody.title = title;
     }
-    if (inputs.type !== undefined) {
-      requestBody.type = inputs.type;
-    }
-    if (inputs.formula !== undefined) {
-      requestBody.formula = inputs.formula;
-    }
-    if (inputs.hidden !== undefined) {
-      requestBody.hidden = inputs.hidden;
-    }
-    if (inputs.index !== undefined) {
-      requestBody.index = inputs.index;
-    }
-    if (inputs.autoNumberFormat !== undefined) {
-      requestBody.autoNumberFormat = inputs.autoNumberFormat;
-    }
-    if (inputs.contactOptions !== undefined) {
-      requestBody.contactOptions = inputs.contactOptions;
-    }
-    if (inputs.description !== undefined) {
-      requestBody.description = inputs.description;
-    }
-    if (inputs.format !== undefined) {
-      requestBody.format = inputs.format;
-    }
-    if (inputs.locked !== undefined) {
-      requestBody.locked = inputs.locked;
-    }
-    if (inputs.lockedForUser !== undefined) {
-      requestBody.lockedForUser = inputs.lockedForUser;
-    }
-    if (inputs.options !== undefined) {
-      requestBody.options = inputs.options;
-    }
-    if (inputs.symbol !== undefined) {
-      requestBody.symbol = inputs.symbol;
-    }
-    if (inputs.systemColumnType !== undefined) {
-      requestBody.systemColumnType = inputs.systemColumnType;
-    }
-    if (inputs.validation !== undefined) {
-      requestBody.validation = inputs.validation;
-    }
-    if (inputs.version !== undefined) {
-      requestBody.version = inputs.version;
-    }
-    if (inputs.width !== undefined) {
-      requestBody.width = inputs.width;
+    if (index !== undefined && index !== '') {
+      updateBody.index = parseInt(index, 10);
     }
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sheets/${inputs.sheetId}/columns/${inputs.columnId}`,
-      body: requestBody,
+      path: `/sheets/${sheetId}/columns/${columnId}`,
+      body: updateBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Successfully updated column');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update column: ${errorMessage}`);
+    throw new Error(`Failed to update column: ${error.message}`);
   }
 };

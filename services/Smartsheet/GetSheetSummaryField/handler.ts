@@ -104,25 +104,52 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetSheetSummaryFieldInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    fieldId,
+    includeAll,
+    page,
+    pageSize,
+    include,
+    exclude,
+    outputVariable,
+  } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  if (!fieldId) {
+    throw new Error('Field ID is required');
   }
 
-  log(`Get Summary Fields`);
+  log(`Getting summary field ${fieldId}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (include) {
+      queryParams.include = include;
+    }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
 
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/summary/fields`,
+      path: `/sheets/${sheetId}/summary/fields/${fieldId}`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved field successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get summary fields: ${errorMessage}`);
+    throw new Error(`Failed to get sheet summary field: ${error.message}`);
   }
 };

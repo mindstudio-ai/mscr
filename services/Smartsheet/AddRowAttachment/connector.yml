@@ -5,34 +5,38 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Add Row Attachment
-  description: '''Attaches a file to the row. The URL can be any of the following:'' Normal URL (attachmentType "LINK") Box.com URL (attachmentType "BOXCOM") Dropbox URL (attachmentType "DROPBOX") Egnyte URL (attachmentType "EGNYTE") Evernote URL (attachmentType "EVERNOTE") Google Drive URL (attachmentType "GOOGLEDRIVE") * OneDrive URL (attachmentType "ONEDRIVE") For multipart uploads please use "multipart/form-data" content type.'
-
+  description: Attaches a file or URL to a row
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Row Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Row Id
+      - label: Row ID
         required: true
         variable: rowId
         type: text
-        placeholder: Enter Row Id...
-  - title: File Upload
-    items:
-      - label: File Path
+      - label: Attachment Type
         required: true
+        variable: attachmentType
+        type: select
+        defaultValue: FILE
+        selectOptions:
+          options:
+            - label: File
+              value: FILE
+            - label: URL/Link
+              value: LINK
+      - label: File Path
+        required: false
         variable: filePath
         type: text
-        placeholder: /path/to/file
-      - label: File Name
+      - label: URL
         required: false
-        variable: fileName
+        variable: url
         type: text
-        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable

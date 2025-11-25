@@ -5,31 +5,59 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Sheet
-  description: 'Creates a sheet from scratch or from the specified template in the specified folder.'
+  description: Creates a new sheet in Smartsheet with specified columns
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sheet Details
     items:
-      - label: Folder Id
+      - label: Sheet Name
         required: true
-        variable: folderId
+        helpText: The name for the new sheet
+        variable: sheetName
         type: text
-        placeholder: Enter Folder Id...
-  - title: Request Data
-    items:
-      - label: Columns
-        required: false
+        placeholder: My New Sheet
+      - label: Columns Definition
+        required: true
+        helpText: Define columns as JSON array. Each column needs title, type, and optionally primary=true for the first column
         variable: columns
         type: text
-        placeholder: Enter Columns...
-      - label: Name
-        required: true
-        variable: name
+        textOptions:
+          type: multiline
+        placeholder: '[{"title":"Task Name","type":"TEXT_NUMBER","primary":true},{"title":"Status","type":"PICKLIST","options":["Not Started","In Progress","Complete"]}]'
+  - title: Location
+    collapsed: true
+    items:
+      - label: Folder ID
+        required: false
+        helpText: Optional folder ID where the sheet should be created
+        variable: folderId
         type: text
-        placeholder: Enter Name...
+        placeholder: Leave empty to create in home
+      - label: Workspace ID
+        required: false
+        helpText: Optional workspace ID where the sheet should be created (takes precedence over folder)
+        variable: workspaceId
+        type: text
+        placeholder: Leave empty to create in home
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        helpText: 'Additional parameter to create a sheet from template. A comma-separated list of elements to copy from the template. '
+        variable: include
+        type: text
+        placeholder: discussions
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created sheet information
         variable: outputVariable
         type: outputVariableName

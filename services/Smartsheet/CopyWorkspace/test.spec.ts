@@ -1,12 +1,49 @@
-import { expect, test } from 'vitest';
-import runConnector from '../../../src/utils/testHarness';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { handler } from './handler';
 
-test('copy workspace', async () => {
-  process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
-  const ctx = await runConnector(handler, {
-    workspaceId: 'test-workspaceId',
-    outputVariable: 'result',
+describe('CopyWorkspace', () => {
+  const mockSetOutput = vi.fn();
+  const mockLog = vi.fn();
+  const mockUploadFile = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.accessToken = 'test-token';
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  it('should copy workspace successfully', async () => {
+    const inputs = {
+      workspaceId: '123456789',
+      newName: 'Copy of My Workspace',
+      includes: ['data', 'attachments'],
+      outputVariable: 'copiedWorkspace',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).resolves.not.toThrow();
+
+    expect(mockLog).toHaveBeenCalledWith('Copying workspace 123456789...');
+  });
+
+  it('should throw error when workspaceId is missing', async () => {
+    const inputs = {
+      newName: 'Copy of My Workspace',
+      outputVariable: 'copiedWorkspace',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).rejects.toThrow('Workspace ID is required');
+  });
 });

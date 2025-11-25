@@ -104,25 +104,40 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListWorkspaceSharesInputs>) => {
-  if (!inputs.workspaceId) {
-    throw new Error('Workspace Id is required');
+  const {
+    workspaceId,
+    page,
+    pagesize,
+    includeall,
+    accessapilevel,
+    outputVariable,
+  } = inputs;
+  if (!workspaceId) {
+    throw new Error('workspaceId is required');
+  }
+  const path = `/workspaces/${workspaceId}/shares`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (page !== undefined && page !== null) {
+    queryParams['page'] = page;
+  }
+  if (pagesize !== undefined && pagesize !== null) {
+    queryParams['pageSize'] = pagesize;
+  }
+  if (includeall !== undefined && includeall !== null) {
+    queryParams['includeAll'] = includeall;
+  }
+  if (accessapilevel !== undefined && accessapilevel !== null) {
+    queryParams['accessApiLevel'] = accessapilevel;
   }
 
-  log(`List Workspace Shares`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/workspaces/${inputs.workspaceId}/shares`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list workspace shares: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

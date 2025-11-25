@@ -5,51 +5,52 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Create Proof Request
-  description: 'Creates a proof request.'
+  description: Creates a new proof request for an attachment
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Proof Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
       - label: Proof Id
         required: true
+        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
-        placeholder: Enter Proof Id...
-  - title: Request Data
-    items:
-      - label: Is Downloadable
-        required: false
-        variable: isDownloadable
+      - label: Approver Emails (comma-separated)
+        required: true
+        helpText: Comma-separated list of email addresses for approvers
+        variable: approverEmails
         type: text
-        placeholder: Enter Is Downloadable...
-      - label: Cc Me
-        required: false
-        variable: ccMe
-        type: text
-        placeholder: Enter Cc Me...
       - label: Message
         required: false
+        helpText: Optional message for the proof request
         variable: message
         type: text
-        placeholder: Enter Message...
-      - label: Send To
+      - label: CC Me
         required: false
-        variable: sendTo
-        type: text
-        placeholder: Enter Send To...
+        helpText: Whether to CC the sender
+        variable: ccMe
+        type: checkbox
+        defaultValue: false
+      - label: Is Downloadable
+        required: false
+        helpText: Whether the proof is downloadable
+        variable: isDownloadable
+        type: checkbox
+        defaultValue: false
       - label: Subject
         required: false
+        helpText: Subject line for the proof request email
         variable: subject
         type: text
-        placeholder: Enter Subject...
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created proof request
         variable: outputVariable
         type: outputVariableName

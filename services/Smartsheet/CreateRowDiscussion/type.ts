@@ -1,6 +1,7 @@
 export interface CreateRowDiscussionInputs {
   sheetId: string;
   rowId: string;
-  comment: string;
+  title: string;
+  commentText: string;
   outputVariable: string;
 }

@@ -5,7 +5,7 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Import XLSX to Sheet
-  description: 'Imports an Excel file to create a new sheet'
+  description: Imports an Excel file to create a new sheet
   quickHelp: readme.md
 configuration:
   - title: Import Information

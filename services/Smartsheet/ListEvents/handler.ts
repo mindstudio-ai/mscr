@@ -104,22 +104,56 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListEventsInputs>) => {
+  const {
+    since,
+    to,
+    streamPosition,
+    maxCount,
+    numericDates,
+    managedPlanId,
+    outputVariable,
+  } = inputs;
 
-  log(`List Events`);
+  log('Listing events');
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    if (since) {
+      queryParams.since = since;
+    }
+    if (to) {
+      queryParams.to = to;
+    }
+    if (streamPosition) {
+      queryParams.streamPosition = streamPosition;
+    }
+    if (maxCount !== undefined) {
+      queryParams.maxCount = maxCount;
+    }
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+    if (managedPlanId !== undefined) {
+      queryParams.managedPlanId = managedPlanId;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      moreAvailable?: boolean;
+      nextStreamPosition?: number;
+    }>({
       method: 'GET',
-      path: `/events`,
+      path: '/events',
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    log(`Found ${Array.isArray(data) ? data.length : 0} event(s)`);
+    setOutput(outputVariable, {
+      moreAvailable: (response as any).moreAvailable,
+      nextStreamPosition: (response as any).nextStreamPosition,
+      events: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list events: ${errorMessage}`);
+    throw new Error(`Failed to list events: ${error.message}`);
   }
 };

@@ -104,24 +104,42 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<RemoveUserInputs>) => {
-  if (!inputs.userId) {
-    throw new Error('User Id is required');
+  const {
+    userId,
+    transferTo,
+    transferSheets,
+    removeFromSharing,
+    outputVariable,
+  } = inputs;
+
+  if (!userId) {
+    throw new Error('User ID is required');
   }
 
-  log(`Remove User`);
-
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    log(`Removing user ${userId}...`);
 
-    const response = await smartsheetApiRequest({
+    const queryParams: Record<string, string | boolean> = {};
+    if (transferTo) {
+      queryParams.transferTo = transferTo;
+    }
+    if (transferSheets !== undefined) {
+      queryParams.transferSheets = transferSheets;
+    }
+    if (removeFromSharing !== undefined) {
+      queryParams.removeFromSharing = removeFromSharing;
+    }
+
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/users/${inputs.userId}`,
+      path: `/users/${userId}`,
+      queryParams,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully removed user: ${userId}`);
+    setOutput(outputVariable, { success: true, removedUserId: userId });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to remove user: ${errorMessage}`);
+    log(`Error removing user: ${error.message}`);
+    throw error;
   }
 };

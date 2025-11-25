@@ -1,46 +1,24 @@
 apiVersion: v1
 kind: Action
-id: get-webhook
+id: getWebhook
 serviceId: smartsheet
 active: false
 metadata:
   name: Get Webhook
-  description: 'Gets a Webhook based on the specified ID'
+  description: Gets details about a specific webhook
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Webhook Information
     items:
-      - label: Webhook Id
+      - label: Webhook ID
         required: true
+        helpText: The ID of the webhook to retrieve
         variable: webhookId
         type: text
-        placeholder: Enter Webhook Id...
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
-        required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the webhook details
         variable: outputVariable
         type: outputVariableName

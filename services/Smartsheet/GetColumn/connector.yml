@@ -2,47 +2,31 @@ apiVersion: v1
 kind: Action
 id: get-column
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get Column
-  description: '''Gets definitions for the column specified in the URL. NOTE: If you need to see the values of individual cells within the column, use Get Sheet or Get Row.'''
+  description: Gets details of a specific column
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Column Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Column Id
+      - label: Column ID
         required: true
         variable: columnId
         type: text
-        placeholder: Enter Column Id...
   - title: Query Options
     collapsed: true
     items:
-      - label: Include
+      - label: Level
         required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
+        helpText: Specifies whether object data types, such as multi-contact data are returned in a backwards-compatible, text format in text/number columns.<br>  - Set `level=0` (default) to use text/number columns fo
+        variable: level
         type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

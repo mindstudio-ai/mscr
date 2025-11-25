@@ -104,30 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateSightInputs>) => {
-  if (!inputs.sightId) {
-    throw new Error('Sight Id is required');
+  const { sightId, name, numericDates, outputVariable } = inputs;
+
+  if (!sightId) {
+    throw new Error('Sight ID is required');
   }
 
-  log(`Update Dashboard`);
+  log(`Updating dashboard ${sightId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
+    const queryParams: Record<string, boolean> = {};
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+
+    const updateBody: any = {};
+    if (name) {
+      updateBody.name = name;
     }
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sights/${inputs.sightId}`,
+      path: `/sights/${sightId}`,
       queryParams,
-      body: requestBody,
+      body: updateBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Dashboard updated successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update dashboard: ${errorMessage}`);
+    throw new Error(`Failed to update dashboard: ${error.message}`);
   }
 };

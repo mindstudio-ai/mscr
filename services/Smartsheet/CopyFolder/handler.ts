@@ -104,36 +104,58 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CopyFolderInputs>) => {
-  if (!inputs.folderId) {
-    throw new Error('Folder Id is required');
+  const {
+    folderId,
+    destinationType,
+    destinationId,
+    newName,
+    include,
+    exclude,
+    skipRemap,
+    outputVariable,
+  } = inputs;
+
+  if (!folderId) {
+    throw new Error('Folder ID is required');
+  }
+  if (!destinationType) {
+    throw new Error('Destination type is required');
+  }
+  if (!newName) {
+    throw new Error('New name is required');
   }
 
-  log(`Copy Folder`);
+  log(`Copying folder ${folderId} to ${destinationType}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.destinationId !== undefined) {
-      requestBody.destinationId = inputs.destinationId;
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
     }
-    if (inputs.destinationType !== undefined) {
-      requestBody.destinationType = inputs.destinationType;
+    if (exclude) {
+      queryParams.exclude = exclude;
     }
-    if (inputs.newName !== undefined) {
-      requestBody.newName = inputs.newName;
+    if (skipRemap) {
+      queryParams.skipRemap = skipRemap;
+    }
+
+    const copyBody: any = {
+      destinationType: destinationType.toLowerCase(),
+      newName,
+    };
+    if (destinationId && destinationType.toLowerCase() !== 'home') {
+      copyBody.destinationId = parseInt(destinationId, 10);
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/folders/${inputs.folderId}/copy`,
+      path: `/folders/${folderId}/copy`,
       queryParams,
-      body: requestBody,
+      body: copyBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Folder copied successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to copy folder: ${errorMessage}`);
+    throw new Error(`Failed to copy folder: ${error.message}`);
   }
 };

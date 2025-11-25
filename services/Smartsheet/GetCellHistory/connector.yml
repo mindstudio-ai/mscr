@@ -5,20 +5,20 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Cell History
-  description: 'Gets the cell modification history.'
+  description: Gets the modification history of a specific cell
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Cell Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-      - label: Row Id
+      - label: Row ID
         required: true
         variable: rowId
         type: text
-      - label: Column Id
+      - label: Column ID
         required: true
         variable: columnId
         type: text
@@ -27,30 +27,28 @@ configuration:
     items:
       - label: Include
         required: false
+        helpText: 'A comma-separated list of elements to copy:   * **columnType** - includes the columnType attribute for each Cell object   * **objectValue** - when used in combination with a level query parameter, inc'
         variable: include
         type: text
-      - label: Level
-        required: false
-        variable: level
-        type: select
-        selectOptions:
-          options:
-            - label: 0
-              value: 0
-            - label: 1
-              value: 1
-            - label: 2
-              value: 2
+        placeholder: objectValue
       - label: Page Size
         required: false
+        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
         variable: pageSize
         type: number
         defaultValue: 100
       - label: Page
         required: false
+        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
         variable: page
         type: number
         defaultValue: 1
+      - label: Level
+        required: false
+        helpText: Specifies whether object data types, such as multi-contact data are returned in a backwards-compatible, text format in text/number columns.<br>  - Set `level=0` (default) to use text/number columns fo
+        variable: level
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

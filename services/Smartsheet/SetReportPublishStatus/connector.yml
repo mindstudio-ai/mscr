@@ -5,46 +5,40 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Set Report Publish Status
-  description: 'Sets the publish status of the report and returns the new status, including the URL of any enabled publishing.'
+  description: Sets the publish status of the report and returns the new status, including the URL of any enabled publishing.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Report Id
+      - label: report Id
         required: true
+        helpText: (Required) reportID of the report being accessed.
         variable: reportId
         type: text
-        placeholder: Enter Report Id...
-  - title: Request Data
-    items:
-      - label: Read Only Full Accessible By
+      - label: readonlyfullaccessibleby
         required: false
-        variable: readOnlyFullAccessibleBy
+        variable: readonlyfullaccessibleby
         type: text
-        placeholder: Enter Read Only Full Accessible By...
-      - label: Read Only Full Default View
+      - label: readonlyfulldefaultview
         required: false
-        variable: readOnlyFullDefaultView
+        variable: readonlyfulldefaultview
         type: text
-        placeholder: Enter Read Only Full Default View...
-      - label: Read Only Full Enabled
+      - label: readonlyfullenabled
         required: false
-        variable: readOnlyFullEnabled
+        variable: readonlyfullenabled
         type: text
-        placeholder: Enter Read Only Full Enabled...
-      - label: Read Only Full Show Toolbar
+      - label: readonlyfullshowtoolbar
         required: false
-        variable: readOnlyFullShowToolbar
+        variable: readonlyfullshowtoolbar
         type: text
-        placeholder: Enter Read Only Full Show Toolbar...
-      - label: Read Only Full Url
+      - label: readonlyfullurl
         required: false
-        variable: readOnlyFullUrl
+        variable: readonlyfullurl
         type: text
-        placeholder: Enter Read Only Full Url...
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

@@ -2,46 +2,48 @@ apiVersion: v1
 kind: Action
 id: list-sent-update-requests
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: List Sent Update Requests
-  description: 'Gets a summarized list of all sent update requests on the sheet. Only the following fields are returned in the response: id message sendTo sentAt sentBy status subject updateRequestId'
-
+  description: |
+    Gets a summarized list of all sent update requests on the sheet.
+    Only the following fields are returned in the response:
+      * **id**
+      * **message**
+      * **sendTo**
+      * **sentAt**
+      * **sentBy**
+      * **status**
+      * **subject**
+      * **updateRequestId**
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Sheet Id
+      - label: sheet Id
         required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
+      - label: includeall
         required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
+        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
+        variable: includeall
+        type: checkbox
+      - label: page
         required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
+        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
         variable: page
         type: number
-        defaultValue: 1
+      - label: pagesize
+        required: false
+        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is 100 rows. If you need larger sets of data from your report, returns a maximum of 10,000 rows per request.
+        variable: pagesize
+        type: number
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

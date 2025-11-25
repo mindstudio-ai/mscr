@@ -104,62 +104,31 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateAutomationRuleInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, automationRuleId, enabled, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.automationRuleId) {
-    throw new Error('Automation Rule Id is required');
+  if (!automationRuleId) {
+    throw new Error('Automation Rule ID is required');
   }
 
-  log(`Update an Automation Rule`);
+  log(`Updating automation rule ${automationRuleId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
-    }
-    if (inputs.action !== undefined) {
-      requestBody.action = inputs.action;
-    }
-    if (inputs.createdAt !== undefined) {
-      requestBody.createdAt = inputs.createdAt;
-    }
-    if (inputs.createdBy !== undefined) {
-      requestBody.createdBy = inputs.createdBy;
-    }
-    if (inputs.disabledReason !== undefined) {
-      requestBody.disabledReason = inputs.disabledReason;
-    }
-    if (inputs.disabledReasonText !== undefined) {
-      requestBody.disabledReasonText = inputs.disabledReasonText;
-    }
-    if (inputs.enabled !== undefined) {
-      requestBody.enabled = inputs.enabled;
-    }
-    if (inputs.modifiedAt !== undefined) {
-      requestBody.modifiedAt = inputs.modifiedAt;
-    }
-    if (inputs.modifiedBy !== undefined) {
-      requestBody.modifiedBy = inputs.modifiedBy;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.userCanModify !== undefined) {
-      requestBody.userCanModify = inputs.userCanModify;
+    const updateBody: any = {};
+    if (enabled !== undefined) {
+      updateBody.enabled = enabled;
     }
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
-      path: `/sheets/${inputs.sheetId}/automationrules/${inputs.automationRuleId}`,
-      body: requestBody,
+      path: `/sheets/${sheetId}/automationrules/${automationRuleId}`,
+      body: updateBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Successfully updated automation rule');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update an automation rule: ${errorMessage}`);
+    throw new Error(`Failed to update automation rule: ${error.message}`);
   }
 };

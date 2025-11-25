@@ -104,25 +104,17 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetReportPublishSettingsInputs>) => {
-  if (!inputs.reportId) {
-    throw new Error('Report Id is required');
+  const { reportId, outputVariable } = inputs;
+  if (!reportId) {
+    throw new Error('reportId is required');
   }
+  const path = `/reports/${reportId}/publish`;
 
-  log(`Gets a Report\'s publish settings`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
 
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/reports/${inputs.reportId}/publish`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to gets a report's publish settings: ${errorMessage}`);
-  }
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

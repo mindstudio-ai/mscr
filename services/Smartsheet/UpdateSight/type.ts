@@ -1,5 +1,6 @@
 export interface UpdateSightInputs {
   sightId: string;
-  name?: any;
+  name?: string;
+  numericDates?: boolean;
   outputVariable: string;
 }

@@ -5,47 +5,31 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Dashboard Share
-  description: 'Gets a list of all users and groups to whom the specified dashboard is shared, and their access level.'
+  description: Gets a list of all users and groups to whom the specified dashboard is shared, and their access level.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Sight Id
+      - label: sight Id
         required: true
+        helpText: (Required) SightID of the sight being accessed.
         variable: sightId
         type: text
-        placeholder: Enter Sight Id...
-      - label: Share Id
+      - label: share Id
         required: true
+        helpText: (Required) Share Id.
         variable: shareId
         type: text
-        placeholder: Enter Share Id...
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
+      - label: accessapilevel
         required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
+        helpText: |
+          Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1.
+        variable: accessapilevel
         type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

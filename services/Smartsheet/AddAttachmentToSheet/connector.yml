@@ -2,80 +2,50 @@ apiVersion: v1
 kind: Action
 id: add-attachment-to-sheet
 serviceId: smartsheet
-active: true
+active: false
 metadata:
-  name: Add Attachment To Sheet
-  description: '''Attaches a file to the sheet. The URL can be any of the following:'' Normal URL (attachmentType "LINK") Box.com URL (attachmentType "BOXCOM") Dropbox URL (attachmentType "DROPBOX") Egnyte URL (attachmentType "EGNYTE") Evernote URL (attachmentType "EVERNOTE") Google Drive URL (attachmentType "GOOGLEDRIVE") * OneDrive URL (attachmentType "ONEDRIVE") For multipart uploads please use "multipart/form-data" content type.'
-
+  name: Add Attachment to Sheet
+  description: Attaches a file or URL to a sheet
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sheet Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
+        helpText: The ID of the sheet
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Attachment Details
-    items:
       - label: Attachment Type
         required: true
+        helpText: Type of attachment
         variable: attachmentType
         type: select
-        placeholder: Select Attachment Type...
+        defaultValue: FILE
         selectOptions:
           options:
-          - label: LINK
-            value: LINK
-          - label: BOXCOM
-            value: BOXCOM
-          - label: DROPBOX
-            value: DROPBOX
-          - label: EGNYTE
-            value: EGNYTE
-          - label: EVERNOTE
-            value: EVERNOTE
-          - label: GOOGLEDRIVE
-            value: GOOGLEDRIVE
-          - label: ONEDRIVE
-            value: ONEDRIVE
+            - label: File
+              value: FILE
+            - label: URL/Link
+              value: LINK
+      - label: File Path
+        required: false
+        helpText: Path to file (for FILE type)
+        variable: filePath
+        type: text
       - label: URL
         required: false
+        helpText: URL to attach (for LINK type)
         variable: url
         type: text
-        placeholder: Enter URL...
-      - label: Name
+      - label: Attachment Name
         required: false
+        helpText: Name for the attachment
         variable: name
         type: text
-        placeholder: Enter Name...
-      - label: Description
-        required: false
-        variable: description
-        type: text
-        placeholder: Enter Description...
-      - label: Attachment Sub Type
-        required: false
-        variable: attachmentSubType
-        type: select
-        placeholder: Select Attachment Sub Type...
-        selectOptions:
-          options:
-          - label: DOCUMENT
-            value: DOCUMENT
-          - label: DRAWING
-            value: DRAWING
-          - label: FOLDER
-            value: FOLDER
-          - label: PDF
-            value: PDF
-          - label: PRESENTATION
-            value: PRESENTATION
-          - label: SPREADSHEET
-            value: SPREADSHEET
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store attachment info
         variable: outputVariable
         type: outputVariableName

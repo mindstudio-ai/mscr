@@ -2,22 +2,23 @@ apiVersion: v1
 kind: Action
 id: get-group
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get Group
-  description: 'Gets information about an array of Group Members for the group specified in the URL.'
+  description: Gets details of a specific group
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Group Information
     items:
-      - label: Group Id
+      - label: Group ID
         required: true
+        helpText: The ID of the group
         variable: groupId
-        type: number
-        placeholder: Enter Group Id...
+        type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the group details
         variable: outputVariable
         type: outputVariableName

@@ -5,69 +5,31 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Send Rows
-  description: 'Sends one or more rows via email.'
+  description: Sends rows via email
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Row Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Request Data
-    items:
-      - label: Row Ids
-        required: false
+      - label: Row IDs (comma-separated)
+        required: true
         variable: rowIds
         type: text
-        placeholder: Enter Row Ids...
-      - label: Column Ids
-        required: false
-        variable: columnIds
+      - label: Recipient Emails (comma-separated)
+        required: true
+        variable: recipientEmails
         type: text
-        placeholder: Enter Column Ids...
-      - label: Include Attachments
-        required: false
-        variable: includeAttachments
-        type: boolean
-        defaultValue: false
-      - label: Include Discussions
-        required: false
-        variable: includeDiscussions
-        type: boolean
-        defaultValue: false
-      - label: Layout
-        required: false
-        variable: layout
-        type: select
-        selectOptions:
-          options:
-          - label: HORIZONTAL
-            value: HORIZONTAL
-          - label: VERTICAL
-            value: VERTICAL
-        placeholder: Select Layout...
-      - label: Cc Me
-        required: false
-        variable: ccMe
+      - label: Subject
+        required: true
+        variable: subject
         type: text
-        placeholder: Enter Cc Me...
       - label: Message
         required: false
         variable: message
         type: text
-        placeholder: Enter Message...
-      - label: Send To
-        required: false
-        variable: sendTo
-        type: text
-        placeholder: Enter Send To...
-      - label: Subject
-        required: false
-        variable: subject
-        type: text
-        placeholder: Enter Subject...
   - title: Output
     items:
       - label: Output Variable

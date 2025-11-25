@@ -1,5 +1,5 @@
 export interface GetAttachmentInputs {
-  sheetId: number;
+  sheetId: string;
   attachmentId: string;
   outputVariable: string;
 }

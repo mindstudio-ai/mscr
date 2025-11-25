@@ -1,10 +1,9 @@
 export interface AddUserInputs {
-  admin: string;
   email: string;
-  firstName: string;
-  groupAdmin: string;
-  lastName: string;
-  licensedSheetCreator: string;
-  resourceViewer: string;
+  firstName?: string;
+  lastName?: string;
+  admin?: boolean;
+  licensedSheetCreator?: boolean;
+  sendEmail?: boolean;
   outputVariable: string;
 }

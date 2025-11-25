@@ -104,25 +104,30 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListSentUpdateRequestsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, includeall, page, pagesize, outputVariable } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
+  }
+  const path = `/sheets/${sheetId}/sentupdaterequests`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (includeall !== undefined && includeall !== null) {
+    queryParams['includeAll'] = includeall;
+  }
+  if (page !== undefined && page !== null) {
+    queryParams['page'] = page;
+  }
+  if (pagesize !== undefined && pagesize !== null) {
+    queryParams['pageSize'] = pagesize;
   }
 
-  log(`List Sent Update Requests`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/sheets/${inputs.sheetId}/sentupdaterequests`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list sent update requests: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

@@ -5,24 +5,45 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Add Image To Sheet Summary
-  description: 'Adds an image to the summary field.'
+  description: Adds an image to the summary field.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Sheet Id
+      - label: sheet Id
         required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Field Id
+      - label: field Id
         required: true
+        helpText: (Required) Summary Field Id of the sheet summary field being accessed.
         variable: fieldId
         type: text
-        placeholder: Enter Field Id...
+      - label: alttext
+        required: false
+        helpText: 'Url-encoded alternate text for the image'
+        variable: alttext
+        type: text
+      - label: overridevalidation
+        required: false
+        helpText: You may use the query string parameter **overrideValidation** with a value of **true** to allow a cell value outside of the validation limits. You must specify **strict** with a value of **false** to bypass value type checking.
+        variable: overridevalidation
+        type: checkbox
+      - label: file Path
+        required: true
+        helpText: Local path to the file to upload
+        variable: filePath
+        type: text
+      - label: file Name
+        required: false
+        helpText: Optional name to use for the uploaded file
+        variable: fileName
+        type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

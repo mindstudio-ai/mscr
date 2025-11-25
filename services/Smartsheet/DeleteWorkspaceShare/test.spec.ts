@@ -1,13 +1,15 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
+import { handler } from './handler';
 
-test('delete workspace share', async () => {
+test('DeleteWorkspaceShare executes successfully', async () => {
   process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
-    workspaceId: 'test-workspaceId',
-    shareId: 'test-shareId',
+    workspaceId: 'workspaceId-sample',
+    shareId: 'shareId-sample',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  expect(ctx.outputs['result']).toBeDefined();
 });

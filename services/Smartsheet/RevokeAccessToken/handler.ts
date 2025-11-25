@@ -104,22 +104,21 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<RevokeAccessTokenInputs>) => {
-
-  log(`Revoke Access Token`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'DELETE',
-      path: `/token`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to revoke access token: ${errorMessage}`);
+  const { deleteallforapiclient, outputVariable } = inputs;
+  const path = `/token`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (deleteallforapiclient !== undefined && deleteallforapiclient !== null) {
+    queryParams['deleteAllForApiClient'] = deleteallforapiclient;
   }
+
+  const requestOptions: ApiRequestOptions = {
+    method: 'DELETE',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
+  }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

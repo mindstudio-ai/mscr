@@ -104,66 +104,48 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ShareSightInputs>) => {
-  if (!inputs.sightId) {
-    throw new Error('Sight Id is required');
+  const {
+    sightId,
+    email,
+    accessLevel,
+    sendEmail,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
+
+  if (!sightId) {
+    throw new Error('Sight ID is required');
+  }
+  if (!email) {
+    throw new Error('Email address is required');
+  }
+  if (!accessLevel) {
+    throw new Error('Access level is required');
   }
 
-  log(`Share Dashboard`);
+  log(`Sharing dashboard ${sightId} with ${email}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
+    const queryParams: Record<string, boolean | number> = {};
+    if (sendEmail !== undefined) {
+      queryParams.sendEmail = sendEmail;
     }
-    if (inputs.groupId !== undefined) {
-      requestBody.groupId = inputs.groupId;
-    }
-    if (inputs.userId !== undefined) {
-      requestBody.userId = inputs.userId;
-    }
-    if (inputs.type !== undefined) {
-      requestBody.type = inputs.type;
-    }
-    if (inputs.accessLevel !== undefined) {
-      requestBody.accessLevel = inputs.accessLevel;
-    }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
-    }
-    if (inputs.createdAt !== undefined) {
-      requestBody.createdAt = inputs.createdAt;
-    }
-    if (inputs.email !== undefined) {
-      requestBody.email = inputs.email;
-    }
-    if (inputs.message !== undefined) {
-      requestBody.message = inputs.message;
-    }
-    if (inputs.modifiedAt !== undefined) {
-      requestBody.modifiedAt = inputs.modifiedAt;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.scope !== undefined) {
-      requestBody.scope = inputs.scope;
-    }
-    if (inputs.subject !== undefined) {
-      requestBody.subject = inputs.subject;
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sights/${inputs.sightId}/shares`,
+      path: `/sights/${sightId}/shares`,
       queryParams,
-      body: requestBody,
+      body: {
+        email,
+        accessLevel: accessLevel.toUpperCase(),
+      },
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Dashboard shared successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to share dashboard: ${errorMessage}`);
+    throw new Error(`Failed to share dashboard: ${error.message}`);
   }
 };

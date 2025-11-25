@@ -4,5 +4,7 @@ export interface GetReportInputs {
   exclude?: string;
   pageSize?: number;
   page?: number;
+  level?: number;
+  accessApiLevel?: number;
   outputVariable: string;
 }

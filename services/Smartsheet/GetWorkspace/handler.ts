@@ -104,25 +104,50 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetWorkspaceInputs>) => {
-  if (!inputs.workspaceId) {
-    throw new Error('Workspace Id is required');
+  const { workspaceId, accessApiLevel, include, loadAll, outputVariable } =
+    inputs;
+
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
   }
 
-  log(`Get Workspace`);
-
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    log(`Retrieving workspace ${workspaceId}...`);
 
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/workspaces/${inputs.workspaceId}`,
-      queryParams,
-    });
+    const queryParams: Record<string, boolean | string | number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+    if (include) {
+      queryParams.include = include;
+    }
+    if (loadAll !== undefined) {
+      queryParams.loadAll = loadAll;
+    }
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const [workspaceMetadata, workspaceChildren] = await Promise.all([
+      smartsheetApiRequest({
+        method: 'GET',
+        path: `/workspaces/${workspaceId}`,
+        queryParams,
+      }),
+      smartsheetApiRequest({
+        method: 'GET',
+        path: `/workspaces/${workspaceId}/folders`,
+        queryParams,
+      }),
+    ]);
+
+    const output = {
+      metadata: workspaceMetadata,
+      children: workspaceChildren,
+    };
+
+    log(`Successfully retrieved workspace: ${(output.metadata as any).name}`);
+
+    setOutput(outputVariable, output);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get workspace: ${errorMessage}`);
+    log(`Error getting workspace: ${error.message}`);
+    throw error;
   }
 };

@@ -1,7 +1,8 @@
 export interface CopyWorkspaceInputs {
   workspaceId: string;
-  destinationId?: any;
-  destinationType?: string;
-  newName?: any;
+  newName: string;
+  includes?: string;
+  include?: string;
+  skipRemap?: string;
   outputVariable: string;
 }

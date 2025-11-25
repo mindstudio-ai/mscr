@@ -1,14 +1,14 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('list cell history', async () => {
+test('gets cell history', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheetId',
-    rowId: 'test-rowId',
-    columnId: 'test-columnId',
-    outputVariable: 'result',
+    sheetId: 'test-sheet-id',
+    rowId: 'test-row-id',
+    columnId: 'test-column-id',
+    outputVariable: 'history',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+  expect(ctx.outputs['history'].history).toBeDefined();
 });

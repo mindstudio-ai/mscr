@@ -2,31 +2,28 @@ apiVersion: v1
 kind: Action
 id: move-folder
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Move Folder
-  description: 'Moves a folder.'
+  description: Moves a folder to a different location
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Folder Information
     items:
-      - label: Folder Id
+      - label: Folder ID
         required: true
         variable: folderId
         type: text
-        placeholder: Enter Folder Id...
-  - title: Request Data
-    items:
-      - label: Destination Id
-        required: false
-        variable: destinationId
-        type: text
-        placeholder: Enter Destination Id...
       - label: Destination Type
-        required: false
+        required: true
+        helpText: workspace, folder, or home
         variable: destinationType
         type: text
-        placeholder: Enter Destination Type...
+      - label: Destination ID
+        required: false
+        helpText: Required for workspace/folder, not for home
+        variable: destinationId
+        type: text
   - title: Output
     items:
       - label: Output Variable

@@ -5,45 +5,19 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Get Update Request
-  description: 'Gets the specified update request for the sheet that has a future schedule. The rowIds and columnIds in the returned UpdateRequest object represent the list at the time the update request was created or last modified. The lists may contain Ids of rows or columns that are no longer valid (for example, they have been removed from the sheet).'
-
+  description: Gets details of a specific update request
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Update Request Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Update Request Id
+      - label: Update Request ID
         required: true
         variable: updateRequestId
         type: text
-        placeholder: Enter Update Request Id...
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
-        required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable

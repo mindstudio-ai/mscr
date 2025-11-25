@@ -99,72 +99,53 @@ const smartsheetApiRequest = async <T = any>(
   return (await response.text()) as T;
 };
 
-const parseIdsStringToArray = (idsString: string) => {
-  return idsString?.split(',').map((id: string) => parseInt(id.trim()));
-}
-
 export const handler = async ({
   inputs,
   setOutput,
   log,
 }: IHandlerContext<SendRowsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, rowIds, recipientEmails, subject, message, outputVariable } =
+    inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  if (!rowIds) {
+    throw new Error('Row IDs are required');
+  }
+  if (!recipientEmails) {
+    throw new Error('Recipient emails are required');
+  }
+  if (!subject) {
+    throw new Error('Subject is required');
   }
 
-  log(`Send Rows via Email`);
+  log('Sending rows via email');
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {
-      columnIds: [],
-      rowIds: [],
-      includeAttachments: false,
-      includeDiscussions: false,
-      layout: undefined,
-      ccMe: undefined,
-      message: undefined,
-      sendTo: undefined,
-      subject: undefined,
+    const rowIdArray = rowIds
+      .split(',')
+      .map((id: string) => parseInt(id.trim(), 10));
+    const emails = recipientEmails.split(',').map((e: string) => e.trim());
+    const recipients = emails.map((email: string) => ({ email }));
+
+    const sendBody: any = {
+      rowIds: rowIdArray,
+      to: recipients,
+      subject,
     };
-    if (inputs.rowIds !== undefined) {
-      requestBody.rowIds = parseIdsStringToArray(inputs.rowIds);
-    }
-    if (inputs.columnIds !== undefined) {
-      requestBody.columnIds = parseIdsStringToArray(inputs.columnIds);
-    }
-    if (inputs.includeAttachments !== undefined) {
-      requestBody.includeAttachments = inputs.includeAttachments ? true : false;
-    }
-    if (inputs.includeDiscussions !== undefined) {
-      requestBody.includeDiscussions = inputs.includeDiscussions ? true : false;
-    }
-    if (inputs.layout !== undefined) {
-      requestBody.layout = inputs.layout;
-    }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
-    }
-    if (inputs.message !== undefined) {
-      requestBody.message = inputs.message;
-    }
-    if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = [{ email: inputs.sendTo }];
-    }
-    if (inputs.subject !== undefined) {
-      requestBody.subject = inputs.subject;
+    if (message) {
+      sendBody.message = message;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/rows/emails`,
-      body: requestBody,
+      path: `/sheets/${sheetId}/rows/emails`,
+      body: sendBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Rows sent successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to send rows via email: ${errorMessage}`);
+    throw new Error(`Failed to send rows: ${error.message}`);
   }
 };

@@ -1,12 +1,49 @@
-import { expect, test } from 'vitest';
-import runConnector from '../../../src/utils/testHarness';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { handler } from './handler';
 
-test('update user', async () => {
-  process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
-  const ctx = await runConnector(handler, {
-    userId: 'test-userId',
-    outputVariable: 'result',
+describe('UpdateUser', () => {
+  const mockSetOutput = vi.fn();
+  const mockLog = vi.fn();
+  const mockUploadFile = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.accessToken = 'test-token';
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  it('should update user successfully', async () => {
+    const inputs = {
+      userId: '123456789',
+      admin: true,
+      licensedSheetCreator: true,
+      outputVariable: 'updatedUser',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).resolves.not.toThrow();
+
+    expect(mockLog).toHaveBeenCalledWith('Updating user 123456789...');
+  });
+
+  it('should throw error when userId is missing', async () => {
+    const inputs = {
+      admin: true,
+      outputVariable: 'updatedUser',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).rejects.toThrow('User ID is required');
+  });
 });

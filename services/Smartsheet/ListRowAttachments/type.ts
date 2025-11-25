@@ -1,8 +1,8 @@
 export interface ListRowAttachmentsInputs {
-  sheetId: number;
-  rowId: number;
-  includeAll?: boolean;
-  pageSize?: number;
+  sheetId: string;
+  rowId: string;
   page?: number;
+  pageSize?: number;
+  includeAll?: boolean;
   outputVariable: string;
 }

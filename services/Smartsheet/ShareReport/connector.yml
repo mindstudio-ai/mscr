@@ -5,83 +5,33 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Share Report
-  description: 'Shares a Report with the specified users and groups.'
+  description: Shares a report with a user
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Report Information
     items:
-      - label: Report Id
+      - label: Report ID
         required: true
         variable: reportId
         type: text
-        placeholder: Enter Report Id...
-  - title: Request Data
-    items:
-      - label: Id
-        required: false
-        variable: id
-        type: text
-        placeholder: Enter Id...
-      - label: Group Id
-        required: false
-        variable: groupId
-        type: text
-        placeholder: Enter Group Id...
-      - label: User Id
-        required: false
-        variable: userId
-        type: text
-        placeholder: Enter User Id...
-      - label: Type
-        required: false
-        variable: type
-        type: text
-        placeholder: Enter Type...
-      - label: Access Level
-        required: false
-        variable: accessLevel
-        type: text
-        placeholder: Enter Access Level...
-      - label: Cc Me
-        required: false
-        variable: ccMe
-        type: text
-        placeholder: Enter Cc Me...
-      - label: Created At
-        required: false
-        variable: createdAt
-        type: text
-        placeholder: Enter Created At...
-      - label: Email
+      - label: Email Address
         required: true
         variable: email
         type: text
-        placeholder: Enter Email...
-      - label: Message
-        required: false
-        variable: message
-        type: text
-        placeholder: Enter Message...
-      - label: Modified At
-        required: false
-        variable: modifiedAt
-        type: text
-        placeholder: Enter Modified At...
-      - label: Name
+      - label: Access Level
         required: true
-        variable: name
+        helpText: VIEWER, EDITOR, EDITOR_SHARE, ADMIN
+        variable: accessLevel
         type: text
-        placeholder: Enter Name...
-      - label: Scope
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Send Email
         required: false
-        variable: scope
-        type: text
-        placeholder: Enter Scope...
-      - label: Subject
-        required: false
-        variable: subject
-        type: text
-        placeholder: Enter Subject...
+        helpText: Either true or false to indicate whether to notify the user by email. Default is false. If true, limit is 1000 emails.
+        variable: sendEmail
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

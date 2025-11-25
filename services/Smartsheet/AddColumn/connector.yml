@@ -2,139 +2,83 @@ apiVersion: v1
 kind: Action
 id: add-column
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Add Column
-  description: 'Inserts one or more columns into the sheet specified in the URL.This operation can be performed using a simple upload or a multipart upload. For more information, see Post an Attachment.'
+  description: Adds a new column to a sheet with specified properties
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sheet Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
+        helpText: The ID of the sheet where the column will be added
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Request Data
+        placeholder: Enter sheet ID...
+  - title: Column Details
     items:
-      - label: Title
-        required: false
-        variable: title
+      - label: Column Title
+        required: true
+        helpText: The title/name for the new column
+        variable: columnTitle
         type: text
-        placeholder: Enter Title...
-      - label: Type
-        required: false
-        variable: type
+        placeholder: Enter column name...
+      - label: Column Type
+        required: true
+        helpText: The type of data this column will contain
+        variable: columnType
         type: select
-        placeholder: Select Type...
+        defaultValue: TEXT_NUMBER
         selectOptions:
           options:
-          - label: ABSTRACT_DATETIME
-            value: ABSTRACT_DATETIME
-          - label: CHECKBOX
-            value: CHECKBOX
-          - label: CONTACT_LIST
-            value: CONTACT_LIST
-          - label: DATE
-            value: DATE
-          - label: DATETIME
-            value: DATETIME
-          - label: DURATION
-            value: DURATION
-          - label: MULTI_CONTACT_LIST
-            value: MULTI_CONTACT_LIST
-          - label: MULTI_PICKLIST
-            value: MULTI_PICKLIST
-          - label: PICKLIST
-            value: PICKLIST
-          - label: PREDECESSOR
-            value: PREDECESSOR
-          - label: TEXT_NUMBER
-            value: TEXT_NUMBER
-      - label: Formula
+            - label: Text/Number
+              value: TEXT_NUMBER
+            - label: Picklist (Dropdown)
+              value: PICKLIST
+            - label: Date
+              value: DATE
+            - label: Contact List
+              value: CONTACT_LIST
+            - label: Checkbox
+              value: CHECKBOX
+            - label: Duration
+              value: DURATION
+      - label: Picklist Options
         required: false
-        variable: formula
+        helpText: For PICKLIST type - comma-separated options or JSON array
+        variable: picklistOptions
         type: text
-        placeholder: Enter Formula...
-      - label: Format
+        placeholder: Option 1,Option 2,Option 3 or ["Option 1","Option 2"]
+  - title: Position
+    collapsed: true
+    items:
+      - label: Insert Position
         required: false
-        variable: format
-        type: text
-        placeholder: Enter Format...
-      - label: Contact Options
-        required: false
-        variable: contactOptions
-        type: text
-      - label: Index
-        required: false
-        variable: index
-        type: number
-        placeholder: Enter Index (zero-based)...
-      - label: Hidden
-        required: false
-        variable: hidden
-        type: boolean
-        defaultValue: false
-      - label: Auto Number Format
-        required: false
-        variable: autoNumberFormat
-        type: text
-        placeholder: Enter Auto Number Format...
-      - label: Description
-        required: false
-        variable: description
-        type: text
-        placeholder: Enter Description...
-      - label: Locked
-        required: false
-        variable: locked
-        type: boolean
-        defaultValue: false
-      - label: Locked For User
-        required: false
-        variable: lockedForUser
-        type: boolean
-        defaultValue: false
-      - label: Options
-        required: false
-        variable: options
-        type: text
-        placeholder: Enter Options (JSON array or comma-separated)...
-      - label: Symbol
-        required: false
-        variable: symbol
-        type: text
-        placeholder: Enter Symbol...
-      - label: System Column Type
-        required: false
-        variable: systemColumnType
+        helpText: Where to insert the column relative to existing columns
+        variable: insertPosition
         type: select
-        placeholder: Select System Column Type...
+        defaultValue: end
         selectOptions:
           options:
-          - label: AUTO_NUMBER
-            value: AUTO_NUMBER
-          - label: CREATED_BY
-            value: CREATED_BY
-          - label: CREATED_DATE
-            value: CREATED_DATE
-          - label: MODIFIED_BY
-            value: MODIFIED_BY
-          - label: MODIFIED_DATE
-            value: MODIFIED_DATE
-      - label: Validation
+            - label: At End
+              value: end
+            - label: At Beginning
+              value: beginning
+            - label: Before Column
+              value: before
+            - label: After Column
+              value: after
+      - label: Sibling Column Index
         required: false
-        variable: validation
-        type: boolean
-        defaultValue: false
-      - label: Width
-        required: false
-        variable: width
-        type: number
-        placeholder: Enter Width...
+        helpText: Column index for "Before" or "After" positioning (0-based)
+        variable: siblingColumnIndex
+        type: text
+        placeholder: '0'
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the created column information
         variable: outputVariable
         type: outputVariableName

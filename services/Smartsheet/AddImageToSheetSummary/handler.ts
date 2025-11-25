@@ -104,30 +104,46 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddImageToSheetSummaryInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    fieldId,
+    alttext,
+    overridevalidation,
+    filePath,
+    fileName,
+    outputVariable,
+  } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
   }
-  if (!inputs.fieldId) {
-    throw new Error('Field Id is required');
+  if (!fieldId) {
+    throw new Error('fieldId is required');
+  }
+  if (!filePath) {
+    throw new Error('filePath is required');
+  }
+  const path = `/sheets/${sheetId}/summary/fields/${fieldId}/images`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (alttext !== undefined && alttext !== null) {
+    queryParams['altText'] = alttext;
+  }
+  if (overridevalidation !== undefined && overridevalidation !== null) {
+    queryParams['overrideValidation'] = overridevalidation;
   }
 
-  log(`Add Image to Sheet Summary`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/sheets/${inputs.sheetId}/summary/fields/${inputs.fieldId}/images`,
-      queryParams,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to add image to sheet summary: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+  requestOptions.multipart = true;
+  requestOptions.filePath = filePath;
+  if (fileName) {
+    requestOptions.fileName = fileName;
+  }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

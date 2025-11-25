@@ -1,11 +1,50 @@
-import { expect, test } from 'vitest';
-import runConnector from '../../../src/utils/testHarness';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { handler } from './handler';
 
-test('add user', async () => {
-  process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
-  const ctx = await runConnector(handler, {
-    outputVariable: 'result',
+describe('AddUser', () => {
+  const mockSetOutput = vi.fn();
+  const mockLog = vi.fn();
+  const mockUploadFile = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.accessToken = 'test-token';
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  it('should add user successfully', async () => {
+    const inputs = {
+      email: 'newuser@example.com',
+      firstName: 'John',
+      lastName: 'Doe',
+      admin: false,
+      licensedSheetCreator: true,
+      outputVariable: 'newUser',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).resolves.not.toThrow();
+
+    expect(mockLog).toHaveBeenCalledWith('Adding user newuser@example.com...');
+  });
+
+  it('should throw error when email is missing', async () => {
+    const inputs = {
+      outputVariable: 'newUser',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).rejects.toThrow('Email is required');
+  });
 });

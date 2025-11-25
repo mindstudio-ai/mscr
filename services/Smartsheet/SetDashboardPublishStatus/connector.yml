@@ -5,36 +5,32 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Set Dashboard Publish Status
-  description: 'Publishes or unpublishes a dashboard.'
+  description: Publishes or unpublishes a dashboard.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Sight Id
+      - label: sight Id
         required: true
+        helpText: (Required) SightID of the sight being accessed.
         variable: sightId
         type: text
-        placeholder: Enter Sight Id...
-  - title: Request Data
-    items:
-      - label: Read Only Full Enabled
+      - label: readonlyfullenabled
         required: false
-        variable: readOnlyFullEnabled
+        variable: readonlyfullenabled
         type: text
-        placeholder: Enter Read Only Full Enabled...
-      - label: Read Only Full Accessible By
+      - label: readonlyfullaccessibleby
         required: false
-        variable: readOnlyFullAccessibleBy
+        variable: readonlyfullaccessibleby
         type: text
-        placeholder: Enter Read Only Full Accessible By...
-      - label: Read Only Full Url
+      - label: readonlyfullurl
         required: false
-        variable: readOnlyFullUrl
+        variable: readonlyfullurl
         type: text
-        placeholder: Enter Read Only Full Url...
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

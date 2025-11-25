@@ -1,4 +1,4 @@
 export interface GetGroupInputs {
-  groupId: number;
+  groupId: string;
   outputVariable: string;
 }

@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
 
-test('list all automation rules', async () => {
+test('lists automation rules', async () => {
   process.env.accessToken = process.env.accessToken;
   const { handler } = await import('./handler.ts');
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheetId',
-    outputVariable: 'result',
+    sheetId: 'test-sheet-id',
+    outputVariable: 'rules',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+  expect(ctx.outputs['rules'].automationRules).toBeDefined();
 });

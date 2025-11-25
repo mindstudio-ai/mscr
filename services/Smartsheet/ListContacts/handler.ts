@@ -104,28 +104,52 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListContactsInputs>) => {
+  const {
+    includeAll,
+    modifiedSince,
+    numericDates,
+    page,
+    pageSize,
+    outputVariable,
+  } = inputs;
 
-  log(`List Contacts with include all ${inputs.includeAll}, modified since ${inputs.modifiedSince}, numeric dates ${inputs.numericDates}, page size ${inputs.pageSize}, page ${inputs.page}`);
+  log('Listing all contacts');
 
   try {
-    const queryParams = {
-      includeAll: inputs.includeAll || false,
-      modifiedSince: inputs.modifiedSince || undefined,
-      numericDates: inputs.numericDates || false,
-      pageSize: inputs.pageSize || 100,
-      page: inputs.page || 1,
-    };
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
+    }
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/contacts`,
+      path: '/contacts',
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Found ${totalCount} contact(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      contacts: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list contacts with include all ${inputs.includeAll}, modified since ${inputs.modifiedSince}, numeric dates ${inputs.numericDates}, page size ${inputs.pageSize}, page ${inputs.page}: ${errorMessage}`);
+    throw new Error(`Failed to list contacts: ${error.message}`);
   }
 };

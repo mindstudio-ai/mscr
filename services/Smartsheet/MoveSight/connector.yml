@@ -2,31 +2,28 @@ apiVersion: v1
 kind: Action
 id: move-sight
 serviceId: smartsheet
-active: true
+active: false
 metadata:
-  name: Move Sight
-  description: 'Moves the specified dashboard to a new location.'
+  name: Move Sight (Dashboard)
+  description: Moves a dashboard to a folder or workspace
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sight Information
     items:
-      - label: Sight Id
+      - label: Sight ID
         required: true
         variable: sightId
         type: text
-        placeholder: Enter Sight Id...
-  - title: Request Data
-    items:
-      - label: Destination Id
-        required: false
-        variable: destinationId
-        type: text
-        placeholder: Enter Destination Id...
       - label: Destination Type
-        required: false
+        required: true
+        helpText: folder, workspace, or home
         variable: destinationType
         type: text
-        placeholder: Enter Destination Type...
+      - label: Destination ID
+        required: false
+        helpText: Required for folder/workspace, not for home
+        variable: destinationId
+        type: text
   - title: Output
     items:
       - label: Output Variable

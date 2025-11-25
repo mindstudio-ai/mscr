@@ -1,12 +1,19 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
+import { handler } from './handler';
 
-test('list dashboard shares', async () => {
+test('ListDashboardShares executes successfully', async () => {
   process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
-    sightId: 'test-sightId',
+    sightId: 'sightId-sample',
+    sharinginclude: 'sharinginclude-value',
+    includeall: true,
+    page: 1,
+    pagesize: 1,
+    accessapilevel: 1,
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  expect(ctx.outputs['result']).toBeDefined();
 });

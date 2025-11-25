@@ -5,32 +5,55 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Import Sheet Into Workspace
-  description: 'Imports CSV or XLSX data into a new sheet in the specified workspace. Note the following: Both sheetName and the file name must use ASCII characters. The source data must be basic text. To include rich formula data, import and create a sheet first, and then use Update Rows. To work with images, see Cell Images. XLS is not supported. You must use XLSX. Hierarchical relationships between rows in an external file won''t import.'
+  description: |
+    Imports CSV or XLSX data into a new sheet in the specified workspace.
 
+    Note the following:
+      * Both sheetName and the file name must use ASCII characters.
+      * The source data must be basic text. To include rich formula data, import and create a sheet first, and then use Update Rows. To work with images, see Cell Images.
+      * XLS is not supported. You must use XLSX.
+      * Hierarchical relationships between rows in an external file won't import.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Workspace Id
+      - label: workspace Id
         required: true
+        helpText: (Required) WorkspaceID of the worksheet being accessed.
         variable: workspaceId
         type: text
-        placeholder: Enter Workspace Id...
-  - title: File Upload
-    items:
-      - label: File Path
+      - label: sheetname
         required: true
+        helpText: (Required) Desired name of the sheet.
+        variable: sheetname
+        type: text
+      - label: headerrowindex
+        required: false
+        helpText: |
+          A zero-based integer indicating the row number to use for column names. Rows before this are omitted.
+          If not specified, the default values are Column1, Column2, etc.
+        variable: headerrowindex
+        type: number
+      - label: primarycolumnindex
+        required: false
+        helpText: |
+          A zero-based integer indicating the column to designate as primary.
+        variable: primarycolumnindex
+        type: number
+      - label: file Path
+        required: true
+        helpText: Local path to the file to upload
         variable: filePath
         type: text
-        placeholder: /path/to/file
-      - label: File Name
+      - label: file Name
         required: false
+        helpText: Optional name to use for the uploaded file
         variable: fileName
         type: text
-        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

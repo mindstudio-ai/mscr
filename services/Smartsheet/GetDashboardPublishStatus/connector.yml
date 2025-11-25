@@ -2,21 +2,23 @@ apiVersion: v1
 kind: Action
 id: get-dashboard-publish-status
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get Dashboard Publish Status
-  description: 'Gets the dashboard "publish" settings.'
+  description: Gets the dashboard 'publish' settings.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Sight Id
+      - label: sight Id
         required: true
+        helpText: (Required) SightID of the sight being accessed.
         variable: sightId
         type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

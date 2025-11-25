@@ -5,31 +5,44 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Copy Rows To Another Sheet
-  description: 'Copies rows from the sheet specified in the URL to (the bottom of) another sheet.'
+  description: Copies rows from the sheet specified in the URL to (the bottom of) another sheet.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Sheet Id
+      - label: sheet Id
         required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Request Data
-    items:
-      - label: Row Ids
+      - label: include
         required: false
-        variable: rowIds
+        helpText: |
+          A comma-separated list of row elements to copy in addition to the cell data:
+          * **all** - specify a value of **all** to include everything (attachments, children, and discussions).
+          * **attachments**
+          * **children** - if specified, any child rows of the rows specified in the request are also copied to the destination sheet, and parent-child relationships amongst rows are preserved within the destination sheet; if not specified, only the rows specified in the request are copied.
+          * **discussions** - include all discussions in threads
+        variable: include
         type: text
-        placeholder: Enter Row Ids...
-      - label: To
+      - label: ignorerowsnotfound
         required: false
-        variable: to
+        helpText: |
+          **true** or **false**: default is **false**. If set to **true**, specifying row Ids that do not exist within the source sheet does not cause an error response. If omitted or set to **false**, specifying row Ids that do not exist within the source sheet causes an error response (and no rows are copied).
+        variable: ignorerowsnotfound
+        type: checkbox
+      - label: rowids
+        required: false
+        variable: rowids
         type: text
-        placeholder: Enter To...
+      - label: to Sheetid
+        required: false
+        variable: toSheetid
+        type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

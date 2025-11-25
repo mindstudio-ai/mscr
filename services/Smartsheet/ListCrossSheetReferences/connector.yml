@@ -2,37 +2,39 @@ apiVersion: v1
 kind: Action
 id: list-cross-sheet-references
 serviceId: smartsheet
-active: true
+active: false
 metadata:
-  name: List Cross Sheet References
-  description: 'Lists all cross-sheet references for the sheet.'
+  name: List Cross-sheet References
+  description: Lists all cross-sheet references for a sheet
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sheet Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
-        type: number
-        placeholder: Enter Sheet Id...
+        type: text
   - title: Query Options
     collapsed: true
     items:
       - label: Include All
         required: false
-        variable: includeAll  
-        type: boolean
+        helpText: If true, include all results, that is, do not paginate. Mutually exclusive with page and pageSize (they are ignored if includeAll=true is specified).
+        variable: includeAll
+        type: checkbox
         defaultValue: false
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
       - label: Page
         required: false
+        helpText: Which page to return. Defaults to 1 if not specified. If you specify a value greater than the total number of pages, the last page of results is returned.
         variable: page
         type: number
         defaultValue: 1
+      - label: Page Size
+        required: false
+        helpText: The maximum number of items to return per page. Unless otherwise stated for a specific endpoint, defaults to 100. If only page is specified, defaults to a page size of 100. For reports, the default is
+        variable: pageSize
+        type: number
+        defaultValue: 100
   - title: Output
     items:
       - label: Output Variable

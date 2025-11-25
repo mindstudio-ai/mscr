@@ -104,25 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetCommentInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, commentId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.commentId) {
-    throw new Error('Comment Id is required');
+  if (!commentId) {
+    throw new Error('Comment ID is required');
   }
 
-  log(`Get Comment for comment ${inputs.commentId}`);
+  log(`Getting comment ${commentId}`);
 
   try {
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/comments/${inputs.commentId}`,
+      path: `/sheets/${sheetId}/comments/${commentId}`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved comment successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get comment for comment ${inputs.commentId}: ${errorMessage}`);
+    throw new Error(`Failed to get comment: ${error.message}`);
   }
 };

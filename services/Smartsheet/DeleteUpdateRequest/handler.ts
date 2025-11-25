@@ -104,27 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteUpdateRequestInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, updateRequestId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.updateRequestId) {
-    throw new Error('Update Request Id is required');
+  if (!updateRequestId) {
+    throw new Error('Update Request ID is required');
   }
 
-  log(`Delete an Update Request`);
+  log(`Deleting update request ${updateRequestId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${inputs.sheetId}/updaterequests/${inputs.updateRequestId}`,
+      path: `/sheets/${sheetId}/updaterequests/${updateRequestId}`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Update request deleted successfully');
+    setOutput(outputVariable, {
+      success: true,
+      deletedUpdateRequestId: updateRequestId,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete an update request: ${errorMessage}`);
+    throw new Error(`Failed to delete update request: ${error.message}`);
   }
 };

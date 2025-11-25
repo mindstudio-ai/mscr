@@ -104,27 +104,44 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<UpdateUserProfileImageInputs>) => {
-  if (!inputs.userId) {
-    throw new Error('User Id is required');
+  const {
+    userId,
+    attachmentsubtype,
+    attachmenttype,
+    description,
+    name,
+    url,
+    outputVariable,
+  } = inputs;
+  if (!userId) {
+    throw new Error('userId is required');
+  }
+  const path = `/users/${userId}/profileimage`;
+  const body: Record<string, any> = {};
+  if (attachmentsubtype !== undefined) {
+    body['attachmentSubType'] = attachmentsubtype;
+  }
+  if (attachmenttype !== undefined) {
+    body['attachmentType'] = attachmenttype;
+  }
+  if (description !== undefined) {
+    body['description'] = description;
+  }
+  if (name !== undefined) {
+    body['name'] = name;
+  }
+  if (url !== undefined) {
+    body['url'] = url;
   }
 
-  log(`Update User Profile Image`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/users/${inputs.userId}/profileimage`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to update user profile image: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

@@ -5,16 +5,33 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Rows
-  description: 'Deletes one or more rows from the sheet specified in the URL.'
+  description: Deletes one or more rows from a sheet
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Row Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
+      - label: Row IDs (comma-separated)
+        required: true
+        variable: rowIds
+        type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Ids
+        required: true
+        helpText: '(Required) A comma-separated list of row Ids. '
+        variable: ids
+        type: text
+      - label: Ignore Rows Not Found
+        required: false
+        helpText: '**true** or **false**. If set to **false** and any of the specified row Ids are not found, no rows are deleted, and the "not found" [error](../../tag/commonObjects#section/Error-Object) is returned. '
+        variable: ignoreRowsNotFound
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

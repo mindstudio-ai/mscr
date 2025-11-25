@@ -104,26 +104,29 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetAttachmentInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, attachmentId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.attachmentId) {
-    throw new Error('Attachment Id is required');
+  if (!attachmentId) {
+    throw new Error('Attachment ID is required');
   }
 
-  log(`Get Attachment for attachment ${inputs.attachmentId}`);
+  log(`Getting attachment ${attachmentId} from sheet ${sheetId}`);
 
   try {
-
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}`,
+      path: `/sheets/${sheetId}/attachments/${attachmentId}`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully retrieved attachment: ${(response as any).name}`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get attachment for attachment ${inputs.attachmentId}: ${errorMessage}`);
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error('Sheet or attachment not found');
+    }
+    throw new Error(`Failed to get attachment: ${errorMessage}`);
   }
 };

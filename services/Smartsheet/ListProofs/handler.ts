@@ -104,25 +104,43 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListProofsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, page, pageSize, includeAll, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`List Proofs`);
+  log(`Listing proofs for sheet ${sheetId}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/proofs`,
+      path: `/sheets/${sheetId}/proofs`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (result as any).data || result;
+    const totalCount =
+      (result as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Fetched ${totalCount} proof(s) successfully`);
+    setOutput(outputVariable, {
+      totalCount,
+      proofs: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list proofs: ${errorMessage}`);
+    throw new Error(`Failed to fetch proofs: ${error.message}`);
   }
 };

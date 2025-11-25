@@ -104,30 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteAttachmentVersionsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, attachmentId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.attachmentId) {
-    throw new Error('Attachment Id is required');
+  if (!attachmentId) {
+    throw new Error('Attachment ID is required');
   }
 
-  log(`Delete All Versions`);
+  log(`Deleting all versions of attachment ${attachmentId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}/versions`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
+      path: `/sheets/${sheetId}/attachments/${attachmentId}/versions`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Successfully deleted all attachment versions');
+    setOutput(outputVariable, {
+      success: true,
+      deletedAttachmentId: attachmentId,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete all versions: ${errorMessage}`);
+    throw new Error(`Failed to delete versions: ${error.message}`);
   }
 };

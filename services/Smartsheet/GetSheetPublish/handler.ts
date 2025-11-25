@@ -104,25 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetSheetPublishInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`Get Sheet Publish Status`);
+  log(`Getting publish status for sheet ${sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/publish`,
-      queryParams,
+      path: `/sheets/${sheetId}/publish`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved publish status successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get sheet publish status: ${errorMessage}`);
+    throw new Error(`Failed to get publish status: ${error.message}`);
   }
 };

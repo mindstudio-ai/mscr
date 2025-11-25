@@ -2,52 +2,34 @@ apiVersion: v1
 kind: Action
 id: is-favorite
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Is Favorite
-  description: 'Checks whether an item has been tagged as a favorite for the current user by type and ID.'
+  description: Checks whether an item has been tagged as a favorite for the current user by type and ID.
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Favorite Type
+      - label: favorite Type
         required: true
+        helpText: (Required) The favorite type.
         variable: favoriteType
-        type: select
-        selectOptions:
-          options:
-            - label: Folder
-              value: folder
-            - label: Report
-              value: report
-            - label: Sheet
-              value: sheet
-            - label: Sight
-              value: sight
-            - label: Template
-              value: template
-            - label: Workspace
-              value: workspace
-      - label: Favorite Id
+        type: text
+      - label: favorite Id
         required: true
+        helpText: (Required) Favorite Id, e.g., sheet Id, report Id.
         variable: favoriteId
-        type: number
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
+        type: text
+      - label: include
         required: false
+        helpText: |
+          A comma-separated list of optional elements to include in the response.
         variable: include
-        type: select
-        selectOptions:
-          options:
-            - label: Direct Id
-              value: directId
-            - label: Name
-              value: name
+        type: text
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

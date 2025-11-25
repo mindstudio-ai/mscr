@@ -104,31 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListProofAttachmentsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, proofId, page, pagesize, includeall, outputVariable } =
+    inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
   }
-  if (!inputs.proofId) {
-    throw new Error('Proof Id is required');
+  if (!proofId) {
+    throw new Error('proofId is required');
+  }
+  const path = `/sheets/${sheetId}/proofs/${proofId}/attachments`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (page !== undefined && page !== null) {
+    queryParams['page'] = page;
+  }
+  if (pagesize !== undefined && pagesize !== null) {
+    queryParams['pageSize'] = pagesize;
+  }
+  if (includeall !== undefined && includeall !== null) {
+    queryParams['includeAll'] = includeall;
   }
 
-  log(`List Proof Attachments`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/attachments`,
-      queryParams,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list proof attachments: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

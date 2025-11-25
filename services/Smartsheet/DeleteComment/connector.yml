@@ -5,21 +5,19 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Comment
-  description: 'Deletes the comment specified in the URL.'
+  description: Deletes a comment
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Comment Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Comment Id
+      - label: Comment ID
         required: true
         variable: commentId
         type: text
-        placeholder: Enter Comment Id...
   - title: Output
     items:
       - label: Output Variable

@@ -1,6 +1,9 @@
 export interface CreateSheetInputs {
-  folderId: string;
-  columns?: string;
-  name?: any;
+  sheetName: string;
+  columns: string;
+  folderId?: string;
+  workspaceId?: string;
+  include?: string;
+  accessApiLevel?: number;
   outputVariable: string;
 }

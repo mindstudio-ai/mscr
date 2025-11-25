@@ -1,9 +1,9 @@
 export interface ListProofRequestVersionsInputs {
   sheetId: string;
+  proofRequestId: string;
   proofId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
   page?: number;
+  pageSize?: number;
+  includeAll?: boolean;
   outputVariable: string;
 }

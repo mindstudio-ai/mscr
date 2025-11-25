@@ -104,25 +104,52 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetReportInputs>) => {
-  if (!inputs.reportId) {
-    throw new Error('Report Id is required');
+  const {
+    reportId,
+    include,
+    exclude,
+    pageSize,
+    page,
+    level,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
+
+  if (!reportId) {
+    throw new Error('Report ID is required');
   }
 
-  log(`Get Report`);
+  log(`Getting report ${reportId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string | number> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+    if (exclude) {
+      queryParams.exclude = exclude;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest({
       method: 'GET',
-      path: `/reports/${inputs.reportId}`,
+      path: `/reports/${reportId}`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved report successfully');
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get report: ${errorMessage}`);
+    throw new Error(`Failed to get report: ${error.message}`);
   }
 };

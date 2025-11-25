@@ -104,41 +104,61 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetCellHistoryInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    rowId,
+    columnId,
+    include,
+    pageSize,
+    page,
+    level,
+    outputVariable,
+  } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.rowId) {
-    throw new Error('Row Id is required');
+  if (!rowId) {
+    throw new Error('Row ID is required');
   }
-  if (!inputs.columnId) {
-    throw new Error('Column Id is required');
+  if (!columnId) {
+    throw new Error('Column ID is required');
   }
 
-  log(
-    `Get Cell History for sheet ${inputs.sheetId}, row ${inputs.rowId}, column ${inputs.columnId}`,
-  );
+  log(`Getting cell history for cell in row ${rowId}, column ${columnId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {
-      level: inputs.level?.toString() || '0',
-      pageSize: inputs.pageSize?.toString() || '100',
-      page: inputs.page?.toString() || '1',
-    };
+    const queryParams: Record<string, string | number> = {};
+    if (include) {
+      queryParams.include = include;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (level !== undefined) {
+      queryParams.level = level;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/columns/${inputs.columnId}/history`,
+      path: `/sheets/${sheetId}/rows/${rowId}/columns/${columnId}/history`,
       queryParams,
     });
-
-    log(
-      `Successfully completed operation for sheet ${inputs.sheetId}, row ${inputs.rowId}, column ${inputs.columnId}`,
-    );
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(`Retrieved ${Array.isArray(data) ? data.length : 0} history item(s)`);
+    setOutput(outputVariable, {
+      totalCount,
+      history: data,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(
-      `Failed to get cell history for sheet ${inputs.sheetId}, row ${inputs.rowId}, column ${inputs.columnId}: ${errorMessage}`,
-    );
+    throw new Error(`Failed to get cell history: ${error.message}`);
   }
 };

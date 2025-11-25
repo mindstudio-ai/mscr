@@ -1,5 +1,5 @@
 export interface GetCommentInputs {
-  sheetId: number;
+  sheetId: string;
   commentId: string;
   outputVariable: string;
 }

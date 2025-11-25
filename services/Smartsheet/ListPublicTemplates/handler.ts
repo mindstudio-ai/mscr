@@ -104,22 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListPublicTemplatesInputs>) => {
-
-  log(`List Public Templates`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/templates/public`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list public templates: ${errorMessage}`);
+  const { accessapilevel, includeall, level, page, pagesize, outputVariable } =
+    inputs;
+  const path = `/templates/public`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (accessapilevel !== undefined && accessapilevel !== null) {
+    queryParams['accessApiLevel'] = accessapilevel;
   }
+  if (includeall !== undefined && includeall !== null) {
+    queryParams['includeAll'] = includeall;
+  }
+  if (level !== undefined && level !== null) {
+    queryParams['level'] = level;
+  }
+  if (page !== undefined && page !== null) {
+    queryParams['page'] = page;
+  }
+  if (pagesize !== undefined && pagesize !== null) {
+    queryParams['pageSize'] = pagesize;
+  }
+
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
+  }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

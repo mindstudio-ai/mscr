@@ -1,7 +1,10 @@
 export interface CopyFolderInputs {
   folderId: string;
-  destinationId?: any;
-  destinationType?: string;
-  newName?: any;
+  destinationType: string;
+  destinationId?: string;
+  newName: string;
+  include?: string;
+  exclude?: string;
+  skipRemap?: string;
   outputVariable: string;
 }

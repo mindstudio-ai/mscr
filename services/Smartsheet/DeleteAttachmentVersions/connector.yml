@@ -5,34 +5,19 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Attachment Versions
-  description: 'Deletes all versions of the attachment corresponding to the specified attachmentId. For attachments with multiple versions, this effectively deletes the attachment from the object that it’s attached to.'
-
+  description: Deletes all versions of an attachment
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Attachment Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Attachment Id
+      - label: Attachment ID
         required: true
         variable: attachmentId
         type: text
-        placeholder: Enter Attachment Id...
-  - title: File Upload
-    items:
-      - label: File Path
-        required: true
-        variable: filePath
-        type: text
-        placeholder: /path/to/file
-      - label: File Name
-        required: false
-        variable: fileName
-        type: text
-        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable

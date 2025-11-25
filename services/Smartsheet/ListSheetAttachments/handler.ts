@@ -104,28 +104,58 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListSheetAttachmentsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, page, pageSize, includeAll, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`List Attachments`);
+  log(`Listing attachments for sheet: ${sheetId}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
 
-    const response = await smartsheetApiRequest({
+    const response = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/attachments`,
+      path: `/sheets/${sheetId}/attachments`,
       queryParams,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const data = (response as any).data || response;
+    const totalCount =
+      (response as any).totalCount || (Array.isArray(data) ? data.length : 0);
+    log(
+      `Successfully retrieved ${Array.isArray(data) ? data.length : 0} attachment(s)`,
+    );
+
+    setOutput(outputVariable, {
+      totalCount,
+      attachments: data,
+    });
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list attachments: ${errorMessage}`);
+
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error(`Sheet not found: ${sheetId}`);
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
+      throw new Error('Permission denied');
+    } else {
+      throw new Error(`Failed to list attachments: ${errorMessage}`);
+    }
   }
 };

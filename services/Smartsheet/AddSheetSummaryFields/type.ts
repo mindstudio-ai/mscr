@@ -1,6 +1,6 @@
 export interface AddSheetSummaryFieldsInputs {
   sheetId: string;
-  fields?: string;
-  renameIfConflict: string;
+  fieldsJson: string;
+  renameIfConflict?: boolean;
   outputVariable: string;
 }

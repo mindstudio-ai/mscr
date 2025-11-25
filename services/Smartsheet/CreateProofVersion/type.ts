@@ -1,10 +1,10 @@
 export interface CreateProofVersionInputs {
   sheetId: string;
   proofId: string;
-  attachmentSubType?: string;
-  attachmentType?: string;
-  description?: any;
-  name?: any;
-  url?: any;
+  attachmentsubtype?: string;
+  attachmenttype?: string;
+  description?: string;
+  name?: string;
+  url?: string;
   outputVariable: string;
 }

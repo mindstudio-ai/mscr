@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Action
 id: getUserAlternateEmail
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get User Alternate Email
-  description: 'Gets details about a specific alternate email'
+  description: Gets details about a specific alternate email
   quickHelp: readme.md
 configuration:
   - title: User Information

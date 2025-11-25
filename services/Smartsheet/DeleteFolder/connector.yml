@@ -5,16 +5,15 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Delete Folder
-  description: 'Deletes a folder.'
+  description: Deletes a folder and its contents
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Folder Information
     items:
-      - label: Folder Id
+      - label: Folder ID
         required: true
         variable: folderId
         type: text
-        placeholder: Enter Folder Id...
   - title: Output
     items:
       - label: Output Variable

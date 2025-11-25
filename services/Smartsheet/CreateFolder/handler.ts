@@ -104,54 +104,71 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateFolderInputs>) => {
-  if (!inputs.folderId) {
-    throw new Error('Folder Id is required');
+  const {
+    parentType,
+    parentId,
+    folderId,
+    name,
+    include,
+    exclude,
+    skipRemap,
+    outputVariable,
+  } = inputs;
+
+  if (!name) {
+    throw new Error('Folder name is required');
   }
 
-  log(`Create Folder`);
+  const normalizedParentType = parentType?.toLowerCase();
+  let targetPath: string;
+  let destinationDescription = '';
+
+  if (normalizedParentType === 'workspace') {
+    if (!parentId) {
+      throw new Error('Parent ID is required when parentType is workspace');
+    }
+    targetPath = `/workspaces/${parentId}/folders`;
+    destinationDescription = `workspace ${parentId}`;
+  } else {
+    const effectiveFolderId =
+      normalizedParentType === 'folder'
+        ? parentId || folderId
+        : folderId || parentId;
+
+    if (!effectiveFolderId) {
+      throw new Error(
+        'Folder ID is required when parentType is folder or unspecified',
+      );
+    }
+
+    targetPath = `/folders/${effectiveFolderId}/folders`;
+    destinationDescription = `folder ${effectiveFolderId}`;
+  }
+
+  log(`Creating folder ${name} in ${destinationDescription}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
     }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
+    if (exclude) {
+      queryParams.exclude = exclude;
     }
-    if (inputs.favorite !== undefined) {
-      requestBody.favorite = inputs.favorite;
-    }
-    if (inputs.permalink !== undefined) {
-      requestBody.permalink = inputs.permalink;
-    }
-    if (inputs.folders !== undefined) {
-      requestBody.folders = inputs.folders;
-    }
-    if (inputs.reports !== undefined) {
-      requestBody.reports = inputs.reports;
-    }
-    if (inputs.sheets !== undefined) {
-      requestBody.sheets = inputs.sheets;
-    }
-    if (inputs.sights !== undefined) {
-      requestBody.sights = inputs.sights;
-    }
-    if (inputs.templates !== undefined) {
-      requestBody.templates = inputs.templates;
+    if (skipRemap) {
+      queryParams.skipRemap = skipRemap;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/folders/${inputs.folderId}/folders`,
+      path: targetPath,
       queryParams,
-      body: requestBody,
+      body: { name },
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Folder created successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to create folder: ${errorMessage}`);
+    throw new Error(`Failed to create folder: ${error.message}`);
   }
 };

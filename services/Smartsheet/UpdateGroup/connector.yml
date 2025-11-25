@@ -2,37 +2,26 @@ apiVersion: v1
 kind: Action
 id: update-group
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Update Group
-  description: 'Updates the Group specified in the URL. This operation is only available to group administrators and system administrators.'
-
+  description: Updates a group's properties
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Group Information
     items:
-      - label: Group Id
+      - label: Group ID
         required: true
         variable: groupId
         type: text
-        placeholder: Enter Group Id...
-  - title: Request Data
-    items:
-      - label: Name
-        required: true
+      - label: New Name
+        required: false
         variable: name
         type: text
-        placeholder: Enter Name...
-      - label: Description
+      - label: New Description
         required: false
         variable: description
         type: text
-        placeholder: Enter Description...
-      - label: Owner Id
-        required: false
-        variable: ownerId
-        type: text
-        placeholder: Enter Owner Id...
   - title: Output
     items:
       - label: Output Variable

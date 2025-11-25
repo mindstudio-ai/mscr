@@ -104,28 +104,44 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListDiscussionsWithRowInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const {
+    sheetId,
+    rowId,
+    include,
+    page,
+    pagesize,
+    includeall,
+    outputVariable,
+  } = inputs;
+  if (!sheetId) {
+    throw new Error('sheetId is required');
   }
-  if (!inputs.rowId) {
-    throw new Error('Row Id is required');
+  if (!rowId) {
+    throw new Error('rowId is required');
+  }
+  const path = `/sheets/${sheetId}/rows/${rowId}/discussions`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (include !== undefined && include !== null) {
+    queryParams['include'] = include;
+  }
+  if (page !== undefined && page !== null) {
+    queryParams['page'] = page;
+  }
+  if (pagesize !== undefined && pagesize !== null) {
+    queryParams['pageSize'] = pagesize;
+  }
+  if (includeall !== undefined && includeall !== null) {
+    queryParams['includeAll'] = includeall;
   }
 
-  log(`List Discussions with a Row`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/discussions`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list discussions with a row: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

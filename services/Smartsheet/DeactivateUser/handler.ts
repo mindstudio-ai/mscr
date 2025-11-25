@@ -104,22 +104,17 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeactivateUserInputs>) => {
-  if (!inputs.userId) {
-    throw new Error('User Id is required');
+  const { userId, outputVariable } = inputs;
+  if (!userId) {
+    throw new Error('userId is required');
   }
+  const path = `/users/${userId}/deactivate`;
 
-  log(`Deactivate User ${inputs.userId}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
 
-  try {
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/users/${inputs.userId}/deactivate`,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to deactivate user: ${errorMessage}`);
-  }
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

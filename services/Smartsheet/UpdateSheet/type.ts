@@ -1,7 +1,8 @@
 export interface UpdateSheetInputs {
   sheetId: string;
-  name?: any;
-  projectSettings?: string;
-  userSettings?: string;
+  sheetName?: string;
+  criticalPathEnabled?: '' | 'true' | 'false';
+  dependenciesEnabled?: '' | 'true' | 'false';
+  accessApiLevel?: number;
   outputVariable: string;
 }

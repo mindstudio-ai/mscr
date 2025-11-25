@@ -104,25 +104,24 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetWebhookInputs>) => {
-  if (!inputs.webhookId) {
-    throw new Error('Webhook Id is required');
+  const { webhookId, outputVariable } = inputs;
+
+  if (!webhookId) {
+    throw new Error('Webhook ID is required');
   }
 
-  log(`Get Webhook`);
-
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    log(`Retrieving webhook ${webhookId}...`);
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest({
       method: 'GET',
-      path: `/webhooks/${inputs.webhookId}`,
-      queryParams,
+      path: `/webhooks/${webhookId}`,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully retrieved webhook: ${(result as any).name}`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get webhook: ${errorMessage}`);
+    log(`Error getting webhook: ${error.message}`);
+    throw error;
   }
 };

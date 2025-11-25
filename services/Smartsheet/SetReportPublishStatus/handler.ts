@@ -104,41 +104,44 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<SetReportPublishStatusInputs>) => {
-  if (!inputs.reportId) {
-    throw new Error('Report Id is required');
+  const {
+    reportId,
+    readonlyfullaccessibleby,
+    readonlyfulldefaultview,
+    readonlyfullenabled,
+    readonlyfullshowtoolbar,
+    readonlyfullurl,
+    outputVariable,
+  } = inputs;
+  if (!reportId) {
+    throw new Error('reportId is required');
+  }
+  const path = `/reports/${reportId}/publish`;
+  const body: Record<string, any> = {};
+  if (readonlyfullaccessibleby !== undefined) {
+    body['readOnlyFullAccessibleBy'] = readonlyfullaccessibleby;
+  }
+  if (readonlyfulldefaultview !== undefined) {
+    body['readOnlyFullDefaultView'] = readonlyfulldefaultview;
+  }
+  if (readonlyfullenabled !== undefined) {
+    body['readOnlyFullEnabled'] = readonlyfullenabled;
+  }
+  if (readonlyfullshowtoolbar !== undefined) {
+    body['readOnlyFullShowToolbar'] = readonlyfullshowtoolbar;
+  }
+  if (readonlyfullurl !== undefined) {
+    body['readOnlyFullUrl'] = readonlyfullurl;
   }
 
-  log(`Set a Report\'s publish status`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.readOnlyFullAccessibleBy !== undefined) {
-      requestBody.readOnlyFullAccessibleBy = inputs.readOnlyFullAccessibleBy;
-    }
-    if (inputs.readOnlyFullDefaultView !== undefined) {
-      requestBody.readOnlyFullDefaultView = inputs.readOnlyFullDefaultView;
-    }
-    if (inputs.readOnlyFullEnabled !== undefined) {
-      requestBody.readOnlyFullEnabled = inputs.readOnlyFullEnabled;
-    }
-    if (inputs.readOnlyFullShowToolbar !== undefined) {
-      requestBody.readOnlyFullShowToolbar = inputs.readOnlyFullShowToolbar;
-    }
-    if (inputs.readOnlyFullUrl !== undefined) {
-      requestBody.readOnlyFullUrl = inputs.readOnlyFullUrl;
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'PUT',
-      path: `/reports/${inputs.reportId}/publish`,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to set a report's publish status: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'PUT',
+    path,
+  };
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

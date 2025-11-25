@@ -104,33 +104,32 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateDiscussionInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, title, commentText, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  if (!title) {
+    throw new Error('Discussion title is required');
+  }
+  if (!commentText) {
+    throw new Error('Comment text is required');
   }
 
-  if (!inputs.comment) {
-    throw new Error('Comment is required');
-  }
-
-  log(`Create a Discussion on sheet ${inputs.sheetId}`);
+  log(`Creating discussion: ${title}`);
 
   try {
-    const requestBody = {
-      comment: {
-        text: inputs.comment,
-      },
-    };
-
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/discussions`,
-      body: requestBody,
+      path: `/sheets/${sheetId}/discussions`,
+      body: {
+        title,
+        comment: { text: commentText },
+      },
     });
-
-    log(`Successfully created discussion: ${response.result.id}`);
-    setOutput(inputs.outputVariable, response);
+    log('Discussion created successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to create a discussion: ${errorMessage}`);
+    throw new Error(`Failed to create discussion: ${error.message}`);
   }
 };

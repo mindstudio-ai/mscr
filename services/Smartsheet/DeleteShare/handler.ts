@@ -104,28 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteShareInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, shareId, accessApiLevel, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.shareId) {
-    throw new Error('Share Id is required');
+  if (!shareId) {
+    throw new Error('Share ID is required');
   }
 
-  log(`Delete Sheet Share`);
+  log(`Deleting share ${shareId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, number> = {};
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
 
-    const response = await smartsheetApiRequest({
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${inputs.sheetId}/shares/${inputs.shareId}`,
+      path: `/sheets/${sheetId}/shares/${shareId}`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Share deleted successfully');
+    setOutput(outputVariable, {
+      success: true,
+      deletedShareId: shareId,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete sheet share: ${errorMessage}`);
+    throw new Error(`Failed to delete share: ${error.message}`);
   }
 };

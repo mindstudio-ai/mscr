@@ -5,36 +5,74 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Sheet
-  description: 'Updates the sheet specified in the URL. To modify sheet contents, see Add Rows, Update Rows, Add Columns, and Update Column. This operation can be used to update an individual user''s sheet settings. If the request body contains only the userSettings attribute, this operation may be performed even if the user only has read-only access to the sheet (for example, the user has viewer permissions or the sheet is read-only).'
+  description: Updates properties of an existing sheet such as name and user settings
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
       - label: Sheet Id
         required: true
+        helpText: (Required) Sheet Id of the sheet being accessed.
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-  - title: Request Data
+  - title: Sheet Identification
     items:
-      - label: Name
+      - label: Sheet ID
         required: true
-        variable: name
+        helpText: The ID of the sheet to update
+        variable: sheetId
         type: text
-        placeholder: Enter Name...
-      - label: Project Settings
+        placeholder: Enter sheet ID...
+  - title: Sheet Properties
+    items:
+      - label: New Sheet Name
         required: false
-        variable: projectSettings
+        helpText: New name for the sheet (leave empty to keep current name)
+        variable: sheetName
         type: text
-        placeholder: Enter Project Settings...
-      - label: User Settings
+        placeholder: Updated Sheet Name
+  - title: User Settings
+    collapsed: true
+    items:
+      - label: Critical Path Enabled
         required: false
-        variable: userSettings
-        type: text
-        placeholder: Enter User Settings...
+        helpText: Enable or disable critical path calculation
+        variable: criticalPathEnabled
+        type: select
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+      - label: Dependencies Enabled
+        required: false
+        helpText: Enable or disable dependencies
+        variable: dependenciesEnabled
+        type: select
+        selectOptions:
+          options:
+            - label: No Change
+              value: ''
+            - label: Enable
+              value: 'true'
+            - label: Disable
+              value: 'false'
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Access Api Level
+        required: false
+        helpText: 'Allows COMMENTER access for inputs and return values. For backwards-compatibility, VIEWER is the default. For example, to see whether a user has COMMENTER access for a sheet, use accessApiLevel=1. '
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the updated sheet information
         variable: outputVariable
         type: outputVariableName

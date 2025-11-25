@@ -1,4 +1,4 @@
-import { ShareWorkspaceInputs } from './type';
+import { ShareWorkspaceInputs, ShareWorkspaceQueryParameters } from './type';
 import { IHandlerContext } from '../type';
 import fs from 'fs';
 import FormData from 'form-data';
@@ -103,67 +103,54 @@ export const handler = async ({
   inputs,
   setOutput,
   log,
-}: IHandlerContext<ShareWorkspaceInputs>) => {
-  if (!inputs.workspaceId) {
-    throw new Error('Workspace Id is required');
+}: IHandlerContext<ShareWorkspaceInputs & ShareWorkspaceQueryParameters>) => {
+  const {
+    workspaceId,
+    shares,
+    sendEmail,
+    accessApiLevel,
+    message,
+    outputVariable,
+  } = inputs;
+
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
   }
 
-  log(`Share Workspace`);
+  if (!shares || !Array.isArray(shares) || shares.length === 0) {
+    throw new Error('Shares array is required');
+  }
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
-    }
-    if (inputs.groupId !== undefined) {
-      requestBody.groupId = inputs.groupId;
-    }
-    if (inputs.userId !== undefined) {
-      requestBody.userId = inputs.userId;
-    }
-    if (inputs.type !== undefined) {
-      requestBody.type = inputs.type;
-    }
-    if (inputs.accessLevel !== undefined) {
-      requestBody.accessLevel = inputs.accessLevel;
-    }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
-    }
-    if (inputs.createdAt !== undefined) {
-      requestBody.createdAt = inputs.createdAt;
-    }
-    if (inputs.email !== undefined) {
-      requestBody.email = inputs.email;
-    }
-    if (inputs.message !== undefined) {
-      requestBody.message = inputs.message;
-    }
-    if (inputs.modifiedAt !== undefined) {
-      requestBody.modifiedAt = inputs.modifiedAt;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.scope !== undefined) {
-      requestBody.scope = inputs.scope;
-    }
-    if (inputs.subject !== undefined) {
-      requestBody.subject = inputs.subject;
-    }
+    log(`Sharing workspace ${workspaceId}...`);
 
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/workspaces/${inputs.workspaceId}/shares`,
-      queryParams,
-      body: requestBody,
+    const body = shares.map((share: any) => {
+      if (message) {
+        return { ...share, message };
+      }
+      return share;
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const queryParams: Record<string, boolean | number> = {};
+    if (sendEmail !== undefined) {
+      queryParams.sendEmail = sendEmail;
+    }
+
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    const result = await smartsheetApiRequest({
+      method: 'POST',
+      path: `/workspaces/${workspaceId}/shares`,
+      body,
+      queryParams,
+    });
+
+    log(`Successfully shared workspace with ${shares.length} users/groups`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to share workspace: ${errorMessage}`);
+    log(`Error sharing workspace: ${error.message}`);
+    throw error;
   }
 };

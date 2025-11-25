@@ -104,25 +104,22 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetSheetVersionInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  log(`Get Sheet Version`);
+  log(`Getting version for sheet ${sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/version`,
-      queryParams,
+      path: `/sheets/${sheetId}/version`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Sheet version: ${(response as any).version}`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get sheet version: ${errorMessage}`);
+    throw new Error(`Failed to get sheet version: ${error.message}`);
   }
 };

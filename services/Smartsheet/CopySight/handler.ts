@@ -104,38 +104,34 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CopySightInputs>) => {
-  if (!inputs.sightId) {
-    throw new Error('Sight Id is required');
+  const { sightId, newName, destinationFolderId, outputVariable } = inputs;
+
+  if (!sightId) {
+    throw new Error('Sight ID is required');
+  }
+  if (!newName) {
+    throw new Error('New dashboard name is required');
   }
 
-  if (!inputs.destinationId) {
-    throw new Error('Destination Id is required');
-  }
-
-  log(`Copy Sight ${inputs.sightId} to ${inputs.destinationId}`);
+  log(`Copying dashboard ${sightId} to ${newName}`);
 
   try {
-    const requestBody: any = {
-      destinationId: inputs.destinationId,
+    const copyBody: any = {
+      destinationType: destinationFolderId ? 'folder' : 'home',
+      newName,
     };
-
-    if (inputs.destinationType) {
-      requestBody.destinationType = inputs.destinationType;
-    }
-    if (inputs.newName) {
-      requestBody.newName = inputs.newName;
+    if (destinationFolderId) {
+      copyBody.destinationId = parseInt(destinationFolderId, 10);
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sights/${inputs.sightId}/copy`,
-      body: requestBody,
+      path: `/sights/${sightId}/copy`,
+      body: copyBody,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Dashboard copied successfully');
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to copy dashboard: ${errorMessage}`);
+    throw new Error(`Failed to copy dashboard: ${error.message}`);
   }
 };

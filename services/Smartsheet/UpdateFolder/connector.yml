@@ -5,63 +5,19 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Update Folder
-  description: 'Updates a folder.'
+  description: Updates a folder's name
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Folder Information
     items:
-      - label: Folder Id
+      - label: Folder ID
         required: true
         variable: folderId
         type: text
-        placeholder: Enter Folder Id...
-  - title: Request Data
-    items:
-      - label: Id
-        required: false
-        variable: id
-        type: text
-        placeholder: Enter Id...
-      - label: Name
+      - label: New Name
         required: true
         variable: name
         type: text
-        placeholder: Enter Name...
-      - label: Favorite
-        required: false
-        variable: favorite
-        type: text
-        placeholder: Enter Favorite...
-      - label: Permalink
-        required: false
-        variable: permalink
-        type: text
-        placeholder: Enter Permalink...
-      - label: Folders
-        required: false
-        variable: folders
-        type: text
-        placeholder: Enter Folders...
-      - label: Reports
-        required: false
-        variable: reports
-        type: text
-        placeholder: Enter Reports...
-      - label: Sheets
-        required: false
-        variable: sheets
-        type: text
-        placeholder: Enter Sheets...
-      - label: Sights
-        required: false
-        variable: sights
-        type: text
-        placeholder: Enter Sights...
-      - label: Templates
-        required: false
-        variable: templates
-        type: text
-        placeholder: Enter Templates...
   - title: Output
     items:
       - label: Output Variable

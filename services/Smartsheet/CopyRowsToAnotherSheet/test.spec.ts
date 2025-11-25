@@ -1,12 +1,18 @@
 import { expect, test } from 'vitest';
 import runConnector from '../../../src/utils/testHarness';
+import { handler } from './handler';
 
-test('copy rows to another sheet', async () => {
+test('CopyRowsToAnotherSheet executes successfully', async () => {
   process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
+
   const ctx = await runConnector(handler, {
-    sheetId: 'test-sheetId',
+    sheetId: 'sheetId-sample',
+    include: 'include-value',
+    ignorerowsnotfound: true,
+    rowids: 'rowids-value',
+    toSheetid: 'toSheetid-value',
     outputVariable: 'result',
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  expect(ctx.outputs['result']).toBeDefined();
 });

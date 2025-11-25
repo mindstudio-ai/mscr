@@ -104,30 +104,27 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<IsFavoriteInputs>) => {
-  if (!inputs.favoriteType) {
-    throw new Error('Favorite Type is required');
+  const { favoriteType, favoriteId, include, outputVariable } = inputs;
+  if (!favoriteType) {
+    throw new Error('favoriteType is required');
   }
-  if (!inputs.favoriteId) {
-    throw new Error('Favorite Id is required');
+  if (!favoriteId) {
+    throw new Error('favoriteId is required');
+  }
+  const path = `/favorites/${favoriteType}/${favoriteId}`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (include !== undefined && include !== null) {
+    queryParams['include'] = include;
   }
 
-  log(`Is Favorite`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {
-      include: inputs.include || '',
-    };
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/favorites/${inputs.favoriteType}/${inputs.favoriteId}`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to is favorite: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

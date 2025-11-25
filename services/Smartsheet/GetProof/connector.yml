@@ -2,37 +2,32 @@ apiVersion: v1
 kind: Action
 id: get-proof
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get Proof
-  description: 'Gets the proof specified in the URL. Returns the proof, which is optionally populated with discussion and attachment objects.'
+  description: Gets details of a specific proof request
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Proof Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
-        type: number
-        placeholder: Enter Sheet Id...
+        type: text
       - label: Proof Id
         required: true
+        helpText: (Required) Proof Id of the original proof
         variable: proofId
         type: text
-        placeholder: Enter Proof Id...
-  - title: Query Parameters
+  - title: Query Options
+    collapsed: true
     items:
       - label: Include
         required: false
+        helpText: 'A comma-separated list of optional elements to include in the response. '
         variable: include
-        type: select
-        placeholder: Select Include...
-        selectOptions:
-          options:
-          - label: Attachments
-            value: attachments
-          - label: Discussions
-            value: discussions
+        type: text
+        placeholder: attachments
   - title: Output
     items:
       - label: Output Variable

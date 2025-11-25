@@ -1,10 +1,12 @@
 export interface SendReportInputs {
   reportId: string;
   format?: string;
-  formatDetails?: string;
-  ccMe?: any;
-  message?: any;
-  sendTo?: string;
-  subject?: any;
+  formatdetails?: string;
+  ccme?: string;
+  message?: string;
+  sendto?: string;
+  email?: string;
+  emailValue?: string;
+  subject?: string;
   outputVariable: string;
 }

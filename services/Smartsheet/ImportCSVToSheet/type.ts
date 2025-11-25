@@ -1,5 +1,7 @@
 export interface ImportCSVToSheetInputs {
-  filePath?: string;
-  fileName?: string;
+  fileUrl: string;
+  sheetName: string;
+  headerRowIndex?: string;
+  primaryColumnIndex?: number;
   outputVariable: string;
 }

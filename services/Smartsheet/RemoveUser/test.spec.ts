@@ -1,12 +1,48 @@
-import { expect, test } from 'vitest';
-import runConnector from '../../../src/utils/testHarness';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { handler } from './handler';
 
-test('remove user', async () => {
-  process.env.accessToken = process.env.accessToken;
-  const { handler } = await import('./handler.ts');
-  const ctx = await runConnector(handler, {
-    userId: 'test-userId',
-    outputVariable: 'result',
+describe('RemoveUser', () => {
+  const mockSetOutput = vi.fn();
+  const mockLog = vi.fn();
+  const mockUploadFile = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.accessToken = 'test-token';
   });
-  expect(ctx.outputs['result']).toBeTruthy();
+
+  it('should remove user successfully', async () => {
+    const inputs = {
+      userId: '123456789',
+      transferTo: '987654321',
+      removeFromSharing: true,
+      outputVariable: 'removalResult',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).resolves.not.toThrow();
+
+    expect(mockLog).toHaveBeenCalledWith('Removing user 123456789...');
+  });
+
+  it('should throw error when userId is missing', async () => {
+    const inputs = {
+      outputVariable: 'removalResult',
+    };
+
+    await expect(
+      handler({
+        inputs,
+        setOutput: mockSetOutput,
+        log: mockLog,
+        uploadFile: mockUploadFile,
+      }),
+    ).rejects.toThrow('User ID is required');
+  });
 });

@@ -2,37 +2,26 @@ apiVersion: v1
 kind: Action
 id: add-comment-attachment
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Add Comment Attachment
-  description: '''Attaches a file to the comment. The URL can be any of the following:'' Normal URL (attachmentType "LINK") Box.com URL (attachmentType "BOXCOM") Dropbox URL (attachmentType "DROPBOX") Egnyte URL (attachmentType "EGNYTE") Evernote URL (attachmentType "EVERNOTE") Google Drive URL (attachmentType "GOOGLEDRIVE") * OneDrive URL (attachmentType "ONEDRIVE") This operation can be performed using a simple upload or a multipart upload.'
-
+  description: Attaches a file to a comment
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Comment Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Comment Id
+      - label: Comment ID
         required: true
         variable: commentId
         type: text
-        placeholder: Enter Comment Id...
-  - title: File Upload
-    items:
       - label: File Path
         required: true
         variable: filePath
         type: text
-        placeholder: /path/to/file
-      - label: File Name
-        required: false
-        variable: fileName
-        type: text
-        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable

@@ -104,24 +104,25 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteFolderInputs>) => {
-  if (!inputs.folderId) {
-    throw new Error('Folder Id is required');
+  const { folderId, outputVariable } = inputs;
+
+  if (!folderId) {
+    throw new Error('Folder ID is required');
   }
 
-  log(`Delete Folder`);
+  log(`Deleting folder ${folderId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/folders/${inputs.folderId}`,
+      path: `/folders/${folderId}`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Folder deleted successfully');
+    setOutput(outputVariable, {
+      success: true,
+      deletedFolderId: folderId,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete folder: ${errorMessage}`);
+    throw new Error(`Failed to delete folder: ${error.message}`);
   }
 };

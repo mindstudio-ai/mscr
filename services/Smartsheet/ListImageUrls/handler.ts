@@ -104,38 +104,84 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListImageUrlsInputs>) => {
-
-  log(`List Image URLs`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    
-    // Parse imageUrls if provided as string, otherwise use as-is
-    let requestBody: any = [];
-    if (inputs.imageUrls !== undefined) {
-      if (typeof inputs.imageUrls === 'string') {
-        try {
-          requestBody = JSON.parse(inputs.imageUrls);
-        } catch {
-          throw new Error('Image URLs must be a valid JSON array');
-        }
-      } else if (Array.isArray(inputs.imageUrls)) {
-        requestBody = inputs.imageUrls;
-      } else {
-        requestBody = [inputs.imageUrls];
-      }
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/imageurls`,
-      body: requestBody,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list image urls: ${errorMessage}`);
+  const {
+    imageid,
+    error,
+    refid,
+    errorcode,
+    message,
+    height,
+    url,
+    width,
+    imageidValue,
+    errorValue,
+    refidValue,
+    errorcodeValue,
+    messageValue,
+    heightValue,
+    urlValue,
+    widthValue,
+    outputVariable,
+  } = inputs;
+  const path = `/imageurls`;
+  const body: Record<string, any> = {};
+  if (imageid !== undefined) {
+    body['imageId'] = imageid;
   }
+  if (error !== undefined) {
+    body['error'] = error;
+  }
+  if (refid !== undefined) {
+    body['refId'] = refid;
+  }
+  if (errorcode !== undefined) {
+    body['errorCode'] = errorcode;
+  }
+  if (message !== undefined) {
+    body['message'] = message;
+  }
+  if (height !== undefined) {
+    body['height'] = height;
+  }
+  if (url !== undefined) {
+    body['url'] = url;
+  }
+  if (width !== undefined) {
+    body['width'] = width;
+  }
+  if (imageidValue !== undefined) {
+    body['imageId'] = imageidValue;
+  }
+  if (errorValue !== undefined) {
+    body['error'] = errorValue;
+  }
+  if (refidValue !== undefined) {
+    body['refId'] = refidValue;
+  }
+  if (errorcodeValue !== undefined) {
+    body['errorCode'] = errorcodeValue;
+  }
+  if (messageValue !== undefined) {
+    body['message'] = messageValue;
+  }
+  if (heightValue !== undefined) {
+    body['height'] = heightValue;
+  }
+  if (urlValue !== undefined) {
+    body['url'] = urlValue;
+  }
+  if (widthValue !== undefined) {
+    body['width'] = widthValue;
+  }
+
+  const requestOptions: ApiRequestOptions = {
+    method: 'POST',
+    path,
+  };
+  if (Object.keys(body).length > 0) {
+    requestOptions.body = body;
+  }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

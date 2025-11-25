@@ -104,25 +104,30 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListWorkspaceFoldersInputs>) => {
-  if (!inputs.workspaceId) {
-    throw new Error('Workspace Id is required');
+  const { workspaceId, includeall, page, pagesize, outputVariable } = inputs;
+  if (!workspaceId) {
+    throw new Error('workspaceId is required');
+  }
+  const path = `/workspaces/${workspaceId}/folders`;
+  const queryParams: Record<string, string | number | boolean> = {};
+  if (includeall !== undefined && includeall !== null) {
+    queryParams['includeAll'] = includeall;
+  }
+  if (page !== undefined && page !== null) {
+    queryParams['page'] = page;
+  }
+  if (pagesize !== undefined && pagesize !== null) {
+    queryParams['pageSize'] = pagesize;
   }
 
-  log(`List Workspace Folders`);
-
-  try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
-      method: 'GET',
-      path: `/workspaces/${inputs.workspaceId}/folders`,
-      queryParams,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list workspace folders: ${errorMessage}`);
+  const requestOptions: ApiRequestOptions = {
+    method: 'GET',
+    path,
+  };
+  if (Object.keys(queryParams).length > 0) {
+    requestOptions.queryParams = queryParams;
   }
+
+  const response = await smartsheetApiRequest(requestOptions);
+  setOutput(outputVariable, response);
 };

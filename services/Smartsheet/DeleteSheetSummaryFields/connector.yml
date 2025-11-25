@@ -2,28 +2,36 @@ apiVersion: v1
 kind: Action
 id: delete-sheet-summary-fields
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Delete Sheet Summary Fields
-  description: 'Deletes summary fields from the specified sheet.'
+  description: Deletes one or more summary fields
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Field Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Field IDs
+      - label: Field IDs (comma-separated)
         required: true
+        variable: fieldIds
+        type: text
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Ids
+        required: true
+        helpText: '(Required) A comma-separated list of Sheet Summary Field Ids. '
         variable: ids
         type: text
-        placeholder: Enter Field IDs...
       - label: Ignore Summary Fields Not Found
         required: false
+        helpText: If **true**, the operation will succeed even if some fieldIds are not found.
         variable: ignoreSummaryFieldsNotFound
-        type: text
+        type: checkbox
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

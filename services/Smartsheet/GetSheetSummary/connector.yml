@@ -2,42 +2,33 @@ apiVersion: v1
 kind: Action
 id: get-sheet-summary
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get Sheet Summary
-  description: 'Returns object containing array of summary fields. Allows for pagination of results.'
+  description: Gets the summary fields for a sheet
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Sheet Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
   - title: Query Options
     collapsed: true
     items:
       - label: Include
         required: false
+        helpText: 'A comma-separated list of elements to include in the response. * **format**: includes format info for cells, rows, and summary fields * **writerInfo**: includes createdBy and modifiedBy attributes for'
         variable: include
         type: text
-        placeholder: writerInfo
+        placeholder: format
       - label: Exclude
         required: false
+        helpText: 'A comma-separated list of elements to not include in the response. * **displayValue**: excludes displayValue info for cells, rows, and summary fields * **image**: excludes image attributes for cells a'
         variable: exclude
         type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        placeholder: displayValue
   - title: Output
     items:
       - label: Output Variable

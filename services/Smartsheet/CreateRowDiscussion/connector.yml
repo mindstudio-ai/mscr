@@ -2,31 +2,30 @@ apiVersion: v1
 kind: Action
 id: create-row-discussion
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Create Row Discussion
-  description: 'Creates a new discussion on a row. To create a discussion with an attachment please use "multipart/form-data" content type.'
+  description: Creates a new discussion on a specific row
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Discussion Information
     items:
-      - label: Sheet Id
+      - label: Sheet ID
         required: true
         variable: sheetId
         type: text
-        placeholder: Enter Sheet Id...
-      - label: Row Id
+      - label: Row ID
         required: true
         variable: rowId
         type: text
-        placeholder: Enter Row Id...
-  - title: Request Data
-    items:
-      - label: Comment
+      - label: Title
         required: true
-        variable: comment
+        variable: title
         type: text
-        placeholder: Enter Comment...
+      - label: Comment Text
+        required: true
+        variable: commentText
+        type: text
   - title: Output
     items:
       - label: Output Variable

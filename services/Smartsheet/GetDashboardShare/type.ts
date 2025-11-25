@@ -1,9 +1,6 @@
 export interface GetDashboardShareInputs {
   sightId: string;
   shareId: string;
-  include?: string;
-  exclude?: string;
-  pageSize?: number;
-  page?: number;
+  accessapilevel?: number;
   outputVariable: string;
 }

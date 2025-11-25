@@ -104,27 +104,28 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteAutomationRuleInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, automationRuleId, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.automationRuleId) {
-    throw new Error('Automation Rule Id is required');
+  if (!automationRuleId) {
+    throw new Error('Automation Rule ID is required');
   }
 
-  log(`Delete an Automation Rule`);
+  log(`Deleting automation rule ${automationRuleId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const response = await smartsheetApiRequest({
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${inputs.sheetId}/automationrules/${inputs.automationRuleId}`,
+      path: `/sheets/${sheetId}/automationrules/${automationRuleId}`,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Successfully deleted automation rule');
+    setOutput(outputVariable, {
+      success: true,
+      deletedRuleId: automationRuleId,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete an automation rule: ${errorMessage}`);
+    throw new Error(`Failed to delete automation rule: ${error.message}`);
   }
 };

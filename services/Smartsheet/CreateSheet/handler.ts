@@ -104,33 +104,99 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<CreateSheetInputs>) => {
-  if (!inputs.folderId) {
-    throw new Error('Folder Id is required');
+  const {
+    sheetName,
+    columns,
+    folderId,
+    workspaceId,
+    include,
+    accessApiLevel,
+    outputVariable,
+  } = inputs;
+
+  // Validate required inputs
+  if (!sheetName) {
+    throw new Error('Sheet name is required');
   }
 
-  log(`Create Sheet in Folder`);
+  if (!columns) {
+    throw new Error('Columns definition is required');
+  }
+
+  log(`Creating new sheet: ${sheetName}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.columns !== undefined) {
-      requestBody.columns = inputs.columns;
+    // Build query parameters
+    const queryParams: Record<string, string | number> = {};
+    if (include) {
+      queryParams.include = include;
     }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
+    if (accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = accessApiLevel;
+    }
+
+    // Parse columns
+    const columnArray =
+      typeof columns === 'string' ? JSON.parse(columns) : columns;
+
+    if (!Array.isArray(columnArray) || columnArray.length === 0) {
+      throw new Error('Columns must be a non-empty array');
+    }
+
+    // Prepare sheet object
+    const sheetSpec: any = {
+      name: sheetName,
+      columns: columnArray,
+    };
+
+    let path: string;
+
+    // Create sheet in appropriate location
+    if (workspaceId) {
+      log(`Creating sheet in workspace: ${workspaceId}`);
+      path = `/workspaces/${workspaceId}/sheets`;
+    } else if (folderId) {
+      log(`Creating sheet in folder: ${folderId}`);
+      path = `/folders/${folderId}/sheets`;
+    } else {
+      log('Creating sheet in home');
+      path = '/sheets';
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/folders/${inputs.folderId}/sheets`,
+      path,
       queryParams,
-      body: requestBody,
+      body: sheetSpec,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully created sheet with ID: ${(response as any).id}`);
+
+    // Set output variable
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to create sheet in folder: ${errorMessage}`);
+
+    if (errorMessage.includes('400') || errorMessage.includes('Invalid')) {
+      throw new Error(
+        `Invalid sheet configuration: ${errorMessage}. Check your columns definition.`,
+      );
+    } else if (
+      errorMessage.includes('404') ||
+      errorMessage.includes('Not Found')
+    ) {
+      throw new Error(
+        `Location not found (folder or workspace). Please check the ID.`,
+      );
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
+      throw new Error(
+        `Permission denied. You may not have permission to create sheets in this location.`,
+      );
+    } else {
+      throw new Error(`Failed to create sheet: ${errorMessage}`);
+    }
   }
 };

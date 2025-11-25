@@ -2,45 +2,23 @@ apiVersion: v1
 kind: Action
 id: get-report-publish-settings
 serviceId: smartsheet
-active: true
+active: false
 metadata:
   name: Get Report Publish Settings
-  description: 'Get a Report''s publish settings based on the specified ID'
+  description: Get a Report's publish settings based on the specified ID
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Parameters
     items:
-      - label: Report Id
+      - label: report Id
         required: true
+        helpText: (Required) reportID of the report being accessed.
         variable: reportId
         type: text
-        placeholder: Enter Report Id...
-  - title: Query Options
-    collapsed: true
-    items:
-      - label: Include
-        required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable to store the API response
         variable: outputVariable
         type: outputVariableName

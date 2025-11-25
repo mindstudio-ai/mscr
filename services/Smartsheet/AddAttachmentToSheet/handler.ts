@@ -1,5 +1,7 @@
 import { AddAttachmentToSheetInputs } from './type';
 import { IHandlerContext } from '../type';
+import fs from 'fs';
+import FormData from 'form-data';
 import fetch from 'node-fetch';
 const BASE_URL = 'https://api.smartsheet.com/2.0';
 
@@ -9,6 +11,9 @@ interface ApiRequestOptions {
   queryParams?: Record<string, string | number | boolean | undefined>;
   body?: any;
   headers?: Record<string, string>;
+  multipart?: boolean;
+  filePath?: string;
+  fileName?: string;
 }
 
 const smartsheetApiRequest = async <T = any>(
@@ -35,7 +40,25 @@ const smartsheetApiRequest = async <T = any>(
 
   let body: any = undefined;
 
-  if (options.body) {
+  if (options.multipart && options.filePath) {
+    const form = new FormData();
+    const fileStream = fs.createReadStream(options.filePath);
+    const fileName =
+      options.fileName || options.filePath.split('/').pop() || 'file';
+
+    form.append('file', fileStream, fileName);
+
+    if (options.body) {
+      Object.entries(options.body).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          form.append(key, String(value));
+        }
+      });
+    }
+
+    Object.assign(headers, form.getHeaders());
+    body = form;
+  } else if (options.body) {
     headers['Content-Type'] = 'application/json';
     body = JSON.stringify(options.body);
   }
@@ -81,47 +104,61 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<AddAttachmentToSheetInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, attachmentType, filePath, url, name, outputVariable } =
+    inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
 
-  if (!inputs.attachmentType) {
-    throw new Error('Attachment Type is required');
+  if (attachmentType === 'LINK' && !url) {
+    throw new Error('URL is required for LINK attachments');
   }
 
-  log(`Attach URL to Sheet`);
+  if (attachmentType === 'FILE' && !filePath) {
+    throw new Error('File path is required for FILE attachments');
+  }
+
+  log(`Adding ${attachmentType} attachment to sheet: ${sheetId}`);
 
   try {
-    const body: Record<string, any> = {
-      attachmentType: inputs.attachmentType,
-    };
+    let response;
 
-    if (inputs.url) {
-      body.url = inputs.url;
+    if (attachmentType === 'LINK') {
+      response = await smartsheetApiRequest({
+        method: 'POST',
+        path: `/sheets/${sheetId}/attachments`,
+        body: {
+          attachmentType: 'LINK',
+          url,
+          name: name || url,
+        },
+      });
+    } else {
+      response = await smartsheetApiRequest({
+        method: 'POST',
+        path: `/sheets/${sheetId}/attachments`,
+        multipart: true,
+        filePath,
+        fileName: name,
+      });
     }
 
-    if (inputs.name) {
-      body.name = inputs.name;
-    }
+    log(`Successfully added attachment with ID: ${(response as any).id}`);
 
-    if (inputs.description) {
-      body.description = inputs.description;
-    }
-
-    if (inputs.attachmentSubType) {
-      body.attachmentSubType = inputs.attachmentSubType;
-    }
-
-    const response = await smartsheetApiRequest({
-      method: 'POST',
-      path: `/sheets/${inputs.sheetId}/attachments`,
-      body,
-    });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    setOutput(outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to attach url to sheet: ${errorMessage}`);
+
+    if (errorMessage.includes('404') || errorMessage.includes('Not Found')) {
+      throw new Error(`Sheet not found: ${sheetId}`);
+    } else if (
+      errorMessage.includes('403') ||
+      errorMessage.includes('Permission')
+    ) {
+      throw new Error('Permission denied. Editor access required.');
+    } else {
+      throw new Error(`Failed to add attachment: ${errorMessage}`);
+    }
   }
 };

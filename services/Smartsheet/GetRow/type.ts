@@ -1,9 +1,12 @@
 export interface GetRowInputs {
-  sheetId: number;
-  rowId: number;
+  sheetId: string;
+  rowId: string;
+  includeDiscussions?: boolean;
+  includeAttachments?: boolean;
+  includeColumns?: boolean;
   accessApiLevel?: number;
   include?: string;
   exclude?: string;
-  level?: 0 | 1 | 2;
+  level?: number;
   outputVariable: string;
 }

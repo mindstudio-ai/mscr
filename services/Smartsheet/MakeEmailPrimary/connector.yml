@@ -5,25 +5,27 @@ serviceId: smartsheet
 active: false
 metadata:
   name: Make Email Primary
-  description: 'Makes the specified alternate email address to become the primary email address for the specified user. This operation is only available to system administrators The alternate email address can only be made primary if both conditions are met: The primary email address domain is validated * The alternate email address is confirmed or the alternate email address domain is validated'
-
+  description: Makes an alternate email the primary email for a user
   quickHelp: readme.md
 configuration:
-  - title: Resource Information
+  - title: Email Information
     items:
-      - label: User Id
+      - label: User ID
         required: true
+        helpText: The ID of the user
         variable: userId
         type: text
-        placeholder: Enter User Id...
-      - label: Alternate Email Id
+        placeholder: Enter user ID...
+      - label: Alternate Email ID
         required: true
+        helpText: The ID of the alternate email to make primary
         variable: alternateEmailId
         type: text
-        placeholder: Enter Alternate Email Id...
+        placeholder: Enter alternate email ID...
   - title: Output
     items:
       - label: Output Variable
         required: true
+        helpText: Variable name to store the updated email info
         variable: outputVariable
         type: outputVariableName

@@ -1,8 +1,10 @@
 export interface GetSheetSummaryFieldInputs {
   sheetId: string;
+  fieldId: string;
+  includeAll?: boolean;
+  page?: number;
+  pageSize?: number;
   include?: string;
   exclude?: string;
-  pageSize?: number;
-  page?: number;
   outputVariable: string;
 }

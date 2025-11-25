@@ -1,6 +1,6 @@
 export interface GetProofInputs {
-  sheetId: number;
+  sheetId: string;
   proofId: string;
-  include?: "attachments" | "discussions" | undefined;
+  include?: string;
   outputVariable: string;
 }

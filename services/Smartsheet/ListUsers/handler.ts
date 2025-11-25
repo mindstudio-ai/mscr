@@ -104,22 +104,68 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<ListUsersInputs>) => {
-
-  log(`List Users`);
+  const {
+    email,
+    planId,
+    seatType,
+    includeAll,
+    numericDates,
+    page,
+    pageSize,
+    include,
+    modifiedSince,
+    outputVariable,
+  } = inputs;
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    log('Listing users in organization...');
 
-    const response = await smartsheetApiRequest({
+    const queryParams: Record<string, string | number | boolean> = {};
+    if (email) {
+      queryParams.email = email;
+    }
+    if (planId) {
+      queryParams.planId = planId;
+    }
+    if (seatType) {
+      queryParams.seatType = seatType;
+    }
+    if (includeAll !== undefined) {
+      queryParams.includeAll = includeAll;
+    }
+    if (numericDates !== undefined) {
+      queryParams.numericDates = numericDates;
+    }
+    if (page !== undefined) {
+      queryParams.page = page;
+    }
+    if (pageSize !== undefined) {
+      queryParams.pageSize = pageSize;
+    }
+    if (include) {
+      queryParams.include = include;
+    }
+    if (modifiedSince) {
+      queryParams.modifiedSince = modifiedSince;
+    }
+
+    log(`Listing users with options: ${JSON.stringify(queryParams)}`);
+
+    const result = await smartsheetApiRequest<{
+      data: any[];
+      totalCount?: number;
+    }>({
       method: 'GET',
-      path: `/users`,
+      path: '/users',
       queryParams,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    const totalCount =
+      (result as any).totalCount || (result as any).data?.length || 0;
+    log(`Successfully retrieved ${totalCount} users`);
+    setOutput(outputVariable, result);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to list users: ${errorMessage}`);
+    log(`Error listing users: ${error.message}`);
+    throw error;
   }
 };

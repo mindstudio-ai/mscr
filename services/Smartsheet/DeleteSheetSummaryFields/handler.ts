@@ -104,33 +104,45 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<DeleteSheetSummaryFieldsInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
-  }
+  const {
+    sheetId,
+    fieldIds,
+    ids,
+    ignoreSummaryFieldsNotFound,
+    outputVariable,
+  } = inputs;
 
-  if (!inputs.ids) {
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
+  }
+  const rawIds = ids || fieldIds;
+  if (!rawIds) {
     throw new Error('Field IDs are required');
   }
 
-  log(`Delete Summary Fields ${inputs.ids}`);
+  log('Deleting sheet summary fields');
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {
-      ids: inputs.ids,
-      ignoreSummaryFieldsNotFound:
-        inputs.ignoreSummaryFieldsNotFound === 'true',
+    const idArray = rawIds.split(',').map((id: string) => id.trim());
+    const queryParams: Record<string, string | boolean> = {
+      ids: idArray.join(','),
     };
+    if (ignoreSummaryFieldsNotFound !== undefined) {
+      queryParams.ignoreSummaryFieldsNotFound = ignoreSummaryFieldsNotFound;
+    }
 
-    const response = await smartsheetApiRequest({
+    await smartsheetApiRequest({
       method: 'DELETE',
-      path: `/sheets/${inputs.sheetId}/summary/fields`,
+      path: `/sheets/${sheetId}/summary/fields`,
       queryParams,
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Deleted ${idArray.length} field(s) successfully`);
+    setOutput(outputVariable, {
+      success: true,
+      deletedCount: idArray.length,
+      deletedFieldIds: idArray,
+    });
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete summary fields: ${errorMessage}`);
+    throw new Error(`Failed to delete sheet summary fields: ${error.message}`);
   }
 };

@@ -104,30 +104,39 @@ export const handler = async ({
   setOutput,
   log,
 }: IHandlerContext<GetProofInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+  const { sheetId, proofId, include, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.proofId) {
-    throw new Error('Proof Id is required');
+  if (!proofId) {
+    throw new Error('Proof ID is required');
   }
 
-  log(`Get Proof for sheet ${inputs.sheetId} and proof ${inputs.proofId} with include ${inputs.include}`);
+  log(`Getting proof ${proofId}`);
 
   try {
-    const queryParams = {
-      include: inputs.include,
-    };
+    const queryParams: Record<string, string> = {};
+    if (include) {
+      queryParams.include = include;
+    }
 
-    const response = await smartsheetApiRequest({
+    const result = await smartsheetApiRequest({
       method: 'GET',
-      path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}`,
+      path: `/sheets/${sheetId}/proofs/${proofId}`,
       queryParams,
     });
 
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log('Retrieved proof successfully');
+    setOutput(outputVariable, result);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get proof for sheet ${inputs.sheetId} and proof ${inputs.proofId} with include ${inputs.include}: ${errorMessage}`);
+    if (errorMessage.includes('403') || errorMessage.includes('Permission')) {
+      throw new Error(
+        'Permission denied. You may not have access to this proof.',
+      );
+    } else {
+      throw new Error(`Failed to get proof: ${errorMessage}`);
+    }
   }
 };
