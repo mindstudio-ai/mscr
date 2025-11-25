@@ -11,16 +11,6 @@ configuration:
   - title: Query Options
     collapsed: true
     items:
-      - label: Include
-        required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
       - label: Page Size
         required: false
         variable: pageSize

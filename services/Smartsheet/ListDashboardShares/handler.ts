@@ -108,15 +108,12 @@ export const handler = async ({
     throw new Error('Sight Id is required');
   }
 
-  log(`List Dashboard Shares`);
+  log(`List Dashboard Shares ${inputs.sightId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sights/${inputs.sightId}/shares`,
-      queryParams,
     });
 
     log('Successfully completed operation');

@@ -108,16 +108,12 @@ export const handler = async ({
     throw new Error('User Id is required');
   }
 
-  log(`Deactivate User`);
+  log(`Deactivate User ${inputs.userId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/users/${inputs.userId}/deactivate`,
-      body: requestBody,
     });
 
     log('Successfully completed operation');
