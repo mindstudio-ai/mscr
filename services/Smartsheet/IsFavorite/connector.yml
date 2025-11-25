@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: is-favorite
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Is Favorite
   description: 'Checks whether an item has been tagged as a favorite for the current user by type and ID.'

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: add-favorites
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Add Favorites
   description: 'Adds one or more favorite items for the current user. This operation supports both single-object and bulk semantics. For more information, see Optional Bulk Operations. If called with a single Favorite object, and that favorite already exists, error code 1129 is returned. If called with an array of Favorite objects, any objects specified in the array that are already marked as favorites are ignored and omitted from the response.'

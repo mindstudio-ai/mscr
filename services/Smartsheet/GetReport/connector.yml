@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-report
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Report
   description: 'Gets a report based on the specified ID'

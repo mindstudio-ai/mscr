@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-sheet-attachments
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Sheet Attachments
   description: 'Gets a list of all attachments that are on the sheet, including sheet, row, and discussion-level attachments.'

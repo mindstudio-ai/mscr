@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: add-user
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Add User
   description: 'Adds a user to the organization account. This operation is only available to system administrators If successful, and user auto provisioning (UAP) is on, and user matches the auto provisioning rules, user is added to the org. If UAP is off, or user does not match UAP rules, user is invited to the org and must explicitly accept the invitation to join. * In some specific scenarios, supplied attributes such as firstName and lastName may be ignored. For example, if you are inviting an existing Smartsheet user to join your organization account, and the invited user has not yet accepted your invitation, any supplied firstName and lastName are ignored.'

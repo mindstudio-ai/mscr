@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-automation-rule
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Automation Rule
   description: 'Returns the specified automation rule, including any action values.'

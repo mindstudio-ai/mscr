@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-current-user
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Current User
   description: 'Gets the current user NOTE: For system administrators, the following UserProfile attributes are included in the response: customWelcomeScreenViewed (only returned when an Enterprise user has viewed the Custom Welcome Screen) lastLogin (only returned if the user has logged in) * sheetCount (only returned if the status attribute is ACTIVE; however, to increase performance, this returns a static ''0'')'

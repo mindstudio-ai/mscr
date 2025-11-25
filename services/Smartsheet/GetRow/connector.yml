@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-row
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Row
   description: 'Gets the row specified in the URL.'

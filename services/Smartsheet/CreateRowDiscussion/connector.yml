@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: create-row-discussion
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Create Row Discussion
   description: 'Creates a new discussion on a row. To create a discussion with an attachment please use "multipart/form-data" content type.'

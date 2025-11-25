@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: add-cell-image
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Add Cell Image
   description: 'Uploads an image to the specified cell within a sheet.'

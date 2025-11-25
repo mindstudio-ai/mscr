@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-sheet
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Sheet
   description: 'Gets a sheet in the format specified, based on the sheet Id.'

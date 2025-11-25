@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-organization-sheets
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Organization Sheets
   description: 'Gets a summarized list of all sheets owned by the members of the organization account. This operation is only available to system administrators You may use the query string parameter numericDates with a value of true to enable strict parsing of dates in numeric format. See Dates and Times for more information.'

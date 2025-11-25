@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-contacts
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Contacts
   description: 'Gets a list of the user''s Smartsheet contacts.'

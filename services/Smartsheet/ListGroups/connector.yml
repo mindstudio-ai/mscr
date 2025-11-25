@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-groups
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Groups
   description: 'Gets a list of all groups in an organization account. To fetch the members of an individual group, use the Get Group operation.'

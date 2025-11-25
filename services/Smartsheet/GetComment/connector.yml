@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-comment
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Comment
   description: 'Gets the comment specified by commentId.'

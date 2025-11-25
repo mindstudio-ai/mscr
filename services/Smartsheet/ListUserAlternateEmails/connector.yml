@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: listUserAlternateEmails
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List User Alternate Emails
   description: 'Lists all alternate email addresses for a user'

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: remove-favorites
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Remove Favorites
   description: 'Deletes all favorites with the same type for the user.'

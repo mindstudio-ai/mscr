@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: move-rows-to-another-sheet
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Move Rows To Another Sheet
   description: 'Moves rows from the sheet specified in the URL to (the bottom of) another sheet.'

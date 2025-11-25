@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: revoke-access-token
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Revoke Access Token
   description: 'Revokes the access token used to make this request. The access token is no longer valid, and subsequent API calls made using the token fail.'

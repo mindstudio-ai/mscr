@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-sheet-publish
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Sheet Publish
   description: 'Gets the sheet''s ''Publish'' settings.'

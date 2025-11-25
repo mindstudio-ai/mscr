@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-column
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Column
   description: '''Gets definitions for the column specified in the URL. NOTE: If you need to see the values of individual cells within the column, use Get Sheet or Get Row.'''

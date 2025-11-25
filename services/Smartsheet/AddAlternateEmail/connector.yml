@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: add-alternate-email
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Add Alternate Email
   description: 'Adds one or more alternate email addresses for the specified user. This operation is only available to system administrators.'

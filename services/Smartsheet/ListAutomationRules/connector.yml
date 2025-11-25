@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-automation-rules
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Automation Rules
   description: 'Returns all automation rules associated with the specified sheet. Multistep workflows are not returned via the API. Instead, you''ll see an error 400 - 1266: This rule is not accessible through the API. Only single-action notifications, approval requests, or update requests qualify. For users of Smartsheet for Slack, note that Slack notifications are not returned.'

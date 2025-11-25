@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: delete-proof
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Delete Proof
   description: 'Deletes the proof including all versions. The proofId must be for the original version.'

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-folders
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Folders
   description: 'Lists all folders in a workspace'

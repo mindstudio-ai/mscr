@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: set-sheet-publish
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Set Sheet Publish
   description: 'Sets the publish status of the sheet and returns the new status, including the URLs of any enabled publishings.'

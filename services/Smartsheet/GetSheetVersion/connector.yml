@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-sheet-version
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Sheet Version
   description: 'Gets the sheet version without loading the entire sheet. The following actions increment sheet version: add/modify cell value add/modify discussion/comment add/modify row add/remove/update version attachment cell updated via cell link change formatting'

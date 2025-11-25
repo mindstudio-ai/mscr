@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-report-publish-settings
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Report Publish Settings
   description: 'Get a Report''s publish settings based on the specified ID'

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-attachment-versions
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Attachment Versions
   description: 'Gets a list of all versions of the given attachmentId in order from newest to oldest.'

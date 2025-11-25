@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-alternate-email
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Alternate Email
   description: 'Gets the specified alternate email.'

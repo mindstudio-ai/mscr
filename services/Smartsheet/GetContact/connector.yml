@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-contact
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Contact
   description: 'Gets the specified contact.'

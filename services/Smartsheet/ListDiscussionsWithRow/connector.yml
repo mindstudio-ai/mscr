@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: list-discussions-with-row
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: List Discussions With Row
   description: 'Gets a list of all discussions associated with the specified row. Remember that discussions are containers for the conversation thread. To see the entire thread, use the include=comments parameter.'

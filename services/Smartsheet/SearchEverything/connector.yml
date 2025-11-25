@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: search-everything
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Search Everything
   description: '''Searches all sheets that the user can access, for the specified text. If you have not used the public API in a while, we will need to provision your data. This could take up to 24 hours so please check back later!'''

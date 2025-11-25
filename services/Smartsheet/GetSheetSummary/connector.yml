@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Action
 id: get-sheet-summary
 serviceId: smartsheet
-active: false
+active: true
 metadata:
   name: Get Sheet Summary
   description: 'Returns object containing array of summary fields. Allows for pagination of results.'
