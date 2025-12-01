@@ -1,7 +1,7 @@
 export interface UpdateGroupInputs {
   groupId: string;
-  name?: any;
-  description?: any;
-  ownerId?: any;
+  name: string;
+  description?: string;
+  ownerId?: string;
   outputVariable: string;
 }

@@ -20,29 +20,22 @@ configuration:
         variable: columnId
         type: text
         placeholder: Enter Column Id...
-  - title: Query Options
+  - title: Level
     collapsed: true
     items:
-      - label: Include
+      - label: Level
         required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
-      - label: Page Size
-        required: false
-        variable: pageSize
-        type: number
-        defaultValue: 100
-      - label: Page
-        required: false
-        variable: page
-        type: number
-        defaultValue: 1
+        variable: level
+        type: select
+        placeholder: Select Level (0, 1, 2)...
+        selectOptions:
+          options:
+          - label: 1
+            value: 1
+          - label: 2
+            value: 2
+          - label: 3
+            value: 3
   - title: Output
     items:
       - label: Output Variable

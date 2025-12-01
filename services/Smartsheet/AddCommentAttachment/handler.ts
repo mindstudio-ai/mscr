@@ -110,18 +110,35 @@ export const handler = async ({
   if (!inputs.commentId) {
     throw new Error('Comment Id is required');
   }
+  
+  if (!inputs.url) {
+    throw new Error('URL is required');
+  }
 
-  log(`Attach File or URL to Comment`);
+  const body: Record<string, any> = {
+    name: inputs.name,
+    url: inputs.url,
+  };
+
+  if (inputs.description) {
+    body.description = inputs.description;
+  }
+
+  if (inputs.attachmentSubType) {
+    body.attachmentSubType = inputs.attachmentSubType;
+  }
+  
+  if (inputs.attachmentType) {
+    body.attachmentType = inputs.attachmentType;
+  }
+
+  log(`Add Attachment to Comment ${inputs.commentId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/comments/${inputs.commentId}/attachments`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
+      body,
     });
 
     log('Successfully completed operation');

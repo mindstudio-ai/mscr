@@ -25,8 +25,13 @@ configuration:
       - label: Is Completed
         required: false
         variable: isCompleted
-        type: text
-        placeholder: Enter Is Completed...
+        type: select
+        selectOptions:
+          options:
+            - label: Yes
+              value: 'yes'
+            - label: No
+              value: 'no'
   - title: Output
     items:
       - label: Output Variable

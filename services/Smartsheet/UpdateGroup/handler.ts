@@ -108,18 +108,16 @@ export const handler = async ({
     throw new Error('Group Id is required');
   }
 
-  log(`Update Group`);
+  log(`Update group ${inputs.groupId} with name ${inputs.name}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.description !== undefined) {
+    const requestBody: Record<string, string> = {
+      name: inputs.name,
+    };
+    if (inputs.description) {
       requestBody.description = inputs.description;
     }
-    if (inputs.ownerId !== undefined) {
+    if (inputs.ownerId) {
       requestBody.ownerId = inputs.ownerId;
     }
 
@@ -129,7 +127,7 @@ export const handler = async ({
       body: requestBody,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully completed operation to update group ${inputs.groupId}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';

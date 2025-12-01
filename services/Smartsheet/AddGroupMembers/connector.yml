@@ -18,31 +18,11 @@ configuration:
         placeholder: Enter Group Id...
   - title: Request Data
     items:
-      - label: Id
-        required: false
-        variable: id
-        type: text
-        placeholder: Enter Id...
-      - label: Email
+      - label: Enter Emails
         required: true
-        variable: email
+        variable: emails
         type: text
-        placeholder: Enter Email...
-      - label: First Name
-        required: false
-        variable: firstName
-        type: text
-        placeholder: Enter First Name...
-      - label: Last Name
-        required: false
-        variable: lastName
-        type: text
-        placeholder: Enter Last Name...
-      - label: Name
-        required: true
-        variable: name
-        type: text
-        placeholder: Enter Name...
+        placeholder: user1@example.com, user2@example.com, user3@example.com
   - title: Output
     items:
       - label: Output Variable

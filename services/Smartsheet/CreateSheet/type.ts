@@ -1,6 +1,6 @@
 export interface CreateSheetInputs {
   folderId: string;
   columns?: string;
-  name?: any;
+  name?: string;
   outputVariable: string;
 }

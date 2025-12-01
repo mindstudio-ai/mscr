@@ -21,18 +21,63 @@ configuration:
         variable: commentId
         type: text
         placeholder: Enter Comment Id...
-  - title: File Upload
+  - title: Attachment Information
     items:
-      - label: File Path
-        required: true
-        variable: filePath
-        type: text
-        placeholder: /path/to/file
-      - label: File Name
+      - label: Attachment Sub Type
         required: false
-        variable: fileName
+        variable: attachmentSubType
+        type: select
+        placeholder: Select Attachment Sub Type...
+        selectOptions:
+          options:
+          - label: SPREADSHEET
+            value: SPREADSHEET
+          - label: DOCUMENT
+            value: DOCUMENT
+          - label: DRAWING
+            value: DRAWING
+          - label: FOLDER
+            value: FOLDER
+          - label: PDF
+            value: PDF
+          - label: PRESENTATION
+            value: PRESENTATION
+      - label: Attachment Type
+        required: false
+        variable: attachmentType
+        type: select
+        placeholder: Select Attachment Type...
+        selectOptions:
+          options:
+          - label: LINK
+            value: LINK
+          - label: BOXCOM
+            value: BOXCOM
+          - label: DROPBOX
+            value: DROPBOX
+          - label: EGNYTE
+            value: EGNYTE
+          - label: EVERNOTE
+            value: EVERNOTE
+          - label: GOOGLEDRIVE
+            value: GOOGLEDRIVE
+          - label: ONEDRIVE
+            value: ONEDRIVE
+      - label: Description
+        required: false
+        variable: description
         type: text
-        placeholder: filename.ext
+        placeholder: Enter Description...
+      - label: Name
+        required: true
+        variable: name
+        type: text
+        placeholder: Enter Name...
+      - label: URL
+        required: true
+        variable: url
+        type: text
+        placeholder: Enter URL...
   - title: Output
     items:
       - label: Output Variable

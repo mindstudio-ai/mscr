@@ -108,26 +108,24 @@ export const handler = async ({
     throw new Error('Folder Id is required');
   }
 
-  log(`Create Sheet in Folder`);
+  log(`Create Sheet in Folder ${inputs.folderId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.columns !== undefined) {
-      requestBody.columns = inputs.columns;
+      const requestBody: Record<string, any> = {};
+    if (inputs.columns) {
+      requestBody.columns = JSON.parse(inputs.columns);
     }
-    if (inputs.name !== undefined) {
+    if (inputs.name) {
       requestBody.name = inputs.name;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/folders/${inputs.folderId}/sheets`,
-      queryParams,
       body: requestBody,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully completed operation to create sheet in folder ${inputs.folderId}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';

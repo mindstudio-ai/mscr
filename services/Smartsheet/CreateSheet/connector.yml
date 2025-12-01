@@ -21,7 +21,7 @@ configuration:
         required: false
         variable: columns
         type: text
-        placeholder: Enter Columns...
+        placeholder: Enter Columns in JSON format...
       - label: Name
         required: true
         variable: name

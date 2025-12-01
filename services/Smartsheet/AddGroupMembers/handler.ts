@@ -1,8 +1,9 @@
-import { AddGroupMembersInputs } from './type';
-import { IHandlerContext } from '../type';
 import fs from 'fs';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
+import { AddGroupMembersInputs } from './type';
+import { IHandlerContext } from '../type';
+
 const BASE_URL = 'https://api.smartsheet.com/2.0';
 
 interface ApiRequestOptions {
@@ -99,6 +100,13 @@ const smartsheetApiRequest = async <T = any>(
   return (await response.text()) as T;
 };
 
+const parseEmailsStringToArray = (emails: string | string[]): string[] => {
+  if (typeof emails === 'string') {
+    return emails.split('\n').map((email) => email.trim());
+  }
+  return emails;
+};
+
 export const handler = async ({
   inputs,
   setOutput,
@@ -108,26 +116,10 @@ export const handler = async ({
     throw new Error('Group Id is required');
   }
 
-  log(`Add Group Members`);
+  log(`Add Group Members to group ${inputs.groupId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
-    }
-    if (inputs.email !== undefined) {
-      requestBody.email = inputs.email;
-    }
-    if (inputs.firstName !== undefined) {
-      requestBody.firstName = inputs.firstName;
-    }
-    if (inputs.lastName !== undefined) {
-      requestBody.lastName = inputs.lastName;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
+    const requestBody: {email: string}[] = parseEmailsStringToArray(inputs.emails).map((email) => ({ email: email }));
 
     const response = await smartsheetApiRequest({
       method: 'POST',
@@ -135,7 +127,7 @@ export const handler = async ({
       body: requestBody,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully completed operation to add group members to group ${inputs.groupId}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';

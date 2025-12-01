@@ -111,13 +111,12 @@ export const handler = async ({
     throw new Error('Proof Id is required');
   }
 
-  log(`Update Proof Status`);
+  log(`Update Proof Status for proof ${inputs.proofId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.isCompleted !== undefined) {
-      requestBody.isCompleted = inputs.isCompleted;
+    const requestBody: Record<string, boolean> = {};
+    if (inputs.isCompleted) {
+      requestBody.isCompleted = inputs.isCompleted==='yes' ? true : false;
     }
 
     const response = await smartsheetApiRequest({
@@ -126,7 +125,7 @@ export const handler = async ({
       body: requestBody,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully completed operation to update proof status for proof ${inputs.proofId}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
