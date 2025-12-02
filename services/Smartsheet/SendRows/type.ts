@@ -2,8 +2,8 @@ export interface SendRowsInputs {
   sheetId: string;
   rowIds?: string;
   columnIds?: string;
-  includeAttachments?: boolean;
-  includeDiscussions?: boolean;
+  includeAttachments: string;
+  includeDiscussions: string;
   layout?: 'HORIZONTAL' | 'VERTICAL';
   ccMe?: any;
   message?: any;

@@ -108,20 +108,29 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`Sort Rows in Sheet`);
+  if (!inputs.sortCriteria) {
+    throw new Error('Sort Criteria is required');
+  }
+
+  log(`Sort Rows in Sheet: ${inputs.sortCriteria}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.sortCriteria !== undefined) {
-      requestBody.sortCriteria = inputs.sortCriteria;
-    }
+
+    let requestBody: any = {};
+      try {
+        requestBody = JSON.parse(inputs.sortCriteria);
+      } catch (parseError: any) {
+        throw new Error(`Invalid sortCriteria JSON format: ${parseError.message}`);
+      }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/sort`,
-      queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

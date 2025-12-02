@@ -21,22 +21,22 @@ configuration:
         required: false
         variable: rowIds
         type: text
-        placeholder: Enter Row Ids...
+        placeholder: Enter comma-separated Row Ids...
       - label: Column Ids
         required: false
         variable: columnIds
         type: text
-        placeholder: Enter Column Ids...
+        placeholder: Enter comma-separated Column Ids...
       - label: Include Attachments
-        required: false
+        required: true
         variable: includeAttachments
-        type: boolean
-        defaultValue: false
+        type: text
+        placeholder: Enter 'true' or 'false'...
       - label: Include Discussions
-        required: false
+        required: true
         variable: includeDiscussions
-        type: boolean
-        defaultValue: false
+        type: text
+        placeholder: Enter 'true' or 'false'...
       - label: Layout
         required: false
         variable: layout
@@ -47,12 +47,14 @@ configuration:
             value: HORIZONTAL
           - label: VERTICAL
             value: VERTICAL
+          - label: false
+            value: false
         placeholder: Select Layout...
       - label: Cc Me
         required: false
         variable: ccMe
         type: text
-        placeholder: Enter Cc Me...
+        placeholder: Enter 'true' or 'false'...
       - label: Message
         required: false
         variable: message
@@ -62,7 +64,7 @@ configuration:
         required: false
         variable: sendTo
         type: text
-        placeholder: Enter Send To...
+        placeholder: Enter comma-separated email addresses...
       - label: Subject
         required: false
         variable: subject

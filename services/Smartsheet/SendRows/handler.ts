@@ -100,7 +100,7 @@ const smartsheetApiRequest = async <T = any>(
 };
 
 const parseIdsStringToArray = (idsString: string) => {
-  return idsString?.split(',').map((id: string) => parseInt(id.trim()));
+  return idsString?.split(',').map((id: string) => parseFloat(id.trim()));
 }
 
 export const handler = async ({
@@ -112,46 +112,56 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
+  if (!inputs.includeAttachments) {
+    throw new Error('Include Attachments is required');
+  }
+  if (!inputs.includeDiscussions) {
+    throw new Error('Include Discussions is required');
+  }
+
   log(`Send Rows via Email`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {
-      columnIds: [],
-      rowIds: [],
-      includeAttachments: false,
-      includeDiscussions: false,
-      layout: undefined,
-      ccMe: undefined,
-      message: undefined,
-      sendTo: undefined,
-      subject: undefined,
-    };
-    if (inputs.rowIds !== undefined) {
+    const requestBody: any = {};
+
+    if (inputs.rowIds !== undefined && inputs.rowIds && inputs.rowIds.trim() !== '') {
       requestBody.rowIds = parseIdsStringToArray(inputs.rowIds);
     }
-    if (inputs.columnIds !== undefined) {
+    if (inputs.columnIds !== undefined && inputs.columnIds && inputs.columnIds.trim() !== '') {
       requestBody.columnIds = parseIdsStringToArray(inputs.columnIds);
     }
-    if (inputs.includeAttachments !== undefined) {
-      requestBody.includeAttachments = inputs.includeAttachments ? true : false;
-    }
-    if (inputs.includeDiscussions !== undefined) {
-      requestBody.includeDiscussions = inputs.includeDiscussions ? true : false;
-    }
+    requestBody.includeAttachments = inputs.includeAttachments === 'true';
+    requestBody.includeDiscussions = inputs.includeDiscussions === 'true';
     if (inputs.layout !== undefined) {
-      requestBody.layout = inputs.layout;
+      // Handle layout as boolean (false) or string ('HORIZONTAL' | 'VERTICAL')
+      const layoutValue = inputs.layout as any;
+      if (layoutValue === 'false' || layoutValue === false) {
+        requestBody.layout = false;
+      } else if (layoutValue === 'true' || layoutValue === true) {
+        requestBody.layout = true;
+      } else if (layoutValue === 'HORIZONTAL' || layoutValue === 'VERTICAL') {
+        requestBody.layout = layoutValue;
+      } else {
+        requestBody.layout = layoutValue;
+      }
     }
     if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
+      // Handle boolean string or boolean
+      if (typeof inputs.ccMe === 'string') {
+        requestBody.ccMe = inputs.ccMe === 'true';
+      } else {
+        requestBody.ccMe = inputs.ccMe;
+      }
     }
-    if (inputs.message !== undefined) {
+    if (inputs.message !== undefined && inputs.message !== '') {
       requestBody.message = inputs.message;
     }
-    if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = [{ email: inputs.sendTo }];
+    if (inputs.sendTo !== undefined && inputs.sendTo && inputs.sendTo.trim() !== '') {
+      // Support multiple emails (comma-separated)
+      const emails = inputs.sendTo.split(',').map((email: string) => email.trim()).filter((email: string) => email !== '');
+      requestBody.sendTo = emails.map((email: string) => ({ email }));
     }
-    if (inputs.subject !== undefined) {
+    if (inputs.subject !== undefined && inputs.subject !== '') {
       requestBody.subject = inputs.subject;
     }
 
@@ -159,6 +169,10 @@ export const handler = async ({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/rows/emails`,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

@@ -21,7 +21,7 @@ configuration:
         required: false
         variable: sortCriteria
         type: text
-        placeholder: Enter Sort Criteria...
+        placeholder: 'Enter JSON array: [{"columnId": 123, "direction": "ASCENDING"}]'
   - title: Output
     items:
       - label: Output Variable
