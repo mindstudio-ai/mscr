@@ -20,18 +20,16 @@ configuration:
         variable: proofId
         type: text
         placeholder: Enter Proof Id...
-  - title: File Upload
-    items:
-      - label: File Path
+      - label: File Url
         required: true
-        variable: filePath
+        variable: fileUrl
         type: text
-        placeholder: /path/to/file
+        placeholder: Enter File Url...
       - label: File Name
         required: false
         variable: fileName
         type: text
-        placeholder: filename.ext
+        placeholder: Enter File Name...
   - title: Output
     items:
       - label: Output Variable

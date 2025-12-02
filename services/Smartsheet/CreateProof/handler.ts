@@ -59,8 +59,19 @@ const smartsheetApiRequest = async <T = any>(
     Object.assign(headers, form.getHeaders());
     body = form;
   } else if (options.body) {
-    headers['Content-Type'] = 'application/json';
-    body = JSON.stringify(options.body);
+    // Check if body is a Buffer or ArrayBuffer (binary data)
+    if (Buffer.isBuffer(options.body) || options.body instanceof ArrayBuffer) {
+      // If Content-Type is already set to octet-stream, use the body as-is
+      if (headers['Content-Type'] === 'application/octet-stream') {
+        body = Buffer.isBuffer(options.body) ? options.body : Buffer.from(options.body);
+      } else {
+        headers['Content-Type'] = 'application/json';
+        body = JSON.stringify(options.body);
+      }
+    } else {
+      headers['Content-Type'] = 'application/json';
+      body = JSON.stringify(options.body);
+    }
   }
 
   const response = await fetch(url.toString(), {
@@ -110,23 +121,52 @@ export const handler = async ({
   if (!inputs.rowId) {
     throw new Error('Row Id is required');
   }
+  if (!inputs.fileUrl) {
+    throw new Error('File URL is required');
+  }
 
   log(`Create Proof`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
+    // Fetch the file from the URL
+    const fetchFile = await fetch(inputs.fileUrl);
+    if (!fetchFile.ok) {
+      throw new Error(
+        `Failed to fetch file: ${fetchFile.status} ${fetchFile.statusText}`,
+      );
+    }
+    const fileBuffer = await fetchFile.arrayBuffer();
+    const fileBufferNode = Buffer.from(fileBuffer);
+
+    // Extract filename from URL or use provided/default
+    const urlPath = new URL(inputs.fileUrl).pathname;
+    const contentType = fetchFile.headers.get('content-type') || '';
+    let fileName = inputs.fileName || urlPath.split('/').pop() || 'file';
+    
+    // Append file extension from content type if filename doesn't have one
+    if (!fileName.includes('.')) {
+      const extension = contentType.split('/')[1]?.split(';')[0];
+      if (extension) {
+        fileName = fileName + '.' + extension;
+      }
+    }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/proofs`,
-      body: requestBody,
+      body: fileBufferNode,
+      headers: {
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Content-Length': fileBufferNode.byteLength.toString(),
+        'Accept': 'application/json',
+      },
     });
 
-    log('Successfully completed operation');
+    log(`Successfully completed operation for file ${inputs.fileUrl}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to create proof: ${errorMessage}`);
+    throw new Error(`Failed to create proof: ${errorMessage} for file ${inputs.fileUrl}`);
   }
 };

@@ -111,21 +111,26 @@ export const handler = async ({
     throw new Error('Proof Id is required');
   }
 
-  log(`List Proof Attachments`);
+  log(`List Proof Attachments: ${inputs.includeAll}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+
+    if (inputs.page !== undefined) {
+      queryParams.page = inputs.page;
+    }
+    if (inputs.pageSize !== undefined) {
+      queryParams.pageSize = inputs.pageSize;
+    }
+      queryParams.includeAll = inputs.includeAll === 'true';
 
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/attachments`,
       queryParams,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully completed operation with include all ${inputs.includeAll}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';

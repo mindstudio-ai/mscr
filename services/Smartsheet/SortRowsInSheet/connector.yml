@@ -18,7 +18,7 @@ configuration:
   - title: Request Data
     items:
       - label: Sort Criteria
-        required: false
+        required: true
         variable: sortCriteria
         type: text
         placeholder: 'Enter JSON array: [{"columnId": 123, "direction": "ASCENDING"}]'

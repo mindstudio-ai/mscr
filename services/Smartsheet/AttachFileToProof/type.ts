@@ -1,7 +1,7 @@
 export interface AttachFileToProofInputs {
   sheetId: string;
   proofId: string;
-  filePath?: string;
+  fileUrl: string;
   fileName?: string;
   outputVariable: string;
 }

@@ -20,6 +20,17 @@ configuration:
         variable: rowId
         type: text
         placeholder: Enter Row Id...
+      - label: File Url
+        required: true
+        variable: fileUrl
+        type: text
+        placeholder: Enter File Url...
+      - label: File Name
+        required: false
+        variable: fileName
+        type: text
+        placeholder: Enter File Name...
+        defaultValue: file.pdf
   - title: Output
     items:
       - label: Output Variable

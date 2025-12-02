@@ -26,12 +26,12 @@ configuration:
         required: false
         variable: isDownloadable
         type: text
-        placeholder: Enter Is Downloadable...
+        placeholder: Enter 'true' or 'false'...
       - label: Cc Me
         required: false
         variable: ccMe
         type: text
-        placeholder: Enter Cc Me...
+        placeholder: Enter 'true' or 'false'...
       - label: Message
         required: false
         variable: message
@@ -41,7 +41,7 @@ configuration:
         required: false
         variable: sendTo
         type: text
-        placeholder: Enter Send To...
+        placeholder: Enter comma-separated email addresses...
       - label: Subject
         required: false
         variable: subject

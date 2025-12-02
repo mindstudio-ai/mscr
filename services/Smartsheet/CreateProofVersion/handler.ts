@@ -114,28 +114,36 @@ export const handler = async ({
   log(`Create Proof Version`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
-    if (inputs.attachmentSubType !== undefined) {
+
+    if (inputs.attachmentSubType !== undefined && inputs.attachmentSubType !== '') {
       requestBody.attachmentSubType = inputs.attachmentSubType;
     }
-    if (inputs.attachmentType !== undefined) {
+    if (inputs.attachmentType !== undefined && inputs.attachmentType !== '') {
       requestBody.attachmentType = inputs.attachmentType;
     }
-    if (inputs.description !== undefined) {
+    if (inputs.description !== undefined && inputs.description !== '') {
       requestBody.description = inputs.description;
     }
-    if (inputs.name !== undefined) {
+    if (inputs.name !== undefined && inputs.name !== '') {
       requestBody.name = inputs.name;
     }
-    if (inputs.url !== undefined) {
+    if (inputs.url !== undefined && inputs.url !== '') {
       requestBody.url = inputs.url;
     }
+
+    // Get filename from name field or use default
+    const fileName = inputs.name || 'file';
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/versions`,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

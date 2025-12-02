@@ -114,21 +114,33 @@ export const handler = async ({
   log(`Create Proof Request`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
-    if (inputs.isDownloadable !== undefined) {
-      requestBody.isDownloadable = inputs.isDownloadable;
+
+    if (inputs.isDownloadable !== undefined && inputs.isDownloadable !== '') {
+      // Handle boolean string or boolean
+      if (typeof inputs.isDownloadable === 'string') {
+        requestBody.isDownloadable = inputs.isDownloadable === 'true';
+      } else {
+        requestBody.isDownloadable = inputs.isDownloadable;
+      }
     }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
+    if (inputs.ccMe !== undefined && inputs.ccMe !== '') {
+      // Handle boolean string or boolean
+      if (typeof inputs.ccMe === 'string') {
+        requestBody.ccMe = inputs.ccMe === 'true';
+      } else {
+        requestBody.ccMe = inputs.ccMe;
+      }
     }
-    if (inputs.message !== undefined) {
+    if (inputs.message !== undefined && inputs.message !== '') {
       requestBody.message = inputs.message;
     }
-    if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = inputs.sendTo;
+    if (inputs.sendTo !== undefined && inputs.sendTo.trim() !== '') {
+      // Support multiple emails (comma-separated)
+      const emails = inputs.sendTo.split(',').map((email: string) => email.trim()).filter((email: string) => email !== '');
+      requestBody.sendTo = emails.map((email: string) => ({ email }));
     }
-    if (inputs.subject !== undefined) {
+    if (inputs.subject !== undefined && inputs.subject !== '') {
       requestBody.subject = inputs.subject;
     }
 
@@ -136,6 +148,10 @@ export const handler = async ({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/proofs/${inputs.proofId}/requests`,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');
