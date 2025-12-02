@@ -15,18 +15,14 @@ configuration:
         variable: sheetId
         type: text
         placeholder: Enter Sheet Id...
-  - title: Request Data
+  - title: Fields
     items:
-      - label: 0
-        required: false
-        variable: 0
+      - label: Fields
+        required: true
+        variable: fields
         type: text
-        placeholder: Enter 0...
-      - label: 1
-        required: false
-        variable: 1
-        type: text
-        placeholder: Enter 1...
+        placeholder: Enter Fields...
+        description: Enter the fields to update in the sheet.
   - title: Output
     items:
       - label: Output Variable

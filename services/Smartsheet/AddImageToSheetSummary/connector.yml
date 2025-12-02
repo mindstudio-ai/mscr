@@ -20,6 +20,16 @@ configuration:
         variable: fieldId
         type: text
         placeholder: Enter Field Id...
+      - label: Image URL
+        required: true
+        variable: imageUrl
+        type: text
+        placeholder: Enter Image URL...
+      - label: Image Name
+        required: false
+        variable: imageName
+        type: text
+        placeholder: Enter Image Name...
   - title: Output
     items:
       - label: Output Variable

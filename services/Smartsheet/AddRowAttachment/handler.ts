@@ -110,18 +110,39 @@ export const handler = async ({
   if (!inputs.rowId) {
     throw new Error('Row Id is required');
   }
+  if (!inputs.name) {
+    throw new Error('Name is required');
+  }
+  if (!inputs.url) {
+    throw new Error('URL is required');
+  }
 
   log(`Attach File or URL to Row`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const requestBody: Record<string, string> = {
+      name: inputs.name,
+      url: inputs.url,
+    };
+
+    if (inputs.attachmentSubType) {
+      requestBody.attachmentSubType = inputs.attachmentSubType;
+    }
+    if (inputs.attachmentType) {
+      requestBody.attachmentType = inputs.attachmentType;
+    }
+    if (inputs.description) {
+      requestBody.description = inputs.description;
+    }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/sheets/${inputs.sheetId}/rows/${inputs.rowId}/attachments`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
+      body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

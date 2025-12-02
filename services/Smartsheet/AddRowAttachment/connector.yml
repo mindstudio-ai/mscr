@@ -21,18 +21,30 @@ configuration:
         variable: rowId
         type: text
         placeholder: Enter Row Id...
-  - title: File Upload
+  - title: Attachment Details
     items:
-      - label: File Path
-        required: true
-        variable: filePath
-        type: text
-        placeholder: /path/to/file
-      - label: File Name
+      - label: Attachment Sub Type
         required: false
-        variable: fileName
+        variable: attachmentSubType
         type: text
-        placeholder: filename.ext
+      - label: Attachment Type
+        required: false
+        variable: attachmentType
+        type: text
+      - label: Description
+        required: false
+        variable: description
+        type: text
+      - label: Name
+        required: true
+        variable: name
+        type: text
+        placeholder: Enter Name...
+      - label: URL
+        required: true
+        variable: url
+        type: text
+        placeholder: Enter URL...
   - title: Output
     items:
       - label: Output Variable

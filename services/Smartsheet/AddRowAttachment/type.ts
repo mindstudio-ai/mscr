@@ -1,7 +1,10 @@
 export interface AddRowAttachmentInputs {
   sheetId: string;
   rowId: string;
-  filePath?: string;
-  fileName?: string;
+  attachmentSubType?: string;
+  attachmentType?: string;
+  description: string;
+  name: string;
+  url: string;
   outputVariable: string;
 }

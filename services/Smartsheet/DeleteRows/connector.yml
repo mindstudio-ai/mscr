@@ -15,6 +15,16 @@ configuration:
         variable: sheetId
         type: text
         placeholder: Enter Sheet Id...
+      - label: Row Ids
+        required: false
+        variable: rowIds
+        type: text
+        placeholder: Enter Comma Separated Row Ids...
+      - label: Ignore Rows Not Found
+        required: false
+        variable: ignoreRowsNotFound
+        type: text
+        placeholder: Enter 'true' or 'false'...
   - title: Output
     items:
       - label: Output Variable

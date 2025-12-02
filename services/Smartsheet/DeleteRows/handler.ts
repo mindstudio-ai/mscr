@@ -113,10 +113,20 @@ export const handler = async ({
   try {
     const queryParams: Record<string, string | number | boolean> = {};
 
+    if (inputs.rowIds) {
+      queryParams.ids = inputs.rowIds;
+    }
+    if (inputs.ignoreRowsNotFound) {
+      queryParams.ignoreRowsNotFound = inputs.ignoreRowsNotFound === 'true';
+    }
+
     const response = await smartsheetApiRequest({
       method: 'DELETE',
       path: `/sheets/${inputs.sheetId}/rows`,
       queryParams,
+      headers: {
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

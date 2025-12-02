@@ -108,24 +108,21 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`Update Summary Fields`);
+  if (!inputs.fields) {
+    throw new Error('Fields are required');
+  }
+
+  log(`Update Summary Fields: ${inputs.fields}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
     
-    // Parse fields if provided as string, otherwise use as-is
-    let requestBody: any = [];
-    if (inputs.fields !== undefined) {
-      if (typeof inputs.fields === 'string') {
-        try {
-          requestBody = JSON.parse(inputs.fields);
-        } catch {
-          throw new Error('Fields must be a valid JSON array');
-        }
-      } else if (Array.isArray(inputs.fields)) {
-        requestBody = inputs.fields;
-      } else {
-        requestBody = [inputs.fields];
+    let requestBody: object[] = [];
+    if (inputs.fields) {
+      try {
+        requestBody = JSON.parse(inputs.fields);
+      } catch {
+        throw new Error('Fields must be a valid JSON array');
       }
     }
 

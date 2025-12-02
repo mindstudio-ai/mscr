@@ -108,16 +108,29 @@ export const handler = async ({
     throw new Error('Sheet Id is required');
   }
 
-  log(`Copy Rows to Another Sheet`);
+  if (!inputs.rowIds) {
+    throw new Error('Row Ids are required');
+  }
+  if (!inputs.to) {
+    throw new Error('To is required');
+  }
+
+  log(`Copy Rows to Another Sheet: ${inputs.rowIds} to ${inputs.to}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
+    const queryParams: Record<string, string | number | boolean> = {
+      include: 'all',
+      ignoreRowsNotFound: false,
+    };
+
     const requestBody: any = {};
     if (inputs.rowIds !== undefined) {
-      requestBody.rowIds = inputs.rowIds;
+      requestBody.rowIds = inputs.rowIds.split(',').map((id: string) => parseInt(id.trim()));
     }
     if (inputs.to !== undefined) {
-      requestBody.to = inputs.to;
+      requestBody.to = {
+        sheetId: parseInt(inputs.to),
+      };
     }
 
     const response = await smartsheetApiRequest({
@@ -125,6 +138,10 @@ export const handler = async ({
       path: `/sheets/${inputs.sheetId}/rows/copy`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

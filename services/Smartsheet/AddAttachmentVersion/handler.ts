@@ -1,4 +1,4 @@
-import { AddImageToSheetSummaryInputs } from './type';
+import { AddAttachmentVersionInputs } from './type';
 import { IHandlerContext } from '../type';
 import fs from 'fs';
 import FormData from 'form-data';
@@ -13,6 +13,7 @@ interface ApiRequestOptions {
   headers?: Record<string, string>;
   multipart?: boolean;
   filePath?: string;
+  fileBuffer?: Buffer;
   fileName?: string;
 }
 
@@ -40,13 +41,19 @@ const smartsheetApiRequest = async <T = any>(
 
   let body: any = undefined;
 
-  if (options.multipart && options.filePath) {
+  if (options.multipart && (options.filePath || options.fileBuffer)) {
     const form = new FormData();
-    const fileStream = fs.createReadStream(options.filePath);
-    const fileName =
-      options.fileName || options.filePath.split('/').pop() || 'file';
+    let fileName: string;
 
-    form.append('file', fileStream, fileName);
+    if (options.fileBuffer) {
+      fileName = options.fileName || 'file';
+      form.append('file', options.fileBuffer, fileName);
+    } else if (options.filePath) {
+      const fileStream = fs.createReadStream(options.filePath);
+      fileName =
+        options.fileName || options.filePath.split('/').pop() || 'file';
+      form.append('file', fileStream, fileName);
+    }
 
     if (options.body) {
       Object.entries(options.body).forEach(([key, value]) => {
@@ -114,50 +121,50 @@ export const handler = async ({
   inputs,
   setOutput,
   log,
-}: IHandlerContext<AddImageToSheetSummaryInputs>) => {
-  if (!inputs.sheetId) {
-    throw new Error('Sheet Id is required');
+}: IHandlerContext<AddAttachmentVersionInputs>) => {
+  const { sheetId, attachmentId, fileUrl, outputVariable } = inputs;
+
+  if (!sheetId) {
+    throw new Error('Sheet ID is required');
   }
-  if (!inputs.fieldId) {
-    throw new Error('Field Id is required');
+  if (!attachmentId) {
+    throw new Error('Attachment ID is required');
+  }
+  if (!fileUrl) {
+    throw new Error('File URL is required');
   }
 
-  if (!inputs.imageUrl) {
-    throw new Error('Image URL is required');
-  }
-
-  log(`Add Image to Sheet Summary: ${inputs.imageUrl}`);
+  log(`Adding new version to attachment ${attachmentId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
-    const fetchImage = await fetch(inputs.imageUrl);
-    if (!fetchImage.ok) {
-      throw new Error(`Failed to fetch image: ${fetchImage.status} ${fetchImage.statusText}`);
+    // Fetch the file from the URL
+    const fetchFile = await fetch(fileUrl);
+    if (!fetchFile.ok) {
+      throw new Error(
+        `Failed to fetch file: ${fetchFile.status} ${fetchFile.statusText}`,
+      );
     }
-    const imageBuffer = await fetchImage.arrayBuffer();
-    const imageBufferNode = Buffer.from(imageBuffer);
+    const fileBuffer = await fetchFile.arrayBuffer();
+    const fileBufferNode = Buffer.from(fileBuffer);
 
-    // Extract filename from URL or use provided imageName
-    const imageName = inputs.imageName || inputs.imageUrl.split('/').pop() || 'image.jpg';
+    // Extract filename from URL or use default
+    const urlPath = new URL(fileUrl).pathname;
+    const fileName = urlPath.split('/').pop() || 'file';
 
     const response = await smartsheetApiRequest({
       method: 'POST',
-      path: `/sheets/${inputs.sheetId}/summary/fields/${inputs.fieldId}/images`,
-      queryParams,
-      body: imageBufferNode,
+      path: `/sheets/${sheetId}/attachments/${attachmentId}/versions`,
+      body: fileBufferNode,
       headers: {
         'Content-Type': 'application/octet-stream',
-        'Content-Disposition': `attachment; filename="${imageName}"`,
-        'Content-Length': imageBufferNode.byteLength.toString(),
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Content-Length': fileBufferNode.byteLength.toString(),
         'Accept': 'application/json',
       },
     });
-
-    log('Successfully completed operation');
-    setOutput(inputs.outputVariable, response);
+    log(`Successfully added new version with ID: ${(response as any).id}`);
+    setOutput(outputVariable, response);
   } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to add image to sheet summary: ${errorMessage}`);
+    throw new Error(`Failed to add version: ${error.message}`);
   }
 };

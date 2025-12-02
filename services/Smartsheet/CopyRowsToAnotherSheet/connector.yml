@@ -21,7 +21,7 @@ configuration:
         required: false
         variable: rowIds
         type: text
-        placeholder: Enter Row Ids...
+        placeholder: Enter Comma Separated Row Ids...
       - label: To
         required: false
         variable: to
