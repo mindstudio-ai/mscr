@@ -32,6 +32,19 @@ configuration:
         variable: newName
         type: text
         placeholder: Enter New Name...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: data
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: sheetHyperlinks
   - title: Output
     items:
       - label: Output Variable

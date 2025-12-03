@@ -18,16 +18,34 @@ configuration:
         placeholder: Enter Workspace Id...
   - title: File Upload
     items:
-      - label: File Path
+      - label: File Url
         required: true
-        variable: filePath
+        variable: fileUrl
         type: text
-        placeholder: /path/to/file
+        placeholder: Enter File URL...
       - label: File Name
         required: false
         variable: fileName
         type: text
         placeholder: filename.ext
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Sheet Name
+        required: false
+        variable: sheetName
+        type: text
+        placeholder: Enter Sheet Name...
+      - label: Header Row Index
+        required: false
+        variable: headerRowIndex
+        type: number
+        placeholder: Enter Header Row Index...
+      - label: Primary Column Index
+        required: false
+        variable: primaryColumnIndex
+        type: number
+        placeholder: 0
   - title: Output
     items:
       - label: Output Variable

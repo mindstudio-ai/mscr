@@ -15,6 +15,14 @@ configuration:
         variable: workspaceId
         type: text
         placeholder: Enter Workspace Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Access Api Level
+        required: false
+        variable: accessApiLevel
+        type: number
+        placeholder: 0
   - title: Request Data
     items:
       - label: Name

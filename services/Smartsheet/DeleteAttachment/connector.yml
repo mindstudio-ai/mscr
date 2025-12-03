@@ -20,18 +20,6 @@ configuration:
         variable: attachmentId
         type: text
         placeholder: Enter Attachment Id...
-  - title: File Upload
-    items:
-      - label: File Path
-        required: true
-        variable: filePath
-        type: text
-        placeholder: /path/to/file
-      - label: File Name
-        required: false
-        variable: fileName
-        type: text
-        placeholder: filename.ext
   - title: Output
     items:
       - label: Output Variable

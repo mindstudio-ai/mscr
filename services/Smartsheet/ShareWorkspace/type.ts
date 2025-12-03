@@ -1,17 +1,19 @@
 export interface ShareWorkspaceInputs {
   workspaceId: string;
-  id?: any;
-  groupId?: any;
-  userId?: any;
-  type?: any;
+  id?: string;
+  groupId?: string;
+  userId?: string;
+  type?: string;
   accessLevel?: string;
-  ccMe?: any;
-  createdAt?: any;
-  email?: any;
-  message?: any;
-  modifiedAt?: any;
-  name?: any;
-  scope?: any;
-  subject?: any;
+  ccMe?: string;
+  createdAt?: string;
+  email?: string;
+  message?: string;
+  modifiedAt?: string;
+  name?: string;
+  scope?: string;
+  subject?: string;
+  sendEmail?: string;
+  accessApiLevel?: string;
   outputVariable: string;
 }

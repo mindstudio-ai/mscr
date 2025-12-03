@@ -27,7 +27,7 @@ configuration:
         required: false
         variable: events
         type: text
-        placeholder: Enter Events...
+        placeholder: 'Enter JSON array or comma-separated: ["event1", "event2"]'
       - label: Name
         required: true
         variable: name
@@ -36,13 +36,13 @@ configuration:
       - label: Version
         required: false
         variable: version
-        type: text
+        type: number
         placeholder: Enter Version...
       - label: Enabled
         required: false
         variable: enabled
         type: text
-        placeholder: Enter Enabled...
+        placeholder: Enter 'true' or 'false'...
   - title: Output
     items:
       - label: Output Variable

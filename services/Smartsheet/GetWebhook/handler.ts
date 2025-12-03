@@ -111,12 +111,12 @@ export const handler = async ({
   log(`Get Webhook`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/webhooks/${inputs.webhookId}`,
-      queryParams,
+      headers: {
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

@@ -11,16 +11,11 @@ configuration:
   - title: Query Options
     collapsed: true
     items:
-      - label: Include
+      - label: Include All
         required: false
-        variable: include
-        type: text
-        placeholder: writerInfo
-      - label: Exclude
-        required: false
-        variable: exclude
-        type: text
-        placeholder: filteredOutRows
+        variable: includeAll
+        type: boolean
+        defaultValue: false
       - label: Page Size
         required: false
         variable: pageSize

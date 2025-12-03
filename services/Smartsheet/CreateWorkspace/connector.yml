@@ -10,26 +10,11 @@ metadata:
 configuration:
   - title: Request Data
     items:
-      - label: Id
-        required: false
-        variable: id
-        type: text
-        placeholder: Enter Id...
       - label: Name
         required: true
         variable: name
         type: text
         placeholder: Enter Name...
-      - label: Access Level
-        required: false
-        variable: accessLevel
-        type: text
-        placeholder: Enter Access Level...
-      - label: Permalink
-        required: false
-        variable: permalink
-        type: text
-        placeholder: Enter Permalink...
   - title: Output
     items:
       - label: Output Variable

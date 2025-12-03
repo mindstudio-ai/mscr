@@ -27,11 +27,6 @@ configuration:
         variable: name
         type: text
         placeholder: Enter Name...
-      - label: Favorite
-        required: false
-        variable: favorite
-        type: text
-        placeholder: Enter Favorite...
       - label: Permalink
         required: false
         variable: permalink
@@ -41,27 +36,45 @@ configuration:
         required: false
         variable: folders
         type: text
-        placeholder: Enter Folders...
+        placeholder: 'Enter JSON array: [{"value": "..."}]'
       - label: Reports
         required: false
         variable: reports
         type: text
-        placeholder: Enter Reports...
+        placeholder: 'Enter JSON array: [{"id": 123, "name": "...", "permalink": "..."}]'
       - label: Sheets
         required: false
         variable: sheets
         type: text
-        placeholder: Enter Sheets...
+        placeholder: 'Enter JSON array: [{"id": 123, "name": "...", "permalink": "..."}]'
       - label: Sights
         required: false
         variable: sights
         type: text
-        placeholder: Enter Sights...
+        placeholder: 'Enter JSON array: [{"id": 123, "name": "...", "permalink": "...", "createdAt": "...", "modifiedAt": "..."}]'
       - label: Templates
         required: false
         variable: templates
         type: text
-        placeholder: Enter Templates...
+        placeholder: 'Enter JSON array: [{"id": 123, "name": "...", "permalink": "..."}]'
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: data
+      - label: Exclude
+        required: false
+        variable: exclude
+        type: text
+        placeholder: sheetHyperlinks
+      - label: Skip Remap
+        required: false
+        variable: skipRemap
+        type: text
+        placeholder: reports
   - title: Output
     items:
       - label: Output Variable

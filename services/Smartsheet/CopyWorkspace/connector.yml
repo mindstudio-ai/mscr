@@ -17,21 +17,24 @@ configuration:
         placeholder: Enter Workspace Id...
   - title: Request Data
     items:
-      - label: Destination Id
-        required: false
-        variable: destinationId
-        type: text
-        placeholder: Enter Destination Id...
-      - label: Destination Type
-        required: false
-        variable: destinationType
-        type: text
-        placeholder: Enter Destination Type...
       - label: New Name
-        required: false
+        required: true
         variable: newName
         type: text
         placeholder: Enter New Name...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Include
+        required: false
+        variable: include
+        type: text
+        placeholder: filters
+      - label: Skip Remap
+        required: false
+        variable: skipRemap
+        type: text
+        placeholder: reports
   - title: Output
     items:
       - label: Output Variable

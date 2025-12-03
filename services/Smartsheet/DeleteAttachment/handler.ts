@@ -1,7 +1,5 @@
 import { DeleteAttachmentInputs } from './type';
 import { IHandlerContext } from '../type';
-import fs from 'fs';
-import FormData from 'form-data';
 import fetch from 'node-fetch';
 const BASE_URL = 'https://api.smartsheet.com/2.0';
 
@@ -11,9 +9,6 @@ interface ApiRequestOptions {
   queryParams?: Record<string, string | number | boolean | undefined>;
   body?: any;
   headers?: Record<string, string>;
-  multipart?: boolean;
-  filePath?: string;
-  fileName?: string;
 }
 
 const smartsheetApiRequest = async <T = any>(
@@ -40,25 +35,7 @@ const smartsheetApiRequest = async <T = any>(
 
   let body: any = undefined;
 
-  if (options.multipart && options.filePath) {
-    const form = new FormData();
-    const fileStream = fs.createReadStream(options.filePath);
-    const fileName =
-      options.fileName || options.filePath.split('/').pop() || 'file';
-
-    form.append('file', fileStream, fileName);
-
-    if (options.body) {
-      Object.entries(options.body).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-          form.append(key, String(value));
-        }
-      });
-    }
-
-    Object.assign(headers, form.getHeaders());
-    body = form;
-  } else if (options.body) {
+  if (options.body) {
     headers['Content-Type'] = 'application/json';
     body = JSON.stringify(options.body);
   }
@@ -111,23 +88,18 @@ export const handler = async ({
     throw new Error('Attachment Id is required');
   }
 
-  log(`Delete Attachment`);
+  log(`Delete Attachment ${inputs.attachmentId} from Sheet ${inputs.sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'DELETE',
       path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully deleted attachment ${inputs.attachmentId} from Sheet ${inputs.sheetId}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to delete attachment: ${errorMessage}`);
+    throw new Error(`Failed to delete attachment ${inputs.attachmentId} from Sheet ${inputs.sheetId}: ${errorMessage}`);
   }
 };

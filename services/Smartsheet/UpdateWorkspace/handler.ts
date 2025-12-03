@@ -112,8 +112,13 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    
+    if (inputs.accessApiLevel !== undefined && inputs.accessApiLevel !== '') {
+      queryParams.accessApiLevel = typeof inputs.accessApiLevel === 'string' ? parseFloat(inputs.accessApiLevel) : inputs.accessApiLevel;
+    }
+
     const requestBody: any = {};
-    if (inputs.name !== undefined) {
+    if (inputs.name !== undefined && inputs.name !== '') {
       requestBody.name = inputs.name;
     }
 
@@ -122,6 +127,10 @@ export const handler = async ({
       path: `/workspaces/${inputs.workspaceId}`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

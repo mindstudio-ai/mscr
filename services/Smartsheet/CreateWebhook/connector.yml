@@ -20,7 +20,7 @@ configuration:
         required: false
         variable: events
         type: text
-        placeholder: Enter Events...
+        placeholder: 'Enter JSON array or comma-separated: ["event1", "event2"]'
       - label: Name
         required: true
         variable: name
@@ -29,18 +29,16 @@ configuration:
       - label: Version
         required: false
         variable: version
-        type: text
+        type: number
         placeholder: Enter Version...
       - label: Scope
-        required: false
+        required: true
         variable: scope
         type: text
-        placeholder: Enter Scope...
       - label: Scope Object Id
-        required: false
+        required: true
         variable: scopeObjectId
         type: text
-        placeholder: Enter Scope Object Id...
   - title: Output
     items:
       - label: Output Variable

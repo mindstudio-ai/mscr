@@ -112,14 +112,22 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.destinationId !== undefined) {
-      requestBody.destinationId = inputs.destinationId;
+    
+    if (inputs.include !== undefined && inputs.include !== '') {
+      queryParams.include = inputs.include;
     }
-    if (inputs.destinationType !== undefined) {
+    if (inputs.exclude !== undefined && inputs.exclude !== '') {
+      queryParams.exclude = inputs.exclude;
+    }
+
+    const requestBody: any = {};
+    if (inputs.destinationId !== undefined && inputs.destinationId !== '') {
+      requestBody.destinationId = typeof inputs.destinationId === 'string' ? parseFloat(inputs.destinationId) : inputs.destinationId;
+    }
+    if (inputs.destinationType !== undefined && inputs.destinationType !== '') {
       requestBody.destinationType = inputs.destinationType;
     }
-    if (inputs.newName !== undefined) {
+    if (inputs.newName !== undefined && inputs.newName !== '') {
       requestBody.newName = inputs.newName;
     }
 
@@ -128,6 +136,10 @@ export const handler = async ({
       path: `/sheets/${inputs.sheetId}/copy`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

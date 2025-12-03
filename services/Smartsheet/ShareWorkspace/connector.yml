@@ -16,6 +16,19 @@ configuration:
         variable: workspaceId
         type: text
         placeholder: Enter Workspace Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Send Email
+        required: false
+        variable: sendEmail
+        type: text
+        placeholder: Enter 'true' or 'false'...
+      - label: Access Api Level
+        required: false
+        variable: accessApiLevel
+        type: number
+        placeholder: 0
   - title: Request Data
     items:
       - label: Id
@@ -26,12 +39,12 @@ configuration:
       - label: Group Id
         required: false
         variable: groupId
-        type: text
+        type: number
         placeholder: Enter Group Id...
       - label: User Id
         required: false
         variable: userId
-        type: text
+        type: number
         placeholder: Enter User Id...
       - label: Type
         required: false
@@ -39,15 +52,15 @@ configuration:
         type: text
         placeholder: Enter Type...
       - label: Access Level
-        required: false
+        required: true
         variable: accessLevel
         type: text
-        placeholder: Enter Access Level...
+        placeholder: COMMENTER
       - label: Cc Me
         required: false
         variable: ccMe
         type: text
-        placeholder: Enter Cc Me...
+        placeholder: Enter 'true' or 'false'...
       - label: Created At
         required: false
         variable: createdAt
@@ -68,11 +81,6 @@ configuration:
         variable: modifiedAt
         type: text
         placeholder: Enter Modified At...
-      - label: Name
-        required: true
-        variable: name
-        type: text
-        placeholder: Enter Name...
       - label: Scope
         required: false
         variable: scope

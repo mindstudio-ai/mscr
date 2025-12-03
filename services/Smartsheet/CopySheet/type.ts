@@ -1,7 +1,9 @@
 export interface CopySheetInputs {
   sheetId: string;
-  destinationId?: any;
+  destinationId?: string;
   destinationType?: string;
-  newName?: any;
+  newName?: string;
+  include?: string;
+  exclude?: string;
   outputVariable: string;
 }

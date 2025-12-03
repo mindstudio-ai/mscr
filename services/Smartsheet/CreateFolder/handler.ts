@@ -112,33 +112,62 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
+    
+    if (inputs.include !== undefined && inputs.include !== '') {
+      queryParams.include = inputs.include;
     }
-    if (inputs.name !== undefined) {
+    if (inputs.exclude !== undefined && inputs.exclude !== '') {
+      queryParams.exclude = inputs.exclude;
+    }
+    if (inputs.skipRemap !== undefined && inputs.skipRemap !== '') {
+      queryParams.skipRemap = inputs.skipRemap;
+    }
+
+    const requestBody: any = {};
+    
+    if (inputs.id !== undefined && inputs.id !== '') {
+      requestBody.id = typeof inputs.id === 'string' ? parseFloat(inputs.id) : inputs.id;
+    }
+    if (inputs.name !== undefined && inputs.name !== '') {
       requestBody.name = inputs.name;
     }
-    if (inputs.favorite !== undefined) {
-      requestBody.favorite = inputs.favorite;
-    }
-    if (inputs.permalink !== undefined) {
+    if (inputs.permalink !== undefined && inputs.permalink !== '') {
       requestBody.permalink = inputs.permalink;
     }
-    if (inputs.folders !== undefined) {
-      requestBody.folders = inputs.folders;
+    if (inputs.folders !== undefined && inputs.folders && inputs.folders.trim() !== '') {
+      try {
+        requestBody.folders = JSON.parse(inputs.folders);
+      } catch (parseError: any) {
+        throw new Error(`Invalid folders JSON format: ${parseError.message}`);
+      }
     }
-    if (inputs.reports !== undefined) {
-      requestBody.reports = inputs.reports;
+    if (inputs.reports !== undefined && inputs.reports && inputs.reports.trim() !== '') {
+      try {
+        requestBody.reports = JSON.parse(inputs.reports);
+      } catch (parseError: any) {
+        throw new Error(`Invalid reports JSON format: ${parseError.message}`);
+      }
     }
-    if (inputs.sheets !== undefined) {
-      requestBody.sheets = inputs.sheets;
+    if (inputs.sheets !== undefined && inputs.sheets && inputs.sheets.trim() !== '') {
+      try {
+        requestBody.sheets = JSON.parse(inputs.sheets);
+      } catch (parseError: any) {
+        throw new Error(`Invalid sheets JSON format: ${parseError.message}`);
+      }
     }
-    if (inputs.sights !== undefined) {
-      requestBody.sights = inputs.sights;
+    if (inputs.sights !== undefined && inputs.sights && inputs.sights.trim() !== '') {
+      try {
+        requestBody.sights = JSON.parse(inputs.sights);
+      } catch (parseError: any) {
+        throw new Error(`Invalid sights JSON format: ${parseError.message}`);
+      }
     }
-    if (inputs.templates !== undefined) {
-      requestBody.templates = inputs.templates;
+    if (inputs.templates !== undefined && inputs.templates && inputs.templates.trim() !== '') {
+      try {
+        requestBody.templates = JSON.parse(inputs.templates);
+      } catch (parseError: any) {
+        throw new Error(`Invalid templates JSON format: ${parseError.message}`);
+      }
     }
 
     const response = await smartsheetApiRequest({
@@ -146,6 +175,10 @@ export const handler = async ({
       path: `/folders/${inputs.folderId}/folders`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

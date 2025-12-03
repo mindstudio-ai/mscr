@@ -112,44 +112,57 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    
+    if (inputs.sendEmail !== undefined && inputs.sendEmail !== '') {
+      queryParams.sendEmail = inputs.sendEmail === 'true';
+    }
+    if (inputs.accessApiLevel !== undefined && inputs.accessApiLevel !== '') {
+      queryParams.accessApiLevel = typeof inputs.accessApiLevel === 'string' ? parseFloat(inputs.accessApiLevel) : inputs.accessApiLevel;
+    }
+
     const requestBody: any = {};
-    if (inputs.id !== undefined) {
+    if (inputs.id !== undefined && inputs.id !== '') {
       requestBody.id = inputs.id;
     }
-    if (inputs.groupId !== undefined) {
-      requestBody.groupId = inputs.groupId;
+    if (inputs.groupId !== undefined && inputs.groupId !== '') {
+      requestBody.groupId = typeof inputs.groupId === 'string' ? parseFloat(inputs.groupId) : inputs.groupId;
     }
-    if (inputs.userId !== undefined) {
-      requestBody.userId = inputs.userId;
+    if (inputs.userId !== undefined && inputs.userId !== '') {
+      requestBody.userId = typeof inputs.userId === 'string' ? parseFloat(inputs.userId) : inputs.userId;
     }
-    if (inputs.type !== undefined) {
+    if (inputs.type !== undefined && inputs.type !== '') {
       requestBody.type = inputs.type;
     }
-    if (inputs.accessLevel !== undefined) {
+    if (inputs.accessLevel !== undefined && inputs.accessLevel !== '') {
       requestBody.accessLevel = inputs.accessLevel;
     }
-    if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
+    if (inputs.ccMe !== undefined && inputs.ccMe !== '') {
+      // Handle boolean string or boolean
+      if (typeof inputs.ccMe === 'string') {
+        requestBody.ccMe = inputs.ccMe === 'true';
+      } else {
+        requestBody.ccMe = inputs.ccMe;
+      }
     }
-    if (inputs.createdAt !== undefined) {
+    if (inputs.createdAt !== undefined && inputs.createdAt !== '') {
       requestBody.createdAt = inputs.createdAt;
     }
-    if (inputs.email !== undefined) {
+    if (inputs.email !== undefined && inputs.email !== '') {
       requestBody.email = inputs.email;
     }
-    if (inputs.message !== undefined) {
+    if (inputs.message !== undefined && inputs.message !== '') {
       requestBody.message = inputs.message;
     }
-    if (inputs.modifiedAt !== undefined) {
+    if (inputs.modifiedAt !== undefined && inputs.modifiedAt !== '') {
       requestBody.modifiedAt = inputs.modifiedAt;
     }
-    if (inputs.name !== undefined) {
+    if (inputs.name !== undefined && inputs.name !== '') {
       requestBody.name = inputs.name;
     }
-    if (inputs.scope !== undefined) {
+    if (inputs.scope !== undefined && inputs.scope !== '') {
       requestBody.scope = inputs.scope;
     }
-    if (inputs.subject !== undefined) {
+    if (inputs.subject !== undefined && inputs.subject !== '') {
       requestBody.subject = inputs.subject;
     }
 
@@ -158,6 +171,10 @@ export const handler = async ({
       path: `/workspaces/${inputs.workspaceId}/shares`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

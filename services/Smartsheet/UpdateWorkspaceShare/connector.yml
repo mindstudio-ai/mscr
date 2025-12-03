@@ -21,13 +21,21 @@ configuration:
         variable: shareId
         type: text
         placeholder: Enter Share Id...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Access Api Level
+        required: false
+        variable: accessApiLevel
+        type: number
+        placeholder: 0
   - title: Request Data
     items:
       - label: Access Level
         required: false
         variable: accessLevel
         type: text
-        placeholder: Enter Access Level...
+        placeholder: COMMENTER
   - title: Output
     items:
       - label: Output Variable

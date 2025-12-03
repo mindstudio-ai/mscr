@@ -111,21 +111,18 @@ export const handler = async ({
     throw new Error('Sent Update Request Id is required');
   }
 
-  log(`Get Sent Update Request`);
+  log(`Get Sent Update Request ${inputs.sentUpdateRequestId} from Sheet ${inputs.sheetId}`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sheets/${inputs.sheetId}/sentupdaterequests/${inputs.sentUpdateRequestId}`,
-      queryParams,
     });
 
-    log('Successfully completed operation');
+    log(`Successfully got sent update request ${inputs.sentUpdateRequestId} from Sheet ${inputs.sheetId}`);
     setOutput(inputs.outputVariable, response);
   } catch (error: any) {
     const errorMessage = error.message || 'Unknown error occurred';
-    throw new Error(`Failed to get sent update request: ${errorMessage}`);
+    throw new Error(`Failed to get sent update request ${inputs.sentUpdateRequestId} from Sheet ${inputs.sheetId}: ${errorMessage}`);
   }
 };

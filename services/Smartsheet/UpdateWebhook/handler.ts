@@ -111,28 +111,48 @@ export const handler = async ({
   log(`Update Webhook`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
-    if (inputs.callbackUrl !== undefined) {
+
+    if (inputs.callbackUrl !== undefined && inputs.callbackUrl !== '') {
       requestBody.callbackUrl = inputs.callbackUrl;
     }
-    if (inputs.events !== undefined) {
-      requestBody.events = inputs.events;
+    if (inputs.events !== undefined && inputs.events && inputs.events.trim() !== '') {
+      try {
+        // Try to parse as JSON array first, otherwise treat as comma-separated
+        const parsedEvents = JSON.parse(inputs.events);
+        if (Array.isArray(parsedEvents)) {
+          requestBody.events = parsedEvents;
+        } else {
+          requestBody.events = [parsedEvents];
+        }
+      } catch {
+        // If not JSON, treat as comma-separated string
+        requestBody.events = inputs.events.split(',').map((event: string) => event.trim()).filter((event: string) => event !== '');
+      }
     }
-    if (inputs.name !== undefined) {
+    if (inputs.name !== undefined && inputs.name !== '') {
       requestBody.name = inputs.name;
     }
-    if (inputs.version !== undefined) {
-      requestBody.version = inputs.version;
+    if (inputs.version !== undefined && inputs.version !== '') {
+      requestBody.version = typeof inputs.version === 'string' ? parseFloat(inputs.version) : inputs.version;
     }
-    if (inputs.enabled !== undefined) {
-      requestBody.enabled = inputs.enabled;
+    if (inputs.enabled !== undefined && inputs.enabled !== '') {
+      // Handle boolean string or boolean
+      if (typeof inputs.enabled === 'string') {
+        requestBody.enabled = inputs.enabled === 'true';
+      } else {
+        requestBody.enabled = inputs.enabled;
+      }
     }
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
       path: `/webhooks/${inputs.webhookId}`,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

@@ -110,10 +110,23 @@ export const handler = async ({
   try {
     const queryParams: Record<string, string | number | boolean> = {};
 
+    if (inputs.includeAll !== undefined) {
+      queryParams.includeAll = inputs.includeAll;
+    }
+    if (inputs.page !== undefined) {
+      queryParams.page = inputs.page;
+    }
+    if (inputs.pageSize !== undefined) {
+      queryParams.pageSize = inputs.pageSize;
+    }
+
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/webhooks`,
       queryParams,
+      headers: {
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

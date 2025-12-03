@@ -107,27 +107,36 @@ export const handler = async ({
   if (!inputs.workspaceId) {
     throw new Error('Workspace Id is required');
   }
+  
+  if (!inputs.newName) {
+    throw new Error('New Name is required');
+  }
 
-  log(`Copy Workspace`);
+  log(`Copy Workspace ${inputs.workspaceId} to ${inputs.newName}`);
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.destinationId !== undefined) {
-      requestBody.destinationId = inputs.destinationId;
+    
+    if (inputs.include !== undefined && inputs.include !== '') {
+      queryParams.include = inputs.include;
     }
-    if (inputs.destinationType !== undefined) {
-      requestBody.destinationType = inputs.destinationType;
+    if (inputs.skipRemap !== undefined && inputs.skipRemap !== '') {
+      queryParams.skipRemap = inputs.skipRemap;
     }
-    if (inputs.newName !== undefined) {
-      requestBody.newName = inputs.newName;
-    }
+
+    const requestBody = {
+      newName: inputs.newName
+    };
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/workspaces/${inputs.workspaceId}/copy`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

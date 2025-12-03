@@ -105,34 +105,58 @@ export const handler = async ({
   log,
 }: IHandlerContext<CreateWebhookInputs>) => {
 
+  if (!inputs.callbackUrl) {
+    throw new Error('Callback URL is required');
+  }
+  if (!inputs.scopeObjectId) {
+    throw new Error('Scope Object Id is required');
+  }
+  if (!inputs.scope) {
+    throw new Error('Scope is required');
+  }
+  if (!inputs.name) {
+    throw new Error('Name is required');
+  }
+  if (!inputs.version) {
+    throw new Error('Version is required');
+  }
+
   log(`Create Webhook`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-    const requestBody: any = {};
-    if (inputs.callbackUrl !== undefined) {
-      requestBody.callbackUrl = inputs.callbackUrl;
+    const requestBody: any = {
+      callbackUrl: inputs.callbackUrl,
+      scopeObjectId: inputs.scopeObjectId,
+      scope: inputs.scope,
+      name: inputs.name,
+      version: inputs.version,
+      events: inputs.events,
+    };
+
+    if (inputs.events !== undefined && inputs.events && inputs.events.trim() !== '') {
+      try {
+        // Try to parse as JSON array first, otherwise treat as comma-separated
+        const parsedEvents = JSON.parse(inputs.events);
+        if (Array.isArray(parsedEvents)) {
+          requestBody.events = parsedEvents;
+        } else {
+          requestBody.events = [parsedEvents];
+        }
+      } catch {
+        // If not JSON, treat as comma-separated string
+        requestBody.events = inputs.events.split(',').map((event: string) => event.trim()).filter((event: string) => event !== '');
+      }
     }
-    if (inputs.events !== undefined) {
-      requestBody.events = inputs.events;
-    }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.version !== undefined) {
-      requestBody.version = inputs.version;
-    }
-    if (inputs.scope !== undefined) {
-      requestBody.scope = inputs.scope;
-    }
-    if (inputs.scopeObjectId !== undefined) {
-      requestBody.scopeObjectId = inputs.scopeObjectId;
-    }
+    
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/webhooks`,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

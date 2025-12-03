@@ -114,14 +114,12 @@ export const handler = async ({
   log(`Delete All Versions`);
 
   try {
-    const queryParams: Record<string, string | number | boolean> = {};
-
     const response = await smartsheetApiRequest({
       method: 'DELETE',
       path: `/sheets/${inputs.sheetId}/attachments/${inputs.attachmentId}/versions`,
-      multipart: true,
-      filePath: inputs.filePath,
-      fileName: inputs.fileName,
+      headers: {
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');
