@@ -115,11 +115,18 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    
+    if (inputs.accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = inputs.accessApiLevel;
+    }
 
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/reports/${inputs.reportId}/shares/${inputs.shareId}`,
       queryParams,
+      headers: {
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

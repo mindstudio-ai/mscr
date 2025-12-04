@@ -113,20 +113,29 @@ export const handler = async ({
   try {
     const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
+    
     if (inputs.readOnlyFullEnabled !== undefined) {
-      requestBody.readOnlyFullEnabled = inputs.readOnlyFullEnabled;
+      // Handle boolean conversion (string "true"/"false" to boolean)
+      requestBody.readOnlyFullEnabled = typeof inputs.readOnlyFullEnabled === 'string' 
+        ? inputs.readOnlyFullEnabled === 'true' 
+        : inputs.readOnlyFullEnabled;
     }
-    if (inputs.readOnlyFullAccessibleBy !== undefined) {
+    if (inputs.readOnlyFullAccessibleBy !== undefined && inputs.readOnlyFullAccessibleBy !== '') {
       requestBody.readOnlyFullAccessibleBy = inputs.readOnlyFullAccessibleBy;
     }
-    if (inputs.readOnlyFullUrl !== undefined) {
+    if (inputs.readOnlyFullUrl !== undefined && inputs.readOnlyFullUrl !== '') {
       requestBody.readOnlyFullUrl = inputs.readOnlyFullUrl;
     }
 
     const response = await smartsheetApiRequest({
       method: 'PUT',
       path: `/sights/${inputs.sightId}/publish`,
+      queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

@@ -20,13 +20,12 @@ configuration:
       - label: Read Only Full Enabled
         required: false
         variable: readOnlyFullEnabled
-        type: text
-        placeholder: Enter Read Only Full Enabled...
+        type: boolean
       - label: Read Only Full Accessible By
         required: false
         variable: readOnlyFullAccessibleBy
         type: text
-        placeholder: Enter Read Only Full Accessible By...
+        placeholder: ORG
       - label: Read Only Full Url
         required: false
         variable: readOnlyFullUrl

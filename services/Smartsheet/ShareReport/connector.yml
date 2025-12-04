@@ -17,21 +17,6 @@ configuration:
         placeholder: Enter Report Id...
   - title: Request Data
     items:
-      - label: Id
-        required: false
-        variable: id
-        type: text
-        placeholder: Enter Id...
-      - label: Group Id
-        required: false
-        variable: groupId
-        type: text
-        placeholder: Enter Group Id...
-      - label: User Id
-        required: false
-        variable: userId
-        type: text
-        placeholder: Enter User Id...
       - label: Type
         required: false
         variable: type
@@ -41,12 +26,11 @@ configuration:
         required: false
         variable: accessLevel
         type: text
-        placeholder: Enter Access Level...
+        placeholder: COMMENTER
       - label: Cc Me
         required: false
         variable: ccMe
-        type: text
-        placeholder: Enter Cc Me...
+        type: boolean
       - label: Created At
         required: false
         variable: createdAt
@@ -67,11 +51,6 @@ configuration:
         variable: modifiedAt
         type: text
         placeholder: Enter Modified At...
-      - label: Name
-        required: true
-        variable: name
-        type: text
-        placeholder: Enter Name...
       - label: Scope
         required: false
         variable: scope
@@ -82,6 +61,14 @@ configuration:
         variable: subject
         type: text
         placeholder: Enter Subject...
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Send Email
+        required: false
+        variable: sendEmail
+        type: boolean
+        defaultValue: false
   - title: Output
     items:
       - label: Output Variable

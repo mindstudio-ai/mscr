@@ -30,8 +30,7 @@ configuration:
       - label: Cc Me
         required: false
         variable: ccMe
-        type: text
-        placeholder: Enter Cc Me...
+        type: boolean
       - label: Message
         required: false
         variable: message
@@ -41,7 +40,7 @@ configuration:
         required: false
         variable: sendTo
         type: text
-        placeholder: Enter Send To...
+        placeholder: Enter comma-separated email addresses...
       - label: Subject
         required: false
         variable: subject

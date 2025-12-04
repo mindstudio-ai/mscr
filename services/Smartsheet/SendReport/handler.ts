@@ -113,29 +113,45 @@ export const handler = async ({
   try {
     const queryParams: Record<string, string | number | boolean> = {};
     const requestBody: any = {};
-    if (inputs.format !== undefined) {
+    
+    if (inputs.format !== undefined && inputs.format !== '') {
       requestBody.format = inputs.format;
     }
-    if (inputs.formatDetails !== undefined) {
-      requestBody.formatDetails = inputs.formatDetails;
+    if (inputs.formatDetails !== undefined && inputs.formatDetails !== '') {
+      // Try to parse as JSON, otherwise use as empty object
+      try {
+        requestBody.formatDetails = JSON.parse(inputs.formatDetails);
+      } catch {
+        requestBody.formatDetails = {};
+      }
     }
     if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
+      // Handle boolean conversion (string "true"/"false" to boolean)
+      requestBody.ccMe = typeof inputs.ccMe === 'string' 
+        ? inputs.ccMe === 'true' 
+        : inputs.ccMe;
     }
-    if (inputs.message !== undefined) {
+    if (inputs.message !== undefined && inputs.message !== '') {
       requestBody.message = inputs.message;
     }
-    if (inputs.sendTo !== undefined) {
-      requestBody.sendTo = inputs.sendTo;
+    if (inputs.sendTo !== undefined && inputs.sendTo !== '') {
+      // Parse comma-separated emails into array of objects with email property
+      const emails = inputs.sendTo.split(',').map((email) => email.trim()).filter((email) => email);
+      requestBody.sendTo = emails.map((email) => ({ email }));
     }
-    if (inputs.subject !== undefined) {
+    if (inputs.subject !== undefined && inputs.subject !== '') {
       requestBody.subject = inputs.subject;
     }
 
     const response = await smartsheetApiRequest({
       method: 'POST',
       path: `/reports/${inputs.reportId}/emails`,
+      queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

@@ -112,44 +112,41 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    
+    if (inputs.sendEmail !== undefined) {
+      queryParams.sendEmail = inputs.sendEmail;
+    }
+
     const requestBody: any = {};
-    if (inputs.id !== undefined) {
-      requestBody.id = inputs.id;
-    }
-    if (inputs.groupId !== undefined) {
-      requestBody.groupId = inputs.groupId;
-    }
-    if (inputs.userId !== undefined) {
-      requestBody.userId = inputs.userId;
-    }
-    if (inputs.type !== undefined) {
+  
+    if (inputs.type !== undefined && inputs.type !== '') {
       requestBody.type = inputs.type;
     }
-    if (inputs.accessLevel !== undefined) {
+    if (inputs.accessLevel !== undefined && inputs.accessLevel !== '') {
       requestBody.accessLevel = inputs.accessLevel;
     }
     if (inputs.ccMe !== undefined) {
-      requestBody.ccMe = inputs.ccMe;
+      // Handle boolean conversion (string "true"/"false" to boolean)
+      requestBody.ccMe = typeof inputs.ccMe === 'string' 
+        ? inputs.ccMe === 'true' 
+        : inputs.ccMe;
     }
-    if (inputs.createdAt !== undefined) {
+    if (inputs.createdAt !== undefined && inputs.createdAt !== '') {
       requestBody.createdAt = inputs.createdAt;
     }
-    if (inputs.email !== undefined) {
+    if (inputs.email !== undefined && inputs.email !== '') {
       requestBody.email = inputs.email;
     }
-    if (inputs.message !== undefined) {
+    if (inputs.message !== undefined && inputs.message !== '') {
       requestBody.message = inputs.message;
     }
-    if (inputs.modifiedAt !== undefined) {
+    if (inputs.modifiedAt !== undefined && inputs.modifiedAt !== '') {
       requestBody.modifiedAt = inputs.modifiedAt;
     }
-    if (inputs.name !== undefined) {
-      requestBody.name = inputs.name;
-    }
-    if (inputs.scope !== undefined) {
+    if (inputs.scope !== undefined && inputs.scope !== '') {
       requestBody.scope = inputs.scope;
     }
-    if (inputs.subject !== undefined) {
+    if (inputs.subject !== undefined && inputs.subject !== '') {
       requestBody.subject = inputs.subject;
     }
 
@@ -158,6 +155,10 @@ export const handler = async ({
       path: `/reports/${inputs.reportId}/shares`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');

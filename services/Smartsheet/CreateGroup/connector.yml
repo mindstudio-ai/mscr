@@ -22,10 +22,10 @@ configuration:
         type: text
         placeholder: Enter Description...
       - label: Members
-        required: false
+        required: true
         variable: members
         type: text
-        placeholder: Enter Members...
+        placeholder: Enter comma-separated list of member emails...
   - title: Output
     items:
       - label: Output Variable

@@ -1,17 +1,14 @@
 export interface ShareReportInputs {
   reportId: string;
-  id?: any;
-  groupId?: any;
-  userId?: any;
-  type?: any;
+  type?: string;
   accessLevel?: string;
-  ccMe?: any;
-  createdAt?: any;
-  email?: any;
-  message?: any;
-  modifiedAt?: any;
-  name?: any;
-  scope?: any;
-  subject?: any;
+  ccMe?: boolean;
+  createdAt?: string;
+  email?: string;
+  message?: string;
+  modifiedAt?: string;
+  scope?: string;
+  subject?: string;
+  sendEmail?: boolean;
   outputVariable: string;
 }

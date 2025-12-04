@@ -2,9 +2,9 @@ export interface SendReportInputs {
   reportId: string;
   format?: string;
   formatDetails?: string;
-  ccMe?: any;
-  message?: any;
+  ccMe?: boolean;
+  message?: string;
   sendTo?: string;
-  subject?: any;
+  subject?: string;
   outputVariable: string;
 }

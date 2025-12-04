@@ -26,7 +26,15 @@ configuration:
         required: false
         variable: accessLevel
         type: text
-        placeholder: Enter Access Level...
+        placeholder: COMMENTER
+  - title: Query Options
+    collapsed: true
+    items:
+      - label: Access API Level
+        required: false
+        variable: accessApiLevel
+        type: number
+        defaultValue: 0
   - title: Output
     items:
       - label: Output Variable

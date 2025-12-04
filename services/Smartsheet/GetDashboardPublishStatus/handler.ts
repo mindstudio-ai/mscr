@@ -114,6 +114,9 @@ export const handler = async ({
     const response = await smartsheetApiRequest({
       method: 'GET',
       path: `/sights/${inputs.sightId}/publish`,
+      headers: {
+        'Accept': 'application/json',
+      },
     });
 
     log(`Successfully completed operation for sight ${inputs.sightId}`);

@@ -115,8 +115,13 @@ export const handler = async ({
 
   try {
     const queryParams: Record<string, string | number | boolean> = {};
+    
+    if (inputs.accessApiLevel !== undefined) {
+      queryParams.accessApiLevel = inputs.accessApiLevel;
+    }
+
     const requestBody: any = {};
-    if (inputs.accessLevel !== undefined) {
+    if (inputs.accessLevel !== undefined && inputs.accessLevel !== '') {
       requestBody.accessLevel = inputs.accessLevel;
     }
 
@@ -125,6 +130,10 @@ export const handler = async ({
       path: `/sights/${inputs.sightId}/shares/${inputs.shareId}`,
       queryParams,
       body: requestBody,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     });
 
     log('Successfully completed operation');
