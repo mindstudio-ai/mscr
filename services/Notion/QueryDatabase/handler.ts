@@ -35,8 +35,11 @@ export const handler = async ({
   log(`Querying Notion database: ${databaseId}`);
 
   // Initialize the Notion client
+  // Explicitly set API version to 2022-06-28 to ensure databases.query is available
+  // (databases.query is deprecated in 2025-09-03+ in favor of data sources)
   const notion = new Client({
     auth: token,
+    notionVersion: '2022-06-28',
   });
 
   try {
@@ -74,8 +77,20 @@ export const handler = async ({
     }
 
     log('Sending request to Notion API...');
-    // Query the database - using the same pattern as RetrieveDatabase
-    const response = await notion.databases.query(queryParams);
+
+    // Query the database - using bracket notation to avoid potential minification issues
+    const databases = notion.databases;
+    if (!databases || typeof databases['query'] !== 'function') {
+      const availableMethods = databases
+        ? Object.keys(databases).join(', ')
+        : 'none';
+      throw new Error(
+        `Notion client databases.query is not available. Available methods: ${availableMethods}. ` +
+          `This may indicate a version mismatch. Please ensure @notionhq/client version 4.0.2 or later is installed.`,
+      );
+    }
+
+    const response = await databases['query'](queryParams);
 
     log(`Retrieved ${response.results.length} results from the database`);
 
