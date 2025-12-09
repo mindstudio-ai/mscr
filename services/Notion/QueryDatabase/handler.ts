@@ -80,17 +80,43 @@ export const handler = async ({
 
     // Query the database - using bracket notation to avoid potential minification issues
     const databases = notion.databases;
-    if (!databases || typeof databases['query'] !== 'function') {
-      const availableMethods = databases
-        ? Object.keys(databases).join(', ')
-        : 'none';
-      throw new Error(
-        `Notion client databases.query is not available. Available methods: ${availableMethods}. ` +
-          `This may indicate a version mismatch. Please ensure @notionhq/client version 4.0.2 or later is installed.`,
-      );
-    }
+    let response;
 
-    const response = await databases['query'](queryParams);
+    if (databases && typeof databases['query'] === 'function') {
+      // Use the query method if available
+      response = await databases['query'](queryParams);
+    } else {
+      // Fallback: Use request method directly if query is not available
+      // This handles cases where the production environment has a different SDK version
+      const bodyParams: any = {};
+      const queryStringParams: any = {};
+
+      // Separate body params from query string params
+      if (queryParams.filter) {
+        bodyParams.filter = queryParams.filter;
+      }
+      if (queryParams.sorts) {
+        bodyParams.sorts = queryParams.sorts;
+      }
+      if (queryParams.page_size) {
+        bodyParams.page_size = queryParams.page_size;
+      }
+      if (queryParams.start_cursor) {
+        bodyParams.start_cursor = queryParams.start_cursor;
+      }
+      if (queryParams.filter_properties) {
+        // filter_properties goes in query string, not body
+        queryStringParams.filter_properties = queryParams.filter_properties;
+      }
+
+      response = await notion.request({
+        path: `databases/${databaseId}/query`,
+        method: 'post',
+        query: queryStringParams,
+        body: bodyParams,
+        auth: token,
+      });
+    }
 
     log(`Retrieved ${response.results.length} results from the database`);
 
