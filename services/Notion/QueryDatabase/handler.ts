@@ -39,41 +39,42 @@ export const handler = async ({
     auth: token,
   });
 
-  // Prepare query parameters
-  const queryParams: any = {
-    database_id: databaseId,
-  };
-
-  // Add optional parameters if provided
-  if (filter) {
-    queryParams.filter = filter;
-  }
-
-  if (sorts) {
-    queryParams.sorts = sorts;
-  }
-
-  if (pageSize) {
-    const parsedPageSize = parseInt(pageSize, 10);
-    if (!isNaN(parsedPageSize)) {
-      queryParams.page_size = Math.min(parsedPageSize, 100); // Ensure it doesn't exceed the max of 100
-    }
-  }
-
-  if (startCursor) {
-    queryParams.start_cursor = startCursor;
-  }
-
-  if (filterProperties) {
-    // Convert comma-separated string to array
-    queryParams.filter_properties = filterProperties
-      .split(',')
-      .map((prop) => prop.trim())
-      .filter((prop) => prop.length > 0);
-  }
-
   try {
+    // Build query parameters object
+    const queryParams: any = {
+      database_id: databaseId,
+    };
+
+    // Add optional parameters if provided
+    if (filter) {
+      queryParams.filter = filter;
+    }
+
+    if (sorts) {
+      queryParams.sorts = sorts;
+    }
+
+    if (pageSize) {
+      const parsedPageSize = parseInt(pageSize, 10);
+      if (!isNaN(parsedPageSize)) {
+        queryParams.page_size = Math.min(parsedPageSize, 100); // Ensure it doesn't exceed the max of 100
+      }
+    }
+
+    if (startCursor) {
+      queryParams.start_cursor = startCursor;
+    }
+
+    if (filterProperties) {
+      // Convert comma-separated string to array
+      queryParams.filter_properties = filterProperties
+        .split(',')
+        .map((prop) => prop.trim())
+        .filter((prop) => prop.length > 0);
+    }
+
     log('Sending request to Notion API...');
+    // Query the database - using the same pattern as RetrieveDatabase
     const response = await notion.databases.query(queryParams);
 
     log(`Retrieved ${response.results.length} results from the database`);
