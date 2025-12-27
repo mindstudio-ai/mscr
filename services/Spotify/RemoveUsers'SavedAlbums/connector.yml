@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Action
+id: remove-saved-albums
+serviceId: spotify
+active: true
+metadata:
+  name: Remove Saved Albums
+  description: Removes one or more albums from the current user's 'Your Music' library
+  quickHelp: readme.md
+configuration:
+  - title: Album Selection
+    items:
+      - label: Album IDs
+        helpText: Enter the Spotify album IDs to remove from your library, separated by commas. Maximum 20 IDs.
+        variable: albumIds
+        required: true
+        type: text
+        placeholder: 4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M
