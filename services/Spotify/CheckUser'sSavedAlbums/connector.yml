@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: check-user-saved-albums
+serviceId: spotify
+active: true
+metadata:
+  name: Check User's Saved Albums
+  description: Check if one or more albums are saved in the current user's Spotify library
+  quickHelp: readme.md
+configuration:
+  - title: Album Information
+    items:
+      - label: Album IDs
+        helpText: Comma-separated list of Spotify album IDs to check. Maximum 20 IDs.
+        variable: albumIds
+        required: true
+        type: text
+        placeholder: 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo
+  - title: Output Configuration
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the results. Returns an array of booleans indicating whether each album is saved.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
