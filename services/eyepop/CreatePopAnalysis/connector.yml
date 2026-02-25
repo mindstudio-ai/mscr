@@ -5,7 +5,7 @@ serviceId: eyepop
 active: true
 metadata:
   name: Analyze Visual Content
-  description: Analyze images or videos using EyePop.ai's visual intelligence platform
+  description: Analyze images or videos using EyePop.ai's visual intelligence platform with composable Pops
   quickHelp: readme.md
 configuration:
   - title: Content Settings
@@ -28,12 +28,20 @@ configuration:
               value: image
             - label: Video
               value: video
-      - label: Pop ID
-        helpText: The ID of your EyePop endpoint (Pop)
-        variable: popId
+      - label: Composable Pop Configuration
+        helpText: Enter your composable Pop configuration as JSON. Define the AI models and pipeline components to use for analysis.
+        variable: popConfiguration
         required: true
-        type: text
-        placeholder: your-pop-id
+        type: textarea
+        placeholder: |
+          {
+            "components": [
+              {
+                "type": "inference",
+                "model": "eyepop.person:latest"
+              }
+            ]
+          }
   - title: Output Settings
     items:
       - label: Output Variable

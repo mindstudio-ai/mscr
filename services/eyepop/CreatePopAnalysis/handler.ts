@@ -1,3 +1,5 @@
+import { EyePop, TransientPopId } from '@eyepop.ai/eyepop';
+
 export const handler = async ({
   inputs,
   setOutput,
@@ -16,125 +18,127 @@ export const handler = async ({
     );
   }
 
-  const { contentUrl, contentType, popId, outputVariable } = inputs;
+  const { contentUrl, contentType, popConfiguration, outputVariable } = inputs;
 
-  // Validate required inputs
   if (!contentUrl) {
     throw new Error('Content URL is required');
   }
 
-  if (!popId) {
-    throw new Error('Pop ID is required');
+  if (!popConfiguration) {
+    throw new Error(
+      'EyePop Configuration is required. Please provide a composable Pop configuration.',
+    );
   }
 
   log(`Starting analysis of ${contentType} content using EyePop.ai...`);
 
+  let endpoint: any = null;
+
   try {
-    let accessToken = '';
-
+    // Parse the composable pop configuration
+    let popConfig: any;
     try {
-      //encodeURIComponent
-      const body = JSON.stringify({
-        secret_key: apiKey,
-      });
-      const url = `https://api.eyepop.ai/authentication/token`;
+      popConfig = JSON.parse(popConfiguration.trim());
+      log('Parsed composable Pop configuration');
+    } catch (parseError: any) {
+      const errorMessage = `Invalid configuration format. Please provide a valid JSON composable Pop configuration. Error: ${parseError.message}`;
+      log(errorMessage);
+      setOutput(outputVariable, { error: errorMessage });
+      return;
+    }
 
-      const headers = {
-        'Content-Type': 'application/json',
-      };
+    // Validate the config has components
+    if (!popConfig.components || !Array.isArray(popConfig.components)) {
+      const errorMessage =
+        'Invalid composable Pop configuration. Must include a "components" array.';
+      log(errorMessage);
+      setOutput(outputVariable, { error: errorMessage });
+      return;
+    }
 
-      const request = await fetch(url, {
-        method: 'POST',
-        headers,
-        body,
-      });
+    // Connect to EyePop using the SDK with a transient pipeline
+    log('Connecting to EyePop.ai...');
+    endpoint = await EyePop.workerEndpoint({
+      auth: { apiKey },
+      eyepopUrl: 'https://compute.eyepop.ai',
+      popId: TransientPopId.Transient,
+      stopJobs: false,
+    }).connect();
 
-      const data = await request.json();
+    log('Connected to EyePop.ai successfully');
 
-      accessToken = data.access_token;
+    // Apply the composable pop configuration
+    log('Applying composable Pop configuration...');
+    await endpoint.changePop(popConfig);
+    log('Composable Pop configuration applied');
 
-      if (!accessToken) {
-        throw new Error('Access token is invalid');
+    // Process the content
+    log('Analyzing content...');
+    const results = await endpoint.process({ url: contentUrl });
+
+    // Collect all predictions
+    const allObjects: any[] = [];
+
+    for await (const prediction of results) {
+      if (prediction.objects && Array.isArray(prediction.objects)) {
+        for (const obj of prediction.objects) {
+          allObjects.push({
+            classLabel: obj.classLabel || obj.category || 'unknown',
+            confidence: obj.confidence,
+            x: obj.x,
+            y: obj.y,
+            width: obj.width,
+            height: obj.height,
+            orientation: obj.orientation,
+            keyPoints: obj.keyPoints,
+            objects: obj.objects,
+            classes: obj.classes,
+            texts: obj.texts,
+            meshs: obj.meshs,
+          });
+        }
       }
-    } catch (e) {
-      const errorMessage = 'ERROR. Unable to get the access token';
-      log(errorMessage);
-      log(e.toString());
-      setOutput(outputVariable, errorMessage);
-      return;
     }
 
-    let popConfig = {};
+    // Build output
+    const objectsFound = allObjects.map((obj) => obj.classLabel);
 
-    try {
-      const url =
-        'https://api.eyepop.ai/pops/' + popId + '/config?auto_start=true';
+    log(`Detected ${allObjects.length} object(s):`);
+    allObjects.forEach((obj, index) => {
+      log(
+        `  ${index + 1}. ${obj.classLabel} (confidence: ${(obj.confidence * 100).toFixed(1)}%)`,
+      );
+      if (obj.x !== undefined) {
+        log(
+          `     Location: [x:${obj.x.toFixed(1)}, y:${obj.y.toFixed(1)}, width:${obj.width.toFixed(1)}, height:${obj.height.toFixed(1)}]`,
+        );
+      }
+    });
 
-      log('Loading PopConfig...');
-
-      const request = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const data = await request.json();
-      popConfig = data;
-    } catch (e) {
-      const errorMessage = 'ERROR. Unable to fetch the pop_config';
-      log(errorMessage);
-      log(e.toString());
-      setOutput(outputVariable, errorMessage);
-      return;
-    }
-
-    // Get Analysis
-    let outputResult = '';
-    try {
-      //ai.crmLog(popConfig)
-      const url =
-        (popConfig as any).base_url +
-        '/pipelines/' +
-        (popConfig as any).pipeline_id +
-        '/source?mode=preempt&processing=sync';
-      const body = JSON.stringify({
-        sourceType: 'URL',
-        url: contentUrl,
-      });
-
-      log('Analyzing...');
-
-      const request = await fetch(url, {
-        method: 'PATCH',
-        body: body,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const data = await request.json();
-      outputResult = data;
-    } catch (e) {
-      const errorMessage = 'ERROR. Unable to fetch the image json';
-      log(errorMessage);
-      log(e.toString());
-
-      setOutput(outputVariable, errorMessage);
-      return;
-    }
+    const outputResult = {
+      objects: allObjects,
+      summary: {
+        totalObjects: allObjects.length,
+        objectsFound,
+      },
+    };
 
     log(`Successfully analyzed ${contentType} content with EyePop.ai`);
+    log(`Found ${outputResult.summary.totalObjects} objects`);
 
-    // Set the output variable with the analysis results
     setOutput(outputVariable, outputResult);
-  } catch (error) {
-    if (error instanceof Error) {
-      log(`Error analyzing content: ${error.message}`);
-      throw error;
+  } catch (error: any) {
+    const message = error?.message || 'Unknown error occurred during analysis';
+    log(`Error analyzing content: ${message}`);
+    setOutput(outputVariable, { error: message });
+    throw error;
+  } finally {
+    if (endpoint) {
+      try {
+        await endpoint.disconnect();
+      } catch {
+        // ignore disconnect errors
+      }
     }
-    throw new Error('Unknown error occurred during analysis');
   }
 };
