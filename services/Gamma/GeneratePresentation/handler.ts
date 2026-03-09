@@ -19,7 +19,7 @@ export const handler = async ({
   const {
     inputText,
     format = 'presentation',
-    themeName = 'Oasis',
+    themeId = '',
     textMode = 'generate',
     numCards = '10',
     cardSplit = 'auto',
@@ -48,12 +48,15 @@ export const handler = async ({
   const payload: any = {
     inputText,
     format,
-    themeName,
     textMode,
     numCards: parseInt(numCards, 10) || 10,
     cardSplit,
     exportAs,
   };
+
+  if (themeId) {
+    payload.themeId = themeId;
+  }
 
   // Add optional parameters if provided
   if (additionalInstructions) {
@@ -92,13 +95,15 @@ export const handler = async ({
   log(
     `Starting presentation generation with ${numCards} cards in ${format} format`,
   );
-  log(`Using theme: ${themeName}`);
+  if (themeId) {
+    log(`Using theme: ${themeId}`);
+  }
 
   try {
     // Create the generation
     log('Sending request to Gamma API...');
     const response = await fetch(
-      'https://public-api.gamma.app/v0.2/generations',
+      'https://public-api.gamma.app/v1.0/generations',
       {
         method: 'POST',
         headers: {
@@ -141,7 +146,7 @@ export const handler = async ({
       // Check generation status
       log(`Checking generation status (attempt ${attempts})...`);
       const statusResponse = await fetch(
-        `https://public-api.gamma.app/v0.2/generations/${generationId}`,
+        `https://public-api.gamma.app/v1.0/generations/${generationId}`,
         {
           method: 'GET',
           headers: {
