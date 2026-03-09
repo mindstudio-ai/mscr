@@ -11,4 +11,4 @@ configuration:
     type: apiKey
     name: API Key
     description: 'Your EyePop API key. To learn about creating an API key, visit: https://docs.eyepop.ai/developer-documentation/api-key'
-    placeholder: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    placeholder: eyp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
