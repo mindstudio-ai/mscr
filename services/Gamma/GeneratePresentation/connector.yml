@@ -31,12 +31,13 @@ configuration:
               value: document
             - label: Social Media
               value: social
-      - label: Theme
-        helpText: Defines the theme for your presentation (colors and fonts)
-        variable: themeName
-        required: true
+            - label: Webpage
+              value: webpage
+      - label: Theme ID
+        helpText: Theme identifier from your Gamma workspace (defines colors and fonts)
+        variable: themeId
+        required: false
         type: text
-        defaultValue: Oasis
       - label: Output Variable
         helpText: Variable to store the URL of the generated presentation
         variable: outputVariable
@@ -137,8 +138,8 @@ configuration:
               value: aiGenerated
             - label: Pictographic
               value: pictographic
-            - label: Unsplash
-              value: unsplash
+            - label: Pexels
+              value: pexels
             - label: Giphy
               value: giphy
             - label: Web - All Images
