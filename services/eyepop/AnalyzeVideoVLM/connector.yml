@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Action
+id: analyze-video-vlm
+serviceId: eyepop
+active: true
+metadata:
+  name: Analyze Video with VLM
+  description: Analyze videos using EyePop.ai's Visual Language Model to describe, classify, or answer questions about video content
+  quickHelp: readme.md
+configuration:
+  - title: Video Settings
+    items:
+      - label: Video URL
+        helpText: URL to the video you want to analyze
+        variable: videoUrl
+        required: true
+        type: text
+        placeholder: https://example.com/video.mp4
+  - title: VLM Configuration
+    items:
+      - label: Text Prompt
+        helpText: What do you want the VLM to analyze? E.g. "Describe what is happening in this video" or "Classify the activity shown"
+        variable: textPrompt
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: Describe what is happening in this video
+      - label: VLM Model
+        helpText: Which VLM model to use for analysis
+        variable: workerRelease
+        required: false
+        type: select
+        defaultValue: qwen3-instruct
+        selectOptions:
+          options:
+            - label: Qwen3 Instruct (Best Quality)
+              value: qwen3-instruct
+            - label: Smol (Fastest)
+              value: smol
+      - label: FPS (Frames Per Second)
+        helpText: How many frames per second to sample from the video. Lower = faster and cheaper. Default is 1.
+        variable: fps
+        required: false
+        type: text
+        placeholder: "1"
+      - label: Max Frames
+        helpText: Maximum number of frames to analyze. Caps compute cost for long videos. Default is 16.
+        variable: maxFrames
+        required: false
+        type: text
+        placeholder: "16"
+      - label: Image Size
+        helpText: Resolution of frames sent to the VLM. Higher = better quality but slower.
+        variable: imageSize
+        required: false
+        type: select
+        defaultValue: "640"
+        selectOptions:
+          options:
+            - label: 224 (Fast)
+              value: "224"
+            - label: 640 (Balanced)
+              value: "640"
+            - label: 1024 (Best Quality)
+              value: "1024"
+  - title: Output Settings
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the VLM analysis results
+        variable: outputVariable
+        required: true
+        type: outputVariableName
