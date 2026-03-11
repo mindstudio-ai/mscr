@@ -32,13 +32,15 @@ configuration:
         helpText: Enter your composable Pop configuration as JSON. Define the AI models and pipeline components to use for analysis.
         variable: popConfiguration
         required: true
-        type: textarea
+        type: text
+        textOptions:
+          type: multiline
         placeholder: |
           {
             "components": [
               {
                 "type": "inference",
-                "model": "eyepop.person:latest"
+                "ability": "eyepop.person:latest"
               }
             ]
           }

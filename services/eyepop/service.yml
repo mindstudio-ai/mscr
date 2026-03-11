@@ -12,3 +12,8 @@ configuration:
     name: API Key
     description: 'Your EyePop API key. To learn about creating an API key, visit: https://docs.eyepop.ai/developer-documentation/api-key'
     placeholder: eyp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  - id: accountId
+    type: text
+    name: Account ID
+    description: 'Your EyePop Account ID (UUID). Required for VLM video analysis. Find it in your EyePop dashboard settings.'
+    placeholder: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
