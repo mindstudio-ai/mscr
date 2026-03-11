@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Action
+id: get-several-albums
+serviceId: spotify
+active: true
+metadata:
+  name: Get Several Albums
+  description: Retrieve Spotify catalog information for multiple albums identified by their Spotify IDs.
+  quickHelp: readme.md
+configuration:
+  - title: Album Information
+    items:
+      - label: Album IDs
+        helpText: A comma-separated list of Spotify album IDs. Maximum 20 IDs.
+        variable: albumIds
+        required: true
+        type: text
+        placeholder: "Example: 382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo"
+      - label: Market
+        helpText: An ISO 3166-1 alpha-2 country code to filter content available in that market
+        variable: market
+        required: false
+        type: text
+        placeholder: "US"
+      - label: Output Variable
+        helpText: Name of the variable to store the album data
+        variable: outputVariable
+        required: true
+        type: outputVariableName

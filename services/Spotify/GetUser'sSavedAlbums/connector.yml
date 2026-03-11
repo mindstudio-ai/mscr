@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Action
+id: get-user-saved-albums
+serviceId: spotify
+active: true
+metadata:
+  name: Get User's Saved Albums
+  description: Retrieves a list of albums saved in the current Spotify user's 'Your Music' library
+  quickHelp: readme.md
+configuration:
+  - title: Configuration
+    items:
+      - label: Limit
+        helpText: The maximum number of albums to return (1-50). Default is 20.
+        variable: limit
+        required: false
+        type: text
+        placeholder: Enter a number between 1 and 50
+        defaultValue: "20"
+      - label: Offset
+        helpText: The index of the first album to return. Default is 0.
+        variable: offset
+        required: false
+        type: text
+        placeholder: Enter a starting position
+        defaultValue: "0"
+      - label: Market
+        helpText: An ISO 3166-1 alpha-2 country code to filter content by market availability.
+        variable: market
+        required: false
+        type: text
+        placeholder: e.g., US, GB, DE
+      - label: Output Variable
+        helpText: The variable name to store the list of saved albums.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
+     

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: save-albums
+serviceId: spotify
+active: true
+metadata:
+  name: Save Albums to Library
+  description: Save one or more albums to the current user's Spotify library
+  quickHelp: readme.md
+configuration:
+  - title: Album Selection
+    items:
+      - label: Album IDs
+        helpText: Enter Spotify album IDs separated by commas. Maximum 20 IDs.
+        variable: albumIds
+        required: true
+        type: text
+        placeholder: "382ObEPsp2rxGrnsizN5TX,1A2GTWGtFfWp7KSQTwWOyo"
+  - title: Response
+    items:
+      - label: Success Message
+        helpText: Variable name to store the success message
+        variable: successMessage
+        required: true
+        type: outputVariableName

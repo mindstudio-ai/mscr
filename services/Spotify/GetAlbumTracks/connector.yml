@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Action
+id: get-album-tracks
+serviceId: spotify
+active: true
+metadata:
+  name: Get Album Tracks
+  description: Retrieves tracks from a specified Spotify album.
+  quickHelp: readme.md
+configuration:
+  - title: Album Information
+    items:
+      - label: Album ID
+        helpText: The Spotify ID of the album (e.g., 4aawyAB9vmqN3uQ7FjRGTy)
+        variable: albumId
+        required: true
+        type: text
+        placeholder: Enter Spotify Album ID.
+  - title: Optional Parameters
+    collapsed: true
+    items:
+      - label: Market
+        helpText: ISO 3166-1 alpha-2 country code to filter available tracks by market (e.g., US, GB, ES)
+        variable: market
+        required: false
+        type: text
+        placeholder: e.g., US
+      - label: Limit
+        helpText: Maximum number of tracks to return (1-50, default is 20)
+        variable: limit
+        required: false
+        type: text
+        placeholder: "20"
+      - label: Offset
+        helpText: The index of the first track to return (for pagination)
+        variable: offset
+        required: false
+        type: text
+        placeholder: "0"
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: Variable name to store the album tracks
+        variable: outputVariable
+        required: true
+        type: outputVariableName
