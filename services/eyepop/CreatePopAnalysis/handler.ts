@@ -35,16 +35,21 @@ export const handler = async ({
   let endpoint: any = null;
 
   try {
-    // Parse the composable pop configuration
+    // Parse the composable pop configuration (may arrive as string or pre-parsed object)
     let popConfig: any;
-    try {
-      popConfig = JSON.parse(popConfiguration.trim());
-      log('Parsed composable Pop configuration');
-    } catch (parseError: any) {
-      const errorMessage = `Invalid configuration format. Please provide a valid JSON composable Pop configuration. Error: ${parseError.message}`;
-      log(errorMessage);
-      setOutput(outputVariable, { error: errorMessage });
-      return;
+    if (typeof popConfiguration === 'object') {
+      popConfig = popConfiguration;
+      log('Using pre-parsed composable Pop configuration');
+    } else {
+      try {
+        popConfig = JSON.parse(popConfiguration.trim());
+        log('Parsed composable Pop configuration');
+      } catch (parseError: any) {
+        const errorMessage = `Invalid configuration format. Please provide a valid JSON composable Pop configuration. Error: ${parseError.message}`;
+        log(errorMessage);
+        setOutput(outputVariable, { error: errorMessage });
+        return;
+      }
     }
 
     // Validate the config has components
