@@ -15,9 +15,11 @@ This connector allows you to retrieve entries from a Notion database with option
    - The Notion database ID (e.g., `d9824bdc-8445-4327-be8b-5b47500af6ce`)
    - The full Notion URL (e.g., `https://www.notion.so/myworkspace/d9824bdc84454327be8b5b47500af6ce`)
 
+2. **Data Source ID or Name** (Optional): Leave this blank when the database has one data source. If the database has multiple data sources, enter the data source ID, URL, or exact name to query.
+
 ### Query Options
 
-2. **Filter** (Optional): JSON object to filter database entries. Examples:
+3. **Filter** (Optional): JSON object to filter database entries. Examples:
 
    ```json
    // Simple filter - find items where Status equals "Done"
@@ -42,7 +44,7 @@ This connector allows you to retrieve entries from a Notion database with option
    }
    ```
 
-3. **Sort** (Optional): JSON array of sort criteria. Example:
+4. **Sort** (Optional): JSON array of sort criteria. Example:
 
    ```json
    [
@@ -57,19 +59,20 @@ This connector allows you to retrieve entries from a Notion database with option
    ]
    ```
 
-4. **Page Size** (Optional): Number of results to return per page (maximum 100, default 100)
+5. **Page Size** (Optional): Number of results to return per page (maximum 100, default 100)
 
-5. **Start Cursor** (Optional): Cursor for pagination. Leave empty to start from the beginning.
+6. **Start Cursor** (Optional): Cursor for pagination. Leave empty to start from the beginning.
 
-6. **Filter Properties** (Optional): Comma-separated list of property IDs to include in the response. Leave empty to include all properties.
+7. **Filter Properties** (Optional): Comma-separated list of property IDs to include in the response. Leave empty to include all properties.
 
 ### Output
 
-7. **Output Variable**: Name of the variable where the query results will be stored. The results will include an array of database entries with their properties.
+8. **Output Variable**: Name of the variable where the query results will be stored. The results will include an array of database entries with their properties.
 
 ## Common Issues
 
 - **404 Error**: Make sure the database is shared with your integration
+- **Multiple Data Sources**: Provide the data source ID, URL, or exact name in the Data Source ID or Name field
 - **Invalid Filter/Sort**: Check your JSON syntax for any errors
 - **Rate Limiting**: If you hit rate limits, try reducing the frequency of requests
 

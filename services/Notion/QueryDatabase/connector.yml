@@ -16,6 +16,11 @@ configuration:
         variable: databaseId
         type: text
         placeholder: d9824bdc-8445-4327-be8b-5b47500af6ce or https://www.notion.so/myworkspace/d9824bdc84454327be8b5b47500af6ce
+      - label: Data Source ID or Name
+        required: false
+        helpText: Required only when the Notion database contains multiple data sources. Enter the data source ID, URL, or exact name.
+        variable: dataSourceId
+        type: text
   - title: Query Options
     collapsed: true
     items:

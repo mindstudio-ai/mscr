@@ -1,4 +1,5 @@
-import { Client } from '@notionhq/client';
+const NOTION_API_VERSION = '2025-09-03';
+const NOTION_API_BASE_URL = 'https://api.notion.com/v1';
 
 export const handler = async ({
   inputs,
@@ -18,6 +19,7 @@ export const handler = async ({
   // Extract inputs
   const {
     databaseId: rawDatabaseId,
+    dataSourceId: rawDataSourceId,
     filter,
     sorts,
     pageSize,
@@ -34,38 +36,35 @@ export const handler = async ({
 
   log(`Querying Notion database: ${databaseId}`);
 
-  // Initialize the Notion client
-  // Explicitly set API version to 2022-06-28 to ensure databases.query is available
-  // (databases.query is deprecated in 2025-09-03+ in favor of data sources)
-  const notion = new Client({
-    auth: token,
-    notionVersion: '2022-06-28',
-  });
-
   try {
-    // Build query parameters object
-    const queryParams: any = {
-      database_id: databaseId,
-    };
+    const dataSourceId = await resolveDataSourceId({
+      databaseId,
+      rawDataSourceId,
+      token,
+      log,
+    });
+
+    const bodyParams: any = {};
+    const queryParams: Record<string, string[]> = {};
 
     // Add optional parameters if provided
     if (filter) {
-      queryParams.filter = filter;
+      bodyParams.filter = filter;
     }
 
     if (sorts) {
-      queryParams.sorts = sorts;
+      bodyParams.sorts = sorts;
     }
 
     if (pageSize) {
       const parsedPageSize = parseInt(pageSize, 10);
       if (!isNaN(parsedPageSize)) {
-        queryParams.page_size = Math.min(parsedPageSize, 100); // Ensure it doesn't exceed the max of 100
+        bodyParams.page_size = Math.min(parsedPageSize, 100); // Ensure it doesn't exceed the max of 100
       }
     }
 
     if (startCursor) {
-      queryParams.start_cursor = startCursor;
+      bodyParams.start_cursor = startCursor;
     }
 
     if (filterProperties) {
@@ -78,45 +77,13 @@ export const handler = async ({
 
     log('Sending request to Notion API...');
 
-    // Query the database - using bracket notation to avoid potential minification issues
-    const databases = notion.databases;
-    let response;
-
-    if (databases && typeof databases['query'] === 'function') {
-      // Use the query method if available
-      response = await databases['query'](queryParams);
-    } else {
-      // Fallback: Use request method directly if query is not available
-      // This handles cases where the production environment has a different SDK version
-      const bodyParams: any = {};
-      const queryStringParams: any = {};
-
-      // Separate body params from query string params
-      if (queryParams.filter) {
-        bodyParams.filter = queryParams.filter;
-      }
-      if (queryParams.sorts) {
-        bodyParams.sorts = queryParams.sorts;
-      }
-      if (queryParams.page_size) {
-        bodyParams.page_size = queryParams.page_size;
-      }
-      if (queryParams.start_cursor) {
-        bodyParams.start_cursor = queryParams.start_cursor;
-      }
-      if (queryParams.filter_properties) {
-        // filter_properties goes in query string, not body
-        queryStringParams.filter_properties = queryParams.filter_properties;
-      }
-
-      response = await notion.request({
-        path: `databases/${databaseId}/query`,
-        method: 'post',
-        query: queryStringParams,
-        body: bodyParams,
-        auth: token,
-      });
-    }
+    const response = await notionApiRequest({
+      path: `data_sources/${dataSourceId}/query`,
+      method: 'POST',
+      token,
+      body: bodyParams,
+      query: queryParams,
+    });
 
     log(`Retrieved ${response.results.length} results from the database`);
 
@@ -135,6 +102,124 @@ export const handler = async ({
   }
 };
 
+async function resolveDataSourceId({
+  databaseId,
+  rawDataSourceId,
+  token,
+  log,
+}: {
+  databaseId: string;
+  rawDataSourceId?: string;
+  token: string;
+  log: (message: string) => void;
+}): Promise<string> {
+  const dataSourceSelector =
+    typeof rawDataSourceId === 'string' ? rawDataSourceId.trim() : '';
+  const directDataSourceId = parseNotionId(dataSourceSelector);
+
+  if (directDataSourceId) {
+    log(`Using Notion data source: ${directDataSourceId}`);
+    return directDataSourceId;
+  }
+
+  const database = await notionApiRequest({
+    path: `databases/${databaseId}`,
+    method: 'GET',
+    token,
+  });
+  const dataSources = Array.isArray(database.data_sources)
+    ? database.data_sources
+    : [];
+
+  if (dataSources.length === 0) {
+    throw new Error('No data sources found for this Notion database.');
+  }
+
+  if (dataSourceSelector) {
+    const matchingDataSource = dataSources.find(
+      (dataSource: any) =>
+        typeof dataSource.name === 'string' &&
+        dataSource.name.toLowerCase() === dataSourceSelector.toLowerCase(),
+    );
+
+    if (!matchingDataSource) {
+      throw new Error(
+        `Data source "${dataSourceSelector}" was not found. Available data sources: ${formatDataSources(dataSources)}.`,
+      );
+    }
+
+    log(`Using Notion data source: ${matchingDataSource.name}`);
+    return matchingDataSource.id;
+  }
+
+  if (dataSources.length > 1) {
+    throw new Error(
+      `This Notion database has multiple data sources. Provide one in the Data Source ID or Name field: ${formatDataSources(dataSources)}.`,
+    );
+  }
+
+  log(`Using Notion data source: ${dataSources[0].name || dataSources[0].id}`);
+  return dataSources[0].id;
+}
+
+async function notionApiRequest({
+  path,
+  method,
+  token,
+  body,
+  query,
+}: {
+  path: string;
+  method: 'GET' | 'POST';
+  token: string;
+  body?: Record<string, any>;
+  query?: Record<string, string[]>;
+}): Promise<any> {
+  const url = new URL(`${NOTION_API_BASE_URL}/${path}`);
+
+  if (query) {
+    for (const [key, values] of Object.entries(query)) {
+      for (const value of values) {
+        url.searchParams.append(key, value);
+      }
+    }
+  }
+
+  const response = await fetch(url.toString(), {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Notion-Version': NOTION_API_VERSION,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const responseText = await response.text();
+  const responseBody = responseText ? JSON.parse(responseText) : {};
+
+  if (!response.ok) {
+    const error: any = new Error(responseBody.message || response.statusText);
+    error.status = response.status;
+    error.code = responseBody.code;
+    error.additionalData = responseBody.additional_data;
+    throw error;
+  }
+
+  return responseBody;
+}
+
+function formatDataSources(dataSources: any[]): string {
+  return dataSources
+    .map((dataSource) => {
+      if (dataSource.name) {
+        return `${dataSource.name} (${dataSource.id})`;
+      }
+
+      return dataSource.id;
+    })
+    .join(', ');
+}
+
 /**
  * Parses a Notion database ID from either a raw ID or a Notion URL
  *
@@ -142,46 +227,24 @@ export const handler = async ({
  * @returns Parsed database ID or null if invalid
  */
 function parseNotionDatabaseId(input: string): string | null {
+  return parseNotionId(input);
+}
+
+function parseNotionId(input: string): string | null {
   if (!input) {
     return null;
   }
 
-  // Check if it's already a valid ID format (32 characters with optional dashes)
-  const cleanId = input.replace(/-/g, '');
-  if (/^[a-zA-Z0-9]{32}$/.test(cleanId)) {
-    // Return with dashes if they were in the original, otherwise without
-    return input.length === 32
-      ? input
-      : cleanId.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
+  const idMatch = input.match(
+    /([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})|([a-zA-Z0-9]{32})/,
+  );
+  if (!idMatch) {
+    return null;
   }
 
-  // Try to extract ID from URL
-  try {
-    const url = new URL(input);
-    // Extract the last path segment and remove any query parameters
-    const pathSegments = url.pathname
-      .split('/')
-      .filter((segment) => segment.length > 0);
-    const lastSegment = pathSegments[pathSegments.length - 1];
-
-    // Check if the last segment contains a valid ID (with or without dashes)
-    if (lastSegment && lastSegment.replace(/-/g, '').length === 32) {
-      return lastSegment
-        .replace(/-/g, '')
-        .replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
-    }
-
-    // Some Notion URLs have the ID in the second-to-last segment
-    if (pathSegments.length > 1) {
-      const potentialId = pathSegments[pathSegments.length - 2];
-      if (potentialId && potentialId.replace(/-/g, '').length === 32) {
-        return potentialId
-          .replace(/-/g, '')
-          .replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
-      }
-    }
-  } catch (e) {
-    // Not a valid URL, continue to next check
+  const cleanId = idMatch[0].replace(/-/g, '');
+  if (/^[a-zA-Z0-9]{32}$/.test(cleanId)) {
+    return cleanId.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
   }
 
   return null;
