@@ -1,4 +1,5 @@
-import { Client } from '@notionhq/client';
+const NOTION_API_VERSION = '2025-09-03';
+const NOTION_API_BASE_URL = 'https://api.notion.com/v1';
 
 export const handler = async ({
   inputs,
@@ -24,11 +25,16 @@ export const handler = async ({
   } = inputs;
 
   // Parse the parent page ID from URL or use as is
-  const pageId = parsePageId(parentPageId);
+  const pageId = parseNotionId(parentPageId);
+  if (!pageId) {
+    throw new Error('Invalid parent page ID or URL');
+  }
   log(`Creating database in parent page: ${pageId}`);
 
-  // Initialize Notion client
-  const notion = new Client({ auth: token });
+  const properties = parseJsonInput(
+    propertiesDefinition,
+    'database properties definition',
+  );
 
   // Prepare the request payload
   const payload: any = {
@@ -45,7 +51,9 @@ export const handler = async ({
         },
       },
     ],
-    properties: propertiesDefinition,
+    initial_data_source: {
+      properties,
+    },
   };
 
   // Add icon if provided
@@ -71,9 +79,14 @@ export const handler = async ({
   try {
     // Create the database
     log(
-      `Creating database "${databaseTitle}" with ${Object.keys(propertiesDefinition).length} properties...`,
+      `Creating database "${databaseTitle}" with ${Object.keys(properties).length} properties...`,
     );
-    const response = await notion.databases.create(payload);
+    const response = await notionApiRequest({
+      path: 'databases',
+      method: 'POST',
+      token,
+      body: payload,
+    });
 
     log(`Database created successfully! Access it at: ${response.id}`);
 
@@ -95,49 +108,69 @@ export const handler = async ({
   }
 };
 
-/**
- * Extracts the page ID from a Notion URL or returns the ID if already in correct format
- *
- * @param input A Notion URL or page ID
- * @returns The extracted page ID
- */
-function parsePageId(input: string): string {
-  // Check if input is a URL
-  if (input.includes('notion.so')) {
-    // Extract the ID from the URL
-    // Notion URLs can have the format:
-    // https://www.notion.so/workspace/98ad959b2b6a477480ee00246fb0ea9b
-    // or
-    // https://www.notion.so/98ad959b2b6a477480ee00246fb0ea9b
+async function notionApiRequest({
+  path,
+  method,
+  token,
+  body,
+}: {
+  path: string;
+  method: 'POST';
+  token: string;
+  body: Record<string, any>;
+}): Promise<any> {
+  const response = await fetch(`${NOTION_API_BASE_URL}/${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Notion-Version': NOTION_API_VERSION,
+    },
+    body: JSON.stringify(body),
+  });
+  const responseText = await response.text();
+  const responseBody = responseText ? JSON.parse(responseText) : {};
 
-    // Get the last part of the URL and remove any query parameters
-    const parts = input.split('/');
-    const lastPart = parts[parts.length - 1].split('?')[0];
-
-    // If the last part contains dashes, it's likely already in the correct format
-    if (lastPart.includes('-')) {
-      return lastPart;
-    }
-
-    // Otherwise, it might be in the format without dashes
-    // Convert to the format with dashes (required by the API)
-    if (lastPart.length === 32) {
-      return (
-        lastPart.slice(0, 8) +
-        '-' +
-        lastPart.slice(8, 12) +
-        '-' +
-        lastPart.slice(12, 16) +
-        '-' +
-        lastPart.slice(16, 20) +
-        '-' +
-        lastPart.slice(20)
-      );
-    }
-
-    return lastPart;
+  if (!response.ok) {
+    const error: any = new Error(responseBody.message || response.statusText);
+    error.status = response.status;
+    throw error;
   }
 
-  // If not a URL, return as is (assuming it's already a page ID)
-  return input;
+  return responseBody;
+}
+
+function parseJsonInput(value: any, label: string): Record<string, any> {
+  try {
+    const parsedValue = typeof value === 'string' ? JSON.parse(value) : value;
+
+    if (
+      !parsedValue ||
+      typeof parsedValue !== 'object' ||
+      Array.isArray(parsedValue)
+    ) {
+      throw new Error(`${label} must be a JSON object`);
+    }
+
+    return parsedValue;
+  } catch (error: any) {
+    throw new Error(`Invalid JSON for ${label}: ${error.message}`);
+  }
+}
+
+function parseNotionId(input: string): string | null {
+  if (!input) {
+    return null;
+  }
+
+  const idMatch = input.match(
+    /([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})|([a-zA-Z0-9]{32})/,
+  );
+  if (!idMatch) {
+    return null;
+  }
+
+  return idMatch[0]
+    .replace(/-/g, '')
+    .replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
 }

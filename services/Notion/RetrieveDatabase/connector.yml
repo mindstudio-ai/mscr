@@ -16,6 +16,11 @@ configuration:
         required: true
         type: text
         placeholder: '668d797c-76fa-4934-9b05-ad288df2d136 or https://www.notion.so/workspace/668d797c76fa49349b05ad288df2d136'
+      - label: Data Source ID or Name
+        helpText: 'Optional. Enter a data source ID, URL, or exact name to retrieve details for only that data source. Leave blank to retrieve details for all data sources.'
+        variable: dataSourceId
+        required: false
+        type: text
   - title: Output
     items:
       - label: Output Variable

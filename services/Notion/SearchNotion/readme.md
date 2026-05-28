@@ -1,17 +1,17 @@
 # Search Notion
 
-This connector allows you to search for pages and databases in your Notion workspace. You can search by title, filter by type, sort results, and paginate through large result sets.
+This connector allows you to search for pages and data sources in your Notion workspace. You can search by title, filter by type, sort results, and paginate through large result sets.
 
 ## Configuration
 
 ### Search Query
-Enter text to search for in page and database titles. If left empty, the connector will return all pages and databases that have been shared with your integration.
+Enter text to search for in page and data source titles. If left empty, the connector will return all pages and data sources that have been shared with your integration.
 
 ### Filter by Type
-Optionally limit your search results to only pages or only databases:
-- **All**: Return both pages and databases (default)
+Optionally limit your search results to only pages or only data sources:
+- **All**: Return both pages and data sources (default)
 - **Pages Only**: Return only pages
-- **Databases Only**: Return only databases
+- **Data Sources Only**: Return only data sources
 
 ### Sort Direction
 Choose how to sort the results by last edited time:
@@ -26,7 +26,7 @@ For pagination, enter the `next_cursor` value from previous search results. Leav
 
 ### Output Variable
 Name the variable where search results will be stored. This will contain the complete response from Notion, including:
-- An array of page or database objects
+- An array of page or data source objects
 - Pagination information (`next_cursor` and `has_more`)
 
 ## Example Usage

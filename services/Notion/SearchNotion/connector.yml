@@ -5,18 +5,18 @@ serviceId: notion
 active: true
 metadata:
   name: Search Notion
-  description: Search for pages and databases in your Notion workspace
+  description: Search for pages and data sources in your Notion workspace
   quickHelp: readme.md
 configuration:
   - title: Search Configuration
     items:
       - label: Search Query
-        helpText: Text to search for in page and database titles. Leave empty to return all pages and databases.
+        helpText: Text to search for in page and data source titles. Leave empty to return all pages and data sources.
         variable: query
         required: false
         type: text
       - label: Filter by Type
-        helpText: Limit results to only pages or only databases.
+        helpText: Limit results to only pages or only data sources.
         variable: filterType
         required: false
         type: select
@@ -27,8 +27,8 @@ configuration:
               value: ''
             - label: Pages Only
               value: page
-            - label: Databases Only
-              value: database
+            - label: Data Sources Only
+              value: data_source
       - label: Sort Direction
         helpText: Direction to sort results.
         variable: sortDirection
