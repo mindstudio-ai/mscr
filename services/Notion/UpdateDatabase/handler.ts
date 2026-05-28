@@ -1,3 +1,6 @@
+const NOTION_API_VERSION = '2025-09-03';
+const NOTION_API_BASE_URL = 'https://api.notion.com/v1';
+
 export const handler = async ({
   inputs,
   setOutput,
@@ -18,6 +21,7 @@ export const handler = async ({
   // Extract inputs
   const {
     databaseId: rawDatabaseId,
+    dataSourceId: rawDataSourceId,
     title,
     description,
     propertiesJson,
@@ -34,12 +38,13 @@ export const handler = async ({
 
   log(`Updating Notion database: ${databaseId}`);
 
-  // Build request body
-  const requestBody: Record<string, any> = {};
+  // Build request bodies
+  const databaseRequestBody: Record<string, any> = {};
+  const dataSourceRequestBody: Record<string, any> = {};
 
   // Add title if provided
   if (title) {
-    requestBody.title = [
+    databaseRequestBody.title = [
       {
         type: 'text',
         text: {
@@ -53,7 +58,7 @@ export const handler = async ({
 
   // Add description if provided
   if (description) {
-    requestBody.description = [
+    databaseRequestBody.description = [
       {
         type: 'text',
         text: {
@@ -76,8 +81,8 @@ export const handler = async ({
           : propertiesJson;
 
       if (properties) {
-        requestBody.properties = properties;
-        log(`Updating database properties schema`);
+        dataSourceRequestBody.properties = properties;
+        log(`Updating data source properties schema`);
       }
     } catch (error) {
       throw new Error(`Invalid JSON for database properties: ${error.message}`);
@@ -85,7 +90,10 @@ export const handler = async ({
   }
 
   // If no updates were specified, inform the user
-  if (Object.keys(requestBody).length === 0) {
+  if (
+    Object.keys(databaseRequestBody).length === 0 &&
+    Object.keys(dataSourceRequestBody).length === 0
+  ) {
     log('No updates specified. Database will remain unchanged.');
     throw new Error(
       'Please specify at least one property to update (title, description, or properties).',
@@ -93,41 +101,51 @@ export const handler = async ({
   }
 
   try {
-    // Make the API request
-    const response = await fetch(
-      `https://api.notion.com/v1/databases/${databaseId}`,
-      {
+    let updatedDatabase: any;
+    let updatedDataSource: any;
+
+    if (Object.keys(databaseRequestBody).length > 0) {
+      updatedDatabase = await notionApiRequest({
+        path: `databases/${databaseId}`,
         method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Notion-Version': '2022-06-28',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      },
-    );
-
-    // Handle response
-    if (!response.ok) {
-      const errorData = await response.json();
-      const status = response.status;
-
-      if (status === 404) {
-        throw new Error(
-          `Database not found. Please check the database ID and ensure your integration has access to it.`,
-        );
-      } else if (status === 429) {
-        throw new Error(`Rate limit exceeded. Please try again later.`);
-      } else {
-        throw new Error(
-          `Notion API error (${status}): ${errorData.message || JSON.stringify(errorData)}`,
-        );
-      }
+        token,
+        body: databaseRequestBody,
+      });
+      log(`Successfully updated Notion database`);
     }
 
-    // Parse and return the updated database
-    const updatedDatabase = await response.json();
-    log(`Successfully updated Notion database`);
+    if (Object.keys(dataSourceRequestBody).length > 0) {
+      const dataSourceId = await resolveDataSourceId({
+        databaseId,
+        rawDataSourceId,
+        token,
+        log,
+      });
+
+      updatedDataSource = await notionApiRequest({
+        path: `data_sources/${dataSourceId}`,
+        method: 'PATCH',
+        token,
+        body: dataSourceRequestBody,
+      });
+      log(`Successfully updated Notion data source`);
+    }
+
+    if (!updatedDatabase) {
+      updatedDatabase = await notionApiRequest({
+        path: `databases/${databaseId}`,
+        method: 'GET',
+        token,
+      });
+    }
+
+    if (updatedDataSource) {
+      updatedDatabase = {
+        ...updatedDatabase,
+        data_source: updatedDataSource,
+        properties: updatedDataSource.properties,
+      };
+    }
 
     setOutput(outputVariable, updatedDatabase);
   } catch (error) {
@@ -136,41 +154,132 @@ export const handler = async ({
   }
 };
 
+async function resolveDataSourceId({
+  databaseId,
+  rawDataSourceId,
+  token,
+  log,
+}: {
+  databaseId: string;
+  rawDataSourceId?: string;
+  token: string;
+  log: (message: string) => void;
+}): Promise<string> {
+  const dataSourceSelector =
+    typeof rawDataSourceId === 'string' ? rawDataSourceId.trim() : '';
+  const directDataSourceId = parseNotionId(dataSourceSelector);
+
+  if (directDataSourceId) {
+    log(`Using Notion data source: ${directDataSourceId}`);
+    return directDataSourceId;
+  }
+
+  const database = await notionApiRequest({
+    path: `databases/${databaseId}`,
+    method: 'GET',
+    token,
+  });
+  const dataSources = Array.isArray(database.data_sources)
+    ? database.data_sources
+    : [];
+
+  if (dataSources.length === 0) {
+    throw new Error('No data sources found for this Notion database.');
+  }
+
+  if (dataSourceSelector) {
+    const matchingDataSource = dataSources.find(
+      (dataSource: any) =>
+        typeof dataSource.name === 'string' &&
+        dataSource.name.toLowerCase() === dataSourceSelector.toLowerCase(),
+    );
+
+    if (!matchingDataSource) {
+      throw new Error(
+        `Data source "${dataSourceSelector}" was not found. Available data sources: ${formatDataSources(dataSources)}.`,
+      );
+    }
+
+    log(`Using Notion data source: ${matchingDataSource.name}`);
+    return matchingDataSource.id;
+  }
+
+  if (dataSources.length > 1) {
+    throw new Error(
+      `This Notion database has multiple data sources. Provide one in the Data Source ID or Name field: ${formatDataSources(dataSources)}.`,
+    );
+  }
+
+  log(`Using Notion data source: ${dataSources[0].name || dataSources[0].id}`);
+  return dataSources[0].id;
+}
+
+async function notionApiRequest({
+  path,
+  method,
+  token,
+  body,
+}: {
+  path: string;
+  method: 'GET' | 'PATCH';
+  token: string;
+  body?: Record<string, any>;
+}): Promise<any> {
+  const response = await fetch(`${NOTION_API_BASE_URL}/${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Notion-Version': NOTION_API_VERSION,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const responseText = await response.text();
+  const responseBody = responseText ? JSON.parse(responseText) : {};
+
+  if (!response.ok) {
+    const error: any = new Error(responseBody.message || response.statusText);
+    error.status = response.status;
+    throw error;
+  }
+
+  return responseBody;
+}
+
+function formatDataSources(dataSources: any[]): string {
+  return dataSources
+    .map((dataSource) => {
+      if (dataSource.name) {
+        return `${dataSource.name} (${dataSource.id})`;
+      }
+
+      return dataSource.id;
+    })
+    .join(', ');
+}
+
 /**
  * Extracts a database ID from either a raw ID or a Notion URL
  * @param input Raw database ID or Notion URL
  * @returns Extracted database ID or null if invalid
  */
 function extractDatabaseId(input: string): string | null {
+  return parseNotionId(input);
+}
+
+function parseNotionId(input: string): string | null {
   if (!input) {
     return null;
   }
 
-  // If input is already a valid ID (32 chars with dashes)
-  if (
-    /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(input)
-  ) {
-    return input;
-  }
-
-  // If input is a URL, extract the ID
-  // Notion URLs can be in formats like:
-  // https://www.notion.so/workspace/668d797c76fa49349b05ad288df2d136
-  // https://www.notion.so/668d797c76fa49349b05ad288df2d136
-  const urlMatch = input.match(
-    /([a-f0-9]{32})|([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i,
+  const idMatch = input.match(
+    /([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})|([a-zA-Z0-9]{32})/,
   );
-
-  if (urlMatch) {
-    const extractedId = urlMatch[0];
-
-    // If ID is without dashes, insert them
-    if (extractedId.length === 32 && !extractedId.includes('-')) {
-      return `${extractedId.slice(0, 8)}-${extractedId.slice(8, 12)}-${extractedId.slice(12, 16)}-${extractedId.slice(16, 20)}-${extractedId.slice(20)}`;
-    }
-
-    return extractedId;
+  if (!idMatch) {
+    return null;
   }
 
-  return null;
+  return idMatch[0]
+    .replace(/-/g, '')
+    .replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
 }

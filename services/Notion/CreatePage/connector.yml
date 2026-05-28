@@ -20,14 +20,21 @@ configuration:
           options:
             - label: Database
               value: database_id
+            - label: Data Source
+              value: data_source_id
             - label: Page
               value: page_id
       - label: Parent ID
         required: true
-        helpText: The ID of the database or page where this new page will be created
+        helpText: The ID or URL of the database, data source, or page where this new page will be created
         variable: parentId
         type: text
-        placeholder: Enter the database or page ID...
+        placeholder: Enter the database, data source, or page ID...
+      - label: Data Source ID or Name
+        required: false
+        helpText: Required only when Parent Type is Database and the database contains multiple data sources. Enter the data source ID, URL, or exact name.
+        variable: dataSourceId
+        type: text
   - title: Page Content
     items:
       - label: Page Title

@@ -1,4 +1,5 @@
-import { Client } from '@notionhq/client';
+const NOTION_API_VERSION = '2025-09-03';
+const NOTION_API_BASE_URL = 'https://api.notion.com/v1';
 
 export const handler = async ({
   inputs,
@@ -14,6 +15,7 @@ export const handler = async ({
   const {
     parentType,
     parentId,
+    dataSourceId: rawDataSourceId,
     pageTitle,
     pageProperties,
     pageContent,
@@ -38,21 +40,24 @@ export const handler = async ({
     throw new Error('Notion API token is missing');
   }
 
-  const notion = new Client({ auth: token });
-
   log(`Creating new Notion page under ${parentType}: ${parentId}`);
+
+  const parent = await buildParent({
+    parentType,
+    parentId,
+    rawDataSourceId,
+    token,
+    log,
+  });
 
   // Prepare the request body
   const requestBody: any = {
-    parent: {
-      type: parentType,
-      [parentType]: parentId,
-    },
+    parent,
     properties: {},
   };
 
   // Set page title
-  if (parentType === 'page_id') {
+  if (parent.type === 'page_id') {
     // For pages, only title is allowed as a property
     requestBody.properties = {
       title: [
@@ -146,7 +151,12 @@ export const handler = async ({
 
   try {
     // Create the page
-    const response = await notion.pages.create(requestBody);
+    const response = await notionApiRequest({
+      path: 'pages',
+      method: 'POST',
+      token,
+      body: requestBody,
+    });
     log(`Successfully created Notion page with ID: ${response.id}`);
 
     // Set the output variable
@@ -169,3 +179,185 @@ export const handler = async ({
     }
   }
 };
+
+async function buildParent({
+  parentType,
+  parentId,
+  rawDataSourceId,
+  token,
+  log,
+}: {
+  parentType: string;
+  parentId: string;
+  rawDataSourceId?: string;
+  token: string;
+  log: (message: string) => void;
+}): Promise<Record<string, string>> {
+  if (parentType === 'page_id') {
+    const pageId = parseNotionId(parentId);
+    if (!pageId) {
+      throw new Error('Invalid parent page ID or URL');
+    }
+
+    return {
+      type: 'page_id',
+      page_id: pageId,
+    };
+  }
+
+  if (parentType === 'data_source_id') {
+    const dataSourceId = parseNotionId(parentId);
+    if (!dataSourceId) {
+      throw new Error('Invalid data source ID or URL');
+    }
+
+    return {
+      type: 'data_source_id',
+      data_source_id: dataSourceId,
+    };
+  }
+
+  if (parentType !== 'database_id') {
+    throw new Error(
+      'Parent type must be page_id, database_id, or data_source_id',
+    );
+  }
+
+  const databaseId = parseNotionId(parentId);
+  if (!databaseId) {
+    throw new Error('Invalid parent database ID or URL');
+  }
+
+  const dataSourceId = await resolveDataSourceId({
+    databaseId,
+    rawDataSourceId,
+    token,
+    log,
+  });
+
+  return {
+    type: 'data_source_id',
+    data_source_id: dataSourceId,
+  };
+}
+
+async function resolveDataSourceId({
+  databaseId,
+  rawDataSourceId,
+  token,
+  log,
+}: {
+  databaseId: string;
+  rawDataSourceId?: string;
+  token: string;
+  log: (message: string) => void;
+}): Promise<string> {
+  const dataSourceSelector =
+    typeof rawDataSourceId === 'string' ? rawDataSourceId.trim() : '';
+  const directDataSourceId = parseNotionId(dataSourceSelector);
+
+  if (directDataSourceId) {
+    log(`Using Notion data source: ${directDataSourceId}`);
+    return directDataSourceId;
+  }
+
+  const database = await notionApiRequest({
+    path: `databases/${databaseId}`,
+    method: 'GET',
+    token,
+  });
+  const dataSources = Array.isArray(database.data_sources)
+    ? database.data_sources
+    : [];
+
+  if (dataSources.length === 0) {
+    throw new Error('No data sources found for this Notion database.');
+  }
+
+  if (dataSourceSelector) {
+    const matchingDataSource = dataSources.find(
+      (dataSource: any) =>
+        typeof dataSource.name === 'string' &&
+        dataSource.name.toLowerCase() === dataSourceSelector.toLowerCase(),
+    );
+
+    if (!matchingDataSource) {
+      throw new Error(
+        `Data source "${dataSourceSelector}" was not found. Available data sources: ${formatDataSources(dataSources)}.`,
+      );
+    }
+
+    log(`Using Notion data source: ${matchingDataSource.name}`);
+    return matchingDataSource.id;
+  }
+
+  if (dataSources.length > 1) {
+    throw new Error(
+      `This Notion database has multiple data sources. Provide one in the Data Source ID or Name field: ${formatDataSources(dataSources)}.`,
+    );
+  }
+
+  log(`Using Notion data source: ${dataSources[0].name || dataSources[0].id}`);
+  return dataSources[0].id;
+}
+
+async function notionApiRequest({
+  path,
+  method,
+  token,
+  body,
+}: {
+  path: string;
+  method: 'GET' | 'POST';
+  token: string;
+  body?: Record<string, any>;
+}): Promise<any> {
+  const response = await fetch(`${NOTION_API_BASE_URL}/${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Notion-Version': NOTION_API_VERSION,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const responseText = await response.text();
+  const responseBody = responseText ? JSON.parse(responseText) : {};
+
+  if (!response.ok) {
+    const error: any = new Error(responseBody.message || response.statusText);
+    error.status = response.status;
+    throw error;
+  }
+
+  return responseBody;
+}
+
+function formatDataSources(dataSources: any[]): string {
+  return dataSources
+    .map((dataSource) => {
+      if (dataSource.name) {
+        return `${dataSource.name} (${dataSource.id})`;
+      }
+
+      return dataSource.id;
+    })
+    .join(', ');
+}
+
+function parseNotionId(input: string): string | null {
+  if (!input) {
+    return null;
+  }
+
+  const idMatch = input.match(
+    /([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})|([a-zA-Z0-9]{32})/,
+  );
+  if (!idMatch) {
+    return null;
+  }
+
+  return idMatch[0]
+    .replace(/-/g, '')
+    .replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
+}

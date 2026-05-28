@@ -1,4 +1,5 @@
-import { Client } from '@notionhq/client';
+const NOTION_API_VERSION = '2025-09-03';
+const NOTION_API_BASE_URL = 'https://api.notion.com/v1';
 
 export const handler = async ({
   inputs,
@@ -28,11 +29,6 @@ export const handler = async ({
     outputVariable,
   } = inputs;
 
-  // Initialize the Notion client
-  const notion = new Client({
-    auth: token,
-  });
-
   // Prepare search parameters
   const searchParams: any = {
     query: query,
@@ -46,7 +42,7 @@ export const handler = async ({
   // Add filter if specified
   if (filterType) {
     searchParams.filter = {
-      value: filterType,
+      value: filterType === 'database' ? 'data_source' : filterType,
       property: 'object',
     };
   }
@@ -60,7 +56,12 @@ export const handler = async ({
     log(`Searching Notion for "${query || 'all items'}"...`);
 
     // Execute the search
-    const response = await notion.search(searchParams);
+    const response = await notionApiRequest({
+      path: 'search',
+      method: 'POST',
+      token,
+      body: searchParams,
+    });
 
     // Log results summary
     const resultCount = response.results.length;
@@ -89,3 +90,35 @@ export const handler = async ({
     }
   }
 };
+
+async function notionApiRequest({
+  path,
+  method,
+  token,
+  body,
+}: {
+  path: string;
+  method: 'POST';
+  token: string;
+  body: Record<string, any>;
+}): Promise<any> {
+  const response = await fetch(`${NOTION_API_BASE_URL}/${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Notion-Version': NOTION_API_VERSION,
+    },
+    body: JSON.stringify(body),
+  });
+  const responseText = await response.text();
+  const responseBody = responseText ? JSON.parse(responseText) : {};
+
+  if (!response.ok) {
+    const error: any = new Error(responseBody.message || response.statusText);
+    error.status = response.status;
+    throw error;
+  }
+
+  return responseBody;
+}

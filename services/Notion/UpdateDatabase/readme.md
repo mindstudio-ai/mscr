@@ -1,22 +1,24 @@
 # Update Notion Database
 
-This connector allows you to update a Notion database's title, description, and properties (schema).
+This connector allows you to update a Notion database's title and description, plus the schema properties of one of its data sources.
 
 ## How to use
 
 1. Enter the **Database ID or URL** of the Notion database you want to update. You can copy this from your browser's address bar when viewing the database in Notion.
 
-2. Optionally provide a new **Database Title** to rename the database.
+2. If you are updating properties on a database that has multiple data sources, provide the **Data Source ID or Name**.
 
-3. Optionally provide a new **Database Description** to update the database description.
+3. Optionally provide a new **Database Title** to rename the database.
 
-4. Optionally update the database's properties (columns) by providing a **Database Properties** JSON object.
+4. Optionally provide a new **Database Description** to update the database description.
 
-5. Specify an **Output Variable** name to store the updated database information.
+5. Optionally update the data source's properties (columns) by providing a **Database Properties** JSON object.
+
+6. Specify an **Output Variable** name to store the updated database information.
 
 ## Database Properties JSON Format
 
-The properties JSON should follow Notion's API format for defining database properties. Here are some examples:
+The properties JSON should follow Notion's API format for defining data source properties. Here are some examples:
 
 ### Adding a new text property
 ```json
@@ -73,5 +75,6 @@ To remove a property, set its value to null:
 ## Notes
 
 - The database must be shared with your integration for this connector to work.
+- Databases can contain multiple data sources. Property/schema updates apply to one data source, not the whole database container.
 - Formula, select, and status properties cannot be updated via the API.
-- To update a relation property, the related database must also be shared with your integration.
+- To update a relation property, the related data source must also be shared with your integration and relation request objects should use `data_source_id`.

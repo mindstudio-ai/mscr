@@ -26,7 +26,7 @@ configuration:
     items:
       - label: Properties Definition
         required: true
-        helpText: 'Define the properties (columns) for your database in JSON format. Example: {"Name": {"title": {}}, "Price": {"number": {"format": "dollar"}}}'
+        helpText: 'Define the properties (columns) for the database''s initial data source in JSON format. Example: {"Name": {"title": {}}, "Price": {"number": {"format": "dollar"}}}'
         variable: propertiesDefinition
         type: text
         textOptions:

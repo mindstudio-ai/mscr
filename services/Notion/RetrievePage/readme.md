@@ -56,8 +56,8 @@ The output will contain a JSON object with page details similar to:
     "emoji": "🥬"
   },
   "parent": {
-    "type": "database_id",
-    "database_id": "d9824bdc-8445-4327-be8b-5b47500af6ce"
+    "type": "data_source_id",
+    "data_source_id": "d9824bdc-8445-4327-be8b-5b47500af6ce"
   },
   "archived": false,
   "properties": {

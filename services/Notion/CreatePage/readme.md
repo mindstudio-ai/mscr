@@ -1,20 +1,21 @@
 # Create Page in Notion
 
-This connector creates a new page in Notion, either as a child of an existing page or database.
+This connector creates a new page in Notion, either as a child of an existing page or database data source.
 
 ## Configuration
 
 ### Parent
-- **Parent Type**: Choose whether to create the page under a database or another page
-- **Parent ID**: Enter the ID of the database or page where the new page will be created
-  - You can find this ID in the URL of your Notion page or database
+- **Parent Type**: Choose whether to create the page under a database, data source, or another page
+- **Parent ID**: Enter the ID of the database, data source, or page where the new page will be created
+  - You can find this ID in the URL of your Notion page, database, or data source
   - Example: For `https://www.notion.so/myworkspace/d9824bdc84454327be8b5b47500af6ce`, the ID is `d9824bdc84454327be8b5b47500af6ce`
+- **Data Source ID or Name**: Only needed when Parent Type is Database and the database contains multiple data sources. Leave blank for single-source databases.
 
 ### Page Content
 - **Page Title**: The title of your new page
 - **Page Properties**: (JSON format) Additional properties for the page
-  - Required when parent is a database
-  - Must match the schema of the parent database
+  - Required when parent is a database or data source
+  - Must match the schema of the parent data source
   - Example for a database with "Status" and "Priority" properties:
   ```json
   {
@@ -78,5 +79,6 @@ This connector creates a new page in Notion, either as a child of an existing pa
 
 ## Notes
 - The connector requires a Notion integration with the appropriate permissions
-- When creating a page under a database, the properties must match the database schema
+- When creating a page under a database, the connector resolves the database to a Notion data source and uses that data source as the page parent
+- When creating a page under a database or data source, the properties must match the data source schema
 - For complex content and properties, prepare your JSON in advance

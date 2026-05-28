@@ -15,7 +15,7 @@ To find a page ID, open the page in Notion, click the "Share" button, and copy t
 Enter the name for your new database as it will appear in Notion.
 
 ### Properties Definition
-Define the columns (properties) of your database using JSON format. Each property needs a name and a type with optional configuration.
+Define the columns (properties) of the database's initial data source using JSON format. Each property needs a name and a type with optional configuration.
 
 **Example:**
 ```json
@@ -58,7 +58,7 @@ Define the columns (properties) of your database using JSON format. Each propert
 - `email`: Email addresses
 - `phone_number`: Phone numbers
 - `formula`: Computed values
-- `relation`: Links to other databases
+- `relation`: Links to other data sources
 - `files`: Attached files and images
 
 ### Icon (Optional)
@@ -68,4 +68,4 @@ Enter a single emoji to use as the database icon (e.g., 📝, 🗂️, 📊).
 Enter a URL to an image to use as the database cover.
 
 ## Output
-The action will return information about the newly created database, including its ID, URL, and other details.
+The action will return information about the newly created database, including its ID, URL, and `data_sources` array. Store the returned data source ID for future page creation, query, or schema update actions.

@@ -1,6 +1,6 @@
 # Retrieve Notion Database
 
-This connector retrieves a Notion database object, including its structure, columns, and metadata. This is useful when you need to understand the schema of a database before querying or modifying it.
+This connector retrieves a Notion database object, including its data sources, structure, columns, and metadata. This is useful when you need to understand the schema of a database before querying or modifying it.
 
 ## Prerequisites
 
@@ -24,13 +24,18 @@ You can either:
 
 The connector will automatically extract the ID from a full URL if provided.
 
+## Data Sources
+
+Notion databases can contain one or more data sources. Leave **Data Source ID or Name** blank to retrieve details for every data source in the database, or provide a data source ID, URL, or exact name to retrieve only that data source.
+
 ## What This Returns
 
 The connector returns a complete database object containing:
 - Database metadata (ID, creation time, last edited time)
 - Title and description
 - Icon and cover (if set)
-- Complete schema of all properties/columns
+- Data source summaries in `data_sources`
+- Complete data source details, including properties/columns, in `data_source_details`
 - Parent information
 - Other database settings
 
@@ -58,19 +63,31 @@ The connector returns a complete database object containing:
       "plain_text": "Grocery List"
     }
   ],
-  "properties": {
-    "Name": {
-      "id": "title",
-      "type": "title",
-      "title": {}
-    },
-    "Price": {
-      "id": "JiCo",
-      "type": "number",
-      "number": {
-        "format": "dollar"
+  "data_sources": [
+    {
+      "id": "bc1211ca-e3f1-4939-ae34-5260b16f627c",
+      "name": "Grocery List"
+    }
+  ],
+  "data_source_details": [
+    {
+      "object": "data_source",
+      "id": "bc1211ca-e3f1-4939-ae34-5260b16f627c",
+      "properties": {
+        "Name": {
+          "id": "title",
+          "type": "title",
+          "title": {}
+        },
+        "Price": {
+          "id": "JiCo",
+          "type": "number",
+          "number": {
+            "format": "dollar"
+          }
+        }
       }
     }
-  }
+  ]
 }
 ```

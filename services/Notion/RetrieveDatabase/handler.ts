@@ -1,4 +1,5 @@
-import { Client } from '@notionhq/client';
+const NOTION_API_VERSION = '2025-09-03';
+const NOTION_API_BASE_URL = 'https://api.notion.com/v1';
 
 export const handler = async ({
   inputs,
@@ -10,7 +11,11 @@ export const handler = async ({
   log: (message: string) => void;
   uploadFile: (data: Buffer, mimeType: string) => Promise<string>;
 }) => {
-  const { databaseId: rawDatabaseId, outputVariable } = inputs;
+  const {
+    databaseId: rawDatabaseId,
+    dataSourceId: rawDataSourceId,
+    outputVariable,
+  } = inputs;
   const { token } = process.env;
 
   if (!token) {
@@ -28,16 +33,26 @@ export const handler = async ({
 
   log(`Retrieving database information for ID: ${databaseId}`);
 
-  // Initialize the Notion client
-  const notion = new Client({
-    auth: token,
-  });
-
   try {
     // Retrieve the database
-    const response = await notion.databases.retrieve({
-      database_id: databaseId,
+    const database = await notionApiRequest({
+      path: `databases/${databaseId}`,
+      method: 'GET',
+      token,
     });
+    const dataSourceDetails = await retrieveDataSourceDetails({
+      database,
+      rawDataSourceId,
+      token,
+    });
+    const response = {
+      ...database,
+      data_source_details: dataSourceDetails,
+    };
+
+    if (dataSourceDetails.length === 1 && dataSourceDetails[0].properties) {
+      response.properties = dataSourceDetails[0].properties;
+    }
 
     log('Successfully retrieved database information');
 
@@ -63,6 +78,109 @@ export const handler = async ({
   }
 };
 
+async function retrieveDataSourceDetails({
+  database,
+  rawDataSourceId,
+  token,
+}: {
+  database: any;
+  rawDataSourceId?: string;
+  token: string;
+}): Promise<any[]> {
+  const dataSources = Array.isArray(database.data_sources)
+    ? database.data_sources
+    : [];
+
+  if (dataSources.length === 0) {
+    return [];
+  }
+
+  const selectedDataSources = selectDataSources(dataSources, rawDataSourceId);
+
+  return Promise.all(
+    selectedDataSources.map((dataSource) =>
+      notionApiRequest({
+        path: `data_sources/${dataSource.id}`,
+        method: 'GET',
+        token,
+      }),
+    ),
+  );
+}
+
+function selectDataSources(
+  dataSources: any[],
+  rawDataSourceId?: string,
+): any[] {
+  const dataSourceSelector =
+    typeof rawDataSourceId === 'string' ? rawDataSourceId.trim() : '';
+
+  if (!dataSourceSelector) {
+    return dataSources;
+  }
+
+  const directDataSourceId = parseNotionId(dataSourceSelector);
+  const matchingDataSource = dataSources.find((dataSource) => {
+    if (directDataSourceId && dataSource.id === directDataSourceId) {
+      return true;
+    }
+
+    return (
+      typeof dataSource.name === 'string' &&
+      dataSource.name.toLowerCase() === dataSourceSelector.toLowerCase()
+    );
+  });
+
+  if (!matchingDataSource) {
+    throw new Error(
+      `Data source "${dataSourceSelector}" was not found. Available data sources: ${formatDataSources(dataSources)}.`,
+    );
+  }
+
+  return [matchingDataSource];
+}
+
+async function notionApiRequest({
+  path,
+  method,
+  token,
+}: {
+  path: string;
+  method: 'GET';
+  token: string;
+}): Promise<any> {
+  const response = await fetch(`${NOTION_API_BASE_URL}/${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      'Notion-Version': NOTION_API_VERSION,
+    },
+  });
+  const responseText = await response.text();
+  const responseBody = responseText ? JSON.parse(responseText) : {};
+
+  if (!response.ok) {
+    const error: any = new Error(responseBody.message || response.statusText);
+    error.status = response.status;
+    throw error;
+  }
+
+  return responseBody;
+}
+
+function formatDataSources(dataSources: any[]): string {
+  return dataSources
+    .map((dataSource) => {
+      if (dataSource.name) {
+        return `${dataSource.name} (${dataSource.id})`;
+      }
+
+      return dataSource.id;
+    })
+    .join(', ');
+}
+
 /**
  * Extracts the database ID from a Notion URL or returns the ID if already in correct format
  *
@@ -70,28 +188,29 @@ export const handler = async ({
  * @returns The extracted database ID
  */
 function extractDatabaseId(input: string): string {
-  // If input is already a 32-character ID (with or without dashes)
-  if (/^[a-zA-Z0-9]{32}$/.test(input.replace(/-/g, ''))) {
-    return input;
-  }
-
-  // Try to extract ID from URL
-  try {
-    // Match the ID pattern in various Notion URL formats
-    const urlMatch = input.match(
-      /([a-zA-Z0-9]{32})|([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})/,
-    );
-
-    if (urlMatch && urlMatch[0]) {
-      return urlMatch[0].replace(/-/g, '');
-    }
-
-    throw new Error(
-      'Could not extract a valid database ID from the provided input',
-    );
-  } catch (error) {
+  const databaseId = parseNotionId(input);
+  if (!databaseId) {
     throw new Error(
       'Invalid database ID format. Please provide a valid Notion database ID or URL.',
     );
   }
+
+  return databaseId;
+}
+
+function parseNotionId(input: string): string | null {
+  if (!input) {
+    return null;
+  }
+
+  const idMatch = input.match(
+    /([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})|([a-zA-Z0-9]{32})/,
+  );
+  if (!idMatch) {
+    return null;
+  }
+
+  return idMatch[0]
+    .replace(/-/g, '')
+    .replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
 }

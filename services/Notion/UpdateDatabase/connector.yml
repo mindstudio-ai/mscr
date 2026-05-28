@@ -16,6 +16,11 @@ configuration:
         required: true
         type: text
         placeholder: 668d797c-76fa-4934-9b05-ad288df2d136 or https://www.notion.so/668d797c76fa49349b05ad288df2d136
+      - label: Data Source ID or Name
+        helpText: Required only when updating properties for a database with multiple data sources. Enter the data source ID, URL, or exact name.
+        variable: dataSourceId
+        required: false
+        type: text
   - title: Update Options
     items:
       - label: Database Title
@@ -33,7 +38,7 @@ configuration:
         textOptions:
           type: multiline
       - label: Database Properties (JSON)
-        helpText: JSON object defining the database properties to update. Leave blank to keep current properties.
+        helpText: JSON object defining the data source properties to update. Leave blank to keep current properties.
         variable: propertiesJson
         required: false
         type: text
