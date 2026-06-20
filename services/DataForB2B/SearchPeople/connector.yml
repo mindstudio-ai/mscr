@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: Action
+id: search-people
+serviceId: dataforb2b
+active: true
+metadata:
+  name: Search People
+  description: Search professional profiles using structured B2B filters such as job title, skills, company, industry, size, funding stage, location and LinkedIn URL
+  quickHelp: readme.md
+configuration:
+  - title: Person Filters
+    items:
+      - label: Job Titles
+        helpText: Current job titles to search for (e.g. 'head of growth, demand generation manager'). Separate multiple with commas.
+        variable: currentTitle
+        required: false
+        type: text
+        placeholder: 'head of growth, marketing manager'
+      - label: Keywords
+        helpText: Free-text keyword matched against the profile headline (e.g. 'AI, outbound').
+        variable: keyword
+        required: false
+        type: text
+        placeholder: 'AI, outbound'
+      - label: Person Location
+        helpText: Where the person is based (e.g. 'San Francisco Bay Area, Paris'). Separate multiple with commas.
+        variable: currentJobLocation
+        required: false
+        type: text
+        placeholder: 'San Francisco Bay Area, London'
+      - label: Skills
+        helpText: Skills listed on the profile (e.g. 'kubernetes, terraform'). Separate multiple with commas.
+        variable: skill
+        required: false
+        type: text
+        placeholder: 'kubernetes, terraform'
+      - label: School
+        helpText: School or university attended (e.g. 'Stanford University'). Separate multiple with commas.
+        variable: school
+        required: false
+        type: text
+        placeholder: 'Stanford University'
+  - title: Company Filters
+    collapsed: true
+    items:
+      - label: Company Names
+        helpText: Current employer company names (e.g. 'stripe, datadog'). Separate multiple with commas.
+        variable: currentCompany
+        required: false
+        type: text
+        placeholder: 'stripe, datadog'
+      - label: Company Industry
+        helpText: Current company industry, capitalized (e.g. 'Computer Software, Information Technology & Services'). Separate multiple with commas.
+        variable: currentCompanyIndustry
+        required: false
+        type: text
+        placeholder: 'Computer Software'
+      - label: Company Size
+        helpText: 'Employee head-count band. Separate multiple with commas. Options: 2-10, 11-50, 51-200, 201-500, 501-1000, 1001-5000, 5001-10000, 10001+.'
+        variable: currentCompanySize
+        required: false
+        type: text
+        placeholder: '11-50, 51-200'
+      - label: Funding Stage
+        helpText: 'Current company funding stage. Separate multiple with commas. Options: pre_seed_round, seed_round, series_a, series_b, series_c, series_d, series_e, private_equity_round, post_ipo_equity.'
+        variable: currentCompanyFundingStage
+        required: false
+        type: text
+        placeholder: 'seed_round, series_a'
+      - label: Investor
+        helpText: Investor in the current company (e.g. 'Sequoia Capital, Y Combinator'). Separate multiple with commas.
+        variable: currentCompanyInvestor
+        required: false
+        type: text
+        placeholder: 'Y Combinator'
+  - title: Experience
+    collapsed: true
+    items:
+      - label: Years of Experience (Min)
+        helpText: Minimum total years of professional experience.
+        variable: yearsOfExperienceMin
+        required: false
+        type: text
+        placeholder: '5'
+      - label: Years of Experience (Max)
+        helpText: Maximum total years of professional experience.
+        variable: yearsOfExperienceMax
+        required: false
+        type: text
+        placeholder: '15'
+      - label: Currently Employed
+        helpText: Filter by whether the person is currently employed.
+        variable: isCurrentlyEmployed
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Any
+              value: ''
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+  - title: Options
+    collapsed: true
+    items:
+      - label: Match Logic
+        helpText: How to combine the filters above.
+        variable: matchLogic
+        required: false
+        type: select
+        defaultValue: 'and'
+        selectOptions:
+          options:
+            - label: Match ALL filters (AND)
+              value: 'and'
+            - label: Match ANY filter (OR)
+              value: 'or'
+      - label: Results Count
+        helpText: Number of people to return (1-1000).
+        variable: count
+        required: false
+        type: text
+        defaultValue: '25'
+        placeholder: '25'
+      - label: Offset
+        helpText: Number of results to skip, for pagination (e.g. 25 for the second page).
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: '0'
+      - label: Fetch Live Data
+        helpText: Fetch fresh live data instead of cached. Leave off unless you explicitly need live data (slower and more expensive).
+        variable: enrichLive
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'No'
+              value: 'false'
+            - label: 'Yes'
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the search results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

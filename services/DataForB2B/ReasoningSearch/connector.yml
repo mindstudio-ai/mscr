@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Action
+id: reasoning-search
+serviceId: dataforb2b
+active: true
+metadata:
+  name: Reasoning Search
+  description: Natural-language B2B search — describe the people or companies you want in plain English and an AI agent builds and runs the optimal filters
+  quickHelp: readme.md
+configuration:
+  - title: Query
+    items:
+      - label: Search Query
+        helpText: Describe the people or companies you are looking for in plain language (max 3000 chars), e.g. 'heads of growth at seed-stage fintech startups in the US'.
+        variable: query
+        required: true
+        type: text
+        textOptions:
+          type: multiline
+        placeholder: 'heads of growth at seed-stage fintech startups in the US'
+      - label: Search Type
+        helpText: Whether to search people or companies.
+        variable: category
+        required: false
+        type: select
+        defaultValue: 'people'
+        selectOptions:
+          options:
+            - label: People
+              value: 'people'
+            - label: Companies
+              value: 'companies'
+      - label: Max Results
+        helpText: Number of results to return (1-100).
+        variable: maxResults
+        required: false
+        type: text
+        defaultValue: '25'
+        placeholder: '25'
+  - title: Advanced
+    collapsed: true
+    items:
+      - label: Session ID
+        helpText: Session id returned by a previous run to refine that search. Leave empty for a new search.
+        variable: sessionId
+        required: false
+        type: text
+        placeholder: ''
+      - label: Fetch Live Data
+        helpText: Fetch fresh live data instead of cached. Leave off unless you explicitly need live data.
+        variable: enrichLive
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'No'
+              value: 'false'
+            - label: 'Yes'
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the search results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

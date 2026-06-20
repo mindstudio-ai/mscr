@@ -1,0 +1,145 @@
+apiVersion: v1
+kind: Action
+id: search-companies
+serviceId: dataforb2b
+active: true
+metadata:
+  name: Search Companies
+  description: Search companies by industry, category, employee size, location, founded year and funding stage to build an ICP target-account list
+  quickHelp: readme.md
+configuration:
+  - title: Company Filters
+    items:
+      - label: Company Names
+        helpText: Company names to search for (e.g. 'stripe, datadog'). Separate multiple with commas.
+        variable: name
+        required: false
+        type: text
+        placeholder: 'stripe, datadog'
+      - label: Keywords
+        helpText: Free-text keyword matched against company name, tagline and description.
+        variable: keyword
+        required: false
+        type: text
+        placeholder: 'developer tools'
+      - label: Industry
+        helpText: Company industry, lowercase (e.g. 'software development, it services and it consulting'). Separate multiple with commas.
+        variable: industry
+        required: false
+        type: text
+        placeholder: 'software development'
+      - label: Category
+        helpText: Company category, lowercase (e.g. 'software, fintech, e-commerce'). Separate multiple with commas.
+        variable: category
+        required: false
+        type: text
+        placeholder: 'fintech, software'
+  - title: Location & Size
+    collapsed: true
+    items:
+      - label: Employee Size
+        helpText: 'Employee head-count band. Separate multiple with commas. Options: 1-10, 11-50, 51-200, 201-500, 501-1000, 1001-5000, 5001-10000, 10001+.'
+        variable: employeeCount
+        required: false
+        type: text
+        placeholder: '11-50, 51-200'
+      - label: Country
+        helpText: HQ country as ISO-2 code, uppercase (e.g. 'US, GB, FR'). Use GB not UK. Separate multiple with commas.
+        variable: countryIsoCode
+        required: false
+        type: text
+        placeholder: 'US, GB'
+      - label: City
+        helpText: HQ city (e.g. 'San Francisco, London'). Separate multiple with commas.
+        variable: city
+        required: false
+        type: text
+        placeholder: 'San Francisco'
+      - label: Region
+        helpText: HQ region or state (e.g. 'California, Île-de-France'). Separate multiple with commas.
+        variable: region
+        required: false
+        type: text
+        placeholder: 'California'
+  - title: Funding & Metadata
+    collapsed: true
+    items:
+      - label: Founded Year (Min)
+        helpText: Earliest founding year.
+        variable: foundedYearMin
+        required: false
+        type: text
+        placeholder: '2015'
+      - label: Founded Year (Max)
+        helpText: Latest founding year.
+        variable: foundedYearMax
+        required: false
+        type: text
+        placeholder: '2023'
+      - label: Has Funding
+        helpText: Filter by whether the company has raised funding.
+        variable: hasFunding
+        required: false
+        type: select
+        selectOptions:
+          options:
+            - label: Any
+              value: ''
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Funding Stage
+        helpText: 'Normalized funding stage. Separate multiple with commas. Options: pre_seed_round, seed_round, series_a, series_b, series_c, series_d, private_equity_round, post_ipo_equity.'
+        variable: fundingStage
+        required: false
+        type: text
+        placeholder: 'seed_round, series_a'
+  - title: Options
+    collapsed: true
+    items:
+      - label: Match Logic
+        helpText: How to combine the filters above.
+        variable: matchLogic
+        required: false
+        type: select
+        defaultValue: 'and'
+        selectOptions:
+          options:
+            - label: Match ALL filters (AND)
+              value: 'and'
+            - label: Match ANY filter (OR)
+              value: 'or'
+      - label: Results Count
+        helpText: Number of companies to return (1-1000).
+        variable: count
+        required: false
+        type: text
+        defaultValue: '25'
+        placeholder: '25'
+      - label: Offset
+        helpText: Number of results to skip, for pagination.
+        variable: offset
+        required: false
+        type: text
+        defaultValue: '0'
+        placeholder: '0'
+      - label: Fetch Live Data
+        helpText: Fetch fresh live data instead of cached. Leave off unless you explicitly need live data.
+        variable: enrichLive
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'No'
+              value: 'false'
+            - label: 'Yes'
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the search results.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
