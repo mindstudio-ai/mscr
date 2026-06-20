@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: dataforb2b
+metadata:
+  name: DataForB2B
+  description: Search & enrich B2B people and companies — 70+ filters (job title, skills, company size, LinkedIn URL, funding stage, investor) plus verified work email and phone
+  icon: https://api.dataforb2b.ai/DataForB2B_logo.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your DataForB2B API key. Get one from your dashboard at https://dataforb2b.ai'
+    placeholder: dfb_...

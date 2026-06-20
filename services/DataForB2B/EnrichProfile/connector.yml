@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Action
+id: enrich-profile
+serviceId: dataforb2b
+active: true
+metadata:
+  name: Enrich LinkedIn Profile
+  description: Enrich a single person from a LinkedIn profile URL or id — full profile data plus verified work email, personal email, phone and GitHub
+  quickHelp: readme.md
+configuration:
+  - title: Person
+    items:
+      - label: Profile Identifier
+        helpText: The person to enrich. Accepts a full or short LinkedIn profile URL, a public id (e.g. 'john-doe'), or an encoded id (prof_...).
+        variable: profileIdentifier
+        required: true
+        type: text
+        placeholder: 'https://www.linkedin.com/in/john-doe/'
+  - title: Data to Fetch
+    items:
+      - label: Full Profile
+        helpText: Fetch full profile data (experience, education, skills).
+        variable: enrichProfile
+        required: false
+        type: select
+        defaultValue: 'true'
+        selectOptions:
+          options:
+            - label: 'Yes'
+              value: 'true'
+            - label: 'No'
+              value: 'false'
+      - label: Work Email
+        helpText: Find the professional / work email.
+        variable: enrichWorkEmail
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'No'
+              value: 'false'
+            - label: 'Yes'
+              value: 'true'
+      - label: Personal Email
+        helpText: Find the personal email.
+        variable: enrichPersonalEmail
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'No'
+              value: 'false'
+            - label: 'Yes'
+              value: 'true'
+      - label: Phone Number
+        helpText: Find the phone number.
+        variable: enrichPhone
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'No'
+              value: 'false'
+            - label: 'Yes'
+              value: 'true'
+      - label: GitHub Profile
+        helpText: Find the GitHub profile.
+        variable: enrichGithub
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: 'No'
+              value: 'false'
+            - label: 'Yes'
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the enriched person data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName

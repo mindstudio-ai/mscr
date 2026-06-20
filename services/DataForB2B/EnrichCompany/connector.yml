@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Action
+id: enrich-company
+serviceId: dataforb2b
+active: true
+metadata:
+  name: Enrich Company
+  description: Enrich a single company from its name, domain, LinkedIn URL or id — full firmographic data including size, locations, funding rounds and investors
+  quickHelp: readme.md
+configuration:
+  - title: Company
+    items:
+      - label: Company Identifier
+        helpText: The company to enrich. Accepts a universal name/slug (e.g. 'google'), a full or short LinkedIn company URL, or an encoded id (org_...).
+        variable: companyIdentifier
+        required: true
+        type: text
+        placeholder: 'google'
+  - title: Output
+    items:
+      - label: Output Variable
+        helpText: The variable name to store the enriched company data.
+        variable: outputVariable
+        required: true
+        type: outputVariableName
