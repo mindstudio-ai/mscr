@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ServiceDefinition
+id: spotify
+metadata:
+  name: Spotify
+  description: World's leading audio streaming service.
+configuration:
+  - id: token
+    type: bearerToken
+    managed: true

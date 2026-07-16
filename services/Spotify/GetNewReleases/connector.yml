@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Action
+id: get-new-releases
+serviceId: spotify
+active: true
+metadata:
+  name: Get New Releases
+  description: Get a list of new album releases featured in Spotify.
+  quickHelp: readme.md
+configuration:
+  - title: Request Parameters
+    items:
+      - label: Limit
+        helpText: The maximum number of items to return (1-50)
+        variable: limit
+        required: false
+        type: text
+        placeholder: "20"
+        defaultValue: "20"
+      - label: Offset
+        helpText: The index of the first item to return. Use with limit to get the next set of items.
+        variable: offset
+        required: false
+        type: text
+        placeholder: "0"
+        defaultValue: "0"
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the new releases data
+        variable: outputVariable
+        type: outputVariableName
