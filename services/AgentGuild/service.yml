@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ServiceDefinition
+id: agent-guild
+isActive: true
+metadata:
+  name: Agent Guild
+  description: Optional public endpoint observations and public passport verification.
+  icon: icon.svg
+configuration: []
