@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Action
+id: observePublicEndpoint
+serviceId: agent-guild
+active: true
+metadata:
+  name: Observe Public Endpoint
+  description: Observe an explicitly selected public URL; preserve failures and unknowns.
+  quickHelp: readme.md
+configuration:
+  - title: Public endpoint evidence
+    items:
+      - label: Public endpoint URL
+        variable: url
+        type: text
+        required: true
+        helpText: Public HTTP(S) DNS URL only. Do not include secrets; Guild will probe this URL.
+      - label: Output variable
+        variable: outputVariable
+        type: outputVariableName
+        required: true
+        helpText: A simple variable name such as endpointEvidence; no dots or brackets.
