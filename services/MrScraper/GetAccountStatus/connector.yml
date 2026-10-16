@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Action
+id: get-account-status
+serviceId: mrscraper
+active: true
+metadata:
+  name: Get Account Status
+  description: Get your MrScraper subscription status, token usage, remaining tokens and rate limits
+  quickHelp: readme.md
+configuration:
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the account status.
+        variable: outputVariable
+        type: outputVariableName
