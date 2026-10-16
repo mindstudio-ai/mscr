@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Action
+id: web-search
+serviceId: mrscraper
+active: true
+metadata:
+  name: Web Search
+  description: Search Google with MrScraper and get the organic results as structured data
+  quickHelp: readme.md
+configuration:
+  - title: Search
+    items:
+      - label: Query
+        required: true
+        helpText: The search query to run on Google.
+        variable: query
+        type: text
+        placeholder: best web scraping tools
+      - label: Region
+        helpText: Optional two-letter country code for the results (Google's gl parameter), for example us, gb or id.
+        variable: region
+        required: false
+        type: text
+        placeholder: us
+      - label: Language
+        helpText: Optional interface language code (Google's hl parameter), for example en, de or id.
+        variable: language
+        required: false
+        type: text
+        placeholder: en
+      - label: Page
+        helpText: The results page to return, starting at 1.
+        variable: page
+        required: false
+        type: text
+        defaultValue: '1'
+        placeholder: '1'
+  - title: Advanced
+    collapsed: true
+    items:
+      - label: Result Format
+        helpText: Parsed results return structured data with organic results. Results page HTML returns the raw Google results page.
+        variable: format
+        required: false
+        type: select
+        defaultValue: json
+        selectOptions:
+          options:
+            - label: Parsed results (JSON)
+              value: json
+            - label: Results page HTML
+              value: html
+      - label: Render JavaScript
+        helpText: Render JavaScript features on the results page. This is slower and is rarely needed.
+        variable: renderJs
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the search results.
+        variable: outputVariable
+        type: outputVariableName

@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./../../schema/service.schema.json
+apiVersion: v1
+kind: ServiceDefinition
+id: mrscraper
+metadata:
+  name: MrScraper
+  description: Fetch web pages as Markdown, HTML or screenshots and search Google with an API built for AI agents
+  icon: https://raw.githubusercontent.com/mrscraper-com/mrscraper-claude-plugin/main/plugins/mrscraper/assets/mrscraper-plugin-logo.png
+configuration:
+  - id: apiKey
+    type: apiKey
+    name: API Key
+    description: 'Your MrScraper API key. You can create one at: https://app.mrscraper.com/api-tokens'
+    placeholder: Paste your MrScraper API key

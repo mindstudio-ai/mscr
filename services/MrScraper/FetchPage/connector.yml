@@ -1,0 +1,142 @@
+apiVersion: v1
+kind: Action
+id: fetch-page
+serviceId: mrscraper
+active: true
+metadata:
+  name: Fetch Page
+  description: Fetch a web page as Markdown or HTML, with an optional screenshot, using the MrScraper Scraper API
+  quickHelp: readme.md
+configuration:
+  - title: Page
+    items:
+      - label: URL
+        required: true
+        helpText: The full http or https address of the page to fetch.
+        variable: url
+        type: text
+        placeholder: https://example.com
+      - label: Content Format
+        helpText: Markdown is best for reading and summarizing. HTML keeps the full page markup.
+        variable: format
+        required: false
+        type: select
+        defaultValue: markdown
+        selectOptions:
+          options:
+            - label: Markdown
+              value: markdown
+            - label: HTML
+              value: html
+  - title: Page Loading
+    collapsed: true
+    items:
+      - label: Browser Rendering
+        helpText: Automatic lets MrScraper fall back to a browser when the page needs JavaScript. Always forces a browser; Never disables it.
+        variable: browserRendering
+        required: false
+        type: select
+        defaultValue: auto
+        selectOptions:
+          options:
+            - label: Automatic
+              value: auto
+            - label: Always
+              value: 'true'
+            - label: Never
+              value: 'false'
+      - label: Wait For Selector
+        helpText: Optional CSS selector to wait for before the content is returned, for pages that load content late.
+        variable: waitForSelector
+        required: false
+        type: text
+        placeholder: '.product-list'
+      - label: Country
+        helpText: Two-letter country code for the request's location (for example US, GB, ID or SG).
+        variable: geoCode
+        required: false
+        type: text
+        defaultValue: US
+        placeholder: US
+      - label: Real-Device Routing
+        helpText: Route the request through a real device. Try this when a page blocks normal requests.
+        variable: realDevice
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Visit Home Page First
+        helpText: Visit the site's home page before the target page, for sites that expect normal navigation.
+        variable: homePage
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Block Images, CSS and Fonts
+        helpText: Skip images, stylesheets and fonts to reduce bandwidth and token usage on text-focused pages.
+        variable: blockResources
+        required: false
+        type: select
+        defaultValue: 'false'
+        selectOptions:
+          options:
+            - label: No
+              value: 'false'
+            - label: Yes
+              value: 'true'
+      - label: Target Request Headers
+        helpText: 'Optional JSON object of headers to send to the target page, for example {"Accept-Language": "en-US"}.'
+        variable: targetHeaders
+        required: false
+        type: text
+        placeholder: '{"Accept-Language": "en-US"}'
+  - title: Limits
+    collapsed: true
+    items:
+      - label: Timeout (Seconds)
+        helpText: Page timeout in seconds, from 1 to 300.
+        variable: timeout
+        required: false
+        type: text
+        defaultValue: '120'
+        placeholder: '120'
+      - label: Max Retries
+        helpText: Maximum number of retries if the first attempt fails. Use 0 to disable retries.
+        variable: maxRetries
+        required: false
+        type: text
+        defaultValue: '3'
+        placeholder: '3'
+      - label: Token Cap
+        helpText: Optional. Stop retrying once the request has used this many MrScraper tokens. The first attempt always runs.
+        variable: tokenCap
+        required: false
+        type: text
+        placeholder: '10'
+  - title: Output
+    items:
+      - label: Output Variable
+        required: true
+        helpText: Variable name to store the page content (Markdown or HTML).
+        variable: outputVariable
+        type: outputVariableName
+      - label: Screenshot Variable
+        required: false
+        helpText: Optional. When set, MrScraper also captures a JPEG screenshot (this forces browser rendering) and its file URL is stored here.
+        variable: screenshotVariable
+        type: outputVariableName
+      - label: Details Variable
+        required: false
+        helpText: Optional. Variable name to store request details such as the target page's status code, token usage and runtime.
+        variable: detailsVariable
+        type: outputVariableName
